@@ -34,7 +34,7 @@ Người dùng nhận phần deploy Vercel và kiểm thử live sau checkpoint 
 ## 4. AI tùy chọn
 
 - [ ] Giữ template nếu không cần AI. Bản demo tính toán đầy đủ không phụ thuộc model.
-- [ ] Nếu bật: cấu hình giới hạn truy cập/rate limit và chi phí trên nền tảng trước, thêm `OPENAI_API_KEY`, `AI_MODEL`, `AI_ENABLED=true` rồi redeploy. Endpoint hiện chưa có limiter phân tán trong ứng dụng.
+- [ ] Nếu bật: cấu hình giới hạn truy cập/rate limit và chi phí trên nền tảng trước, thêm `OPENROUTER_API_KEY`, `AI_MODEL`, `AI_ENABLED=true` rồi redeploy. Endpoint hiện chưa có limiter phân tán trong ứng dụng.
 - [ ] Thử lượt gọi thật và lỗi/timeout provider; phải fallback template. AI không được sửa số tiền, tự tạo giao dịch hoặc tuyên bố bảo đảm an toàn.
 
 ## Ghi nhận kết quả

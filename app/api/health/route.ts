@@ -11,7 +11,7 @@ export function GET() {
       process.env.KAMINO_DEBT_RESERVE,
     ),
     aiConfigured: Boolean(
-      process.env.AI_ENABLED === "true" && process.env.OPENAI_API_KEY && process.env.AI_MODEL,
+      process.env.AI_ENABLED === "true" && process.env.OPENROUTER_API_KEY && process.env.AI_MODEL,
     ),
     mode: "mvp",
   });
