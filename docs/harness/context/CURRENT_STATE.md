@@ -1,7 +1,7 @@
 # Trạng thái hiện tại
 
 - Người dùng đã yêu cầu build end-to-end và commit/push theo checkpoint.
-- Một người cùng Codex; nhánh `chore/workflow-ui-harness`.
+- Một người cùng Codex; ngày 28/09/2026 người dùng yêu cầu merge toàn bộ MVP từ `chore/workflow-ui-harness` lên `main` để deploy Vercel.
 - Remote baseline: `2ce5c3c`; tài liệu kiến trúc gốc giữ nguyên.
 - Đã triển khai landing/workspace/guide/lab VI/EN, planner, ví Phantom, adapter Kamino, pipeline prepare/simulate/sign/submit/status, template và AI tùy chọn.
 - `npm run verify` PASS ngày 27/09/2026: format, lint, typecheck, 20 unit tests, production build, 17 Chromium tests (8 viewport/locale, 4 axe, 5 hành vi).

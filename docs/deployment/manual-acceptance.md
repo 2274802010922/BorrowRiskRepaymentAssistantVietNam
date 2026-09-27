@@ -4,7 +4,7 @@ Người dùng nhận phần deploy Vercel và kiểm thử live sau checkpoint 
 
 ## 1. Deploy bản UI
 
-- [ ] Import repository trong Vercel; chọn nhánh `chore/workflow-ui-harness` để thử đúng bản này trước khi merge.
+- [ ] Import repository trong Vercel; chọn production branch `main` (người dùng yêu cầu đưa MVP lên main ngày 28/09/2026).
 - [ ] Root directory là root repo; framework Next.js; Node 24; install `npm ci`; build `npm run build`.
 - [ ] Đặt `NEXT_PUBLIC_SOLANA_CLUSTER=devnet`, `AI_ENABLED=false`. Không tự điền reserve/market từ mainnet.
 - [ ] Deploy; ghi URL và commit SHA đang chạy. Mở `/api/health` để xem trạng thái cấu hình, không coi configured là integration đã hoạt động.
