@@ -1,5 +1,8 @@
 # Trạng thái hiện tại
 
+- Vercel live: https://picachu-iota.vercel.app/ — đã kiểm landing/workspace/setup ngày 28/09/2026. Health: app=picachu, cluster=devnet, executionConfigured=false, aiConfigured=true. Giải thích trả số gọn; lượt thử hiển thị template, chưa xác minh provider AI live.
+- Release code `1102222` đã push main, GitHub Actions Quality PASS. GitHub repo hiện là `2274802010922/picachu__`; remote local đã cập nhật, working tree sạch sau checkpoint.
+
 - Release picachu ngày 28/09/2026: giữ light terminal, đổi thương hiệu/UI, nút “Kết nối ví” (Phantom), thêm `/setup` và `/api/demo`.
 - Setup hai giao dịch deposit/borrow, simulation trước ký, binding riêng `picachu-demo-v1`, status đối chiếu on-chain và pending theo ví. Vanilla obligation id 201; marker System account chặn vay trùng nguyên tử.
 - Giải thích gồm tối đa ba dòng do core tạo; AI tối đa 25 từ/180 ký tự. Bộ format bỏ số 0 thừa, không đổi số atomic dùng ký; kết quả cũ bị ẩn khi đổi đầu vào/ngôn ngữ.

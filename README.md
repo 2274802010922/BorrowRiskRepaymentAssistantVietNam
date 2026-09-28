@@ -12,7 +12,7 @@ Trang `/setup` hướng dẫn tạo vị thế demo trên Kamino Devnet: kiểm 
 
 - UI minh họa, core tính toán và production build đã qua kiểm tra tự động; xem [phạm vi bằng chứng](docs/testing/README.md).
 - Có code đọc/prepare/submit/status qua SDK Kamino, nhưng **chưa có luồng repay live được nghiệm thu**.
-- Chưa deploy Vercel; người dùng sẽ deploy và kiểm thử thủ công theo [checklist](docs/deployment/manual-acceptance.md).
+- Đã kiểm tra UI trên [bản Vercel](https://picachu-iota.vercel.app/) ngày 28/09/2026; backend báo execution chưa cấu hình. Xem [smoke test](docs/testing/vercel-smoke-2026-09-28.md) và [checklist](docs/deployment/manual-acceptance.md).
 - AI mặc định dùng template. Adapter OpenRouter chỉ được bật khi có cấu hình; **chưa kiểm chứng lượt gọi AI thật**.
 - Không dùng ảnh fixture làm bằng chứng chain. Không gọi simulation, signature hoặc HTTP 200 là “nợ đã giảm”.
 
