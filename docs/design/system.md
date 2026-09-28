@@ -2,7 +2,7 @@
 
 Nguồn: SkillBridge của người dùng. Quy tắc dưới đây áp dụng riêng cho picachu.
 
-Tên hiển thị viết thường `picachu`, logo chữ p. Nút “Kết nối ví” dùng Phantom trong MVP. Landing dẫn tới minh họa hoặc thiết lập Devnet; workspace có điều hướng bước và đường dẫn setup. Trang `/setup` dùng bốn bước: kiểm tra, thế chấp, vay thử, sẵn sàng. Phần giải thích gồm tối đa ba dòng dữ kiện và một nhận xét AI ngắn; số token bỏ số 0 thừa, giữ đơn vị và độ chính xác.
+Tên hiển thị viết thường `picachu`; logo pixel do người dùng cung cấp tại `public/brand/picachu-logo.jpg`. Giữ nguyên ảnh, nền và tỉ lệ; không dùng biểu tượng p. cũ. Logo dùng chung trong header, drawer, footer, favicon, Open Graph và banner README. Nút “Kết nối ví” dùng Phantom trong MVP. Landing dẫn tới minh họa hoặc thiết lập Devnet; workspace có điều hướng bước và đường dẫn setup. Trang `/setup` dùng bốn bước: kiểm tra, thế chấp, vay thử, sẵn sàng. Phần giải thích gồm tối đa ba dòng dữ kiện và một nhận xét AI ngắn; số token bỏ số 0 thừa, giữ đơn vị và độ chính xác.
 
 ## Visual tokens
 

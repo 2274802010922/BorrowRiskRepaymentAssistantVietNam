@@ -1,7 +1,10 @@
-import { mkdir, writeFile } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { chromium } from "@playwright/test";
 
-// Original vector artwork + fresh screenshots of the app. No fabricated UI.
+// User-supplied logo, original banner layout and fresh app screenshots.
+const logo =
+  "data:image/jpeg;base64," +
+  (await readFile(new URL("../public/brand/picachu-logo.jpg", import.meta.url))).toString("base64");
 const directory = new URL("../docs/assets/readme/", import.meta.url);
 await mkdir(directory, { recursive: true });
 function banner(dark = false, social = false) {
@@ -14,9 +17,8 @@ function banner(dark = false, social = false) {
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 1600 460" role="img" aria-label="picachu — Understand your loan. Keep your balance.">
   <rect width="1600" height="460" fill="${bg}"/>
   <path d="M0 400H1600 M1130 0V460" stroke="${line}" stroke-width="1"/>
-  <rect x="70" y="62" width="76" height="76" rx="16" fill="#b7f34d"/>
-  <text x="86" y="115" fill="#091426" font-family="Arial,sans-serif" font-weight="700" font-size="54">p.</text>
-  <text x="170" y="119" fill="${ink}" font-family="Arial,sans-serif" font-weight="700" font-size="66" letter-spacing="-3">picachu</text>
+  <image href="${logo}" x="70" y="48" width="128" height="96" preserveAspectRatio="xMidYMid meet"/>
+  <text x="222" y="119" fill="${ink}" font-family="Arial,sans-serif" font-weight="700" font-size="66" letter-spacing="-3">picachu</text>
   <text x="72" y="235" fill="${ink}" font-family="Arial,sans-serif" font-weight="700" font-size="56" letter-spacing="-2">Understand your loan.</text>
   <text x="72" y="302" fill="${ink}" font-family="Arial,sans-serif" font-weight="700" font-size="56" letter-spacing="-2">Keep your balance.</text>
   <text x="74" y="354" fill="${muted}" font-family="Arial,sans-serif" font-size="23">Explore risk. Plan repayment. You control the wallet.</text>
@@ -37,6 +39,18 @@ try {
     viewport: { width: 1440, height: 1000 },
     deviceScaleFactor: 1,
   });
+  for (const theme of ["light", "dark"]) {
+    await page.setContent(banner(theme === "dark"));
+    await page.addStyleTag({ content: "body { margin: 0; } svg { display:block; }" });
+    await page.locator("svg image").evaluate((element) => {
+      const img = new Image();
+      img.src = element.getAttribute("href");
+      return img.decode();
+    });
+    await page.locator("svg").screenshot({
+      path: new URL(`hero-${theme}.png`, directory).pathname.replace(/^\/([A-Z]:)/, "$1"),
+    });
+  }
   await page.setContent(banner(false, true));
   await page.addStyleTag({
     content: "body { margin: 0; background: #f7f6f1; } svg { display:block; }",

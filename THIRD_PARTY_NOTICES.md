@@ -1,5 +1,9 @@
 # Nguồn và phạm vi kế thừa
 
+## Logo picachu
+
+Ảnh `logo pixel picachu.jpg` do chủ dự án cung cấp ngày 28/09/2026, được giữ nguyên tại `public/brand/picachu-logo.jpg` và dùng làm nhận diện theo yêu cầu. Không ghi nhận đây là artwork do Codex sáng tác hoặc có giấy phép MIT.
+
 ## SkillBridge Vietnam — nguồn tham chiếu của người dùng
 
 - Repo: https://github.com/2274802010922/SkillBridge-Vietnam

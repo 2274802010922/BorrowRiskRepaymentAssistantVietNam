@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Menu, X, Wallet, BookOpen, FlaskConical, LayoutDashboard } from "lucide-react";
@@ -11,9 +12,14 @@ export function Brand() {
   const { t } = useLanguage();
   return (
     <Link className="brand" href="/" aria-label="picachu">
-      <span className="brand-symbol" aria-hidden="true">
-        p.
-      </span>
+      <Image
+        className="brand-symbol"
+        src="/brand/picachu-logo.jpg"
+        alt=""
+        width={48}
+        height={36}
+        priority
+      />
       <span>
         picachu
         <span className="brand-country">{t("HIỂU RÕ KHOẢN VAY", "BORROW WITH CLARITY")}</span>

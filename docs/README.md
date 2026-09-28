@@ -1,5 +1,7 @@
 # Tài liệu picachu
 
+<img src="../public/brand/picachu-logo.jpg" alt="Logo pixel picachu" width="72">
+
 [Thiết lập khoản vay Devnet bằng ví](deployment/demo-setup.md)
 
 | Người đọc      | Bắt đầu từ                                                                                                                           |

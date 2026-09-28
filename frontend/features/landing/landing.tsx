@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight, Check, MoveDown } from "lucide-react";
-import { AppHeader } from "../../components/layout/shell";
+import { AppHeader, Brand } from "../../components/layout/shell";
 import { useLanguage } from "../../i18n/provider";
 
 export function Landing() {
@@ -211,7 +211,7 @@ export function Landing() {
           </div>
         </section>
         <footer className="page-shell site-footer">
-          <span>picachu</span>
+          <Brand />
           <span className="eyebrow">
             {t("HIỂU TRƯỚC KHI HÀNH ĐỘNG", "UNDERSTAND BEFORE ACTING")}
           </span>

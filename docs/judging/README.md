@@ -1,5 +1,7 @@
 # Hướng dẫn review
 
+<img src="../../public/brand/picachu-logo.jpg" alt="Logo pixel picachu" width="72">
+
 Checkpoint MVP có demo offline và bộ test tự động; chưa phải submission có bằng chứng live đầy đủ. Dự án chuẩn bị cho cả Best Product & Business và Best Technical Build. Bảng dưới là bản đồ bằng chứng của repo, không tự gán điểm hoặc thay thế rubric chính thức.
 
 | Track              | Nội dung có thể review                                                     | Bằng chứng                                              | Còn thiếu                                                         |

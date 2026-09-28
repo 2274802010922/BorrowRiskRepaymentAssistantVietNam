@@ -9,8 +9,15 @@ import { LanguageProvider } from "../frontend/i18n/provider";
 import { WalletProvider } from "../frontend/components/wallet/provider";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://picachu-iota.vercel.app"),
   title: "picachu — Hiểu khoản vay, chủ động trả nợ",
   description: "Mô phỏng rủi ro và lập phương án trả nợ theo ngân sách. Solana Devnet.",
+  openGraph: {
+    title: "picachu — Hiểu khoản vay, chủ động trả nợ",
+    images: [
+      { url: "/brand/picachu-logo.jpg", width: 1024, height: 765, alt: "Logo pixel picachu" },
+    ],
+  },
 };
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const store = await cookies();

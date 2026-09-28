@@ -1,5 +1,7 @@
 # Vercel + Devnet
 
+<img src="../../public/brand/picachu-logo.jpg" alt="Logo pixel picachu" width="72">
+
 AI dùng OpenRouter theo yêu cầu ngày 28/09/2026. Đặt `OPENROUTER_API_KEY` server-only và `AI_MODEL` bằng model ID đầy đủ trên OpenRouter (`provider/model`). Chọn endpoint hỗ trợ structured outputs; request dùng `require_parameters: true`. Thiếu cấu hình, lỗi provider hoặc output không hợp lệ đều về template. Không cần `OPENAI_API_KEY`.
 
 Tham chiếu: [OpenRouter quickstart](https://openrouter.ai/docs/quickstart), [structured outputs](https://openrouter.ai/docs/guides/features/structured-outputs). Chưa kiểm chứng API key thật trong phiên này.

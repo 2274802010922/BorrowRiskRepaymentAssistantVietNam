@@ -1,5 +1,7 @@
 # Kiến trúc được chọn
 
+<img src="../../public/brand/picachu-logo.jpg" alt="Logo pixel picachu" width="72">
+
 Đối chiếu ngày 27/09/2026: bản của người dùng và kế hoạch end-to-end thống nhất về app không giữ tiền, protocol adapter, core quyết định, người dùng tự ký và Vercel + Devnet.
 
 | Phần         | Quyết định triển khai                                                    | Lý do                                                  |

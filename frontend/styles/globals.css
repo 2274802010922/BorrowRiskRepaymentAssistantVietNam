@@ -198,11 +198,12 @@ main {
   min-height: 44px;
 }
 .brand-symbol {
-  font: 600 22px/1 var(--mono);
-  background: var(--lime);
-  padding: 9px 6px;
-  letter-spacing: -0.12em;
+  width: 48px;
+  height: 36px;
+  object-fit: contain;
+  flex-shrink: 0;
   border-radius: 5px;
+  image-rendering: pixelated;
 }
 .brand-country {
   display: block;
@@ -1008,7 +1009,8 @@ nav summary {
     font-size: 16px;
   }
   .brand-symbol {
-    font-size: 18px;
+    width: 40px;
+    height: 30px;
   }
   .header-link,
   .header-entry {

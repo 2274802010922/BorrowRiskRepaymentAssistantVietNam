@@ -1,5 +1,8 @@
 # Trạng thái hiện tại
 
+- Logo dự án đã đổi sang ảnh pixel do người dùng cung cấp: `public/brand/picachu-logo.jpg`. Áp dụng UI, favicon, metadata chia sẻ, README VI/EN và banner social preview; không thay theme light terminal.
+- Kiểm tra thay logo: file nguồn/public/favicon có SHA-256 giống nhau; format/lint/typecheck, 34 unit tests, production build, 21 browser tests PASS. 85 liên kết/asset README hợp lệ; screenshot mobile đã xem trực tiếp.
+
 - README trình bày lại theo hành trình sản phẩm/giám khảo, VI mặc định + README.en.md. Asset banner light/dark, social preview và screenshot thật tại `docs/assets/readme/`; script tái tạo `scripts/readme-assets.mjs`.
 - GitHub About/topics đã cập nhật cho picachu; license giữ trạng thái chưa được chủ dự án chọn. Phần bằng chứng README gắn checkpoint và không khẳng định live Devnet/AI đã hoàn tất.
 

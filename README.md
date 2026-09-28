@@ -1,7 +1,7 @@
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="docs/assets/readme/hero-dark.svg">
-    <img src="docs/assets/readme/hero-light.svg" alt="picachu — Hiểu khoản vay, chủ động cân đối số tiền trả và giữ lại." width="100%">
+    <source media="(prefers-color-scheme: dark)" srcset="docs/assets/readme/hero-dark.png">
+    <img src="docs/assets/readme/hero-light.png" alt="picachu — Hiểu khoản vay, chủ động cân đối số tiền trả và giữ lại." width="100%">
   </picture>
 </p>
 
