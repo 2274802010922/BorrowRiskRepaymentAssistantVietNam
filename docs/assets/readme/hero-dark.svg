@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="460" viewBox="0 0 1600 460" role="img" aria-label="picachu — Understand your loan. Keep your balance.">
+  <rect width="1600" height="460" fill="#111b28"/>
+  <path d="M0 400H1600 M1130 0V460" stroke="#354256" stroke-width="1"/>
+  <rect x="70" y="62" width="76" height="76" rx="16" fill="#b7f34d"/>
+  <text x="86" y="115" fill="#091426" font-family="Arial,sans-serif" font-weight="700" font-size="54">p.</text>
+  <text x="170" y="119" fill="#f7f6f1" font-family="Arial,sans-serif" font-weight="700" font-size="66" letter-spacing="-3">picachu</text>
+  <text x="72" y="235" fill="#f7f6f1" font-family="Arial,sans-serif" font-weight="700" font-size="56" letter-spacing="-2">Understand your loan.</text>
+  <text x="72" y="302" fill="#f7f6f1" font-family="Arial,sans-serif" font-weight="700" font-size="56" letter-spacing="-2">Keep your balance.</text>
+  <text x="74" y="354" fill="#b7c1cf" font-family="Arial,sans-serif" font-size="23">Explore risk. Plan repayment. You control the wallet.</text>
+  <text x="74" y="436" fill="#b7c1cf" font-family="monospace" font-size="16" letter-spacing="2">VIETNAMESE FIRST  /  SOLANA DEVNET  /  MVP</text>
+  <text x="1180" y="100" fill="#b7c1cf" font-family="monospace" font-size="16" letter-spacing="2">ILLUSTRATIVE SCENARIO</text>
+  <text x="1180" y="168" fill="#b7c1cf" font-family="Arial,sans-serif" font-size="23">Repay</text>
+  <text x="1180" y="229" fill="#f7f6f1" font-family="Arial,sans-serif" font-size="62" font-weight="700">100 <tspan font-size="25">USDC</tspan></text>
+  <rect x="1170" y="265" width="340" height="83" rx="10" fill="#b7f34d"/>
+  <text x="1190" y="317" fill="#091426" font-family="Arial,sans-serif" font-size="30" font-weight="700">Keep 50 USDC</text>
+  <text x="1180" y="436" fill="#b7c1cf" font-family="monospace" font-size="16">YOUR WALLET. YOUR DECISION.</text>
+  </svg>

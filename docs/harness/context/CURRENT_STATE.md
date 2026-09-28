@@ -1,5 +1,8 @@
 # Trạng thái hiện tại
 
+- README trình bày lại theo hành trình sản phẩm/giám khảo, VI mặc định + README.en.md. Asset banner light/dark, social preview và screenshot thật tại `docs/assets/readme/`; script tái tạo `scripts/readme-assets.mjs`.
+- GitHub About/topics đã cập nhật cho picachu; license giữ trạng thái chưa được chủ dự án chọn. Phần bằng chứng README gắn checkpoint và không khẳng định live Devnet/AI đã hoàn tất.
+
 - Vercel live: https://picachu-iota.vercel.app/ — đã kiểm landing/workspace/setup ngày 28/09/2026. Health: app=picachu, cluster=devnet, executionConfigured=false, aiConfigured=true. Giải thích trả số gọn; lượt thử hiển thị template, chưa xác minh provider AI live.
 - Release code `1102222` đã push main, GitHub Actions Quality PASS. GitHub repo hiện là `2274802010922/picachu__`; remote local đã cập nhật, working tree sạch sau checkpoint.
 

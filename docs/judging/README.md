@@ -15,10 +15,13 @@ Checkpoint MVP có demo offline và bộ test tự động; chưa phải submiss
 4. 45 giây: trình bày các bước chuẩn bị/simulation/ký/xác minh trong code. Chỉ demo giao dịch thật khi đã có bằng chứng nghiệm thu.
 5. 15 giây: chỉ ra kiểm thử và kế hoạch xác thực nhu cầu người dùng; không dùng số khách hàng/doanh thu chưa có.
 
-6. Chạy website và thử dữ liệu minh họa không cần ví.
-7. Kiểm thay đổi shock, budget, reserve và target; phân biệt partial improvement.
-8. Xem `/lab` để đối chiếu các trạng thái error/stale/pending/verified.
-9. Đọc core tests để kiểm đơn vị, rounding và ràng buộc.
-10. Chỉ dùng proof Devnet có signature và trạng thái trước/sau khi gate được hoàn thành.
+## Đường dẫn kiểm chứng
+
+1. [Mở workspace minh họa](https://picachu-iota.vercel.app/workspace), không cần ví.
+2. Thay đổi shock, budget, reserve và target; phân biệt partial improvement.
+3. [Xem lab](https://picachu-iota.vercel.app/lab) để đối chiếu các trạng thái minh họa error/stale/pending/verified.
+4. [Đọc core tests](../../tests/unit/planner.test.ts) để kiểm đơn vị, rounding và ràng buộc.
+5. [Xem CI](https://github.com/2274802010922/picachu__/actions/workflows/quality.yml) và [bằng chứng hiện có](../testing/README.md).
+6. Chỉ dùng proof Devnet có signature và trạng thái trước/sau khi gate được hoàn thành.
 
 Hai bảng chấm sẽ liên kết các claim tới code và evidence. Chưa có bằng chứng nhu cầu trả tiền hoặc pilot bên thứ ba. Chưa xác nhận AI live. Các phần này phải được bổ sung trung thực trước khi dự thi.

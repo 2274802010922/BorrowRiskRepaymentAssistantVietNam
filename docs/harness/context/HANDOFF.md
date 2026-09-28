@@ -1,5 +1,7 @@
 # Bàn giao
 
+README VI/EN đã tổ chức lại: giới thiệu → ảnh sản phẩm → ví dụ → demo → hai track → bằng chứng → kiến trúc → quick start. Giữ nội dung hai bản đồng bộ, asset ở `docs/assets/readme/`; hướng dẫn tái tạo ở README của thư mục đó. Không thêm badge license khi chủ repo chưa chọn giấy phép.
+
 Release picachu: `/setup` tạo vị thế qua Phantom với hai lần ký, `npm run check:demo -- <public-wallet>` chỉ đọc. Ba biến Kamino vẫn phải cấu hình đúng trước; không dùng danh sách discovery làm proof. Market vừa probe có oracle invalid; live deposit/borrow/repay chưa nghiệm thu. Mã trạng thái, pending và marker chống vay trùng đã triển khai. Đọc `docs/deployment/demo-setup.md` trước khi kiểm thử thật.
 
 AI provider hiện là OpenRouter, không phải OpenAI trực tiếp. Cấu hình Vercel theo `.env.example`; `AI_MODEL` là ID OpenRouter hỗ trợ structured outputs. Test provider dùng mock, live API vẫn chờ người dùng cấu hình.
