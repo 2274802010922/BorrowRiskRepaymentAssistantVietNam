@@ -9,7 +9,7 @@ import { LanguageProvider } from "../frontend/i18n/provider";
 import { WalletProvider } from "../frontend/components/wallet/provider";
 
 export const metadata: Metadata = {
-  title: "BorrowRisk — Hiểu khoản vay, chủ động trả nợ",
+  title: "picachu — Hiểu khoản vay, chủ động trả nợ",
   description: "Mô phỏng rủi ro và lập phương án trả nợ theo ngân sách. Solana Devnet.",
 };
 export default async function RootLayout({ children }: { children: React.ReactNode }) {

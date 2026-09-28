@@ -24,6 +24,13 @@ export function Guide() {
       <div className="guide-list">
         {[
           [
+            t("Bắt đầu với khoản vay thử", "Start with a test loan"),
+            t(
+              "Mở Thiết lập demo, kết nối ví và kiểm tra điều kiện. Gửi SOL thế chấp trước, sau đó ký vay token. Nếu market hoặc giá chưa sẵn sàng, picachu sẽ giải thích lý do và khóa thao tác ký.",
+              "Open Demo setup, connect your wallet and check readiness. Deposit SOL first, then sign a token borrow. If the market or prices are unavailable, picachu explains why and blocks signing.",
+            ),
+          ],
+          [
             t("1. Đọc đúng nguồn dữ liệu", "1. Check the data source"),
             t(
               "Dữ liệu minh họa giúp khám phá giao diện. Dữ liệu Devnet được đọc từ mạng thử nghiệm. Không thể ký giao dịch từ bản minh họa.",
@@ -64,6 +71,11 @@ export function Guide() {
             <p>{body}</p>
           </article>
         ))}
+      </div>
+      <div className="actions-row">
+        <Link href="/setup" className="button button-secondary">
+          {t("Thiết lập demo Devnet", "Set up Devnet demo")}
+        </Link>
       </div>
       <Link href="/workspace" className="button button-primary">
         {t("Mở không gian khoản vay", "Open workspace")}

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 export function GET() {
   return NextResponse.json({
-    app: "BorrowRisk Vietnam",
+    app: "picachu",
     cluster: "devnet",
     executionConfigured: Boolean(
       process.env.PLAN_BINDING_SECRET &&

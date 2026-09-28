@@ -1,5 +1,25 @@
 import type { Locale } from "../../shared/types";
 const messages: Record<string, [string, string]> = {
+  SIGNATURE_REJECTED: [
+    "Chưa ký giao dịch. Bạn có thể xem lại và thử lại.",
+    "The transaction was not signed. Review it and try again.",
+  ],
+  DEMO_MARKET_UNAVAILABLE: [
+    "Market chưa cho phép vay hoặc không đủ thanh khoản. Cần kiểm tra cấu hình Devnet trước khi tiếp tục.",
+    "The market cannot lend or lacks liquidity. Check the Devnet configuration before continuing.",
+  ],
+  DEMO_ALREADY_EXISTS: [
+    "Vị thế đã thay đổi hoặc bước này đã hoàn thành. Hãy kiểm tra lại tiến độ.",
+    "The position changed or this step is already complete. Check progress again.",
+  ],
+  DEMO_TRANSACTION_TOO_LARGE: [
+    "Giao dịch vượt giới hạn kích thước. Market này cần cấu hình lookup table trước khi demo.",
+    "The transaction exceeds the size limit. This market needs lookup table configuration before the demo.",
+  ],
+  DEMO_STORAGE_REQUIRED: [
+    "Trình duyệt không lưu được tiến độ. Cho phép lưu trữ trang rồi thử lại; giao dịch chưa được gửi.",
+    "The browser cannot save progress. Enable site storage and retry; the transaction has not been sent.",
+  ],
   WALLET_MISSING: [
     "Chưa tìm thấy Phantom. Mở trang bằng trình duyệt có Phantom, hoặc tiếp tục dùng bản minh họa.",
     "Phantom was not found. Open this page in a Phantom-enabled browser or explore the example.",
@@ -77,7 +97,7 @@ export async function postApi<T>(path: string, body: unknown): Promise<T> {
     method: "POST",
     headers: { "content-type": "application/json" },
     body: JSON.stringify(body),
-    signal: AbortSignal.timeout(35_000),
+    signal: AbortSignal.timeout(path === "/api/demo" ? 65_000 : 35_000),
   });
   const result = await response.json();
   if (!response.ok) throw new Error(result.error?.code ?? "SERVICE_UNAVAILABLE");

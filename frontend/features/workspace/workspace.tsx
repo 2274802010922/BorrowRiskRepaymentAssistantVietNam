@@ -3,6 +3,8 @@ import { useMemo, useState, useSyncExternalStore } from "react";
 import { ArrowRight, ExternalLink, RefreshCw, ShieldCheck } from "lucide-react";
 import { Buffer } from "buffer";
 import bs58 from "bs58";
+import Link from "next/link";
+import { compactNumber, exactToken } from "../../../shared/format";
 import { WorkspaceShell } from "../../components/layout/shell";
 import {
   ContentSkeleton,
@@ -95,6 +97,10 @@ function WorkspaceContent({ wallet }: { wallet: string | null }) {
   const [verification, setVerification] = useState<string | null>(null);
   const [explanation, setExplanation] = useState<{
       text: string;
+      contextKey?: string;
+      lines?: string[];
+      caution?: string;
+      summary?: string;
       source: "template" | "model";
     } | null>(null),
     [explaining, setExplaining] = useState(false);
@@ -112,12 +118,8 @@ function WorkspaceContent({ wallet }: { wallet: string | null }) {
   const shownRecords = currentRecord
     ? [currentRecord, ...records.filter((r) => r.signature !== currentRecord.signature)]
     : records;
-  const format = (value: string, decimals = 2) =>
-    new Intl.NumberFormat(locale === "vi" ? "vi-VN" : "en-US", {
-      maximumFractionDigits: decimals,
-    }).format(Number(value));
-  const amount = (value: string) =>
-    format(units(value, snapshot?.debt.decimals ?? 6).toString(), 6);
+  const format = (value: string, decimals = 2) => compactNumber(value, locale, decimals);
+  const amount = (value: string) => exactToken(value, snapshot?.debt.decimals ?? 6, locale);
   const constraints = useMemo<Constraints | null>(() => {
     const b = parseUsdcInput(budget),
       r = parseUsdcInput(reserve),
@@ -145,6 +147,12 @@ function WorkspaceContent({ wallet }: { wallet: string | null }) {
     [snapshot, shock],
   );
   const selected = plan?.options.find((option) => option.id === choice) ?? plan?.options[0];
+  const explanationKey = JSON.stringify({
+    snapshot,
+    constraints,
+    repayAtomic: selected?.repayAtomic,
+    locale,
+  });
   const invalidate = () => {
     setPrepared(null);
     setExplanation(null);
@@ -164,12 +172,13 @@ function WorkspaceContent({ wallet }: { wallet: string | null }) {
     try {
       const result = await postApi<{ positions: PositionSnapshot[] }>("/api/positions/read", {
         wallet,
+        position: new URLSearchParams(window.location.search).get("position") ?? undefined,
       });
       setPositions(result.positions);
       setSnapshot(result.positions[0] ?? null);
       if (result.positions[0]) {
         const s = result.positions[0];
-        setBudget(units(s.walletDebtAtomic, s.debt.decimals).toFixed(6));
+        setBudget(units(s.walletDebtAtomic, s.debt.decimals).toString());
         setReserve("0");
         setTarget(String(Math.min(60, Math.floor(s.liquidationThresholdBps / 100) - 5)));
       }
@@ -289,10 +298,25 @@ function WorkspaceContent({ wallet }: { wallet: string | null }) {
     if (!snapshot || !constraints) return;
     setExplaining(true);
     try {
-      setExplanation(await postApi("/api/explanations", { snapshot, constraints, locale }));
+      setExplanation({
+        ...(await postApi<{
+          text: string;
+          source: "template" | "model";
+          lines?: string[];
+          caution?: string;
+          summary?: string;
+        }>("/api/explanations", {
+          snapshot,
+          constraints,
+          locale,
+          repayAtomic: selected?.repayAtomic,
+        })),
+        contextKey: explanationKey,
+      });
     } catch {
       setExplanation({
         source: "template",
+        contextKey: explanationKey,
         text: t(
           "Giá tài sản thế chấp giảm sẽ làm tỷ lệ nợ tăng nếu khoản nợ giữ nguyên. Hãy xem cả số dư dự trữ và trạng thái sau trả nợ trong bảng trước khi lựa chọn.",
           "A lower collateral price increases the debt ratio when debt stays constant. Check both your reserve balance and the after-repayment scenario before choosing.",
@@ -320,13 +344,25 @@ function WorkspaceContent({ wallet }: { wallet: string | null }) {
     <>
       <PageHeading
         index={t("KHOẢN VAY / 01", "POSITIONS / 01")}
-        title={t("Một khoản vay. Một bước rõ ràng.", "One position. A clearer next step.")}
+        title={t("Khoản vay trong tầm nhìn.", "Your loan, clearly.")}
         description={t(
           "Xem tác động của biến động giá và phương án phù hợp với số tiền bạn muốn giữ lại.",
           "Explore price changes and repayment options that respect the balance you want to keep.",
         )}
         action={<StatusBadge tone="info">Solana Devnet</StatusBadge>}
       />
+      <nav className="workspace-map" aria-label={t("Các bước xử lý khoản vay", "Loan workflow")}>
+        <a href="#position">{t("01 · Khoản vay", "01 · Position")}</a>
+        <a href="#scenario">{t("02 · Kịch bản", "02 · Scenario")}</a>
+        <a href="#repayment">{t("03 · Phương án", "03 · Plan")}</a>
+        <a href="#activity">{t("04 · Hoạt động", "04 · Activity")}</a>
+      </nav>
+      <div className="setup-entry">
+        <span>{t("Chưa có khoản vay thử nghiệm?", "No test loan yet?")}</span>
+        <Link href="/setup" className="text-link">
+          {t("Thiết lập demo Devnet →", "Set up your Devnet demo →")}
+        </Link>
+      </div>
       <div className="toolbar">
         <div className="segmented" aria-label={t("Nguồn dữ liệu", "Data source")}>
           <button
@@ -408,7 +444,11 @@ function WorkspaceContent({ wallet }: { wallet: string | null }) {
               </select>
             </label>
           )}
-          <section className="data-panel" aria-label={t("Vị thế hiện tại", "Current position")}>
+          <section
+            id="position"
+            className="data-panel"
+            aria-label={t("Vị thế hiện tại", "Current position")}
+          >
             <div className="data-panel-header">
               <h2>
                 {snapshot.collateral.symbol} / {snapshot.debt.symbol}
@@ -418,7 +458,7 @@ function WorkspaceContent({ wallet }: { wallet: string | null }) {
                   ? t("Vị thế giả định", "Example position")
                   : snapshot.protocol === "kamino"
                     ? "Kamino · Devnet"
-                    : t("Pool thử nghiệm BorrowRisk", "BorrowRisk test pool")}
+                    : t("Pool thử nghiệm picachu", "picachu test pool")}
               </StatusBadge>
             </div>
             <div className="metrics-row">
@@ -737,7 +777,7 @@ function WorkspaceContent({ wallet }: { wallet: string | null }) {
                     : t("Giải thích kết quả", "Explain the results")}
                 </button>
               </div>
-              {explanation && (
+              {explanation && explanation.contextKey === explanationKey && (
                 <Notice
                   title={
                     explanation.source === "model"
@@ -745,7 +785,13 @@ function WorkspaceContent({ wallet }: { wallet: string | null }) {
                       : t("Diễn giải từ dữ kiện", "Fact-based explanation")
                   }
                 >
-                  {explanation.text}
+                  <div className="explanation-brief">
+                    {(explanation.lines ?? [explanation.text]).map((line, index) => (
+                      <p key={index}>{line}</p>
+                    ))}
+                    {explanation.summary && <p className="small-note">{explanation.summary}</p>}
+                    {explanation.caution && <p className="small-note">{explanation.caution}</p>}
+                  </div>
                 </Notice>
               )}
             </div>
@@ -823,8 +869,8 @@ function WorkspaceContent({ wallet }: { wallet: string | null }) {
                     onClick={() => void sign()}
                   >
                     {phase === "awaiting_signature"
-                      ? t("Đang chờ Phantom…", "Waiting for Phantom…")
-                      : t("Xác nhận trong Phantom", "Confirm in Phantom")}
+                      ? t("Đang chờ ví…", "Waiting for wallet…")
+                      : t("Xác nhận trong ví", "Confirm in wallet")}
                     <ArrowRight size={16} aria-hidden="true" />
                   </button>
                 </>
@@ -855,6 +901,18 @@ function WorkspaceContent({ wallet }: { wallet: string | null }) {
               )}
             </section>
           )}
+        </section>
+      )}
+      {shownRecords.length === 0 && (
+        <section className="data-panel section-rail" id="activity">
+          <p className="eyebrow">{t("04 / HOẠT ĐỘNG", "04 / ACTIVITY")}</p>
+          <h2>{t("Chưa có giao dịch.", "No transactions yet.")}</h2>
+          <p>
+            {t(
+              "Giao dịch đã ký sẽ xuất hiện tại đây để theo dõi và kiểm tra lại.",
+              "Signed transactions will appear here for tracking and verification.",
+            )}
+          </p>
         </section>
       )}
       {shownRecords.length > 0 && (

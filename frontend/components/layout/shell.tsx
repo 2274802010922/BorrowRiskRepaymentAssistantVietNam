@@ -2,26 +2,21 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import {
-  ArrowUpRight,
-  Menu,
-  X,
-  Wallet,
-  BookOpen,
-  FlaskConical,
-  LayoutDashboard,
-} from "lucide-react";
+import { Menu, X, Wallet, BookOpen, FlaskConical, LayoutDashboard } from "lucide-react";
 import { LanguageSwitcher, useLanguage } from "../../i18n/provider";
 import { useWallet } from "../wallet/provider";
+import { errorMessage } from "../../lib/errors";
 
 export function Brand() {
+  const { t } = useLanguage();
   return (
-    <Link className="brand" href="/" aria-label="BorrowRisk">
+    <Link className="brand" href="/" aria-label="picachu">
       <span className="brand-symbol" aria-hidden="true">
-        br.
+        p.
       </span>
       <span>
-        BorrowRisk<span className="brand-country">VIETNAM</span>
+        picachu
+        <span className="brand-country">{t("HIỂU RÕ KHOẢN VAY", "BORROW WITH CLARITY")}</span>
       </span>
     </Link>
   );
@@ -31,6 +26,7 @@ function Navigation({ onNavigate }: { onNavigate?: () => void }) {
     { t } = useLanguage();
   const items = [
     { href: "/workspace", label: t("Khoản vay của tôi", "My positions"), icon: LayoutDashboard },
+    { href: "/setup", label: t("Thiết lập demo", "Demo setup"), icon: FlaskConical },
     { href: "/guide", label: t("Cách sử dụng", "How it works"), icon: BookOpen },
   ];
   return (
@@ -73,7 +69,7 @@ function Navigation({ onNavigate }: { onNavigate?: () => void }) {
   );
 }
 export function AppHeader({ workspace = false }: { workspace?: boolean }) {
-  const { t } = useLanguage(),
+  const { t, locale } = useLanguage(),
     w = useWallet();
   const [open, setOpen] = useState(false);
   const dialog = useRef<HTMLDialogElement>(null),
@@ -111,11 +107,16 @@ export function AppHeader({ workspace = false }: { workspace?: boolean }) {
                 {t("Cách sử dụng", "How it works")}
               </Link>
             )}
-            {workspace ? (
+            {
               <button
                 className="button button-secondary account-button"
                 type="button"
                 aria-busy={w.busy}
+                title={
+                  w.wallet
+                    ? t("Ngắt kết nối ví", "Disconnect wallet")
+                    : t("Kết nối ví · Phantom", "Connect wallet · Phantom")
+                }
                 disabled={w.busy}
                 onClick={() => void (w.wallet ? w.disconnect() : w.connect())}
               >
@@ -123,15 +124,10 @@ export function AppHeader({ workspace = false }: { workspace?: boolean }) {
                 <span>
                   {w.wallet
                     ? `${w.wallet.slice(0, 4)}…${w.wallet.slice(-4)}`
-                    : t("Kết nối Phantom", "Connect Phantom")}
+                    : t("Kết nối ví", "Connect wallet")}
                 </span>
               </button>
-            ) : (
-              <Link className="button button-primary header-entry" href="/workspace">
-                {t("Mở ứng dụng", "Open app")}
-                <ArrowUpRight size={16} aria-hidden="true" />
-              </Link>
-            )}
+            }
             <LanguageSwitcher />
             {workspace && (
               <button
@@ -149,6 +145,11 @@ export function AppHeader({ workspace = false }: { workspace?: boolean }) {
           </div>
         </div>
       </header>
+      {!workspace && w.error && (
+        <div role="alert" className="page-shell setup-entry">
+          {errorMessage(w.error, locale)}
+        </div>
+      )}
       {workspace && (
         <dialog
           ref={dialog}

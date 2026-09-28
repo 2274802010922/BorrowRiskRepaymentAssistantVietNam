@@ -1,4 +1,4 @@
-# BorrowRisk Vietnam
+# picachu
 
 Vietnamese-first borrower decision-support web app. Target: Vercel + Solana Devnet.
 
@@ -7,6 +7,7 @@ Vietnamese-first borrower decision-support web app. Target: Vercel + Solana Devn
 - Read `docs/harness/context/CURRENT_STATE.md`, `docs/harness/context/HANDOFF.md`, and `docs/design/system.md`.
 - Preserve the user's root architecture draft. Implementation decisions and corrections are in `docs/architecture/README.md`; numeric illustrations in the draft are not test oracles.
 - Keep changes scoped to the current task. Work on a branch; do not merge into main without the user's instruction.
+- Current user instruction authorizes this picachu release on main. Commit titles and bodies must be in Vietnamese.
 
 ## Commands
 

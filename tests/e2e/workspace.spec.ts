@@ -8,7 +8,7 @@ for (const locale of ["vi", "en"])
         { name: "borrowrisk-locale", value: locale, domain: "127.0.0.1", path: "/" },
       ]);
       await page.setViewportSize({ width, height: 1000 });
-      for (const route of ["/", "/workspace", "/guide", "/lab"]) {
+      for (const route of ["/", "/workspace", "/guide", "/lab", "/setup"]) {
         await page.goto(route);
         await expect(page.locator("html")).toHaveAttribute("lang", locale);
         await expect(page.locator("h1")).toBeVisible();
@@ -21,6 +21,11 @@ for (const locale of ["vi", "en"])
         await page.goto("/workspace");
         await page.screenshot({
           path: `test-results/workspace-${locale}-${width}.png`,
+          fullPage: true,
+        });
+        await page.goto("/setup");
+        await page.screenshot({
+          path: `test-results/setup-${locale}-${width}.png`,
           fullPage: true,
         });
       }
@@ -45,9 +50,7 @@ test("language persists across navigation and reload", async ({ page }) => {
   await page.goto("/");
   await page.getByLabel("Ngôn ngữ").selectOption("en");
   await page.getByRole("link", { name: "Explore an example" }).click();
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText(
-    "One position. A clearer next step.",
-  );
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Your loan, clearly.");
   await page.reload();
   await expect(page.locator("html")).toHaveAttribute("lang", "en");
 });
@@ -83,11 +86,11 @@ test("missing Phantom is explained without pretending the wallet is connected", 
   page,
 }) => {
   await page.goto("/workspace");
-  await page.getByRole("button", { name: "Kết nối Phantom", exact: true }).click();
+  await page.getByRole("button", { name: "Kết nối ví", exact: true }).click();
   await expect(page.getByText(/Chưa tìm thấy Phantom/)).toBeVisible();
 });
 
-for (const path of ["/", "/workspace", "/guide", "/lab"])
+for (const path of ["/", "/workspace", "/guide", "/lab", "/setup"])
   test(`accessibility ${path}`, async ({ page }) => {
     await page.goto(path);
     const results = await new AxeBuilder({ page })

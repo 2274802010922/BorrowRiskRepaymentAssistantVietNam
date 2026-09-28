@@ -35,8 +35,8 @@ export function configuredMarket() {
 }
 
 export async function loadMarket() {
-  await devnetConnection();
   const ids = configuredMarket();
+  await devnetConnection();
   const transport = createDefaultRpcTransport({ url: rpcUrl() });
   const rpc = createSolanaRpcFromTransport((request) =>
     transport({

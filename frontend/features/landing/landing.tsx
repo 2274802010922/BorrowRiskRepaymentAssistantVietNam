@@ -13,12 +13,12 @@ export function Landing() {
         <section className="landing-hero page-shell">
           <div className="hero-copy">
             <p className="eyebrow">
-              <span className="network-dot" /> SOLANA DEVNET / BORROWRISK
+              <span className="network-dot" /> SOLANA DEVNET / PICACHU
             </p>
             <h1>
-              {t("Hiểu khoản vay.", "Understand your loan.")}
+              {t("Trả bao nhiêu,", "How much to repay,")}
               <br />
-              <span>{t("Chủ động bước tiếp.", "Choose your next step.")}</span>
+              <span>{t("giữ lại bao nhiêu?", "how much to keep?")}</span>
             </h1>
             <p className="hero-lede">
               {t(
@@ -31,9 +31,9 @@ export function Landing() {
                 {t("Thử với dữ liệu minh họa", "Explore an example")}
                 <ArrowRight size={18} aria-hidden="true" />
               </Link>
-              <a className="text-link" href="#how">
-                {t("Xem cách hoạt động", "See how it works")}
-              </a>
+              <Link className="button button-secondary" href="/setup">
+                {t("Tạo khoản vay Devnet", "Create a Devnet loan")}
+              </Link>
             </div>
             <p className="hero-footnote">
               {t(
@@ -92,6 +92,38 @@ export function Landing() {
                 "Dữ liệu giả định, bỏ qua lãi và phí. Không phải số dư ví thật.",
                 "Hypothetical data, excluding interest and fees. Not a real wallet balance.",
               )}
+            </p>
+          </div>
+        </section>
+        <section
+          className="product-strip page-shell"
+          aria-label={t("Bạn có thể làm gì", "What you can do")}
+        >
+          <div>
+            <span className="eyebrow">01 / {t("HIỂU", "UNDERSTAND")}</span>
+            <strong>{t("Nợ và thế chấp", "Debt and collateral")}</strong>
+            <p>
+              {t(
+                "Biết vị thế hiện tại trước khi thay đổi.",
+                "Know your position before making a change.",
+              )}
+            </p>
+          </div>
+          <div>
+            <span className="eyebrow">02 / {t("CÂN ĐỐI", "BALANCE")}</span>
+            <strong>{t("Ngân sách và dự trữ", "Budget and reserve")}</strong>
+            <p>
+              {t(
+                "Xem tác động của số tiền bạn có thể trả.",
+                "See what your available repayment changes.",
+              )}
+            </p>
+          </div>
+          <div>
+            <span className="eyebrow">03 / {t("XÁC NHẬN", "VERIFY")}</span>
+            <strong>{t("Bạn giữ quyền ký", "You control signing")}</strong>
+            <p>
+              {t("Đối chiếu kết quả trên Solana Devnet.", "Verify the result on Solana Devnet.")}
             </p>
           </div>
         </section>
@@ -179,7 +211,7 @@ export function Landing() {
           </div>
         </section>
         <footer className="page-shell site-footer">
-          <span>BorrowRisk Vietnam</span>
+          <span>picachu</span>
           <span className="eyebrow">
             {t("HIỂU TRƯỚC KHI HÀNH ĐỘNG", "UNDERSTAND BEFORE ACTING")}
           </span>

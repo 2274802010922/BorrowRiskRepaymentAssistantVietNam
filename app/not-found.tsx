@@ -8,7 +8,7 @@ export default function NotFound() {
       <h1>404</h1>
       <p>{t("Trang này không tồn tại.", "This page does not exist.")}</p>
       <Link href="/" className="button button-primary">
-        BorrowRisk →
+        picachu →
       </Link>
     </main>
   );

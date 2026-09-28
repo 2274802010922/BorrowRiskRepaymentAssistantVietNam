@@ -13,7 +13,7 @@ Người dùng nhận phần deploy Vercel và kiểm thử live sau checkpoint 
 
 ## 2. Cấu hình Devnet thật
 
-- [ ] Dùng ví Phantom thử nghiệm riêng, chọn Solana Devnet, có SOL trả phí và token nợ thử nghiệm. Ứng dụng không tạo khoản vay; cần khoản vay Kamino có sẵn trong market được cấu hình.
+- [ ] Dùng ví Phantom thử nghiệm riêng, chọn Solana Devnet. Có thể dùng khoản vay phù hợp đã có, hoặc tạo qua `/setup` theo [hướng dẫn](demo-setup.md); market/reserves cần cấu hình và vượt kiểm tra trước.
 - [ ] Chọn RPC Devnet ổn định, đặt `SOLANA_RPC_URL` ở server. Public RPC từng timeout trong lần kiểm tra này.
 - [ ] Xác minh `KAMINO_MARKET_ID`, `KAMINO_COLLATERAL_RESERVE`, `KAMINO_DEBT_RESERVE` thuộc cùng market và còn hoạt động. MVP chỉ hỗ trợ một collateral SOL/wSOL, một debt token SPL cổ điển 6 decimals; oracle phải mới.
 - [ ] Tạo `PLAN_BINDING_SECRET` ngẫu nhiên ít nhất 32 ký tự bằng password manager hoặc trình tạo secret; chỉ lưu Vercel server environment. Không dùng private key ví. Giữ ổn định để recovery vẫn xác minh được preview cũ.

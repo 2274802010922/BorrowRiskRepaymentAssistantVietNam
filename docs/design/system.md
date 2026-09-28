@@ -1,6 +1,8 @@
-# BorrowRisk — light terminal
+# picachu — light terminal
 
-Nguồn: SkillBridge của người dùng. Quy tắc dưới đây áp dụng riêng cho BorrowRisk.
+Nguồn: SkillBridge của người dùng. Quy tắc dưới đây áp dụng riêng cho picachu.
+
+Tên hiển thị viết thường `picachu`, logo chữ p. Nút “Kết nối ví” dùng Phantom trong MVP. Landing dẫn tới minh họa hoặc thiết lập Devnet; workspace có điều hướng bước và đường dẫn setup. Trang `/setup` dùng bốn bước: kiểm tra, thế chấp, vay thử, sẵn sàng. Phần giải thích gồm tối đa ba dòng dữ kiện và một nhận xét AI ngắn; số token bỏ số 0 thừa, giữ đơn vị và độ chính xác.
 
 ## Visual tokens
 

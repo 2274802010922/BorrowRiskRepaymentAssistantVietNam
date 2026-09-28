@@ -1,5 +1,7 @@
 # Kiểm tra và phạm vi bằng chứng
 
+Release picachu 28/09/2026: 34 unit tests và 21 Chromium tests PASS. Bổ sung format số, giới hạn demo, binding sai ví/sai message/expired, chống gửi lại signature đã tồn tại, lỗi oracle không mở ký và khôi phục pending sau reload. Năm trang được kiểm a11y; setup có mặt trong ma trận viewport/ngôn ngữ. Production build PASS. Đây là bằng chứng offline/mocked; live Phantom và market còn mở.
+
 Ngày 27/09/2026, `npm run verify` PASS trên Node 24.16.0/Windows: 20 unit tests, 17 Chromium tests, format/lint/typecheck và production build. Browser tests gồm VI/EN × 375/768/1024/1440px, form validation, locale persistence, drawer focus/Escape, fixture không ký, Phantom vắng mặt và axe trên 4 route. Không có live provider trong các test này.
 
 Ảnh minh họa: [mobile](../evidence/workspace-vi-375.png), [desktop](../evidence/workspace-vi-1440.png). Đây là dữ liệu synthetic, không phải bằng chứng giao dịch.

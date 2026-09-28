@@ -1,5 +1,12 @@
 # Trạng thái hiện tại
 
+- Release picachu ngày 28/09/2026: giữ light terminal, đổi thương hiệu/UI, nút “Kết nối ví” (Phantom), thêm `/setup` và `/api/demo`.
+- Setup hai giao dịch deposit/borrow, simulation trước ký, binding riêng `picachu-demo-v1`, status đối chiếu on-chain và pending theo ví. Vanilla obligation id 201; marker System account chặn vay trùng nguyên tử.
+- Giải thích gồm tối đa ba dòng do core tạo; AI tối đa 25 từ/180 ký tự. Bộ format bỏ số 0 thừa, không đổi số atomic dùng ký; kết quả cũ bị ẩn khi đổi đầu vào/ngôn ngữ.
+- Kiểm tra release: 34 unit tests và 21 browser tests đã PASS, production build PASS; gồm 5 route axe và VI/EN ở 375/768/1024/1440px. Các test giao dịch dùng mock, không thay live acceptance.
+- Devnet đọc mới: discovery 284 reserves, probe market `9VaMhQPqEjQSByvZfjYFP6iiJLZFKzXTE5MNK9bDg1dr` trả oracle SOL và USDC `valid: false`. Chưa cấu hình market mặc định hoặc gửi giao dịch. Trang setup chặn stale data.
+- Tiếp tục từ [hướng dẫn setup](../../deployment/demo-setup.md). Người dùng đã yêu cầu commit/push release lên main.
+
 - 28/09/2026: đổi AI provider sang OpenRouter (`OPENROUTER_API_KEY`, `AI_MODEL`); dùng Chat Completions + JSON schema và template fallback. Chưa có lượt gọi live được nghiệm thu.
 - Kiểm tra đổi provider: 27 unit tests PASS, gồm request OpenRouter và fallback khi thiếu key, HTTP error, timeout, output bị cắt, sai schema hoặc chứa số do model tạo. Format/lint/typecheck PASS.
 

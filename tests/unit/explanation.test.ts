@@ -18,8 +18,10 @@ it("uses an explicitly labelled template without model configuration", async () 
     locale: "vi",
   });
   expect(result.source).toBe("template");
-  expect(result.text).toContain("chưa đạt mục tiêu");
-  expect(result.text).toContain("120.000000");
+  expect(result.lines).toHaveLength(3);
+  expect(result.text).toContain("còn 50 USDC");
+  expect(result.text).toContain("thêm 20 USDC");
+  expect(result.text).not.toContain(".000000");
 });
 
 const input = {
@@ -47,7 +49,6 @@ it("calls OpenRouter with strict schema and only derived facts", async () => {
           message: {
             content: JSON.stringify({
               summary: "Phương án chỉ cải thiện một phần.",
-              caution: "Kịch bản giả định, chưa gồm lãi phát sinh.",
             }),
           },
         },
@@ -80,7 +81,7 @@ it.each([
     () =>
       Promise.resolve(
         Response.json({
-          choices: [{ finish_reason: "stop", message: { content: '{"summary":"text"}' } }],
+          choices: [{ finish_reason: "stop", message: { content: '{"unexpected":"text"}' } }],
         }),
       ),
   ],
@@ -93,7 +94,7 @@ it.each([
             {
               finish_reason: "stop",
               message: {
-                content: JSON.stringify({ summary: "Trả 999 USDC.", caution: "Kiểm tra." }),
+                content: JSON.stringify({ summary: "Trả 999 USDC." }),
               },
             },
           ],

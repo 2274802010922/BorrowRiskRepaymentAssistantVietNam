@@ -1,10 +1,12 @@
-# BorrowRisk Vietnam
+# picachu
 
 Hiểu khoản vay, thử kịch bản và tự quyết định trả nợ trong giới hạn của bạn.
 
 **Đang phát triển MVP · Solana Devnet · người dùng tự ký · không giữ private key.**
 
 Ứng dụng web Next.js dành cho người đã có khoản vay: xem vị thế, mô phỏng giá giảm, đặt ngân sách và dự trữ, so sánh phương án trước/sau rồi xác nhận qua Phantom.
+
+Trang `/setup` hướng dẫn tạo vị thế demo trên Kamino Devnet: kiểm điều kiện → ký gửi SOL thế chấp → ký vay token → xác minh → mở workspace. Chi tiết và giới hạn: [Thiết lập demo](docs/deployment/demo-setup.md). Tên nút là “Kết nối ví”; MVP hiện hỗ trợ Phantom.
 
 ## Trạng thái phải đọc trước
 
