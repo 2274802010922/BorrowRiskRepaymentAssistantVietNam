@@ -1,5 +1,8 @@
 # Trạng thái hiện tại
 
+- Checkpoint hardening `631d148` đã push main, CI và Vercel Production PASS. Hai API live demo/check và positions/read trả JSON 503 + requestId thay vì 500 rỗng.
+- Runtime ngày 29/09: thiếu ba giá trị Kamino; secret không báo lỗi; AI có cấu hình nhưng Redis quota chưa cấu hình. Xem [checklist env](../../deployment/environment-checklist.md). Chưa nghiệm thu vay/trả/withdraw bằng Phantom thật.
+
 - 29/09/2026 — checkpoint sửa Web3: API lazy-load SDK + lỗi JSON/requestId, readiness, Phantom reconnect/menu, lọc vị thế, preview bound inputs, recovery/polling, receipt lịch sử, rút thế chấp debt-free và quota AI. [Phạm vi](../../testing/web3-hardening.md).
 - Kiểm tra local: format/lint/typecheck PASS; 43 unit tests, 25 browser tests, production build PASS; 2.501 file từ Next trace được chép sang temp độc lập và SDK import PASS. Mobile screenshot đã xem. Chờ kiểm API live sau push, chưa có chữ ký/vòng vay-trả thật.
 - Vercel dashboard đã mở nhưng đang ở màn hình đăng nhập; người dùng được yêu cầu đăng nhập, chưa nhận thông báo hoàn tất. Không có quyền truy cập log runtime thực tế chỉ từ việc được cho phép thao tác.

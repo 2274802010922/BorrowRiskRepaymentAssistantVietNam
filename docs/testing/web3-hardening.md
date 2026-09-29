@@ -21,6 +21,10 @@ Khi thiếu store chung: RPC/local dùng limiter tốt nhất có thể trong t�
 
 ## Kiểm chứng
 
+Checkpoint `631d148` đã push main; [Quality CI](https://github.com/2274802010922/picachu__/actions/runs/36508433946) PASS, gồm probe bundle trên Linux. Vercel Production đã deploy thành công.
+
+Kiểm live sau deploy: `POST /api/demo` (action=check) và `POST /api/positions/read` trước đây trả 500 rỗng, nay trả JSON 503 `EXECUTION_NOT_CONFIGURED` cùng request ID. Health báo rõ thiếu `KAMINO_MARKET_ID`, `KAMINO_COLLATERAL_RESERVE`, `KAMINO_DEBT_RESERVE`; invalid=[]; aiConfigured=true; aiSharedBudgetConfigured=false. Đây là xác nhận đường lỗi thiếu cấu hình đã sửa trên live, chưa phải bằng chứng SDK giao dịch chạy thành công khi có đủ cấu hình.
+
 Ngày 29/09/2026: format/lint/typecheck PASS; 43 unit tests, 25 Chromium tests và production build PASS. Probe import SDK từ 2.501 file trace độc lập PASS trên Windows. CI chạy probe tương tự trên Linux.
 
 - Unit: readiness, request quá lớn/sai JSON, preview context, lỗi lưu recovery, quota AI, receipt lịch sử khi preview hết hạn/oracle lỗi.
