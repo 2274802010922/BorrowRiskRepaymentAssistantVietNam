@@ -1137,6 +1137,30 @@ nav summary {
     align-items: flex-end;
   }
 }
+.wallet-menu {
+  position: relative;
+}
+.wallet-menu summary {
+  list-style: none;
+}
+.wallet-menu-content {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  z-index: 30;
+  display: grid;
+  gap: 12px;
+  width: min(300px, calc(100vw - 32px));
+  padding: 18px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px #09142618;
+}
+.wallet-menu-content code {
+  overflow-wrap: anywhere;
+  font-size: 12px;
+}
 .workspace-map,
 .journey-steps {
   display: grid;

@@ -73,7 +73,7 @@ test("setup restores an unresolved transaction after reload", async ({ page }) =
   await page.getByRole("button", { name: "Kết nối ví", exact: true }).last().click();
   await expect(page.getByRole("heading", { name: "Tiếp tục giao dịch đang chờ" })).toBeVisible();
   await page.reload();
-  await page.getByRole("button", { name: "Kết nối ví", exact: true }).last().click();
+  await expect(page.getByRole("heading", { name: "Tiếp tục giao dịch đang chờ" })).toBeVisible();
   await page.getByRole("button", { name: "Kiểm tra kết quả", exact: true }).click();
   await expect(page.getByText(/Đang chờ xác nhận hoặc đối chiếu/)).toBeVisible();
   await expect(page.getByRole("button", { name: "Xem trước giao dịch", exact: true })).toHaveCount(

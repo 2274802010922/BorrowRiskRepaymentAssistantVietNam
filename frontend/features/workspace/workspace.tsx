@@ -1,10 +1,13 @@
 "use client";
-import { useMemo, useState, useSyncExternalStore } from "react";
+import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import { ArrowRight, ExternalLink, RefreshCw, ShieldCheck } from "lucide-react";
 import { Buffer } from "buffer";
 import bs58 from "bs58";
 import Link from "next/link";
 import { compactNumber, exactToken } from "../../../shared/format";
+import { previewKey, writeRecovery, pendingPhases } from "../../lib/transaction-state";
+import { ExecutionReadiness } from "../../components/feedback/readiness";
+import { PreviewExpiry } from "../../components/feedback/preview-expiry";
 import { WorkspaceShell } from "../../components/layout/shell";
 import {
   ContentSkeleton,
@@ -27,6 +30,7 @@ import type {
 } from "../../../shared/types";
 
 type Prepared = {
+  contextKey: string;
   token: string;
   transaction: string;
   messageHash: string;
@@ -53,18 +57,13 @@ function readRecords() {
   }
 }
 function saveRecord(record: ExecutionRecord) {
-  try {
-    const records: ExecutionRecord[] = JSON.parse(readRecords());
-    window.localStorage.setItem(
-      recordKey,
-      JSON.stringify(
-        [record, ...records.filter((r) => r.signature !== record.signature)].slice(0, 20),
-      ),
-    );
-    window.dispatchEvent(new Event(recordKey));
-  } catch {
-    /* The current transaction remains in component state if storage is disabled. */
-  }
+  const records: ExecutionRecord[] = JSON.parse(readRecords());
+  if (!Array.isArray(records)) throw new Error("STORAGE_UNAVAILABLE");
+  const all = [record, ...records.filter((r) => r.signature !== record.signature)];
+  writeRecovery(recordKey, [
+    ...all.filter((r) => pendingPhases.includes(r.phase)),
+    ...all.filter((r) => !pendingPhases.includes(r.phase)).slice(0, 30),
+  ]);
 }
 
 export function Workspace() {
@@ -78,10 +77,12 @@ export function Workspace() {
 function WorkspaceContent({ wallet }: { wallet: string | null }) {
   const { t, locale } = useLanguage(),
     w = useWallet();
-  const [source, setSource] = useState<"synthetic" | "devnet">("synthetic");
-  const [snapshot, setSnapshot] = useState<PositionSnapshot | null>(exampleSnapshot());
+  const [source, setSource] = useState<"synthetic" | "devnet">(wallet ? "devnet" : "synthetic");
+  const [snapshot, setSnapshot] = useState<PositionSnapshot | null>(
+    wallet ? null : exampleSnapshot(),
+  );
   const [positions, setPositions] = useState<PositionSnapshot[]>([]);
-  const [loading, setLoading] = useState(false),
+  const [loading, setLoading] = useState(Boolean(wallet)),
     [error, setError] = useState<string | null>(null);
   const [shock, setShock] = useState(20),
     [budget, setBudget] = useState("100"),
@@ -109,15 +110,19 @@ function WorkspaceContent({ wallet }: { wallet: string | null }) {
     try {
       const rows: ExecutionRecord[] = JSON.parse(stored);
       return Array.isArray(rows)
-        ? rows.filter((r) => r.wallet === wallet && typeof r.signature === "string").slice(0, 10)
+        ? rows.filter((r) => r.wallet === wallet && typeof r.signature === "string")
         : [];
     } catch {
       return [];
     }
   }, [stored, wallet]);
-  const shownRecords = currentRecord
-    ? [currentRecord, ...records.filter((r) => r.signature !== currentRecord.signature)]
-    : records;
+  const shownRecords = useMemo(
+    () =>
+      currentRecord
+        ? [currentRecord, ...records.filter((r) => r.signature !== currentRecord.signature)]
+        : records,
+    [currentRecord, records],
+  );
   const format = (value: string, decimals = 2) => compactNumber(value, locale, decimals);
   const amount = (value: string) => exactToken(value, snapshot?.debt.decimals ?? 6, locale);
   const constraints = useMemo<Constraints | null>(() => {
@@ -147,6 +152,74 @@ function WorkspaceContent({ wallet }: { wallet: string | null }) {
     [snapshot, shock],
   );
   const selected = plan?.options.find((option) => option.id === choice) ?? plan?.options[0];
+  const currentPreviewKey = previewKey(
+    wallet,
+    source,
+    snapshot,
+    constraints,
+    selected?.repayAtomic,
+  );
+  const activePrepared = prepared?.contextKey === currentPreviewKey ? prepared : null;
+  const requestVersion = useRef(0);
+  const pollAttempts = useRef<Record<string, number>>({});
+  useEffect(() => {
+    if (!wallet) return;
+    let stopped = false;
+    const version = requestVersion.current;
+    void postApi<{ positions: PositionSnapshot[] }>("/api/positions/read", {
+      wallet,
+      position: new URLSearchParams(window.location.search).get("position") ?? undefined,
+    })
+      .then((result) => {
+        if (stopped || version !== requestVersion.current) return;
+        setPositions(result.positions);
+        setSnapshot(result.positions[0] ?? null);
+      })
+      .catch((e) => {
+        if (!stopped) setError(e instanceof Error ? e.message : "SERVICE_UNAVAILABLE");
+      })
+      .finally(() => {
+        if (!stopped) setLoading(false);
+      });
+    return () => {
+      stopped = true;
+    };
+  }, [wallet]);
+  useEffect(() => {
+    if (busy) return;
+    const record = shownRecords.find(
+      (r) => pendingPhases.includes(r.phase) && (pollAttempts.current[r.signature] ?? 0) < 8,
+    );
+    if (!record) return;
+    let stopped = false;
+    const timer = setTimeout(
+      () => {
+        pollAttempts.current[record.signature] = (pollAttempts.current[record.signature] ?? 0) + 1;
+        void postApi<{ phase: ExecutionRecord["phase"]; reason?: string }>(
+          "/api/repayments/status",
+          record,
+        )
+          .then((result) => {
+            if (stopped) return;
+            const updated = { ...record, phase: result.phase };
+            setCurrentRecord(updated);
+            saveRecord(updated);
+            setVerification(result.reason ?? null);
+          })
+          .catch((e) => {
+            if (!stopped) {
+              setError(e instanceof Error ? e.message : "SERVICE_UNAVAILABLE");
+              setCurrentRecord({ ...record });
+            }
+          });
+      },
+      Math.min(15000, 2000 * 2 ** (pollAttempts.current[record.signature] ?? 0)),
+    );
+    return () => {
+      stopped = true;
+      clearTimeout(timer);
+    };
+  }, [busy, shownRecords]);
   const explanationKey = JSON.stringify({
     snapshot,
     constraints,
@@ -154,6 +227,7 @@ function WorkspaceContent({ wallet }: { wallet: string | null }) {
     locale,
   });
   const invalidate = () => {
+    requestVersion.current++;
     setPrepared(null);
     setExplanation(null);
     setError(null);
@@ -166,6 +240,7 @@ function WorkspaceContent({ wallet }: { wallet: string | null }) {
     setLoading(true);
     setError(null);
     setPrepared(null);
+    const version = ++requestVersion.current;
     setSnapshot(null);
     setPositions([]);
     setSource("devnet");
@@ -174,14 +249,10 @@ function WorkspaceContent({ wallet }: { wallet: string | null }) {
         wallet,
         position: new URLSearchParams(window.location.search).get("position") ?? undefined,
       });
+      if (version !== requestVersion.current) return;
       setPositions(result.positions);
       setSnapshot(result.positions[0] ?? null);
-      if (result.positions[0]) {
-        const s = result.positions[0];
-        setBudget(units(s.walletDebtAtomic, s.debt.decimals).toString());
-        setReserve("0");
-        setTarget(String(Math.min(60, Math.floor(s.liquidationThresholdBps / 100) - 5)));
-      }
+      // Refresh never changes the user's spending, reserve or target choices.
     } catch (e) {
       setError(e instanceof Error ? e.message : "SERVICE_UNAVAILABLE");
     } finally {
@@ -193,6 +264,7 @@ function WorkspaceContent({ wallet }: { wallet: string | null }) {
     setBusy(true);
     setPhase("preparing");
     setError(null);
+    const version = requestVersion.current;
     try {
       const p = await postApi<Prepared>("/api/repayments/prepare", {
         wallet,
@@ -201,7 +273,12 @@ function WorkspaceContent({ wallet }: { wallet: string | null }) {
         constraints,
         repayAtomic: selected.repayAtomic,
       });
-      setPrepared(p);
+      if (version !== requestVersion.current) return;
+      setSnapshot(p.snapshot);
+      setPrepared({
+        ...p,
+        contextKey: previewKey(wallet, source, p.snapshot, constraints, selected.repayAtomic),
+      });
     } catch (e) {
       setError(e instanceof Error ? e.message : "SERVICE_UNAVAILABLE");
     } finally {
@@ -222,7 +299,15 @@ function WorkspaceContent({ wallet }: { wallet: string | null }) {
       setCurrentRecord(updated);
       saveRecord(updated);
       setVerification(result.reason ?? null);
-      if (result.snapshot) setSnapshot(result.snapshot);
+      if (
+        result.snapshot &&
+        source === "devnet" &&
+        result.snapshot.wallet === wallet &&
+        result.snapshot.position === snapshot?.position
+      ) {
+        setSnapshot(result.snapshot);
+        invalidate();
+      }
     } catch (e) {
       setError(e instanceof Error ? e.message : "SERVICE_UNAVAILABLE");
     } finally {
@@ -230,19 +315,21 @@ function WorkspaceContent({ wallet }: { wallet: string | null }) {
     }
   }
   async function sign() {
-    const p = prepared,
+    const p = activePrepared,
       provider = w.provider();
     if (!p || !provider || !wallet || !snapshot || !constraints || busy) return;
     setBusy(true);
     setPhase("awaiting_signature");
     setError(null);
     let record: ExecutionRecord | null = null;
+    const version = requestVersion.current;
     try {
       if (Date.now() >= p.expiresAt) throw new Error("PREVIEW_EXPIRED");
       const { VersionedTransaction } = await import("@solana/web3.js");
       const tx = VersionedTransaction.deserialize(Buffer.from(p.transaction, "base64"));
       const before = tx.message.serialize();
       const signed = await provider.signTransaction(tx);
+      if (version !== requestVersion.current) throw new Error("PREVIEW_CHANGED");
       const after = signed.message.serialize();
       if (
         provider.publicKey?.toBase58() !== wallet ||
@@ -266,7 +353,13 @@ function WorkspaceContent({ wallet }: { wallet: string | null }) {
         bindingToken: p.token,
       };
       setCurrentRecord(record);
-      saveRecord(record);
+      try {
+        saveRecord(record);
+      } catch {
+        record = null;
+        setCurrentRecord(null);
+        throw new Error("STORAGE_UNAVAILABLE");
+      }
       setPhase("submitting");
       setPrepared(null);
       await postApi("/api/repayments/submit", {
@@ -279,13 +372,23 @@ function WorkspaceContent({ wallet }: { wallet: string | null }) {
     } catch (e) {
       if (!record)
         setError(
-          e instanceof Error && ["PREVIEW_EXPIRED", "TRANSACTION_CHANGED"].includes(e.message)
+          e instanceof Error &&
+            [
+              "PREVIEW_EXPIRED",
+              "TRANSACTION_CHANGED",
+              "STORAGE_UNAVAILABLE",
+              "PREVIEW_CHANGED",
+            ].includes(e.message)
             ? e.message
             : "WALLET_REJECTED",
         );
       else {
         setCurrentRecord(record);
-        saveRecord(record);
+        try {
+          saveRecord(record);
+        } catch {
+          setError("STORAGE_UNAVAILABLE");
+        }
       }
     } finally {
       setBusy(false);
@@ -351,6 +454,7 @@ function WorkspaceContent({ wallet }: { wallet: string | null }) {
         )}
         action={<StatusBadge tone="info">Solana Devnet</StatusBadge>}
       />
+      <ExecutionReadiness />
       <nav className="workspace-map" aria-label={t("Các bước xử lý khoản vay", "Loan workflow")}>
         <a href="#position">{t("01 · Khoản vay", "01 · Position")}</a>
         <a href="#scenario">{t("02 · Kịch bản", "02 · Scenario")}</a>
@@ -366,6 +470,7 @@ function WorkspaceContent({ wallet }: { wallet: string | null }) {
       <div className="toolbar">
         <div className="segmented" aria-label={t("Nguồn dữ liệu", "Data source")}>
           <button
+            disabled={busy || loading}
             aria-pressed={source === "synthetic"}
             onClick={() => {
               setSource("synthetic");
@@ -378,7 +483,11 @@ function WorkspaceContent({ wallet }: { wallet: string | null }) {
           >
             {t("Dữ liệu minh họa", "Illustrative data")}
           </button>
-          <button aria-pressed={source === "devnet"} onClick={() => void load()}>
+          <button
+            disabled={busy || loading}
+            aria-pressed={source === "devnet"}
+            onClick={() => void load()}
+          >
             {t("Đọc ví của tôi", "Read my wallet")}
           </button>
         </div>
@@ -430,6 +539,7 @@ function WorkspaceContent({ wallet }: { wallet: string | null }) {
             <label className="form-field">
               <span>{t("Chọn khoản vay", "Choose a position")}</span>
               <select
+                disabled={busy}
                 value={snapshot.position}
                 onChange={(e) => {
                   setSnapshot(positions.find((s) => s.position === e.target.value) ?? null);
@@ -523,6 +633,7 @@ function WorkspaceContent({ wallet }: { wallet: string | null }) {
                   </span>
                   <input
                     id="shock"
+                    disabled={busy}
                     className="range-control"
                     type="range"
                     min="0"
@@ -539,6 +650,7 @@ function WorkspaceContent({ wallet }: { wallet: string | null }) {
                   {[0, 10, 20, 30].map((n) => (
                     <button
                       key={n}
+                      disabled={busy}
                       aria-pressed={shock === n}
                       onClick={() => {
                         setShock(n);
@@ -622,6 +734,7 @@ function WorkspaceContent({ wallet }: { wallet: string | null }) {
                 </span>
                 <input
                   id="budget"
+                  disabled={busy}
                   inputMode="decimal"
                   value={budget}
                   aria-invalid={parseUsdcInput(budget) === null}
@@ -643,6 +756,7 @@ function WorkspaceContent({ wallet }: { wallet: string | null }) {
                 </span>
                 <input
                   id="reserve"
+                  disabled={busy}
                   inputMode="decimal"
                   value={reserve}
                   aria-invalid={parseUsdcInput(reserve) === null}
@@ -660,6 +774,7 @@ function WorkspaceContent({ wallet }: { wallet: string | null }) {
                 <span>{t("Mục tiêu LTV sau kịch bản", "Target LTV after the scenario")} (%)</span>
                 <input
                   id="target"
+                  disabled={busy}
                   inputMode="decimal"
                   value={target}
                   onChange={(e) => {
@@ -848,7 +963,7 @@ function WorkspaceContent({ wallet }: { wallet: string | null }) {
                     "Switch to a Devnet wallet position before preparing a transaction.",
                   )}
                 </Notice>
-              ) : prepared ? (
+              ) : activePrepared ? (
                 <>
                   <Notice
                     title={t(
@@ -857,12 +972,33 @@ function WorkspaceContent({ wallet }: { wallet: string | null }) {
                     )}
                   >
                     {t("Phí mạng ước tính", "Estimated network fee")}:{" "}
-                    {format(units(prepared.feeLamports, 9).toString(), 9)} SOL.{" "}
+                    {format(units(activePrepared.feeLamports, 9).toString(), 9)} SOL.{" "}
                     {t(
                       "Bản xem trước có thời hạn; ví vẫn là nơi xác nhận cuối cùng.",
                       "The preview expires; your wallet is the final approval step.",
                     )}
                   </Notice>
+                  <p>
+                    <strong>
+                      {t("Số tiền sẽ ký", "Amount to sign")}:{" "}
+                      {exactToken(
+                        activePrepared.repayAtomic,
+                        activePrepared.snapshot.debt.decimals,
+                        locale,
+                      )}{" "}
+                      {activePrepared.snapshot.debt.symbol}
+                    </strong>
+                  </p>
+                  <PreviewExpiry expiresAt={activePrepared.expiresAt} />
+                  <button
+                    className="button button-secondary"
+                    disabled={busy}
+                    onClick={() => {
+                      setPrepared(null);
+                    }}
+                  >
+                    {t("Chuẩn bị lại", "Prepare again")}
+                  </button>
                   <button
                     className="button button-primary"
                     disabled={busy}
@@ -957,10 +1093,10 @@ function WorkspaceContent({ wallet }: { wallet: string | null }) {
           ))}
           {verification && (
             <p className="small-note">
-              {verification === "DEBT_REDUCED"
+              {verification.startsWith("REPAYMENT_CONFIRMED")
                 ? t(
-                    "Đã đọc lại và đối chiếu khoản nợ giảm.",
-                    "The reduced debt was re-read and verified.",
+                    "Đã xác minh giao dịch trả nợ trên chain. Làm mới để xem vị thế hiện tại.",
+                    "The repayment transaction was verified on-chain. Refresh to view the current position.",
                   )
                 : t(
                     "Cần tiếp tục kiểm tra trạng thái trên chain.",

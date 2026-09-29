@@ -129,7 +129,7 @@ export async function prepareRepayment(input: unknown) {
     constraints: request.constraints,
     repayAtomic: request.repayAtomic,
     messageHash: messageHash(message.serialize()),
-    expiresAt: Date.now() + 30000,
+    expiresAt: Date.now() + 90000,
     lastValidBlockHeight: latest.lastValidBlockHeight,
     feeLamports: String(fee.value),
   });
@@ -150,7 +150,6 @@ export async function submitRepayment(input: unknown) {
     .object({ token: z.string().max(20000), transaction: z.string().max(8192) })
     .parse(input);
   const bound = bindingSchema.parse(unseal(token));
-  if (Date.now() > bound.expiresAt) throw new AppError("PREVIEW_EXPIRED");
   const tx = VersionedTransaction.deserialize(Buffer.from(transaction, "base64")),
     message = tx.message.serialize();
   if (
@@ -169,6 +168,16 @@ export async function submitRepayment(input: unknown) {
   });
   if (!verify(null, message, publicKey, tx.signatures[0]))
     throw new AppError("TRANSACTION_CHANGED");
+  const c = await devnetConnection();
+  const signature = bs58.encode(tx.signatures[0]);
+  const existing = await c.getSignatureStatuses([signature], { searchTransactionHistory: true });
+  if (existing.value[0])
+    return { signature, phase: existing.value[0].err ? "failed" : "submitted" };
+  if (
+    Date.now() > bound.expiresAt ||
+    (await c.getBlockHeight("confirmed")) > bound.lastValidBlockHeight
+  )
+    throw new AppError("PREVIEW_EXPIRED");
   const { snapshot } = await readPosition(bound.wallet, bound.position);
   if (snapshot.warnings.includes("STALE_DATA")) throw new AppError("STALE_DATA");
   if (
@@ -177,11 +186,6 @@ export async function submitRepayment(input: unknown) {
     BigInt(snapshot.walletSolLamports) < BigInt(bound.feeLamports)
   )
     throw new AppError("INSUFFICIENT_FUNDS");
-  const c = await devnetConnection();
-  const signature = bs58.encode(tx.signatures[0]);
-  const existing = await c.getSignatureStatuses([signature], { searchTransactionHistory: true });
-  if (existing.value[0])
-    return { signature, phase: existing.value[0].err ? "failed" : "submitted" };
   const sent = await c.sendRawTransaction(tx.serialize(), {
     skipPreflight: false,
     preflightCommitment: "confirmed",
@@ -216,7 +220,6 @@ export async function repaymentStatus(input: unknown) {
   if (!tx || !tx.meta) return { phase: "verification_pending" };
   if (tx.meta.err || messageHash(tx.transaction.message.serialize()) !== bound.messageHash)
     throw new AppError("TRANSACTION_CHANGED");
-  const { snapshot } = await readPosition(bound.wallet, bound.position);
   const keys = tx.transaction.message.getAccountKeys({
     accountKeysFromLookups: tx.meta.loadedAddresses,
   });
@@ -233,9 +236,8 @@ export async function repaymentStatus(input: unknown) {
     BigInt(postToken.uiTokenAmount.amount) >= BigInt(bound.constraints.reserveAtomic) &&
     BigInt(preToken.uiTokenAmount.amount) - BigInt(postToken.uiTokenAmount.amount) ===
       BigInt(bound.repayAtomic);
-  const before = BigInt(bound.snapshot.debt.amountAtomic),
-    after = BigInt(snapshot.debt.amountAtomic);
-  if (snapshot.slot < tx.slot || !enoughReserve || after >= before)
-    return { phase: "verification_pending", reason: "STATE_NOT_MATCHED" };
-  return { phase: "verified", snapshot, reason: "DEBT_REDUCED" };
+  if (!enoughReserve)
+    return { phase: "confirmed", reason: "TOKEN_EFFECT_NOT_MATCHED", slot: tx.slot };
+  // Historical receipt is authoritative. Current position refresh is a separate request.
+  return { phase: "verified", reason: "REPAYMENT_CONFIRMED_REFRESH_PENDING", slot: tx.slot };
 }

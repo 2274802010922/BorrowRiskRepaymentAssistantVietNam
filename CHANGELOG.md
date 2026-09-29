@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-09-29 — sửa luồng Web3
+
+- API lỗi có JSON/request ID; kiểm cấu hình trước khi tải SDK và kiểm bộ file đóng gói trên CI.
+- Khôi phục ví đã tin cậy, menu ví, tự đọc vị thế và giữ ngân sách/dự trữ khi refresh.
+- Chặn preview cũ, lưu recovery trước gửi, polling có backoff và xác minh bằng receipt lịch sử.
+- Thêm rút thế chấp debt-free; marker đơn thuần không được xem là bằng chứng đã vay.
+- Giới hạn request; AI trên Vercel dùng template khi thiếu quota store chung.
+
 ## 2026-09-28 — picachu
 
 - Đổi UI sang picachu, giữ light terminal, thêm điều hướng quy trình và trang thiết lập demo.

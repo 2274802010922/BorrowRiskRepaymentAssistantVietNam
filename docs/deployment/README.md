@@ -1,5 +1,7 @@
 # Vercel + Devnet
 
+Từ đợt sửa Web3: để gọi OpenRouter trên Vercel, cấu hình thêm `RATE_LIMIT_REDIS_URL` và `RATE_LIMIT_REDIS_TOKEN` (Redis REST tương thích Upstash). Nếu chưa có, app dùng template, không phát sinh lượt gọi provider. Health trả `aiSharedBudgetConfigured`; xem [hạn mức và nghiệm thu](../testing/web3-hardening.md).
+
 <img src="../../public/brand/picachu-logo.jpg" alt="Logo pixel picachu" width="72">
 
 AI dùng OpenRouter theo yêu cầu ngày 28/09/2026. Đặt `OPENROUTER_API_KEY` server-only và `AI_MODEL` bằng model ID đầy đủ trên OpenRouter (`provider/model`). Chọn endpoint hỗ trợ structured outputs; request dùng `require_parameters: true`. Thiếu cấu hình, lỗi provider hoặc output không hợp lệ đều về template. Không cần `OPENAI_API_KEY`.

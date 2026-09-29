@@ -78,6 +78,7 @@ export function AppHeader({ workspace = false }: { workspace?: boolean }) {
   const { t, locale } = useLanguage(),
     w = useWallet();
   const [open, setOpen] = useState(false);
+  const [copied, setCopied] = useState(false);
   const dialog = useRef<HTMLDialogElement>(null),
     trigger = useRef<HTMLButtonElement>(null);
   useEffect(() => {
@@ -113,7 +114,46 @@ export function AppHeader({ workspace = false }: { workspace?: boolean }) {
                 {t("Cách sử dụng", "How it works")}
               </Link>
             )}
-            {
+            {w.wallet ? (
+              <details className="wallet-menu">
+                <summary className="button button-secondary">
+                  {w.wallet.slice(0, 4)}…{w.wallet.slice(-4)}
+                </summary>
+                <div className="wallet-menu-content">
+                  <strong>Phantom</strong>
+                  <code>{w.wallet}</code>
+                  <p className="small-note">
+                    {t("RPC ứng dụng: Solana Devnet", "App RPC: Solana Devnet")}
+                  </p>
+                  <button
+                    className="button button-secondary"
+                    onClick={() => {
+                      void navigator.clipboard
+                        .writeText(w.wallet!)
+                        .then(() => setCopied(true))
+                        .catch(() => setCopied(false));
+                    }}
+                  >
+                    {copied ? t("Đã sao chép", "Copied") : t("Sao chép địa chỉ", "Copy address")}
+                  </button>
+                  <a
+                    className="text-link"
+                    target="_blank"
+                    rel="noreferrer"
+                    href={`https://explorer.solana.com/address/${w.wallet}?cluster=devnet`}
+                  >
+                    Solana Explorer ↗
+                  </a>
+                  <button
+                    className="button button-secondary"
+                    disabled={w.busy}
+                    onClick={() => void w.disconnect()}
+                  >
+                    {t("Ngắt kết nối", "Disconnect")}
+                  </button>
+                </div>
+              </details>
+            ) : (
               <button
                 className="button button-secondary account-button"
                 type="button"
@@ -124,7 +164,7 @@ export function AppHeader({ workspace = false }: { workspace?: boolean }) {
                     : t("Kết nối ví · Phantom", "Connect wallet · Phantom")
                 }
                 disabled={w.busy}
-                onClick={() => void (w.wallet ? w.disconnect() : w.connect())}
+                onClick={() => void w.connect()}
               >
                 <Wallet size={16} aria-hidden="true" />
                 <span>
@@ -133,7 +173,7 @@ export function AppHeader({ workspace = false }: { workspace?: boolean }) {
                     : t("Kết nối ví", "Connect wallet")}
                 </span>
               </button>
-            }
+            )}
             <LanguageSwitcher />
             {workspace && (
               <button

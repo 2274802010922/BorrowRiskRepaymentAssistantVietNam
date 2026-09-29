@@ -2,6 +2,7 @@ import { z } from "zod";
 export const demoInputSchema = z.object({
   wallet: z.string().regex(/^[1-9A-HJ-NP-Za-km-z]{32,44}$/),
   action: z.enum(["check", "prepare", "submit", "status"]),
+  operation: z.literal("withdraw").optional(),
   depositAtomic: z
     .string()
     .regex(/^\d{1,10}$/)
@@ -18,7 +19,8 @@ export const demoInputSchema = z.object({
     .optional(),
 });
 export type DemoCheck = {
-  stage: "deposit" | "borrow" | "ready";
+  stage: "deposit" | "borrow" | "ready" | "closed";
+  canWithdraw: boolean;
   position: string;
   walletSol: string;
   collateralAtomic: string;
@@ -31,14 +33,15 @@ export type DemoPrepared = {
   token: string;
   transaction: string;
   expiresAt: number;
-  stage: "deposit" | "borrow";
+  stage: "deposit" | "borrow" | "withdraw";
   amountAtomic: string;
   feeLamports: string;
+  totalSolDebitLamports?: string;
   position: string;
 };
 export type DemoRecord = {
   wallet: string;
   signature: string;
   token: string;
-  stage: "deposit" | "borrow";
+  stage: "deposit" | "borrow" | "withdraw";
 };

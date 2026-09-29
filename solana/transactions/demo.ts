@@ -14,7 +14,7 @@ import { seal, unseal } from "../../backend/services/binding";
 import { AppError } from "../../backend/services/http";
 import { demoInputSchema, type DemoCheck } from "../../shared/demo";
 import { demoBorrow, demoBorrowCap, demoDeposit } from "../../core/validation/demo";
-import { loadMarket, readPosition, TOKEN_PROGRAM, associatedToken } from "../adapters/kamino";
+import { loadMarket, TOKEN_PROGRAM, associatedToken } from "../adapters/kamino";
 import { devnetConnection } from "../network/rpc";
 import { KAMINO_PROGRAM_ID } from "../network/constants.mjs";
 import { messageHash } from "./repay";
@@ -23,7 +23,7 @@ const bindingSchema = z.object({
   purpose: z.literal("picachu-demo-v1"),
   wallet: z.string(),
   position: z.string(),
-  stage: z.enum(["deposit", "borrow"]),
+  stage: z.enum(["deposit", "borrow", "withdraw"]),
   amountAtomic: z.string(),
   messageHash: z.string(),
   expiresAt: z.number(),
@@ -46,11 +46,6 @@ export async function inspectDemo(wallet: string) {
   const collateral = context.market.getReserveByAddress(address(context.ids.collateral))!;
   const debt = context.market.getReserveByAddress(address(context.ids.debt))!;
   if (
-    context.market.requiresPermissioner(PermissionedOp.fromString("DEPOSIT"), [collateral]) ||
-    context.market.requiresPermissioner(PermissionedOp.fromString("BORROW"), [debt])
-  )
-    throw new AppError("DEMO_MARKET_UNAVAILABLE");
-  if (
     collateral.state.liquidity.mintPubkey !== "So11111111111111111111111111111111111111112" ||
     debt.state.liquidity.mintDecimals.toNumber() !== 6 ||
     debt.state.liquidity.tokenProgram !== TOKEN_PROGRAM.toBase58()
@@ -61,12 +56,12 @@ export async function inspectDemo(wallet: string) {
     if (age < -30 || age > 60 || !reserve.tokenOraclePrice.valid) throw new AppError("STALE_DATA");
   }
   const position = await demoType().toPda(address(context.ids.market), address(wallet));
-  const obligations = await context.market.getAllUserObligations(address(wallet), context.ledger);
-  const obligation = obligations.find((o) => o.obligationAddress === position);
+  const obligation = await context.market.getObligationByAddress(position);
+  if (obligation && obligation.state.owner !== wallet) throw new AppError("UNSUPPORTED_POSITION");
   const deposits = obligation?.getDeposits() ?? [];
   const borrows = obligation?.getBorrows() ?? [];
   if (
-    (obligation && deposits.length !== 1) ||
+    deposits.length > 1 ||
     borrows.length > 1 ||
     deposits.some((d) => d.reserveAddress !== context.ids.collateral) ||
     borrows.some((b) => b.reserveAddress !== context.ids.debt)
@@ -78,12 +73,15 @@ export async function inspectDemo(wallet: string) {
   const debtAtomic = borrows[0]?.amount.ceil().toFixed(0) ?? "0";
   const marker = await borrowMarker(wallet, position);
   const markerExists = Boolean(await connection.getAccountInfo(marker.key, "confirmed"));
+  // A funded marker alone is not evidence of a loan. Report a blocked session explicitly.
   const stage =
-    BigInt(debtAtomic) > 0n || (obligation && markerExists)
+    BigInt(debtAtomic) > 0n
       ? "ready"
-      : obligation
-        ? "borrow"
-        : "deposit";
+      : markerExists || (obligation && deposits.length === 0)
+        ? "closed"
+        : obligation
+          ? "borrow"
+          : "deposit";
   const risk = context.market.getMaxAndLiquidationLtvAndBorrowFactorForPair(
     collateral.address,
     debt.address,
@@ -98,7 +96,7 @@ export async function inspectDemo(wallet: string) {
     debt.getLiquidityAvailableAmount().toFixed(0),
   );
   if (
-    stage !== "ready" &&
+    stage === "deposit" &&
     (debt.state.config.borrowLimit.isZero() ||
       debt.borrowLimitCrossed() ||
       (stage === "deposit" && collateral.depositLimitCrossed()) ||
@@ -108,6 +106,7 @@ export async function inspectDemo(wallet: string) {
     throw new AppError("DEMO_MARKET_UNAVAILABLE");
   const check: DemoCheck = {
     stage,
+    canWithdraw: Boolean(obligation && BigInt(collateralAtomic) > 0n && BigInt(debtAtomic) === 0n),
     position,
     walletSol,
     collateralAtomic,
@@ -126,25 +125,39 @@ export async function demoAction(input: unknown) {
   if (request.action === "prepare") {
     seal({ readiness: true });
     const { check, context, obligation, connection, debt } = await inspectDemo(request.wallet);
-    if (check.stage === "ready") throw new AppError("DEMO_ALREADY_EXISTS");
+    const stage = request.operation === "withdraw" ? "withdraw" : check.stage;
+    if (stage === "ready" || stage === "closed") throw new AppError("DEMO_ALREADY_EXISTS");
+    if (stage === "withdraw" && !check.canWithdraw) throw new AppError("DEMO_WITHDRAW_BLOCKED");
+    const actionReserve = context.market.getReserveByAddress(
+      address(stage === "borrow" ? context.ids.debt : context.ids.collateral),
+    )!;
+    if (
+      context.market.requiresPermissioner(PermissionedOp.fromString(stage.toUpperCase()), [
+        actionReserve,
+      ])
+    )
+      throw new AppError("DEMO_MARKET_UNAVAILABLE");
     let amount: string;
     try {
       amount =
-        check.stage === "deposit"
-          ? demoDeposit(request.depositAtomic)
-          : demoBorrow(request.borrowAtomic, check.maxBorrowAtomic);
+        stage === "withdraw"
+          ? check.collateralAtomic
+          : stage === "deposit"
+            ? demoDeposit(request.depositAtomic)
+            : demoBorrow(request.borrowAtomic, check.maxBorrowAtomic);
     } catch {
       throw new AppError("INVALID_INPUT");
     }
     // Leave SOL for rent/fees; simulation remains the authoritative account-creation check.
-    if (BigInt(check.walletSol) < (check.stage === "deposit" ? BigInt(amount) : 0n) + 50000000n)
+    if (
+      BigInt(check.walletSol) <
+      (stage === "deposit" ? BigInt(amount) : 0n) + (stage === "withdraw" ? 1000000n : 50000000n)
+    )
       throw new AppError("INSUFFICIENT_SOL");
     const props = {
       kaminoMarket: context.market,
-      amount,
-      reserveAddress: address(
-        check.stage === "deposit" ? context.ids.collateral : context.ids.debt,
-      ),
+      amount: stage === "withdraw" ? "18446744073709551615" : amount,
+      reserveAddress: address(stage !== "borrow" ? context.ids.collateral : context.ids.debt),
       owner: createNoopSigner(address(request.wallet)),
       obligation: obligation ?? demoType(),
       useV2Ixs: true,
@@ -154,9 +167,11 @@ export async function demoAction(input: unknown) {
       requestElevationGroup: false,
     };
     const action =
-      check.stage === "deposit"
-        ? await KaminoAction.buildDepositTxns(props)
-        : await KaminoAction.buildBorrowTxns(props);
+      stage === "withdraw"
+        ? await KaminoAction.buildWithdrawTxns(props)
+        : stage === "deposit"
+          ? await KaminoAction.buildDepositTxns(props)
+          : await KaminoAction.buildBorrowTxns(props);
     const instructions = KaminoAction.actionToIxs(action).map(
       (ix) =>
         new TransactionInstruction({
@@ -169,7 +184,7 @@ export async function demoAction(input: unknown) {
           data: Buffer.from(ix.data ?? []),
         }),
     );
-    if (check.stage === "borrow") {
+    if (stage === "borrow") {
       const marker = await borrowMarker(request.wallet, check.position);
       // Atomic once-only marker: concurrent tabs cannot both borrow, even with different blockhashes.
       instructions.unshift(
@@ -206,6 +221,7 @@ export async function demoAction(input: unknown) {
     const simulation = await connection.simulateTransaction(tx, {
       sigVerify: false,
       commitment: "confirmed",
+      accounts: { encoding: "base64", addresses: [request.wallet] },
     });
     if (simulation.value.err) throw new AppError("SIMULATION_FAILED");
     const fee = (await connection.getFeeForMessage(message, "confirmed")).value;
@@ -215,7 +231,7 @@ export async function demoAction(input: unknown) {
       purpose: "picachu-demo-v1",
       wallet: request.wallet,
       position: check.position,
-      stage: check.stage,
+      stage,
       amountAtomic: amount,
       messageHash: messageHash(message.serialize()),
       expiresAt,
@@ -226,9 +242,12 @@ export async function demoAction(input: unknown) {
       token: seal(bound),
       transaction: Buffer.from(serialized).toString("base64"),
       expiresAt,
-      stage: check.stage,
+      stage,
       amountAtomic: amount,
       feeLamports: String(fee),
+      totalSolDebitLamports: simulation.value.accounts?.[0]
+        ? String(Math.max(0, Number(check.walletSol) - simulation.value.accounts[0].lamports))
+        : undefined,
       position: check.position,
     };
   }
@@ -260,7 +279,10 @@ export async function demoAction(input: unknown) {
     if (status) return { signature, phase: status.err ? "failed" : "submitted" };
     if (Date.now() > bound.expiresAt) throw new AppError("PREVIEW_EXPIRED");
     const { check } = await inspectDemo(bound.wallet);
-    if (check.stage !== bound.stage || check.position !== bound.position)
+    if (
+      (bound.stage === "withdraw" ? !check.canWithdraw : check.stage !== bound.stage) ||
+      check.position !== bound.position
+    )
       throw new AppError("DEMO_ALREADY_EXISTS");
     if (bound.stage === "borrow") {
       try {
@@ -298,14 +320,13 @@ export async function demoAction(input: unknown) {
   if (!tx?.meta) return { phase: "pending" };
   if (tx.meta.err || messageHash(tx.transaction.message.serialize()) !== bound.messageHash)
     throw new AppError("TRANSACTION_CHANGED");
-  const { snapshot } = await readPosition(bound.wallet, bound.position);
-  if (snapshot.slot < tx.slot || snapshot.warnings.includes("STALE_DATA"))
-    return { phase: "pending" };
   if (bound.stage === "deposit") {
-    // Exchange-rate rounding can reduce the credited atomic collateral by a few lamports.
-    if (BigInt(snapshot.collateral.amountAtomic) < (BigInt(bound.amountAtomic) * 999n) / 1000n)
-      return { phase: "pending" };
-  } else {
+    if (
+      BigInt(tx.meta.preBalances[0]) - BigInt(tx.meta.postBalances[0]) <
+      BigInt(bound.amountAtomic)
+    )
+      return { phase: "confirmed", reason: "EFFECT_NOT_MATCHED" };
+  } else if (bound.stage === "borrow") {
     const keys = tx.transaction.message.getAccountKeys({
       accountKeysFromLookups: tx.meta.loadedAddresses,
     });
@@ -319,10 +340,11 @@ export async function demoAction(input: unknown) {
     if (
       !after ||
       BigInt(after.uiTokenAmount.amount) - BigInt(before?.uiTokenAmount.amount ?? "0") !==
-        BigInt(bound.amountAtomic) ||
-      BigInt(snapshot.debt.amountAtomic) < BigInt(bound.amountAtomic)
+        BigInt(bound.amountAtomic)
     )
-      return { phase: "pending" };
+      return { phase: "confirmed", reason: "EFFECT_NOT_MATCHED" };
   }
-  return { phase: "verified", snapshot };
+  if (bound.stage === "withdraw" && tx.meta.postBalances[0] <= tx.meta.preBalances[0])
+    return { phase: "confirmed", reason: "EFFECT_NOT_MATCHED" };
+  return { phase: "verified", position: bound.position, slot: tx.slot };
 }

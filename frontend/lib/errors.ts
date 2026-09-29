@@ -1,5 +1,49 @@
 import type { Locale } from "../../shared/types";
 const messages: Record<string, [string, string]> = {
+  DEMO_WITHDRAW_BLOCKED: [
+    "Chỉ rút được thế chấp khi vị thế không còn nợ. Làm mới và kiểm tra khoản vay trước.",
+    "Collateral can only be withdrawn when the position has no debt. Refresh and review the loan first.",
+  ],
+  RATE_LIMIT_UNAVAILABLE: [
+    "Chưa kiểm tra được hạn mức dịch vụ. Thử lại sau.",
+    "Service budget could not be checked. Try again later.",
+  ],
+  WALLET_CONNECTION_FAILED: [
+    "Chưa kết nối được Phantom. Mở ví, kiểm tra yêu cầu đang chờ rồi thử lại.",
+    "Could not connect to Phantom. Open the wallet, review pending requests and retry.",
+  ],
+  WALLET_REQUEST_PENDING: [
+    "Phantom đang có yêu cầu chờ xác nhận. Mở ví để xử lý.",
+    "Phantom has a pending request. Open your wallet to review it.",
+  ],
+  STORAGE_UNAVAILABLE: [
+    "Không lưu được tiến độ; giao dịch chưa gửi. Cho phép lưu trữ trang hoặc dùng trình duyệt khác.",
+    "Progress could not be saved; no transaction was sent. Enable site storage or use another browser.",
+  ],
+  PREVIEW_CHANGED: [
+    "Dữ liệu đã thay đổi. Xem lại phương án và chuẩn bị giao dịch mới.",
+    "Inputs changed. Review the plan and prepare a new transaction.",
+  ],
+  MARKET_NOT_FOUND: [
+    "Không tìm thấy market đã cấu hình. Người vận hành cần kiểm tra địa chỉ Devnet.",
+    "Configured market was not found. The operator must verify its Devnet address.",
+  ],
+  RESERVE_NOT_FOUND: [
+    "Không tìm thấy reserve đã cấu hình. Đây không phải ví không có khoản vay.",
+    "A configured reserve was not found. This does not mean the wallet has no positions.",
+  ],
+  SERVER_DEPENDENCY_ERROR: [
+    "Backend thiếu hoặc không tải được thư viện. Gửi mã yêu cầu cho người vận hành để kiểm tra log.",
+    "The backend could not load a dependency. Share the request ID with the operator to inspect logs.",
+  ],
+  RATE_LIMITED: [
+    "Đã đạt giới hạn yêu cầu. Chờ một phút rồi thử lại.",
+    "Request limit reached. Wait a minute and try again.",
+  ],
+  TOO_MANY_POSITIONS: [
+    "Có quá nhiều vị thế cho lần đọc này. Mở một vị thế bằng đường dẫn cụ thể.",
+    "Too many positions for this read. Open a specific position link.",
+  ],
   SIGNATURE_REJECTED: [
     "Chưa ký giao dịch. Bạn có thể xem lại và thử lại.",
     "The transaction was not signed. Review it and try again.",
@@ -90,7 +134,11 @@ const messages: Record<string, [string, string]> = {
   ],
 };
 export function errorMessage(code: string, locale: Locale) {
-  return (messages[code] ?? messages.SERVICE_UNAVAILABLE)[locale === "vi" ? 0 : 1];
+  const [name, requestId] = code.split("|");
+  return (
+    (messages[name] ?? messages.SERVICE_UNAVAILABLE)[locale === "vi" ? 0 : 1] +
+    (requestId ? (locale === "vi" ? " Mã yêu cầu: " : " Request ID: ") + requestId : "")
+  );
 }
 export async function postApi<T>(path: string, body: unknown): Promise<T> {
   const response = await fetch(path, {
@@ -99,7 +147,11 @@ export async function postApi<T>(path: string, body: unknown): Promise<T> {
     body: JSON.stringify(body),
     signal: AbortSignal.timeout(path === "/api/demo" ? 65_000 : 35_000),
   });
-  const result = await response.json();
-  if (!response.ok) throw new Error(result.error?.code ?? "SERVICE_UNAVAILABLE");
+  const result = await response.json().catch(() => null);
+  if (!response.ok || !result)
+    throw new Error(
+      (result?.error?.code ?? "SERVICE_UNAVAILABLE") +
+        (result?.error?.requestId ? "|" + result.error.requestId : ""),
+    );
   return result as T;
 }

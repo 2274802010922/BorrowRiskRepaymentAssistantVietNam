@@ -1,18 +1,21 @@
 import { NextResponse } from "next/server";
+import { executionReadiness } from "../../../backend/services/readiness";
 export function GET() {
-  return NextResponse.json({
-    app: "picachu",
-    cluster: "devnet",
-    executionConfigured: Boolean(
-      process.env.PLAN_BINDING_SECRET &&
-      process.env.PLAN_BINDING_SECRET.length >= 32 &&
-      process.env.KAMINO_MARKET_ID &&
-      process.env.KAMINO_COLLATERAL_RESERVE &&
-      process.env.KAMINO_DEBT_RESERVE,
-    ),
-    aiConfigured: Boolean(
-      process.env.AI_ENABLED === "true" && process.env.OPENROUTER_API_KEY && process.env.AI_MODEL,
-    ),
-    mode: "mvp",
-  });
+  const execution = executionReadiness();
+  return NextResponse.json(
+    {
+      app: "picachu",
+      cluster: "devnet",
+      executionConfigured: execution.configured,
+      execution,
+      aiConfigured: Boolean(
+        process.env.AI_ENABLED === "true" && process.env.OPENROUTER_API_KEY && process.env.AI_MODEL,
+      ),
+      mode: "mvp",
+      aiSharedBudgetConfigured: Boolean(
+        process.env.RATE_LIMIT_REDIS_URL && process.env.RATE_LIMIT_REDIS_TOKEN,
+      ),
+    },
+    { headers: { "cache-control": "no-store" } },
+  );
 }

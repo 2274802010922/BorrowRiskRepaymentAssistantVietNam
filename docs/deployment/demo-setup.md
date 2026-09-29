@@ -32,9 +32,9 @@ Lệnh đọc `.env.local`, không in secret/RPC URL, không ký hoặc gửi gi
 - Tiến độ pending lưu theo ví trong localStorage trước submit. Nếu trình duyệt không lưu được, không submit. Reload rồi kết nối lại cùng ví để kiểm tra tiếp. Không xóa site data khi giao dịch chưa rõ kết quả.
 - Gửi thế chấp tạo obligation trong cùng giao dịch; giao dịch khởi tạo trùng sẽ thất bại nguyên tử.
 - Giao dịch vay tạo thêm một System account có seed xác định làm dấu “đã vay”. Tạo dấu và vay trong cùng giao dịch: gửi từ hai tab không thể cùng thành công. Dấu tiêu tốn rent được simulation và ví phản ánh. Sau khi trả hết, setup không vay lại trên cùng phiên; không có nút xóa dấu hoặc reset tự động.
-- Marker và ràng buộc id 201 phục vụ demo, không phải sản phẩm quản lý mọi vị thế. Số dư thế chấp vẫn nằm trong protocol nếu bạn dừng sau deposit; giao diện chưa có rút thế chấp.
+- Marker và ràng buộc id 201 phục vụ demo, không phải sản phẩm quản lý mọi vị thế. Nếu dừng sau deposit hoặc đã trả hết nợ, trang setup có nút xem trước rút toàn bộ thế chấp; vẫn cần simulation và chữ ký riêng. Marker có tồn tại nhưng không có nợ chỉ được báo là phiên đóng/bị chặn, không coi là bằng chứng đã vay. Muốn một phiên demo mới sau khi đóng, dùng ví Devnet thử nghiệm khác; chưa có luồng tự reset marker.
 - Nếu giao dịch SDK vượt 1232 byte hoặc cần signer bổ sung, chặn và báo rõ. Chưa có luồng tự tạo LUT/multi-transaction setup fallback; cần kiểm chứng trên market cụ thể.
-- HTTP 200, simulation hoặc signature không phải proof thành công. Status kiểm hash message, confirmation và dữ liệu vị thế; borrow còn kiểm delta token nhận được.
+- HTTP 200, simulation hoặc signature không phải proof thành công. Status kiểm hash message, confirmation và hiệu ứng token/SOL trong receipt lịch sử. Việc làm mới vị thế hiện tại là bước riêng, không đảo ngược một receipt đã xác minh chỉ vì oracle hiện tại lỗi hoặc người dùng đã thay đổi nợ sau đó.
 - Xác minh vẫn phụ thuộc RPC/oracle hoạt động. Pending được giữ khi không đọc được trạng thái, không tự chuyển thành thành công.
 
 ## Bằng chứng cần bổ sung khi nghiệm thu live

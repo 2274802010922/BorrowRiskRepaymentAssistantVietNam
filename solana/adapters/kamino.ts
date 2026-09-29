@@ -9,6 +9,7 @@ import {
 import {
   LendingMarket,
   Reserve,
+  Obligation,
 } from "@kamino-finance/klend-sdk/dist/@codegen/klend/accounts/index.js";
 import { PublicKey } from "@solana/web3.js";
 import { AppError } from "../../backend/services/http";
@@ -52,13 +53,13 @@ export async function loadMarket() {
     [address(ids.market)],
     address(KAMINO_PROGRAM_ID),
   );
-  if (!state) throw new AppError("NO_SUPPORTED_POSITION");
+  if (!state) throw new AppError("MARKET_NOT_FOUND", 503);
   const reserves = await Reserve.fetchMultiple(
     rpc,
     [address(ids.collateral), address(ids.debt)],
     address(KAMINO_PROGRAM_ID),
   );
-  if (!reserves[0] || !reserves[1]) throw new AppError("NO_SUPPORTED_POSITION");
+  if (!reserves[0] || !reserves[1]) throw new AppError("RESERVE_NOT_FOUND", 503);
   const entries = reserves.map((s, i) => ({
     address: address(i === 0 ? ids.collateral : ids.debt),
     state: s!,
@@ -96,16 +97,19 @@ export async function loadMarket() {
 export async function readPosition(
   wallet: string,
   position?: string,
+  existing?: { context: Awaited<ReturnType<typeof loadMarket>>; obligations: KaminoObligation[] },
 ): Promise<{
   snapshot: PositionSnapshot;
   context: Awaited<ReturnType<typeof loadMarket>>;
   obligation: KaminoObligation;
 }> {
-  const context = await loadMarket();
-  const obligations = await context.market.getAllUserObligations(address(wallet), context.ledger);
+  const context = existing?.context ?? (await loadMarket());
+  const obligations =
+    existing?.obligations ?? (await supportedObligations(context, wallet, position));
   const obligation = position
     ? obligations.find((o) => o.obligationAddress === position)
-    : obligations[0];
+    : obligations.find((o) => supported(o, context.ids));
+  if (!obligation && obligations.length && !position) throw new AppError("UNSUPPORTED_POSITION");
   if (!obligation) throw new AppError("NO_SUPPORTED_POSITION", 404);
   const deposits = obligation.getDeposits(),
     borrows = obligation.getBorrows();
@@ -187,4 +191,70 @@ export async function readPosition(
     throw new AppError("UNSUPPORTED_POSITION");
   if (Date.now() - Number(priceTimestamp) * 1000 > 60000) snapshot.warnings.push("STALE_DATA");
   return { snapshot, context, obligation };
+}
+
+function supported(o: KaminoObligation, ids: ReturnType<typeof configuredMarket>) {
+  const deposits = o.getDeposits(),
+    borrows = o.getBorrows();
+  return (
+    deposits.length === 1 &&
+    deposits[0].reserveAddress === ids.collateral &&
+    borrows.length <= 1 &&
+    (!borrows[0] || borrows[0].reserveAddress === ids.debt)
+  );
+}
+async function supportedObligations(
+  context: Awaited<ReturnType<typeof loadMarket>>,
+  wallet: string,
+  position?: string,
+) {
+  const c = await devnetConnection();
+  const raw = await c.getProgramAccounts(new PublicKey(KAMINO_PROGRAM_ID), {
+    commitment: "confirmed",
+    filters: [
+      { dataSize: Obligation.layout.span + 8 },
+      { memcmp: { offset: 64, bytes: wallet } },
+      { memcmp: { offset: 32, bytes: context.ids.market } },
+    ],
+  });
+  const selected = raw.filter((account) => {
+    if (position && account.pubkey.toBase58() !== position) return false;
+    const state = Obligation.decode(account.account.data);
+    if (!state || state.owner !== wallet || state.lendingMarket !== context.ids.market)
+      return false;
+    const deposits = state.deposits.filter((d) => !d.depositedAmount.isZero());
+    const borrows = state.borrows.filter((b) => !b.borrowedAmountSf.isZero());
+    return (
+      deposits.length === 1 &&
+      deposits[0].depositReserve === context.ids.collateral &&
+      borrows.length <= 1 &&
+      (!borrows[0] || borrows[0].borrowReserve === context.ids.debt)
+    );
+  });
+  if (!selected.length && raw.length && !position) throw new AppError("UNSUPPORTED_POSITION");
+  if (selected.length > 10) throw new AppError("TOO_MANY_POSITIONS");
+  if (!selected.length) return [];
+  const loaded = await context.market.getMultipleObligationsByAddress(
+    selected.map((a) => address(a.pubkey.toBase58())),
+    context.ledger,
+  );
+  return loaded.filter((o): o is KaminoObligation => o !== null);
+}
+export async function readPositions(
+  wallet: string,
+  position?: string,
+): Promise<PositionSnapshot[]> {
+  const context = await loadMarket();
+  const obligations = await supportedObligations(context, wallet, position);
+  const found = position
+    ? obligations.filter((o) => o.obligationAddress === position)
+    : obligations.filter((o) => supported(o, context.ids));
+  if (!found.length && obligations.length && !position) throw new AppError("UNSUPPORTED_POSITION");
+  if (found.length > 10) throw new AppError("TOO_MANY_POSITIONS");
+  return Promise.all(
+    found.map(
+      async (o) =>
+        (await readPosition(wallet, o.obligationAddress, { context, obligations })).snapshot,
+    ),
+  );
 }

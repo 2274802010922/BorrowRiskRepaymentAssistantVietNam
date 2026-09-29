@@ -1,11 +1,17 @@
 import { NextResponse } from "next/server";
-import { demoAction } from "../../../solana/transactions/demo";
+import { consumeBudget } from "../../../backend/services/limits";
+import { requireExecutionConfig } from "../../../backend/services/readiness";
 import { apiError, readJson } from "../../../backend/services/http";
 export const runtime = "nodejs";
 export const maxDuration = 60;
 export async function POST(request: Request) {
   try {
-    return NextResponse.json(await demoAction(await readJson(request)), {
+    await consumeBudget("rpc");
+    const input = await readJson(request);
+    if (!(input && typeof input === "object" && "action" in input && input.action === "status"))
+      requireExecutionConfig();
+    const { demoAction } = await import("../../../solana/transactions/demo");
+    return NextResponse.json(await demoAction(input), {
       headers: { "cache-control": "no-store" },
     });
   } catch (error) {

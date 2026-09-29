@@ -1,5 +1,5 @@
 "use client";
-import { useState, useSyncExternalStore } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { Buffer } from "buffer";
 import bs58 from "bs58";
@@ -11,6 +11,8 @@ import { useWallet } from "../../components/wallet/provider";
 import { postApi, errorMessage } from "../../lib/errors";
 import { exactToken } from "../../../shared/format";
 import type { DemoCheck, DemoPrepared, DemoRecord } from "../../../shared/demo";
+import { ExecutionReadiness } from "../../components/feedback/readiness";
+import { PreviewExpiry } from "../../components/feedback/preview-expiry";
 
 const storageKey = "picachu-demo-pending";
 function subscribe(fn: () => void) {
@@ -60,6 +62,42 @@ function SetupContent({ wallet }: { wallet: string | null }) {
     [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<string | null>(null);
   const raw = useSyncExternalStore(subscribe, stored, () => "{}");
+  useEffect(() => {
+    if (busy || !wallet) return;
+    let record: DemoRecord | undefined;
+    try {
+      record = JSON.parse(raw)[wallet];
+    } catch {
+      return;
+    }
+    if (!record?.token || !record.signature) return;
+    let stopped = false,
+      attempts = 0;
+    let timer: ReturnType<typeof setTimeout>;
+    const poll = async () => {
+      if (stopped || attempts++ >= 8) return;
+      try {
+        const response = await postApi<{ phase: string }>("/api/demo", {
+          ...record,
+          action: "status",
+        });
+        if (stopped) return;
+        setResult(response.phase);
+        if (["verified", "failed", "expired"].includes(response.phase)) {
+          persist(null, wallet);
+          return;
+        }
+      } catch (e) {
+        if (!stopped) setError(e instanceof Error ? e.message : "SERVICE_UNAVAILABLE");
+      }
+      if (!stopped) timer = setTimeout(() => void poll(), Math.min(15000, 2000 * 2 ** attempts));
+    };
+    timer = setTimeout(() => void poll(), 2000);
+    return () => {
+      stopped = true;
+      clearTimeout(timer);
+    };
+  }, [raw, wallet, busy]);
   let pending: DemoRecord | null = null;
   try {
     const row = JSON.parse(raw)[wallet ?? ""];
@@ -151,6 +189,7 @@ function SetupContent({ wallet }: { wallet: string | null }) {
         )}
         action={<StatusBadge tone="info">Solana Devnet</StatusBadge>}
       />
+      <ExecutionReadiness />
       <ol className="journey-steps" aria-label={t("Tiến độ thiết lập", "Setup progress")}>
         {[
           t("Kiểm tra", "Check"),
@@ -312,7 +351,38 @@ function SetupContent({ wallet }: { wallet: string | null }) {
               </Link>
             </>
           )}
-          {check && check.stage !== "ready" && (
+          {check?.stage === "closed" && (
+            <Notice
+              title={t("Phiên này không mở khoản vay mới", "This session cannot open another loan")}
+            >
+              {t(
+                "Phiên đã kết thúc hoặc địa chỉ đánh dấu đã tồn tại. Điều này không tự chứng minh từng có khoản vay. Có thể rút thế chấp nếu không còn nợ; dùng ví Devnet riêng khác để tạo phiên thử mới.",
+                "This session ended or its marker address exists. That alone does not prove a prior loan. Withdraw collateral if debt-free; use another dedicated Devnet wallet for a fresh test session.",
+              )}
+            </Notice>
+          )}
+          {check?.canWithdraw && !preview && (
+            <div className="actions-row">
+              <button
+                className="button button-secondary"
+                disabled={busy || Boolean(pending)}
+                onClick={() =>
+                  void run(async () =>
+                    setPreview(
+                      await postApi<DemoPrepared>("/api/demo", {
+                        action: "prepare",
+                        operation: "withdraw",
+                        wallet,
+                      }),
+                    ),
+                  )
+                }
+              >
+                {t("Xem trước rút toàn bộ thế chấp", "Preview full collateral withdrawal")}
+              </button>
+            </div>
+          )}
+          {check && ["deposit", "borrow"].includes(check.stage) && (
             <>
               <label className="setup-field">
                 {check.stage === "deposit"
@@ -368,44 +438,61 @@ function SetupContent({ wallet }: { wallet: string | null }) {
                     : t("Xem trước giao dịch", "Preview transaction")}
                 </button>
               )}
-              {preview && (
-                <div className="setup-preview">
-                  <StatusBadge tone="success">
-                    {t("Simulation thành công", "Simulation passed")}
-                  </StatusBadge>
-                  <p>
-                    <strong>
-                      {preview.stage === "deposit" ? t("Thế chấp", "Deposit") : t("Vay", "Borrow")}{" "}
-                      {exactToken(
-                        preview.amountAtomic,
-                        preview.stage === "deposit" ? 9 : 6,
-                        locale,
-                      )}{" "}
-                      {preview.stage === "deposit" ? "SOL" : check.debtSymbol}
-                    </strong>
-                  </p>
-                  <p>
-                    {t("Phí mạng dự kiến:", "Estimated network fee:")}{" "}
-                    {exactToken(preview.feeLamports, 9, locale)} SOL
-                  </p>
-                  <p className="small-note">
-                    {t(
-                      "Có thể thêm tiền tạo tài khoản; xem tổng thay đổi trong ví. Preview hết hạn sau một phút.",
-                      "Account creation may cost additional SOL; review changes in your wallet. Preview expires after one minute.",
-                    )}
-                  </p>
-                  <button
-                    className="button button-primary"
-                    disabled={busy || Boolean(pending)}
-                    onClick={() => void run(sign)}
-                  >
-                    {busy
-                      ? t("Đang chờ ví hoặc mạng…", "Waiting for wallet or network…")
-                      : t("Xác nhận trong ví", "Confirm in wallet")}
-                  </button>
-                </div>
-              )}
             </>
+          )}
+          {check && preview && (
+            <div className="setup-preview">
+              <StatusBadge tone="success">
+                {t("Simulation thành công", "Simulation passed")}
+              </StatusBadge>
+              <p>
+                <strong>
+                  {preview.stage === "withdraw"
+                    ? t("Rút thế chấp", "Withdraw collateral")
+                    : preview.stage === "deposit"
+                      ? t("Thế chấp", "Deposit")
+                      : t("Vay", "Borrow")}{" "}
+                  {exactToken(preview.amountAtomic, preview.stage !== "borrow" ? 9 : 6, locale)}{" "}
+                  {preview.stage !== "borrow" ? "SOL" : check.debtSymbol}
+                </strong>
+              </p>
+              {preview.totalSolDebitLamports && (
+                <p>
+                  {t(
+                    "SOL giảm theo simulation (gồm phí/tạo tài khoản):",
+                    "Simulated SOL debit (including fees/account creation):",
+                  )}{" "}
+                  {exactToken(preview.totalSolDebitLamports, 9, locale)} SOL
+                </p>
+              )}
+              <PreviewExpiry expiresAt={preview.expiresAt} />
+              <button
+                className="button button-secondary"
+                disabled={busy}
+                onClick={() => setPreview(null)}
+              >
+                {t("Chuẩn bị lại", "Prepare again")}
+              </button>
+              <p>
+                {t("Phí mạng dự kiến:", "Estimated network fee:")}{" "}
+                {exactToken(preview.feeLamports, 9, locale)} SOL
+              </p>
+              <p className="small-note">
+                {t(
+                  "Có thể thêm tiền tạo tài khoản; xem tổng thay đổi trong ví. Preview hết hạn sau một phút.",
+                  "Account creation may cost additional SOL; review changes in your wallet. Preview expires after one minute.",
+                )}
+              </p>
+              <button
+                className="button button-primary"
+                disabled={busy || Boolean(pending)}
+                onClick={() => void run(sign)}
+              >
+                {busy
+                  ? t("Đang chờ ví hoặc mạng…", "Waiting for wallet or network…")
+                  : t("Xác nhận trong ví", "Confirm in wallet")}
+              </button>
+            </div>
           )}
         </section>
       </div>

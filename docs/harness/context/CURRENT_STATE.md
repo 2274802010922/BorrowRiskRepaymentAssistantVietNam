@@ -1,5 +1,10 @@
 # Trạng thái hiện tại
 
+- 29/09/2026 — checkpoint sửa Web3: API lazy-load SDK + lỗi JSON/requestId, readiness, Phantom reconnect/menu, lọc vị thế, preview bound inputs, recovery/polling, receipt lịch sử, rút thế chấp debt-free và quota AI. [Phạm vi](../../testing/web3-hardening.md).
+- Kiểm tra local: format/lint/typecheck PASS; 43 unit tests, 25 browser tests, production build PASS; 2.501 file từ Next trace được chép sang temp độc lập và SDK import PASS. Mobile screenshot đã xem. Chờ kiểm API live sau push, chưa có chữ ký/vòng vay-trả thật.
+- Vercel dashboard đã mở nhưng đang ở màn hình đăng nhập; người dùng được yêu cầu đăng nhập, chưa nhận thông báo hoàn tất. Không có quyền truy cập log runtime thực tế chỉ từ việc được cho phép thao tác.
+- AI trên Vercel dùng template khi chưa có `RATE_LIMIT_REDIS_URL/TOKEN`; RPC limiter thiếu store chỉ là per-process. Chưa tự cấu hình market, Redis hoặc ký giao dịch.
+
 - Logo dự án đã đổi sang ảnh pixel do người dùng cung cấp: `public/brand/picachu-logo.jpg`. Áp dụng UI, favicon, metadata chia sẻ, README VI/EN và banner social preview; không thay theme light terminal.
 - Kiểm tra thay logo: file nguồn/public/favicon có SHA-256 giống nhau; format/lint/typecheck, 34 unit tests, production build, 21 browser tests PASS. 85 liên kết/asset README hợp lệ; screenshot mobile đã xem trực tiếp.
 

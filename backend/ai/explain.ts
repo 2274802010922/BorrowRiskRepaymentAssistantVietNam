@@ -2,6 +2,7 @@ import { z } from "zod";
 import { planRepayment } from "../../core/repayment/planner";
 import { constraintsSchema, snapshotSchema } from "../../shared/types";
 import { compactNumber, exactToken } from "../../shared/format";
+import { consumeBudget } from "../services/limits";
 
 const requestSchema = z.object({
   snapshot: snapshotSchema,
@@ -61,6 +62,7 @@ export async function explain(input: unknown) {
   if (process.env.AI_ENABLED !== "true" || !process.env.OPENROUTER_API_KEY || !process.env.AI_MODEL)
     return fallback;
   try {
+    await consumeBudget("ai");
     const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       method: "POST",
       signal: AbortSignal.timeout(12000),
@@ -102,7 +104,12 @@ export async function explain(input: unknown) {
         },
       }),
     });
-    if (!response.ok) return fallback;
+    if (!response.ok) {
+      console.warn(
+        JSON.stringify({ event: "ai_fallback", reason: "PROVIDER_HTTP", status: response.status }),
+      );
+      return { ...fallback, fallbackReason: "PROVIDER_HTTP" };
+    }
     const data = await response.json(),
       choice = data.choices?.[0];
     if (
@@ -119,7 +126,18 @@ export async function explain(input: unknown) {
     )
       return fallback;
     return { ...base, source: "model" as const, summary };
-  } catch {
-    return fallback;
+  } catch (error) {
+    const reason =
+      error instanceof Error &&
+      [
+        "RATE_LIMITED",
+        "AI_BUDGET_NOT_CONFIGURED",
+        "RATE_LIMIT_UNAVAILABLE",
+        "TimeoutError",
+      ].includes(error.message)
+        ? error.message
+        : "PROVIDER_OR_OUTPUT_ERROR";
+    console.warn(JSON.stringify({ event: "ai_fallback", reason }));
+    return { ...fallback, fallbackReason: reason };
   }
 }
