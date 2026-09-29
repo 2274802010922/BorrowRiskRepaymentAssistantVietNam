@@ -190,6 +190,29 @@ function SetupContent({ wallet }: { wallet: string | null }) {
         action={<StatusBadge tone="info">Solana Devnet</StatusBadge>}
       />
       <ExecutionReadiness />
+      {check?.oracleInfo && (
+        <div className="data-panel section-rail">
+          <h2>{t("Nguồn giá đang dùng", "Current price sources")}</h2>
+          {check.oracleInfo.map((info) => (
+            <p key={info.symbol}>
+              {info.symbol}: {t("cập nhật", "updated")}{" "}
+              {new Date(info.updatedAt).toLocaleString(locale === "vi" ? "vi-VN" : "en-US")} ·{" "}
+              {t("giới hạn tuổi giá của market", "market price-age limit")}: {info.maxAgeSeconds}s
+            </p>
+          ))}
+          {check.oracleInfo.some((info) => info.ageSeconds > 300) && (
+            <Notice
+              tone="warning"
+              title={t("Có nguồn giá cũ hơn 5 phút", "A price feed is older than 5 minutes")}
+            >
+              {t(
+                "Giá vẫn nằm trong giới hạn của reserve Devnet đã cấu hình. Xem thời điểm cập nhật trước khi ký; đây không phải dữ liệu thời gian thực.",
+                "The price is still within the configured Devnet reserve limit. Review its timestamp before signing; this is not real-time data.",
+              )}
+            </Notice>
+          )}
+        </div>
+      )}
       <ol className="journey-steps" aria-label={t("Tiến độ thiết lập", "Setup progress")}>
         {[
           t("Kiểm tra", "Check"),

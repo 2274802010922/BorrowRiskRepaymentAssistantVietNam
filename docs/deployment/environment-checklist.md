@@ -1,5 +1,7 @@
 # Kiểm tra biến môi trường trước demo
 
+Cập nhật bước Kamino: đã có [bộ địa chỉ và bằng chứng simulation deposit](../testing/devnet-oracle-validation.md). Cần dùng bản code có adapter chuẩn hóa Pyth trước khi điền các địa chỉ này; chưa coi simulation là giao dịch đã gửi.
+
 Đối chiếu bản đang chạy ngày 29/09/2026: giao diện hoạt động; `executionConfigured=false`; thiếu ba biến Kamino ở runtime; `aiConfigured=true` nhưng `aiSharedBudgetConfigured=false`. Giá trị bị che trong ảnh dashboard không chứng minh một biến đã được điền đúng. Biến Sensitive có thể không cho xem lại giá trị dù đã có.
 
 | Biến                       | Cách điền / kiểm tra                                                                                                     |

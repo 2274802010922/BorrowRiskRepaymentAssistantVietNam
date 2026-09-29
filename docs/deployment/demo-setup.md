@@ -2,6 +2,8 @@
 
 ## Trạng thái
 
+Cập nhật 29/09/2026: tìm được nguyên nhân SDK so sánh price/confidence khác đơn vị. [Adapter và bộ cấu hình mới](../testing/devnet-oracle-validation.md) đã qua simulation deposit cho ví người dùng. Các nhận định oracle invalid ở checkpoint dưới là lịch sử trước khi sửa; chưa có lượt borrow/repay live được nghiệm thu.
+
 Luồng web đã triển khai; chưa có bằng chứng một lượt vay/trả thật qua Phantom. Kiểm tra đọc ngày 28/09/2026 tìm được 284 reserve nhưng cặp SOL/USDC được probe có oracle `valid: false`. Không dùng địa chỉ tìm thấy làm cấu hình đã nghiệm thu. Khi oracle cũ/không hợp lệ, ứng dụng chặn ký. Không tự đổi sang mainnet hoặc tạo dữ liệu giả để vượt kiểm tra.
 
 ## Chuẩn bị môi trường

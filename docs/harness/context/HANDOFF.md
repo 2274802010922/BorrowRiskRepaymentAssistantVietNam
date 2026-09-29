@@ -1,5 +1,7 @@
 # Bàn giao
 
+Bước Kamino đang chuyển sang kiểm thử bằng ví: xem `docs/testing/devnet-oracle-validation.md` để lấy ba biến đã qua simulation deposit 0,1 SOL. Adapter sửa lỗi price/confidence khác đơn vị của SDK, xác thực Pyth receiver + Full và freshness theo reserve. Người dùng xác nhận AI đã hoạt động; không tiếp tục sửa AI khi chưa có yêu cầu mới. Chưa gửi/ký deposit; bước vay cần vị thế sau deposit thật.
+
 Đợt hardening Web3 ngày 29/09/2026: đọc `docs/testing/web3-hardening.md` trước khi làm tiếp. Live cần kiểm lỗi API sau deploy, đăng nhập Vercel để đọc log gốc, cấu hình market thực sự hoạt động và Redis quota nếu bật OpenRouter. Không làm mất pending records hoặc coi receipt đã verified là giao dịch chưa gửi chỉ vì hiện tại không đọc được oracle.
 
 Logo hiện hành là ảnh pixel do chủ dự án cung cấp tại `public/brand/picachu-logo.jpg`; favicon `app/icon.jpg` dùng cùng ảnh. Không khôi phục biểu tượng p. cũ. UI và README dùng chung nhận diện; banner PNG tái tạo bằng `scripts/readme-assets.mjs`. Ảnh Social preview mới có trong repo, setting GitHub vẫn cần người dùng tải lên khi đăng nhập.

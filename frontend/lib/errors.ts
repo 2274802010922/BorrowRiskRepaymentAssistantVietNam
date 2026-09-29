@@ -1,5 +1,9 @@
 import type { Locale } from "../../shared/types";
 const messages: Record<string, [string, string]> = {
+  ORACLE_INVALID: [
+    "Nguồn giá chưa vượt qua kiểm tra xác thực, độ tin cậy hoặc TWAP. Chưa tạo giao dịch.",
+    "The price feed failed verification, confidence or TWAP checks. No transaction was prepared.",
+  ],
   DEMO_WITHDRAW_BLOCKED: [
     "Chỉ rút được thế chấp khi vị thế không còn nợ. Làm mới và kiểm tra khoản vay trước.",
     "Collateral can only be withdrawn when the position has no debt. Refresh and review the loan first.",

@@ -3,7 +3,6 @@ import {
   KaminoMarket,
   KaminoReserve,
   getCurrentLedgerInstant,
-  getTokenOracleData,
   KaminoObligation,
 } from "@kamino-finance/klend-sdk";
 import {
@@ -17,6 +16,8 @@ import { devnetConnection, rpcUrl } from "../network/rpc";
 import { KAMINO_PROGRAM_ID } from "../network/constants.mjs";
 import { snapshotSchema, type PositionSnapshot } from "../../shared/types";
 import { metrics } from "../../core/risk/metrics";
+import { readOracleData } from "./oracle";
+import { isOracleFresh } from "../../core/risk/oracle";
 
 export const TOKEN_PROGRAM = new PublicKey("TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA");
 const ATA_PROGRAM = new PublicKey("ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL");
@@ -66,7 +67,7 @@ export async function loadMarket() {
   }));
   if (entries.some((e) => e.state.lendingMarket !== ids.market || e.state.config.status !== 0))
     throw new AppError("UNSUPPORTED_POSITION");
-  const priced = await getTokenOracleData(rpc, entries);
+  const priced = await readOracleData(rpc, entries);
   const mapped = new Map(
     priced.map(([entry, price]) => {
       if (!price || !price.valid || price.price.lte(0)) throw new AppError("STALE_DATA");
@@ -189,7 +190,17 @@ export async function readPosition(
   const canonical = obligation.refreshedStats.loanToValue.mul(100).toNumber();
   if (Math.abs(Number(engine.ltvPct) - canonical) > 0.011)
     throw new AppError("UNSUPPORTED_POSITION");
-  if (Date.now() - Number(priceTimestamp) * 1000 > 60000) snapshot.warnings.push("STALE_DATA");
+  if (
+    [collateral, debt].some(
+      (r) =>
+        !isOracleFresh(
+          r.tokenOraclePrice.timestamp,
+          r.state.config.tokenInfo.maxAgePriceSeconds.toString(),
+        ),
+    )
+  )
+    snapshot.warnings.push("STALE_DATA");
+  if (Date.now() - Number(priceTimestamp) * 1000 > 300000) snapshot.warnings.push("PRICE_DELAYED");
   return { snapshot, context, obligation };
 }
 

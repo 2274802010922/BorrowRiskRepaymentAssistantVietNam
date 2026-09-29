@@ -1,5 +1,10 @@
 # Trạng thái hiện tại
 
+- Người dùng xác nhận AI đã gọi thành công và yêu cầu chuyển sang Kamino; giữ nguyên code/cấu hình AI đang chạy, hủy các chỉnh sửa AI thử nghiệm chưa commit.
+- 29/09: phát hiện SDK 11.0.1 so sánh price/confidence khác đơn vị. Adapter Pyth-only mới kiểm receiver owner + Full verification + confidence/TWAP; freshness theo từng reserve và cảnh báo giá quá 5 phút. [Bằng chứng](../../testing/devnet-oracle-validation.md).
+- Đã simulation deposit 0,1 SOL PASS bằng public wallet người dùng cung cấp; chưa ký/gửi. Bộ market/reserve trong tài liệu có thể đưa vào Vercel sau khi bản sửa được deploy, rồi người dùng tự ký deposit trước khi kiểm bước borrow.
+- Kiểm thử bản sửa oracle: format/lint/typecheck, 50 unit tests, production build và 25 browser tests PASS; không thay đổi AI so với main hiện hành.
+
 - Checkpoint hardening `631d148` đã push main, CI và Vercel Production PASS. Hai API live demo/check và positions/read trả JSON 503 + requestId thay vì 500 rỗng.
 - Runtime ngày 29/09: thiếu ba giá trị Kamino; secret không báo lỗi; AI có cấu hình nhưng Redis quota chưa cấu hình. Xem [checklist env](../../deployment/environment-checklist.md). Chưa nghiệm thu vay/trả/withdraw bằng Phantom thật.
 

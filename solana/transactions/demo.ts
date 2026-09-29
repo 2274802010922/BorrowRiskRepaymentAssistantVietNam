@@ -18,6 +18,7 @@ import { loadMarket, TOKEN_PROGRAM, associatedToken } from "../adapters/kamino";
 import { devnetConnection } from "../network/rpc";
 import { KAMINO_PROGRAM_ID } from "../network/constants.mjs";
 import { messageHash } from "./repay";
+import { isOracleFresh } from "../../core/risk/oracle";
 
 const bindingSchema = z.object({
   purpose: z.literal("picachu-demo-v1"),
@@ -52,8 +53,14 @@ export async function inspectDemo(wallet: string) {
   )
     throw new AppError("UNSUPPORTED_POSITION");
   for (const reserve of [collateral, debt]) {
-    const age = Date.now() / 1000 - Number(reserve.tokenOraclePrice.timestamp);
-    if (age < -30 || age > 60 || !reserve.tokenOraclePrice.valid) throw new AppError("STALE_DATA");
+    if (
+      !isOracleFresh(
+        reserve.tokenOraclePrice.timestamp,
+        reserve.state.config.tokenInfo.maxAgePriceSeconds.toString(),
+      ) ||
+      !reserve.tokenOraclePrice.valid
+    )
+      throw new AppError("STALE_DATA");
   }
   const position = await demoType().toPda(address(context.ids.market), address(wallet));
   const obligation = await context.market.getObligationByAddress(position);
@@ -107,6 +114,15 @@ export async function inspectDemo(wallet: string) {
   const check: DemoCheck = {
     stage,
     canWithdraw: Boolean(obligation && BigInt(collateralAtomic) > 0n && BigInt(debtAtomic) === 0n),
+    oracleInfo: [collateral, debt].map((r) => ({
+      symbol: r.getTokenSymbol(),
+      updatedAt: new Date(Number(r.tokenOraclePrice.timestamp) * 1000).toISOString(),
+      ageSeconds: Math.max(0, Math.floor(Date.now() / 1000 - Number(r.tokenOraclePrice.timestamp))),
+      maxAgeSeconds: Math.min(
+        86400,
+        Number(r.state.config.tokenInfo.maxAgePriceSeconds.toString()),
+      ),
+    })),
     position,
     walletSol,
     collateralAtomic,
@@ -223,7 +239,11 @@ export async function demoAction(input: unknown) {
       commitment: "confirmed",
       accounts: { encoding: "base64", addresses: [request.wallet] },
     });
-    if (simulation.value.err) throw new AppError("SIMULATION_FAILED");
+    if (simulation.value.err)
+      throw new AppError("SIMULATION_FAILED", 400, {
+        error: simulation.value.err,
+        logs: simulation.value.logs,
+      });
     const fee = (await connection.getFeeForMessage(message, "confirmed")).value;
     if (fee === null || fee > 50000) throw new AppError("SIMULATION_FAILED");
     const expiresAt = Date.now() + 60000;

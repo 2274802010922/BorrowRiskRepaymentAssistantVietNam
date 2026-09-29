@@ -21,6 +21,7 @@ export const demoInputSchema = z.object({
 export type DemoCheck = {
   stage: "deposit" | "borrow" | "ready" | "closed";
   canWithdraw: boolean;
+  oracleInfo?: { symbol: string; updatedAt: string; ageSeconds: number; maxAgeSeconds: number }[];
   position: string;
   walletSol: string;
   collateralAtomic: string;

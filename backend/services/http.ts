@@ -6,8 +6,9 @@ export class AppError extends Error {
   constructor(
     public code: string,
     public status = 400,
+    cause?: unknown,
   ) {
-    super(code);
+    super(code, { cause });
   }
 }
 export async function readJson(request: Request) {

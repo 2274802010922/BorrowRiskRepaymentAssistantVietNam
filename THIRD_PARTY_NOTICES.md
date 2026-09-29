@@ -14,6 +14,8 @@
 
 ## Dependency chính
 
+Oracle adapter của picachu sửa cách chuẩn hóa price/confidence Pyth cho nguồn Pyth-only của SDK 11.0.1, giữ validation riêng và không sửa package trong node_modules. Tham chiếu nguồn/kiểm chứng ở `docs/testing/devnet-oracle-validation.md`.
+
 - Kamino SDK: https://github.com/Kamino-Finance/klend-sdk, metadata MIT. Dùng như dependency; không trình bày SDK thành code tự viết.
 - Solana web3.js / Kit: dependency giao tiếp chain và transaction.
 - Next.js, React, Tailwind CSS: framework và style tooling.

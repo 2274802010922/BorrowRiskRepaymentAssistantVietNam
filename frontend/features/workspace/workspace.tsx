@@ -531,6 +531,22 @@ function WorkspaceContent({ wallet }: { wallet: string | null }) {
           )}
         </Notice>
       )}
+      {snapshot?.warnings.includes("PRICE_DELAYED") &&
+        !snapshot.warnings.includes("STALE_DATA") && (
+          <Notice
+            tone="warning"
+            title={t(
+              "Giá chưa cập nhật trong 5 phút gần đây",
+              "Price has not updated in the last 5 minutes",
+            )}
+          >
+            {t(
+              "Giá còn trong giới hạn của reserve Devnet. Thời điểm giá: ",
+              "Price remains within the Devnet reserve limit. Price timestamp: ",
+            )}
+            {new Date(snapshot.priceObservedAt).toLocaleString(locale === "vi" ? "vi-VN" : "en-US")}
+          </Notice>
+        )}
       {loading ? (
         <ContentSkeleton />
       ) : snapshot && displayed ? (

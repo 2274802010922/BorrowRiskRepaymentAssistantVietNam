@@ -56,11 +56,7 @@ export async function prepareRepayment(input: unknown) {
   // Validate deployment readiness before spending RPC calls.
   seal({ readiness: true });
   const { snapshot, context, obligation } = await readPosition(request.wallet, request.position);
-  if (
-    snapshot.warnings.includes("STALE_DATA") ||
-    Date.now() - Date.parse(snapshot.priceObservedAt) > 60000
-  )
-    throw new AppError("STALE_DATA");
+  if (snapshot.warnings.includes("STALE_DATA")) throw new AppError("STALE_DATA");
   const plan = planRepayment(snapshot, request.constraints);
   if (!plan.options.some((o) => o.repayAtomic === request.repayAtomic))
     throw new AppError("INSUFFICIENT_FUNDS");

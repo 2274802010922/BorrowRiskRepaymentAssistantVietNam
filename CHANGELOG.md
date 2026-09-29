@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-09-29 — kiểm chứng bước gửi thế chấp Devnet
+
+- Chuẩn hóa price/confidence cùng đơn vị cho nguồn Pyth-only của SDK Kamino 11.0.1; giữ kiểm owner, Full verification và TWAP.
+- Freshness theo cấu hình từng reserve, cảnh báo nguồn giá cũ hơn 5 phút và hiển thị timestamp.
+- Simulation deposit 0,1 SOL PASS bằng ví demo người dùng; chưa ký/gửi giao dịch. Bổ sung bộ địa chỉ cấu hình và script tái hiện.
+
 ## 2026-09-29 — sửa luồng Web3
 
 - API lỗi có JSON/request ID; kiểm cấu hình trước khi tải SDK và kiểm bộ file đóng gói trên CI.
