@@ -1,5 +1,13 @@
 # Vòng demo Devnet — 30/09
 
+## Cập nhật 01/10 — tạo khoản vay đã xác minh
+
+Sau bản retry `bacb45c`, runner xác minh cả ba deposit 0,1 SOL và ba borrow: A 7,805461 USDC, B 6,601894 USDC, C 5,401175 USDC. Sáu signature/position/fee có trong [report công khai](evidence/devnet-created-three-positions.json). Không chứa key, binding token hoặc raw transaction. Đây là test signer riêng qua API triển khai thật, không phải kiểm popup Phantom.
+
+Bước trả nợ đầu tiên dừng PLAN_CHANGED trước ký vì giá/lãi đổi số atomic giữa create và prepare. Refresh mới chỉ thay các bước chưa gửi, giữ receipt cũ và kiểm tổng không vượt budget/reserve. UI hiển thị tổng mới, cần checkbox review trước ký; submit kiểm reviewAccepted khi quote đổi. Repeated prepare không xóa yêu cầu review. Số dư ví đổi hoặc bước đã đạt mục tiêu cần lập lại; không tự replay khoản đã trả. Biên nhận xác minh giao dịch không bảo đảm mục tiêu vẫn đạt khi giá tiếp tục đổi.
+
+Local: 87 unit tests, 31 browser tests toàn bộ + 5 portfolio tests có review mới, check/build PASS. Chưa có receipt trả nợ tại checkpoint này.
+
 Owner đã cho phép tự test/xác nhận giao dịch thử trên Devnet. Không lưu thông tin mở khóa ví vào repo, env hoặc log. Không thực hiện trên mainnet.
 
 ## Thế chấp đã nghiệm thu

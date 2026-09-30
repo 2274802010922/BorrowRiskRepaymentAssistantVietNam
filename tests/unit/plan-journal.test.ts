@@ -149,6 +149,41 @@ it("stops on wallet movements rather than silently replanning", async () => {
   await expect(preparePlan({ token: a.token })).rejects.toThrow("PLAN_CHANGED");
   expect(deps.prepare).not.toHaveBeenCalled();
 });
+it("refreshes interest within the original limits and requires explicit review before submission", async () => {
+  const a = await create();
+  positions = positions.map((s) => ({
+    ...s,
+    debt: { ...s.debt, amountAtomic: (BigInt(s.debt.amountAtomic) + 100n).toString() },
+  }));
+  const p = await preparePlan({ token: a.token });
+  expect(p.reviewRequired).toBe(true);
+  expect(BigInt(p.plan.totalRepayAtomic)).toBeGreaterThan(BigInt(a.plan.totalRepayAtomic));
+  expect(BigInt(p.plan.totalRepayAtomic)).toBeLessThanOrEqual(BigInt(goal.budgetAtomic));
+  expect(BigInt(p.plan.walletAfterAtomic)).toBeGreaterThanOrEqual(BigInt(goal.reserveAtomic));
+  await expect(
+    submitPlan({ token: a.token, bindingToken: p.token, transaction: "signed" }),
+  ).rejects.toThrow("PLAN_CHANGED");
+  expect(deps.submit).not.toHaveBeenCalled();
+  const again = await preparePlan({ token: a.token });
+  expect(again.reviewRequired).toBe(true);
+  await submitPlan({
+    token: a.token,
+    bindingToken: again.token,
+    transaction: "signed",
+    reviewAccepted: true,
+  });
+  const status = await statusPlan({ token: a.token });
+  expect(status.receipts[0].repayAtomic).toBe(again.repayAtomic);
+});
+it("refuses a refreshed quote exceeding the original budget", async () => {
+  const a = await create();
+  positions = positions.map((s) => ({
+    ...s,
+    debt: { ...s.debt, amountAtomic: (BigInt(s.debt.amountAtomic) + 30000000n).toString() },
+  }));
+  await expect(preparePlan({ token: a.token })).rejects.toThrow("PLAN_CHANGED");
+  expect(deps.prepare).not.toHaveBeenCalled();
+});
 it("rejects mismatched binding tokens and cancellation invalidates prepared steps", async () => {
   const a = await create();
   await preparePlan({ token: a.token });

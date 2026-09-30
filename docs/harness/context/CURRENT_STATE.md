@@ -1,5 +1,11 @@
 # Trạng thái hiện tại
 
+## 01/10 — ba khoản vay thật và cập nhật quote
+
+- Ví test riêng đã nhận 5 SOL Devnet; runner xác minh ba deposit và ba borrow qua API trên domain chính. Không dùng password/key Phantom của owner. Receipt công khai ở `docs/testing/evidence/devnet-created-three-positions.json`.
+- Live `/api/plans/prepare` dừng PLAN_CHANGED do equality số tiền cũ với oracle/lãi mới. Sửa refresh các bước chưa thực hiện trong ngân sách/reserve gốc, không sửa receipt đã xác minh; khi số tiền đổi UI và submit yêu cầu xác nhận review. Số dư ví đổi bất ngờ, quote vượt giới hạn hoặc bước không còn cần trả vẫn chặn và yêu cầu lập lại.
+- Kiểm tra: 87 unit tests, 31 browser tests toàn bộ + 5 portfolio tests (bao gồm review mới), check/build PASS. Chờ nghiệm thu trả nợ sau deploy; không suy thành công từ fixture. Allocator vẫn tắt vì chưa có protocol parity.
+
 ## 30/09 — hướng mục tiêu và danh mục
 
 - Test ví5SOL gặp HTTP429 ở RPC relay từ Vercel; signed simulation trực tiếp PASS. Thêm bounded429 retry cho web3/Kit, deadline15s, cùng payload và connection reuse theo URL. Không đổi mạng hoặc nới signature/binding; chờ testlive sau deploy. Ghi chú docs/testing/live-devnet-cycle.md.

@@ -175,6 +175,9 @@ try {
         bufferBps: 500,
       },
     });
+    const budget = BigInt(before.positions[0].walletDebtAtomic),
+      reserve = 1000000n;
+    let paid = 0n;
     for (let step = 0; step < 3; step++) {
       const state = await api<{ phase: string }>("/api/plans/status", { token: plan.token });
       if (state.phase === "verified") break;
@@ -185,7 +188,21 @@ try {
         feeLamports: string;
         token: string;
         repayAtomic: string;
+        reviewRequired: boolean;
+        plan: { totalRepayAtomic: string; walletAfterAtomic: string };
       }>("/api/plans/prepare", { token: plan.token });
+      if (
+        BigInt(prepared.plan.totalRepayAtomic) > budget ||
+        BigInt(prepared.plan.walletAfterAtomic) < reserve ||
+        paid + BigInt(prepared.repayAtomic) > budget - reserve
+      )
+        throw new Error("UPDATED_PLAN_EXCEEDS_TEST_CAP");
+      if (prepared.reviewRequired)
+        report.steps.push({
+          action: "review_updated_quote",
+          totalRepayAtomic: prepared.plan.totalRepayAtomic,
+          walletAfterAtomic: prepared.plan.walletAfterAtomic,
+        });
       const signed = sign(prepared),
         pending: Pending = { kind: "plan", wallet, token: plan.token };
       await writeFile(pendingFile, JSON.stringify(pending), { mode: 0o600 });
@@ -193,8 +210,10 @@ try {
         token: plan.token,
         bindingToken: prepared.token,
         transaction: signed.transaction,
+        reviewAccepted: true,
       });
       await verify(pending);
+      paid += BigInt(prepared.repayAtomic);
       report.steps.push({
         action: "repay",
         repayAtomic: prepared.repayAtomic,

@@ -28,6 +28,7 @@ type Journal = {
   revision: number;
   expiresAt: number;
   prepared?: Awaited<ReturnType<typeof prepareRepayment>>;
+  reviewRequired?: boolean;
   pending?: { signature: string; bindingToken: string };
   receipts: { signature: string; position: string; repayAtomic: string }[];
   stopped?: boolean;
@@ -103,20 +104,48 @@ export async function preparePlan(input: unknown) {
     { ...j.goal, budgetAtomic: (BigInt(j.goal.budgetAtomic) - paid).toString() },
   );
   const needed = fresh.steps.find((s) => s.position === step.position);
-  // Fresh price/interest changes require a new review; never silently increase or spend excess.
-  if (!needed || needed.repayAtomic !== step.repayAtomic || fresh.state === "insufficient_budget")
+  if (!needed || BigInt(needed.repayAtomic) === 0n || fresh.state === "insufficient_budget")
     throw new AppError("PLAN_CHANGED", 409);
+  // Refresh only unexecuted steps. Confirmed receipts are immutable and never replayed.
+  const remaining = j.plan.steps.slice(j.cursor).map((s) => {
+    const updated = fresh.steps.find((f) => f.position === s.position);
+    if (!updated || BigInt(updated.repayAtomic) === 0n) throw new AppError("PLAN_CHANGED", 409);
+    return updated;
+  });
+  const total = paid + remaining.reduce((sum, s) => sum + BigInt(s.repayAtomic), 0n);
+  const balanceAfter = expectedBalance - (total - paid);
+  if (total > BigInt(j.goal.budgetAtomic) || balanceAfter < BigInt(j.goal.reserveAtomic))
+    throw new AppError("PLAN_CHANGED", 409);
+  const reviewRequired = remaining.some(
+    (s, i) => s.repayAtomic !== j.plan.steps[j.cursor + i].repayAtomic,
+  );
   const prepared = await prepareRepayment({
     wallet: j.wallet,
     position: step.position,
     protocol: "kamino",
-    constraints: { ...j.goal, budgetAtomic: step.repayAtomic, targetLtvBps: 100 },
-    repayAtomic: step.repayAtomic,
+    constraints: { ...j.goal, budgetAtomic: needed.repayAtomic, targetLtvBps: 100 },
+    repayAtomic: needed.repayAtomic,
   });
   const rev = j.revision;
+  j.plan = {
+    ...j.plan,
+    steps: [...j.plan.steps.slice(0, j.cursor), ...remaining],
+    totalRepayAtomic: total.toString(),
+    requiredAtomic: total.toString(),
+    walletAfterAtomic: balanceAfter.toString(),
+  };
   j.prepared = prepared;
+  // Keep a pending review sticky across repeated previews until that step is signed.
+  j.reviewRequired = Boolean(j.reviewRequired || reviewRequired);
   await save(j, rev);
-  return { ...prepared, step: j.cursor + 1, total: j.plan.steps.length };
+  return {
+    ...prepared,
+    step: j.cursor + 1,
+    total: j.plan.steps.length,
+    plan: j.plan,
+    portfolio: { version: 1 as const, positions: selected.filter((s) => s !== undefined) },
+    reviewRequired: j.reviewRequired,
+  };
 }
 export async function submitPlan(input: unknown) {
   const r = z
@@ -124,11 +153,13 @@ export async function submitPlan(input: unknown) {
         token: z.string().max(20000),
         bindingToken: z.string().max(20000),
         transaction: z.string().max(8192),
+        reviewAccepted: z.boolean().optional(),
       })
       .parse(input),
     j = await load(r.token);
   if (!j.prepared || j.prepared.token !== r.bindingToken || j.stopped)
     throw new AppError("PLAN_CHANGED", 409);
+  if (j.reviewRequired && !r.reviewAccepted) throw new AppError("PLAN_CHANGED", 409);
   if (j.pending) return { signature: j.pending.signature, phase: "submitted" };
   if (Date.now() > j.expiresAt) throw new AppError("PLAN_EXPIRED", 409);
   return submitRepayment(
@@ -173,6 +204,7 @@ export async function statusPlan(input: unknown) {
       } else j.stopped = true;
       delete j.pending;
       delete j.prepared;
+      delete j.reviewRequired;
       await save(j, rev);
       if (j.stopped || j.cursor === j.plan.steps.length)
         await redis([

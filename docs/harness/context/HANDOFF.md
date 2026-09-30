@@ -1,5 +1,7 @@
 # Bàn giao
 
+01/10: ví test `3kHRwxR1vgCiyNRLozyQU3NWEv3hR54Cc5rsvreyFmRo` có ba khoản vay đã verified (deposit/borrow). Tiếp tục runner `scripts/checks/automated-devnet-cycle.ts` với key riêng trong work/private, chỉ Devnet, pending unknown không gửi lại. Quote mới refresh trong budget/reserve gốc và cần review explicit trước submit; không bỏ guard khi gặp PLAN_CHANGED. Đọc `docs/testing/live-devnet-cycle.md` và evidence JSON. Chưa có receipt trả nợ tại checkpoint này.
+
 Runtime `3a16008` đã xác nhận CI/Production success và API read/check/prepare 200 trên domain chính. Profile A gửi thế chấp 0,1 SOL simulation PASS, tổng debit0,12353556 SOL, chưa ký/gửi. Tiếp theo là owner ký trên `/setup`, sau đó đối chiếu signature và position để kiểm borrow rồi repay. Không tiếp tục điều tra lỗi module đã sửa hoặc yêu cầu thêm biến mới cho gate này.
 
 30/09: hướng mới ở `docs/harness/plans/active/goal-portfolio.md`; `/portfolio` là điểm vào chính. Build bổ sung goal engine 1–3 vị thế + shared balance, journal Redis/HMAC, ký tuần tự, demo profiles 201/202/203. Đọc `docs/architecture/goal-portfolio.md` và `docs/deployment/portfolio-demo.md` trước khi sửa tiếp.

@@ -26,6 +26,9 @@ type Prepared = {
   step: number;
   total: number;
   lastValidBlockHeight: number;
+  plan: GoalPlan;
+  portfolio: PortfolioSnapshot;
+  reviewRequired: boolean;
 };
 type Session = {
   token: string;
@@ -91,6 +94,7 @@ function Content({ wallet }: { wallet: string | null }) {
   const [session, setSession] = useState<Session | null>(null),
     [prepared, setPrepared] = useState<Prepared | null>(null),
     [status, setStatus] = useState<Status | null>(null);
+  const [reviewed, setReviewed] = useState(false);
   const amount = (s: string) => exactToken(s, 6, locale),
     number = (s: string) => compactNumber(s, locale, 2);
   const goal = useMemo<RepaymentGoal | null>(() => {
@@ -256,6 +260,10 @@ function Content({ wallet }: { wallet: string | null }) {
         setSession(s);
       }
       const p = await postApi<Prepared>("/api/plans/prepare", { token: s.token });
+      const updated = { ...s, plan: p.plan, portfolio: p.portfolio };
+      persist(wallet, updated);
+      setSession(updated);
+      setReviewed(false);
       setPrepared(p);
       setStatus((prev) => prev ?? { phase: "ready", cursor: 0, receipts: [] });
     } catch (e) {
@@ -267,6 +275,7 @@ function Content({ wallet }: { wallet: string | null }) {
   async function sign() {
     const provider = w.provider();
     if (!wallet || !session || !prepared || busy || !provider) return;
+    if (prepared.reviewRequired && !reviewed) return;
     setBusy(true);
     setError(null);
     try {
@@ -316,6 +325,7 @@ function Content({ wallet }: { wallet: string | null }) {
         token: session.token,
         bindingToken: prepared.token,
         transaction: Buffer.from(signed.serialize()).toString("base64"),
+        reviewAccepted: reviewed,
       });
       const r = await postApi<Status>("/api/plans/status", { token: session.token });
       setStatus(r);
@@ -603,7 +613,29 @@ function Content({ wallet }: { wallet: string | null }) {
                         {exactToken(prepared.feeLamports, 9, locale)} SOL
                       </p>
                       <PreviewExpiry expiresAt={prepared.expiresAt} />
-                      <button className="button" disabled={busy} onClick={() => void sign()}>
+                      {prepared.reviewRequired && (
+                        <Notice title={t("Phương án vừa được cập nhật", "Plan updated")}>
+                          <p>
+                            {t(
+                              "Giá hoặc lãi đã thay đổi. Xem lại số tiền trả và tiền còn lại trước khi ký.",
+                              "Prices or interest changed. Review repayments and remaining funds before signing.",
+                            )}
+                          </p>
+                          <label>
+                            <input
+                              type="checkbox"
+                              checked={reviewed}
+                              onChange={(e) => setReviewed(e.target.checked)}
+                            />{" "}
+                            {t("Tôi đã xem lại phương án mới", "I reviewed the updated plan")}
+                          </label>
+                        </Notice>
+                      )}
+                      <button
+                        className="button"
+                        disabled={busy || (prepared.reviewRequired && !reviewed)}
+                        onClick={() => void sign()}
+                      >
                         {t("Ký bằng ví", "Sign with wallet")}
                       </button>
                     </div>

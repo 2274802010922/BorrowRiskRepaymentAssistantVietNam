@@ -1,0 +1,63 @@
+{
+  "wallet": "3kHRwxR1vgCiyNRLozyQU3NWEv3hR54Cc5rsvreyFmRo",
+  "cluster": "devnet",
+  "executed": true,
+  "steps": [
+    {
+      "action": "readiness",
+      "solLamports": 5000000000
+    },
+    {
+      "action": "deposit",
+      "slot": 201,
+      "position": "HuUuEHfYSUADS6XBJqznm5XnhhVQ11xukVJnqt62RKkE",
+      "amountAtomic": "100000000",
+      "feeLamports": "6000",
+      "signature": "2hCmHZmJvb6gn1oXC44efyz3UVyyJ6jHpWAaJzqV3wAF5Uy8pYjbuJPwDvGwxKS123SneMop8VidraNu9TRLs5TH"
+    },
+    {
+      "action": "borrow",
+      "slot": 201,
+      "position": "HuUuEHfYSUADS6XBJqznm5XnhhVQ11xukVJnqt62RKkE",
+      "amountAtomic": "7805461",
+      "feeLamports": "6000",
+      "signature": "4MH3CxSp15cgBZsE27p29dMB7T62kbhrtkFt1wr7qQNXTLTLLRJ9nqWTKixNBjn74dBz9QXkwzjnDzpHNthSAJBZ"
+    },
+    {
+      "action": "deposit",
+      "slot": 202,
+      "position": "854aw3w9crTC6K8fmKLzPddYcg6rVJsDkZ6cmhb5cCx",
+      "amountAtomic": "100000000",
+      "feeLamports": "6000",
+      "signature": "2Lmf837xk7F4N7JvBuQW8EEy1xdc8b6JjwkKDgBqGbNEtokonAfg1ccNK12Ctc7CNsiBd4ibRmwvhkvhB4i5X4BA"
+    },
+    {
+      "action": "borrow",
+      "slot": 202,
+      "position": "854aw3w9crTC6K8fmKLzPddYcg6rVJsDkZ6cmhb5cCx",
+      "amountAtomic": "6601894",
+      "feeLamports": "6000",
+      "signature": "u7F4EmLzg8dmx5KmxB9mc7NJ5ssPMGB9NNNGwnPkD3PGSefh3hJtXqcjmmsu5jd97RFtN11EnGMWguz15A163Uy"
+    },
+    {
+      "action": "deposit",
+      "slot": 203,
+      "position": "8PpZyrJaWYNyYduWyihN4Hf6vQWppzwVgfHvyGgrqx4K",
+      "amountAtomic": "100000000",
+      "feeLamports": "6000",
+      "signature": "4CCXKUtNH89NzAGtJD6Aa9iRdoNvBhvi6ciWNw21dE5bnYLtPFUYLrKyuYzE9pugSdQVbSt7u5rP6LDiwWFoUXtc"
+    },
+    {
+      "action": "borrow",
+      "slot": 203,
+      "position": "8PpZyrJaWYNyYduWyihN4Hf6vQWppzwVgfHvyGgrqx4K",
+      "amountAtomic": "5401175",
+      "feeLamports": "6000",
+      "signature": "5YDfzNGWy6YC8TNxymG2rEzAvSWbtDsvTgiSfbqUbnGsofWnA2FmqzozWVRV9oF1FBtE6Gytg3A7DB5dFYhReHWf"
+    },
+    {
+      "action": "stopped",
+      "reason": "PLAN_CHANGED|1089ca8e-58d0-4532-bc10-9f4889ed5716"
+    }
+  ]
+}
