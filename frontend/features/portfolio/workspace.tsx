@@ -95,6 +95,8 @@ function Content({ wallet }: { wallet: string | null }) {
     [prepared, setPrepared] = useState<Prepared | null>(null),
     [status, setStatus] = useState<Status | null>(null);
   const [reviewed, setReviewed] = useState(false);
+  const [afterPlan, setAfterPlan] = useState<GoalPlan | null>(null);
+  const [afterError, setAfterError] = useState(false);
   const amount = (s: string) => exactToken(s, 6, locale),
     number = (s: string) => compactNumber(s, locale, 2);
   const goal = useMemo<RepaymentGoal | null>(() => {
@@ -213,6 +215,34 @@ function Content({ wallet }: { wallet: string | null }) {
     // Initial recovery makes no signing request.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session?.token]);
+  useEffect(() => {
+    if (status?.phase !== "verified" || !session || !wallet) return;
+    let active = true;
+    void postApi<{ positions: PositionSnapshot[] }>("/api/portfolio/read", { wallet })
+      .then((r) => {
+        if (!active) return;
+        const snapshots = session.portfolio.positions.map((s) =>
+          r.positions.find((p) => p.position === s.position),
+        );
+        if (snapshots.some((s) => !s || s.warnings.includes("STALE_DATA")))
+          throw new Error("STALE_DATA");
+        const fresh = planPortfolio(
+          { version: 1, positions: snapshots.filter((s) => s !== undefined) },
+          session.goal,
+        );
+        setPositions(r.positions);
+        setAfterPlan(fresh);
+        setAfterError(false);
+      })
+      .catch(() => {
+        if (active) setAfterError(true);
+      });
+    return () => {
+      active = false;
+    };
+    // A completed receipt is immutable; this fresh goal check does not send anything.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [status?.phase, session?.token, wallet]);
   useEffect(() => {
     if (!session?.pending || !wallet) return;
     let active = true,
@@ -347,6 +377,8 @@ function Content({ wallet }: { wallet: string | null }) {
       setSession(null);
       setPrepared(null);
       setStatus(null);
+      setAfterPlan(null);
+      setAfterError(false);
       await refresh();
     } catch (e) {
       setError(e instanceof Error ? e.message : "PLAN_PENDING");
@@ -690,6 +722,44 @@ function Content({ wallet }: { wallet: string | null }) {
                       · {amount(r.repayAtomic)} USDC
                     </p>
                   ))}
+                </Notice>
+              )}
+              {status?.phase === "verified" && (
+                <Notice title={t("Mục tiêu theo dữ liệu mới", "Goal with fresh data")}>
+                  {afterPlan ? (
+                    afterPlan.state === "already_met" ? (
+                      <p>
+                        {t(
+                          "Đã đạt mục tiêu tại lần đọc này. Giá và lãi có thể tiếp tục thay đổi.",
+                          "Goal met at this reading. Prices and interest can still change.",
+                        )}
+                      </p>
+                    ) : (
+                      <p>
+                        {t(
+                          "Giá hoặc lãi đã đổi sau khi trả. Cần trả thêm",
+                          "Prices or interest changed after repayment. Additional repayment needed:",
+                        )}{" "}
+                        {amount(afterPlan.requiredAtomic)} USDC.{" "}
+                        {t(
+                          "Chọn ‘Lập phương án mới’ để xem lại; chưa có giao dịch bổ sung nào được gửi.",
+                          "Choose ‘Create a new plan’ to review; no additional transaction has been sent.",
+                        )}
+                      </p>
+                    )
+                  ) : (
+                    <p>
+                      {afterError
+                        ? t(
+                            "Chưa đọc được dữ liệu mới. Biên nhận đã xác minh; mục tiêu hiện tại chưa được xác nhận. Chọn ‘Lập phương án mới’ để thử lại.",
+                            "Fresh data unavailable. Receipts are verified, but the current goal is unconfirmed. Choose ‘Create a new plan’ to retry.",
+                          )
+                        : t(
+                            "Đang đọc dữ liệu mới để kiểm tra mục tiêu…",
+                            "Reading fresh data to check the goal…",
+                          )}
+                    </p>
+                  )}
                 </Notice>
               )}
             </section>

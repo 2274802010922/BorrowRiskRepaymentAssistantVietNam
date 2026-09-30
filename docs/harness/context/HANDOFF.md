@@ -1,5 +1,7 @@
 # Bàn giao
 
+Kết quả mới nhất: runner đã hoàn thành hai repay của ba vị thế sau deploy `7d398c0`, status verified, tổng2,406756 USDC/ví còn17,401774 USDC. Không chạy lại runner execute để ‘giữ đúng5%’ vì giá/lãi tiếp tục đổi: fresh check yêu cầu thêm0,007041 USDC là một phương án mới cần review. Report/receipt có trong docs/testing/live-devnet-cycle.md. UI bổ sung đọc mục tiêu riêng sau hoàn thành để hiển thị thay đổi/không xác nhận khi RPC lỗi. Chỉ còn gate Phantom đầy đủ và model parity/allocator; không đánh dấu toàn bộ plan hoàn thành.
+
 01/10: ví test `3kHRwxR1vgCiyNRLozyQU3NWEv3hR54Cc5rsvreyFmRo` có ba khoản vay đã verified (deposit/borrow). Tiếp tục runner `scripts/checks/automated-devnet-cycle.ts` với key riêng trong work/private, chỉ Devnet, pending unknown không gửi lại. Quote mới refresh trong budget/reserve gốc và cần review explicit trước submit; không bỏ guard khi gặp PLAN_CHANGED. Đọc `docs/testing/live-devnet-cycle.md` và evidence JSON. Chưa có receipt trả nợ tại checkpoint này.
 
 Runtime `3a16008` đã xác nhận CI/Production success và API read/check/prepare 200 trên domain chính. Profile A gửi thế chấp 0,1 SOL simulation PASS, tổng debit0,12353556 SOL, chưa ký/gửi. Tiếp theo là owner ký trên `/setup`, sau đó đối chiếu signature và position để kiểm borrow rồi repay. Không tiếp tục điều tra lỗi module đã sửa hoặc yêu cầu thêm biến mới cho gate này.

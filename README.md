@@ -31,7 +31,7 @@
 
 > [!NOTE]
 > **Có thể thử ngay:** giao diện VI/EN, mô phỏng và planner trên Vercel, không cần ví hoặc API key.
-> **Đang kiểm chứng:** luồng vay/trả Kamino Devnet đã có mã triển khai nhưng chưa nghiệm thu giao dịch thật. AI có giải thích mẫu dự phòng. [Xem trạng thái và bằng chứng](docs/harness/context/CURRENT_STATE.md).
+> **Đã kiểm trên Devnet:** ba lần thế chấp, ba khoản vay và hai bước trả nợ qua API Vercel bằng ví test riêng, có biên nhận xác minh. Đây không phải nghiệm thu đầy đủ popup Phantom. Giá/lãi có thể đổi sau trả; ứng dụng kiểm lại mục tiêu. [Bằng chứng giao dịch](docs/testing/live-devnet-cycle.md).
 
 **Hướng hiện hành:** lập phương án đạt mục tiêu cho tối đa ba khoản vay. Dư địa mặc định 5% từ giá sau kịch bản, chỉ trả số cần thiết và giữ reserve. Nhật ký Redis kiểm từng bước ký/xác minh. **Allocator giảm tổn thất thanh lý chưa bật:** bộ tìm kiếm đã có test nhưng model Kamino chưa hoàn tất parity. [Kiến trúc mới](docs/architecture/goal-portfolio.md) · [Demo ba vị thế](docs/deployment/portfolio-demo.md).
 
@@ -97,7 +97,7 @@ Các ảnh trên thể hiện giao diện và dữ liệu minh họa; không xá
 3. Xem phương án trước/sau, bấm **Giải thích kết quả**.
 4. Thử thay đổi ngân sách hoặc dự trữ để thấy giới hạn và mục tiêu thay đổi.
 
-Muốn dùng ví và khoản vay thử? Bắt đầu tại [trang thiết lập](https://picachu-iota.vercel.app/setup) và đọc [điều kiện cần có](docs/deployment/demo-setup.md). Chưa có bộ cấu hình market được nghiệm thu; không lấy địa chỉ bất kỳ trên mainnet để điền vào Devnet.
+Muốn dùng ví và khoản vay thử? Bắt đầu tại [trang thiết lập](https://picachu-iota.vercel.app/setup) và đọc [điều kiện cần có](docs/deployment/demo-setup.md). Cặp Kamino Devnet đã chạy vay/trả bằng ví test riêng; dùng đúng cấu hình trong tài liệu, không lấy địa chỉ mainnet để điền vào Devnet.
 
 ## Dành cho giám khảo
 
@@ -110,13 +110,13 @@ Chưa có bằng chứng doanh thu, pilot hay nhu cầu trả tiền được x�
 
 ## Trạng thái và bằng chứng
 
-| Hạng mục          | Đã kiểm chứng                                                                      | Còn mở                                                             |
-| :---------------- | :--------------------------------------------------------------------------------- | :----------------------------------------------------------------- |
-| Giao diện         | VI/EN, responsive, bàn phím và axe trên năm trang                                  | Theo dõi phản hồi người dùng                                       |
-| Core và bản build | Checkpoint `1102222`: 34 unit tests, 21 browser tests, production build và CI PASS | Không suy ra giao dịch thật từ mock                                |
-| Vercel            | Landing, workspace, setup và số tiền gọn đã kiểm ngày 28/09/2026                   | [Chi tiết smoke test](docs/testing/vercel-smoke-2026-09-28.md)     |
-| Kamino Devnet     | Có adapter và luồng prepare/sign/submit/status                                     | Market/oracle phù hợp, lượt vay/trả và recovery thật               |
-| OpenRouter        | Adapter và fallback đã kiểm bằng mock                                              | Lượt thử live ghi nhận template; chưa xác nhận provider thành công |
+| Hạng mục          | Đã kiểm chứng                                                           | Còn mở                                                         |
+| :---------------- | :---------------------------------------------------------------------- | :------------------------------------------------------------- |
+| Giao diện         | VI/EN, responsive, bàn phím và axe trên năm trang                       | Theo dõi phản hồi người dùng                                   |
+| Core và bản build | Checkpoint `7d398c0`: 87 unit tests, 32 browser tests, build và CI PASS | Không suy ra độ chính xác protocol từ mock                     |
+| Vercel            | Landing, workspace, setup và số tiền gọn đã kiểm ngày 28/09/2026        | [Chi tiết smoke test](docs/testing/vercel-smoke-2026-09-28.md) |
+| Kamino Devnet     | Ba deposit, ba borrow, hai repay đã verified qua API triển khai         | Vòng Phantom đầy đủ; model liquidation parity                  |
+| OpenRouter        | Owner xác nhận gọi AI live; adapter/fallback có test                    | Chưa đo chất lượng với người dùng                              |
 
 [Trạng thái mới nhất](docs/harness/context/CURRENT_STATE.md) · [Phạm vi kiểm thử](docs/testing/README.md) · [Checklist nghiệm thu](docs/deployment/manual-acceptance.md)
 
@@ -181,9 +181,9 @@ npm run verify
 
 ## Lộ trình
 
-| Đã có                                  | Đang kiểm chứng                                      | Tiếp theo                                                   |
-| :------------------------------------- | :--------------------------------------------------- | :---------------------------------------------------------- |
-| UI VI/EN, planner, giải thích ngắn, CI | Market Devnet, Phantom vay/trả thật, OpenRouter live | Phỏng vấn người vay, thử nghiệm sử dụng và ưu tiên cải tiến |
+| Đã có                                              | Đang kiểm chứng                                    | Tiếp theo                                                   |
+| :------------------------------------------------- | :------------------------------------------------- | :---------------------------------------------------------- |
+| UI VI/EN, goal planner, CI, vay/trả Devnet qua API | Phantom end-to-end, liquidation model và allocator | Phỏng vấn người vay, thử nghiệm sử dụng và ưu tiên cải tiến |
 
 Swap, nhiều protocol và tự động hóa chưa nằm trong MVP hiện tại.
 

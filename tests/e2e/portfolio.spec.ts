@@ -199,4 +199,13 @@ test("a pending portfolio plan survives reload and blocks the next signature", a
     0,
   );
   await expect(page.getByLabel("Trả tối đa (USDC)")).toBeDisabled();
+  await page.route("**/api/plans/status", (route) =>
+    route.fulfill({ json: { phase: "verified", cursor: 2, receipts: [] } }),
+  );
+  await page.getByRole("button", { name: "Kiểm tra kết quả", exact: true }).click();
+  await expect(page.getByText("Đã xác minh toàn bộ bước trả nợ", { exact: true })).toBeVisible();
+  await expect(page.getByText("Mục tiêu theo dữ liệu mới", { exact: true })).toBeVisible();
+  await expect(
+    page.getByText(/Giá hoặc lãi đã đổi sau khi trả. Cần trả thêm 13,6 USDC/),
+  ).toBeVisible();
 });

@@ -31,7 +31,7 @@
 
 > [!NOTE]
 > **Ready to explore:** the bilingual interface, scenarios, and planner run on Vercel without a wallet or API key.
-> **Still being validated:** Kamino Devnet borrowing and repayment code is implemented, but live transactions have not passed acceptance. AI has a deterministic fallback. [Current evidence and status](docs/harness/context/CURRENT_STATE.md).
+> **Tested on Devnet:** three deposits, three loans and two repayment steps through the Vercel API using a dedicated test wallet, with verified receipts. This is not full Phantom popup acceptance. Prices and interest can change after repayment; the app checks the goal again. [Transaction evidence](docs/testing/live-devnet-cycle.md).
 
 **Current direction:** goal-based repayment for up to three loans, with a default 5% buffer measured from the stressed price, minimum required spend and a wallet reserve. Redis tracks sequential signatures and verified receipts. **Liquidation-loss allocation remains disabled:** the search engine has abstract cost-vector tests, but Kamino model parity is not verified. [Architecture](docs/architecture/goal-portfolio.md) · [Three-position demo](docs/deployment/portfolio-demo.md).
 
@@ -97,7 +97,7 @@ These images show the interface and illustrative data, not successful live trans
 3. Compare the before/after plan and select **Explain the results**.
 4. Adjust the budget or reserve to explore the tradeoffs.
 
-For a wallet-based demo, open [Devnet setup](https://picachu-iota.vercel.app/setup) and read the [prerequisites](docs/deployment/demo-setup.md). A working market configuration has not yet passed acceptance. Do not use arbitrary mainnet addresses on Devnet.
+For a wallet-based demo, open [Devnet setup](https://picachu-iota.vercel.app/setup) and read the [prerequisites](docs/deployment/demo-setup.md). The documented Kamino Devnet pair passed borrowing and repayment with a dedicated test wallet. Do not use mainnet addresses on Devnet.
 
 ## For judges
 
@@ -110,13 +110,13 @@ Revenue, pilots and willingness to pay have not been validated. They are future 
 
 ## Status and evidence
 
-| Area           | Verified                                                                              | Still open                                                                  |
-| :------------- | :------------------------------------------------------------------------------------ | :-------------------------------------------------------------------------- |
-| Interface      | VI/EN, responsive layouts, keyboard access and axe across five pages                  | User feedback                                                               |
-| Core and build | Checkpoint `1102222`: 34 unit tests, 21 browser tests, production build and CI passed | Mock tests do not prove live transactions                                   |
-| Vercel         | Landing, workspace, setup and compact amounts checked on September 28, 2026           | [Smoke-test details](docs/testing/vercel-smoke-2026-09-28.md)               |
-| Kamino Devnet  | Adapter and prepare/sign/submit/status pipeline implemented                           | Working market/oracles, real borrowing, repayment and recovery              |
-| OpenRouter     | Adapter and fallback tested with mocks                                                | The observed live request used the template; provider success is unverified |
+| Area           | Verified                                                                     | Still open                                                    |
+| :------------- | :--------------------------------------------------------------------------- | :------------------------------------------------------------ |
+| Interface      | VI/EN, responsive layouts, keyboard access and axe across five pages         | User feedback                                                 |
+| Core and build | Checkpoint `7d398c0`: 87 unit tests, 32 browser tests, build and CI passed   | Mocks do not prove protocol accuracy                          |
+| Vercel         | Landing, workspace, setup and compact amounts checked on September 28, 2026  | [Smoke-test details](docs/testing/vercel-smoke-2026-09-28.md) |
+| Kamino Devnet  | Three deposits, three loans and two repayments verified through deployed API | Full Phantom cycle; liquidation model parity                  |
+| OpenRouter     | Owner confirmed live AI calls; adapter/fallback tested                       | User-facing quality evaluation                                |
 
 [Latest status](docs/harness/context/CURRENT_STATE.md) · [Test scope](docs/testing/README.md) · [Acceptance checklist](docs/deployment/manual-acceptance.md)
 
@@ -183,9 +183,9 @@ Detailed engineering documents are currently written in Vietnamese; this README 
 
 ## Roadmap
 
-| Available                                      | Being validated                                                     | Next                                                                |
-| :--------------------------------------------- | :------------------------------------------------------------------ | :------------------------------------------------------------------ |
-| VI/EN UI, planner, concise explanations and CI | Devnet market, real Phantom borrowing/repayment and live OpenRouter | Borrower interviews, usability testing and prioritized improvements |
+| Available                                                          | Being validated                                     | Next                                                                |
+| :----------------------------------------------------------------- | :-------------------------------------------------- | :------------------------------------------------------------------ |
+| VI/EN UI, goal planner, CI, Devnet borrowing/repayment through API | Full Phantom cycle, liquidation model and allocator | Borrower interviews, usability testing and prioritized improvements |
 
 Swaps, multiple protocols and automation are outside the current MVP.
 

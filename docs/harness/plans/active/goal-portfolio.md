@@ -14,6 +14,8 @@ Người dùng chốt: giữ picachu; UI light terminal đơn giản; 1–3 kho�
 
 ## Trạng thái thực thi
 
+- 01/10: ba khoản vay và hai bước trả nợ cần thiết đã verified trên Devnet qua API Vercel + signer riêng. Quote mới trong giới hạn gốc cần review; dữ liệu sau trả kiểm lại mục tiêu. Receipt ở `docs/testing/live-devnet-cycle.md`. Đây không thay nghiệm thu popup Phantom hoặc model parity.
+
 - Đã có code mục tiêu/danh mục, nhật ký kế hoạch, ký tuần tự, slot demo và bộ tìm kiếm độc lập.
 - Bộ tìm kiếm được kiểm bằng các cost vector trừu tượng. Chưa có cost vector Kamino đã chứng minh parity; không đưa module này vào đường khuyến nghị.
 - Quyết định fallback đã được người dùng chốt: nếu chưa kiểm chứng tổn thất, ẩn allocator; giữ mục tiêu trả nợ đã kiểm. Không bật bằng một env boolean để bỏ qua kiểm chứng.

@@ -2,6 +2,8 @@
 
 ## 01/10 — ba khoản vay thật và cập nhật quote
 
+- `7d398c0` CI + Vercel Production PASS; runner đã hoàn thành hai bước repay, status verified. Tổng 2,406756 USDC, ví còn 17,401774 USDC (reserve1). Report public ở docs/testing/evidence/devnet-repayments.json. Lần đọc sau có giá/lãi đổi và yêu cầu thêm 0,007041 USDC; không tự gửi tiếp. UI kiểm lại mục tiêu sau verified bằng snapshot mới, lỗi đọc không giả thành đạt mục tiêu. Gate còn mở: Phantom end-to-end và protocol parity allocator.
+
 - Ví test riêng đã nhận 5 SOL Devnet; runner xác minh ba deposit và ba borrow qua API trên domain chính. Không dùng password/key Phantom của owner. Receipt công khai ở `docs/testing/evidence/devnet-created-three-positions.json`.
 - Live `/api/plans/prepare` dừng PLAN_CHANGED do equality số tiền cũ với oracle/lãi mới. Sửa refresh các bước chưa thực hiện trong ngân sách/reserve gốc, không sửa receipt đã xác minh; khi số tiền đổi UI và submit yêu cầu xác nhận review. Số dư ví đổi bất ngờ, quote vượt giới hạn hoặc bước không còn cần trả vẫn chặn và yêu cầu lập lại.
 - Kiểm tra: 87 unit tests, 31 browser tests toàn bộ + 5 portfolio tests (bao gồm review mới), check/build PASS. Chờ nghiệm thu trả nợ sau deploy; không suy thành công từ fixture. Allocator vẫn tắt vì chưa có protocol parity.

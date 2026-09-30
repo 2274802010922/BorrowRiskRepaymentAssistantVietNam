@@ -1,0 +1,62 @@
+{
+  "observedAt": "2026-09-30T17:12:27.198Z",
+  "wallet": "3kHRwxR1vgCiyNRLozyQU3NWEv3hR54Cc5rsvreyFmRo",
+  "reserveVerified": true,
+  "positions": [
+    {
+      "position": "854aw3w9crTC6K8fmKLzPddYcg6rVJsDkZ6cmhb5cCx",
+      "debtAtomic": "5999330",
+      "walletDebtAtomic": "17401774",
+      "bufferAfterShockPct": "4.9600",
+      "priceObservedAt": "2026-09-30T17:08:26.000Z"
+    },
+    {
+      "position": "8PpZyrJaWYNyYduWyihN4Hf6vQWppzwVgfHvyGgrqx4K",
+      "debtAtomic": "5401195",
+      "walletDebtAtomic": "17401774",
+      "bufferAfterShockPct": "14.4355",
+      "priceObservedAt": "2026-09-30T17:08:26.000Z"
+    },
+    {
+      "position": "HuUuEHfYSUADS6XBJqznm5XnhhVQ11xukVJnqt62RKkE",
+      "debtAtomic": "6001323",
+      "walletDebtAtomic": "17401774",
+      "bufferAfterShockPct": "4.9285",
+      "priceObservedAt": "2026-09-30T17:08:26.000Z"
+    }
+  ],
+  "freshPlan": {
+    "version": "goal-v1",
+    "state": "achievable",
+    "spendableAtomic": "16401774",
+    "requiredAtomic": "7041",
+    "shortfallAtomic": "0",
+    "totalRepayAtomic": "7041",
+    "walletAfterAtomic": "17394733",
+    "steps": [
+      {
+        "position": "854aw3w9crTC6K8fmKLzPddYcg6rVJsDkZ6cmhb5cCx",
+        "repayAtomic": "2524",
+        "bufferBeforePct": "4.9600",
+        "bufferAfterPct": "5.0000"
+      },
+      {
+        "position": "8PpZyrJaWYNyYduWyihN4Hf6vQWppzwVgfHvyGgrqx4K",
+        "repayAtomic": "0",
+        "bufferBeforePct": "14.4355",
+        "bufferAfterPct": "14.4355"
+      },
+      {
+        "position": "HuUuEHfYSUADS6XBJqznm5XnhhVQ11xukVJnqt62RKkE",
+        "repayAtomic": "4517",
+        "bufferBeforePct": "4.9285",
+        "bufferAfterPct": "5.0000"
+      }
+    ],
+    "model": {
+      "available": false,
+      "reason": "LIQUIDATION_PARITY_NOT_VERIFIED"
+    }
+  },
+  "note": "Read-only fresh check. Oracle prices and interest can move after verified receipts; no additional transaction submitted."
+}

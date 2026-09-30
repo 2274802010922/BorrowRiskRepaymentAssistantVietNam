@@ -2,6 +2,8 @@
 
 <img src="../../public/brand/picachu-logo.jpg" alt="Logo pixel picachu" width="72">
 
+01/10: `7d398c0` có 87 unit tests +32 browser tests, check/build/CI PASS. [Vòng Devnet thật](live-devnet-cycle.md) qua API Vercel bằng test signer riêng: ba deposit, ba borrow, hai repay và Redis journal verified. Snapshot sau trả cho thấy giá/lãi có thể đổi mục tiêu tiếp; UI kiểm riêng trạng thái hiện tại. Chưa nghiệm thu đầy đủ popup Phantom hoặc liquidation parity; không dùng test abstraction để bật allocator.
+
 Release picachu 28/09/2026: 34 unit tests và 21 Chromium tests PASS. Bổ sung format số, giới hạn demo, binding sai ví/sai message/expired, chống gửi lại signature đã tồn tại, lỗi oracle không mở ký và khôi phục pending sau reload. Năm trang được kiểm a11y; setup có mặt trong ma trận viewport/ngôn ngữ. Production build PASS. Đây là bằng chứng offline/mocked; live Phantom và market còn mở.
 
 Ngày 27/09/2026, `npm run verify` PASS trên Node 24.16.0/Windows: 20 unit tests, 17 Chromium tests, format/lint/typecheck và production build. Browser tests gồm VI/EN × 375/768/1024/1440px, form validation, locale persistence, drawer focus/Escape, fixture không ký, Phantom vắng mặt và axe trên 4 route. Không có live provider trong các test này.

@@ -2,6 +2,14 @@
 
 ## Cập nhật 01/10 — tạo khoản vay đã xác minh
 
+### Trả nợ đã xác minh sau deploy `7d398c0`
+
+Runner hoàn thành kế hoạch với hai bước cần trả, status cuối `verified`; không tạo giao dịch cho khoản đã đủ dư địa. B trả 0,602589 USDC ([receipt](https://explorer.solana.com/tx/5YkipLcKg9iSxZKp5T5RGd3m9sXL8aW4dTN6VufaZegnah6biR1iQyajvJtvVw85v2ZHDiVw1VHPbkTwfZTQ6s7p?cluster=devnet)); A trả 1,804167 USDC ([receipt](https://explorer.solana.com/tx/bPmKs9uF853gHDbFNYdJ26u269K2nwJQ8RQqysiqaDqMFGZRv2CEKd4LDce9kV5zJ61ztvKy3QQGfFDUtAKyVFp?cluster=devnet)). Tổng 2,406756 USDC, ví còn 17,401774 USDC, reserve tối thiểu 1 USDC được giữ. Bước thứ hai có quote đổi và runner kiểm/review giới hạn gốc trước ký. [Report](evidence/devnet-repayments.json).
+
+Lần đọc riêng sau receipt lúc `2026-09-30T17:12:27Z` (01/10 giờ Việt Nam) có dư địa A4,9285%, B4,9600%, C14,4355% do giá/lãi đổi tiếp. Cần thêm 0,007041 USDC để đạt đúng 5% tại snapshot đó; không gửi thêm giao dịch tự động. [Snapshot sau trả](evidence/devnet-goal-after.json). UI bổ sung kiểm mục tiêu bằng dữ liệu mới sau phase verified, phân biệt receipt thành công với mục tiêu ở giá hiện tại.
+
+Quality CI [36749375123](https://github.com/2274802010922/picachu__/actions/runs/36749375123) và Vercel Production của `7d398c0` PASS. Public API/journal/receipt đã nghiệm thu bằng test signer, không suy ra popup Phantom đầy đủ. Allocator/model parity vẫn mở.
+
 Sau bản retry `bacb45c`, runner xác minh cả ba deposit 0,1 SOL và ba borrow: A 7,805461 USDC, B 6,601894 USDC, C 5,401175 USDC. Sáu signature/position/fee có trong [report công khai](evidence/devnet-created-three-positions.json). Không chứa key, binding token hoặc raw transaction. Đây là test signer riêng qua API triển khai thật, không phải kiểm popup Phantom.
 
 Bước trả nợ đầu tiên dừng PLAN_CHANGED trước ký vì giá/lãi đổi số atomic giữa create và prepare. Refresh mới chỉ thay các bước chưa gửi, giữ receipt cũ và kiểm tổng không vượt budget/reserve. UI hiển thị tổng mới, cần checkbox review trước ký; submit kiểm reviewAccepted khi quote đổi. Repeated prepare không xóa yêu cầu review. Số dư ví đổi hoặc bước đã đạt mục tiêu cần lập lại; không tự replay khoản đã trả. Biên nhận xác minh giao dịch không bảo đảm mục tiêu vẫn đạt khi giá tiếp tục đổi.

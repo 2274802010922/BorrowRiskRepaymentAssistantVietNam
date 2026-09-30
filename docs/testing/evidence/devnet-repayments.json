@@ -1,0 +1,46 @@
+{
+  "wallet": "3kHRwxR1vgCiyNRLozyQU3NWEv3hR54Cc5rsvreyFmRo",
+  "cluster": "devnet",
+  "executed": true,
+  "steps": [
+    {
+      "action": "readiness",
+      "solLamports": 4637718760
+    },
+    {
+      "action": "repay",
+      "repayAtomic": "602589",
+      "signature": "5YkipLcKg9iSxZKp5T5RGd3m9sXL8aW4dTN6VufaZegnah6biR1iQyajvJtvVw85v2ZHDiVw1VHPbkTwfZTQ6s7p"
+    },
+    {
+      "action": "review_updated_quote",
+      "totalRepayAtomic": "2406756",
+      "walletAfterAtomic": "17401774"
+    },
+    {
+      "action": "repay",
+      "repayAtomic": "1804167",
+      "signature": "bPmKs9uF853gHDbFNYdJ26u269K2nwJQ8RQqysiqaDqMFGZRv2CEKd4LDce9kV5zJ61ztvKy3QQGfFDUtAKyVFp"
+    },
+    {
+      "action": "portfolio_after",
+      "positions": [
+        {
+          "position": "854aw3w9crTC6K8fmKLzPddYcg6rVJsDkZ6cmhb5cCx",
+          "debtAtomic": "5999329",
+          "walletDebtAtomic": "17401774"
+        },
+        {
+          "position": "8PpZyrJaWYNyYduWyihN4Hf6vQWppzwVgfHvyGgrqx4K",
+          "debtAtomic": "5401194",
+          "walletDebtAtomic": "17401774"
+        },
+        {
+          "position": "HuUuEHfYSUADS6XBJqznm5XnhhVQ11xukVJnqt62RKkE",
+          "debtAtomic": "6001322",
+          "walletDebtAtomic": "17401774"
+        }
+      ]
+    }
+  ]
+}
