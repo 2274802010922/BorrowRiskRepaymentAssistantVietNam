@@ -21,3 +21,7 @@ Owner cấp5 SOL Devnet cho ví test `3kHRwxR1vgCiyNRLozyQU3NWEv3hR54Cc5rsvreyFm
 `scripts/checks/automated-devnet-cycle.ts --wallet-file=PATH` mặc định chỉ đọc; thêm `--execute-devnet` mới ký/gửi. Kiểm genesis+health Devnet, payer/signer/program, fee cap, principal cap, giữ pending trước submit và bounded receipt polling. Unknown dừng không resubmit; expired phải được chain/status chứng minh rồi mới archive và tạo quote mới. Report public không chứa token/binding/transaction/key.
 
 Lần đầu SDK signed simulation PASS nhưng API submit trả503 generic ở web3 HTTP transport. Signature `45YAayfbGDFKtX4P9sCMZQFiudyMoPkFv8i4kixk6CGQDQR5H6ZckFtbZVXuTnKf8NwC9t2WBbqoWpsJ42JdHTQH` đã kiểm phase expired; không coi là submitted hoặc confirmed. Đang thêm HTTP status từ error prefix vào safe diagnostics để xác định lỗi relay RPC. Chưa có receipt tạo vị thế cho ví test này.
+
+Diagnostics mới xác nhận RPC_HTTP_429 từ web3 transport ở submit (request35e31714-cd11-45f8-87ea-4dbaf98d47cb). Signed transaction mô phỏng sigVerify=true trên public RPC từ máy PASS. Bổ sung retry chỉ cho429, tối đa4 attempts/delays1,5–3–6s trong deadline15s, giữ nguyên payload/chữ ký; không retry arbitrary network failures. Kit giữ serialization của transport chuẩn, retry typed statusCode429. Connection tái dùng theo URL để bớt constructor/genesis requests; genesis guard vẫn gọi.
+
+Local verify: 84 unit tests +31 browser tests, build/check PASS; thêm case Kit retry kiểm riêng PASS. Chờ nghiệm thu relay sau deploy, chưa kết luận dedicated RPC không còn cần.

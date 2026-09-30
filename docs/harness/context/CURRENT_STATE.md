@@ -2,6 +2,8 @@
 
 ## 30/09 — hướng mục tiêu và danh mục
 
+- Test ví5SOL gặp HTTP429 ở RPC relay từ Vercel; signed simulation trực tiếp PASS. Thêm bounded429 retry cho web3/Kit, deadline15s, cùng payload và connection reuse theo URL. Không đổi mạng hoặc nới signature/binding; chờ testlive sau deploy. Ghi chú docs/testing/live-devnet-cycle.md.
+
 - Ví test riêng 3kHR...FmRo nhận5 SOL Devnet, runner API có --execute-devnet riêng và giữ pending/không lặp unknown. Lần gửi đầu gặp web3 HTTP transport error; signed simulation PASS, signature đã kiểm expired, chưa có vị thế ví test. Đang xác định HTTP status bằng diagnostics; Chrome không truy cập popup Phantom nên không dùng thông tin unlock để giả lập ký ví user.
 
 - Deposit slot201 đã finalized, collateral0,1 SOL/debt0, UI verified/borrow; receipt ở docs/testing/live-devnet-cycle.md. Owner đã cho phép agent tự test giao dịch Devnet, không ghi thông tin unlock vào tài liệu. Sửa race cap profile check→prepare để principal chỉ giữ nguyên/giảm; submit dùng conservative protocol cap thay nominal equality. Chưa nghiệm thu borrow/repay.

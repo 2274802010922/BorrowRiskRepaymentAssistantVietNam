@@ -1,16 +1,22 @@
 import { Connection } from "@solana/web3.js";
 import { assertDevnetGenesis } from "./constants.mjs";
 import { AppError } from "../../backend/services/http";
+import { rpcFetch } from "./fetch";
+let cached: { url: string; connection: Connection } | undefined;
 
 export function rpcUrl() {
   return process.env.SOLANA_RPC_URL || "https://api.devnet.solana.com";
 }
 export function connection() {
-  return new Connection(rpcUrl(), {
+  const url = rpcUrl();
+  if (cached?.url === url) return cached.connection;
+  const c = new Connection(url, {
     commitment: "confirmed",
-    fetch: (input, init) => fetch(input, { ...init, signal: AbortSignal.timeout(15_000) }),
+    fetch: rpcFetch,
     disableRetryOnRateLimit: true,
   });
+  cached = { url, connection: c };
+  return c;
 }
 export async function devnetConnection() {
   const c = connection();

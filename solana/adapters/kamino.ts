@@ -18,6 +18,7 @@ import { snapshotSchema, type PositionSnapshot } from "../../shared/types";
 import { metrics } from "../../core/risk/metrics";
 import { readOracleData } from "./oracle";
 import { isOracleFresh } from "../../core/risk/oracle";
+import { retryKitRpc } from "../network/fetch";
 
 export const TOKEN_PROGRAM = new PublicKey("TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA");
 const ATA_PROGRAM = new PublicKey("ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL");
@@ -40,14 +41,12 @@ export async function loadMarket() {
   const ids = configuredMarket();
   await devnetConnection();
   const transport = createDefaultRpcTransport({ url: rpcUrl() });
-  const rpc = createSolanaRpcFromTransport((request) =>
-    transport({
-      ...request,
-      signal: request.signal
-        ? AbortSignal.any([request.signal, AbortSignal.timeout(12000)])
-        : AbortSignal.timeout(12000),
-    }),
-  );
+  const rpc = createSolanaRpcFromTransport((request) => {
+    const signal = request.signal
+      ? AbortSignal.any([request.signal, AbortSignal.timeout(15000)])
+      : AbortSignal.timeout(15000);
+    return retryKitRpc(() => transport({ ...request, signal }), signal);
+  });
   // Explicitly load just the supported pair. Avoid mainnet CDN metadata in a Devnet reader.
   const [state] = await LendingMarket.fetchMultiple(
     rpc,
