@@ -8,7 +8,7 @@
   "packageManager": "npm@11.13.0",
   "scripts": {
     "dev": "next dev",
-    "build": "next build --webpack",
+    "build": "next build",
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "next typegen && tsc --noEmit",
@@ -56,6 +56,11 @@
     "tsx": "4.23.15",
     "typescript": "5.9.3",
     "vitest": "5.0.2"
+  },
+  "overrides": {
+    "@solana/web3.js@1.98.4": {
+      "rpc-websockets": "9.3.8"
+    }
   },
   "type": "module"
 }

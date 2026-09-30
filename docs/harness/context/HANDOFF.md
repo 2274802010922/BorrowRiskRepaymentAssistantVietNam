@@ -4,7 +4,7 @@
 
 Allocator chưa đủ protocol parity: chỉ có cost-grid search và test abstract vectors, không có loss Kamino đã chứng minh. Giữ gate unavailable, không bật bằng env hay fixtures. Tiếp theo cần reference harness với program/IDL tương thích, golden vectors rounding/cap/bonus/fee rồi mới nối engine vào API/UI và partial opt-in.
 
-Live health 30/09 thiếu KAMINO_MARKET_ID/COLLATERAL_RESERVE/DEBT_RESERVE, AI + Redis configured. Chưa đăng nhập được dashboard Vercel hoặc có quyền ký Phantom để tự hoàn tất live acceptance. Không tiếp tục sửa AI đã hoạt động. Khóa portfolio không phải khóa protocol: ứng dụng khác và route đơn cũ vẫn có thể chi ví; fresh read phát hiện thay đổi và dừng.
+Live health 30/09 đã nhận đủ config sau owner redeploy; Chrome extension đã kết nối và đã đọc Logs trực tiếp. Runtime ERR_REQUIRE_ESM tái hiện được: rpc-websockets 9.3.9 dưới web3.js require UUID 14 ESM. Pin về 9.3.8 (UUID 11 CJS), giữ Next/SDK/Kit. Webpack chỉ là bước chẩn đoán, đã khôi phục Turbopack; bundle probe phải chạy strict CommonJS flag để Node 24 local không che lỗi. Đọc docs/testing/runtime-diagnostics.md, kiểm API live sau deploy trước khi hướng dẫn ký. Không tiếp tục sửa AI đã hoạt động. Khóa portfolio không phải khóa protocol: ứng dụng khác và route đơn cũ vẫn có thể chi ví; fresh read phát hiện thay đổi và dừng.
 
 Nhật ký giữ 24 giờ và token kế hoạch frontend có signature/binding backup; trước gửi còn lưu `ExecutionRecord` vào recovery cũ để `/workspace` có thể kiểm receipt qua `/api/repayments/status` khi journal hết TTL. Không tự xóa tiến độ hoặc ký lại unknown. Journal dài hạn/khôi phục lại cursor sau TTL vẫn là giới hạn cần cải thiện trước dùng lâu dài.
 

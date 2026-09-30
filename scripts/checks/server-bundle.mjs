@@ -5,10 +5,6 @@ import { spawnSync } from "node:child_process";
 const base = process.cwd();
 const trace = resolve(base, ".next/server/app/api/demo/route.js.nft.json");
 const { files } = JSON.parse(await readFile(trace, "utf8"));
-// Vercel's current packaging cannot resolve these Turbopack-generated SDK aliases.
-// Do not make this probe pass by reconstructing their symlinks on the local machine.
-if (files.some((file) => /(?:klend-sdk|kit)-[a-f0-9]{16}(?:\/|$)/.test(file)))
-  throw new Error("UNSUPPORTED_HASHED_SDK_EXTERNAL: build production with --webpack");
 files.push("route.js");
 const target = await mkdtemp(resolve(tmpdir(), "picachu-bundle-"));
 let count = 0;
@@ -33,6 +29,7 @@ for (const file of files) {
 const probe = spawnSync(
   process.execPath,
   [
+    "--no-experimental-require-module",
     "--input-type=module",
     "-e",
     `await import('@kamino-finance/klend-sdk'); await import('@solana/kit'); console.log('SDK_IMPORT_OK');

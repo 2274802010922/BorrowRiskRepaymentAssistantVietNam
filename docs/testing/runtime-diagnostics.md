@@ -14,6 +14,14 @@ UI portfolio không gọi lỗi đọc ví là không có khoản vay. Chờ đ�
 
 Diagnostics live ở checkpoint `5e5e6e9`, request `9bcf66be-9b03-4eb8-8356-1d7aac525fa8`: category `module_load`, frame `turbopack_runtime.js:704:15`, chunk `root-of-the-server__202x3q5._.js:1:107`. Đối chiếu chunk cùng tên trên build local: vị trí này tải external SDK `@kamino-finance/klend-sdk-c73fa4196c003b37`. Alias nằm trong `.next/node_modules` và trỏ sang SDK thật. Loader bọc lỗi bằng message nhưng không giữ cause; vì thế code lỗi module trước đó bị mất.
 
-Quyết định: build production bằng `next build --webpack`, giữ phiên bản Next/SDK, serverExternalPackages và tham số protocol. [Next.js hỗ trợ lựa chọn Webpack](https://nextjs.org/docs/app/api-reference/turbopack). Build mới dùng tên package nguyên bản; gate bundle từ chối hashed SDK aliases thay vì tái tạo symlink rồi suy rằng Vercel cũng resolve được.
+Checkpoint `bb94959` thử Webpack để thấy lỗi gốc không bị loader bọc. [Next.js hỗ trợ lựa chọn Webpack](https://nextjs.org/docs/app/api-reference/turbopack). Live sau đó vẫn lỗi nhưng đã ghi rõ `ERR_REQUIRE_ESM`. Vì vậy alias của Turbopack chỉ là vị trí bọc lỗi, chưa phải nguyên nhân gây lỗi; không giữ cổng từ chối alias như bằng chứng packaging sai.
 
 Local bản Webpack: `npm run verify` PASS, 71 unit tests + 29 browser tests, format/lint/types/build. Bundle probe SDK + configured compiled POST tới genesis guard PASS. Cần kiểm lại trên Vercel sau deploy trước khi kết luận lỗi live đã hết; không coi thành công local là phép vay/trả thật.
+
+## Nguyên nhân gốc: dependency CJS gọi UUID ESM
+
+Tái hiện chính xác bằng `node --no-experimental-require-module`: `@kamino-finance/klend-sdk` → web3.js 1.98.4 → rpc-websockets 9.3.9 gọi `require('uuid')`, nhưng UUID 14.0.2 chỉ cung cấp ESM. Node 24 local mặc định hỗ trợ require ESM nên bài kiểm cũ không phát hiện điều kiện mà loader Vercel gặp.
+
+Sửa có phạm vi: override rpc-websockets dưới web3.js 1.98.4 sang 9.3.8 (vẫn thuộc range ^9.0.2 của web3.js), dùng UUID 11.1.1 có export CommonJS. Giữ Next/SDK/Kit và công thức tài chính. Khôi phục Turbopack production vì compiler không phải nguyên nhân gốc. Gate bundle luôn chạy với `--no-experimental-require-module` để không dựa vào cơ chế interop của Node local.
+
+Sau npm install, STRICT_CJS_SDK_IMPORT_OK. Audit giữ nguyên 21 transitive warnings (9 moderate/12 high); không audit fix --force. Chờ full checks và API live sau deploy; đây chưa phải bằng chứng vay/trả thật.
