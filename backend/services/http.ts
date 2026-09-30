@@ -36,6 +36,7 @@ export async function readJson(request: Request) {
 }
 export function apiError(error: unknown) {
   const requestId = randomUUID();
+  const diagnostics = safeErrorDiagnostics(error);
   const rawCode = error && typeof error === "object" && "code" in error ? String(error.code) : "";
   const code =
     error instanceof AppError
@@ -47,7 +48,7 @@ export function apiError(error: unknown) {
               "ERR_MODULE_NOT_FOUND",
               "ERR_UNSUPPORTED_DIR_IMPORT",
               "ERR_REQUIRE_ESM",
-            ].includes(rawCode)
+            ].some((code) => diagnostics.causeCodes.includes(code))
           ? "SERVER_DEPENDENCY_ERROR"
           : "SERVICE_UNAVAILABLE";
   // Never log request bodies, headers, wallet addresses, RPC URLs or provider messages.
@@ -59,6 +60,7 @@ export function apiError(error: unknown) {
       kind: error instanceof Error ? error.name : "Unknown",
       moduleError:
         rawCode.startsWith("ERR_") || rawCode === "MODULE_NOT_FOUND" ? rawCode : undefined,
+      diagnostics,
     }),
   );
   return NextResponse.json(
@@ -68,4 +70,71 @@ export function apiError(error: unknown) {
       headers: { "cache-control": "no-store" },
     },
   );
+}
+
+// Internal logs expose only fixed categories and stack file/line numbers, never raw
+// error messages, full paths, URLs, request data or provider response bodies.
+export function safeErrorDiagnostics(error: unknown) {
+  const causeCodes: string[] = [],
+    frames: string[] = [],
+    categories: string[] = [];
+  const seen = new Set<unknown>();
+  for (
+    let current: unknown = error;
+    current && typeof current === "object" && !seen.has(current) && seen.size < 4;
+  ) {
+    seen.add(current);
+    const item = current as {
+      code?: unknown;
+      message?: unknown;
+      stack?: unknown;
+      cause?: unknown;
+      context?: { __code?: unknown; statusCode?: unknown };
+    };
+    const context = item.context;
+    if (context && typeof context === "object") {
+      if (typeof context.__code === "number" && Number.isSafeInteger(context.__code))
+        causeCodes.push(`SOLANA_${context.__code}`);
+      if (
+        typeof context.statusCode === "number" &&
+        Number.isInteger(context.statusCode) &&
+        context.statusCode >= 100 &&
+        context.statusCode <= 599
+      )
+        causeCodes.push(`RPC_HTTP_${context.statusCode}`);
+    }
+    if (
+      typeof item.code === "string" &&
+      /^(MODULE_NOT_FOUND|ERR_[A-Z_0-9]+|UND_ERR_[A-Z_0-9]+|ECONN[A-Z_]+|ETIMEDOUT)$/.test(
+        item.code,
+      )
+    )
+      causeCodes.push(item.code.slice(0, 64));
+    const message = typeof item.message === "string" ? item.message : "";
+    const category =
+      /Cannot find module|Failed to load external module|require is not defined|require\(\) of ES Module/i.test(
+        message,
+      )
+        ? "module_load"
+        : /Invalid URL|Endpoint URL must start/i.test(message)
+          ? "rpc_url"
+          : /fetch failed|timeout|timed out/i.test(message)
+            ? "network"
+            : "other";
+    categories.push(category);
+    if (typeof item.stack === "string")
+      for (const line of item.stack.split("\n").slice(1)) {
+        const match = line.match(/[/\\]([^/\\():]+\.(?:js|mjs|cjs|ts)):(\d+):(\d+)\)?$/);
+        if (match && frames.length < 6)
+          frames.push(
+            `${match[1].replace(/[^A-Za-z0-9_.-]/g, "").slice(-100)}:${match[2]}:${match[3]}`,
+          );
+      }
+    current = item.cause;
+  }
+  return {
+    causeCodes: [...new Set(causeCodes)],
+    categories: [...new Set(categories)],
+    frames: [...new Set(frames)],
+  };
 }

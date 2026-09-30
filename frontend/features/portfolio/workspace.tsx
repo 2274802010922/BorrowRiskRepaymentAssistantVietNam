@@ -394,8 +394,13 @@ function Content({ wallet }: { wallet: string | null }) {
             </div>
             {!positions.length ? (
               <p>
-                {t("Chưa có khoản vay được hỗ trợ.", "No supported loans found.")}{" "}
-                <Link href="/setup">{t("Thiết lập demo", "Set up a demo")}</Link>
+                {error
+                  ? t(
+                      "Chưa đọc được khoản vay. Hãy làm mới để thử lại.",
+                      "Loans could not be read. Refresh to retry.",
+                    )
+                  : t("Chưa có khoản vay được hỗ trợ.", "No supported loans found.")}{" "}
+                {!error && <Link href="/setup">{t("Thiết lập demo", "Set up a demo")}</Link>}
               </p>
             ) : (
               positions.map((s, i) => (

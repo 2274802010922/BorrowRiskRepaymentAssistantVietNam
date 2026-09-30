@@ -2,6 +2,8 @@
 
 ## 30/09 — hướng mục tiêu và danh mục
 
+- Sau khi owner thêm giá trị và redeploy: live health executionConfigured=true, missing/invalid=[]; portfolio/read và demo/check vẫn 503 generic. Chrome extension đã kết nối; đã đọc Vercel Logs, không còn chờ owner gửi log. RPC URL khớp public Devnet, API configured trên Next production local trả 200. Đang bổ sung safe diagnostics + compiled configured bundle gate để xác định lỗi runtime, chưa kết luận RPC hoặc module là nguyên nhân. [Ghi chép](../../testing/runtime-diagnostics.md).
+
 - Người dùng yêu cầu build theo plan và commit/push main. Hướng hiện hành ở [goal-portfolio](../plans/active/goal-portfolio.md), thay phần mở rộng single-position của MVP cũ.
 - `/portfolio`: UI ba bước VI/EN, tối đa ba vị thế, buffer 5% từ giá đã shock, số dư ví dùng một lần, trả mức tối thiểu khi đủ ngân sách. Thiếu ngân sách không khuyến nghị partial khi model chưa kiểm chứng.
 - `/api/plans*`: snapshot mới từ server, HMAC ID, journal Redis CAS, khóa sau kiểm chữ ký, ký từng bước, receipt historical, dừng khi unknown/lỗi/số dư hoặc số tiền mục tiêu đổi. Legacy recovery còn nguyên.

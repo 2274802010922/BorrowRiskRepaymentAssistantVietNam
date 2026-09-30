@@ -2,6 +2,41 @@ import { expect, test } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import { examplePortfolio } from "../../shared/examples/portfolio";
 import { planPortfolio } from "../../core/repayment/portfolio";
+test("a failed wallet read is never presented as an empty loan portfolio", async ({ page }) => {
+  const wallet = "11111111111111111111111111111111";
+  await page.addInitScript(
+    ({ wallet }) => {
+      localStorage.setItem("picachu-wallet-connected", "true");
+      Object.defineProperty(window, "phantom", {
+        value: {
+          solana: {
+            isPhantom: true,
+            publicKey: { toBase58: () => wallet },
+            connect: async () => ({ publicKey: { toBase58: () => wallet } }),
+            disconnect: async () => {},
+            on: () => {},
+            removeListener: () => {},
+          },
+        },
+      });
+    },
+    { wallet },
+  );
+  await page.route("**/api/portfolio/read", (route) =>
+    route.fulfill({
+      status: 503,
+      json: { error: { code: "SERVICE_UNAVAILABLE", requestId: "test-only" } },
+    }),
+  );
+  await page.goto("/portfolio");
+  await expect(
+    page.getByText("Chưa đọc được khoản vay. Hãy làm mới để thử lại.", { exact: true }),
+  ).toBeVisible();
+  await expect(page.getByText("Chưa có khoản vay được hỗ trợ.", { exact: true })).toHaveCount(0);
+  await expect(page.getByRole("button", { name: "Chuẩn bị bước trả nợ", exact: true })).toHaveCount(
+    0,
+  );
+});
 test("goal planner shows exact minimal repayment and blocks unsupported partial allocation", async ({
   page,
 }) => {
