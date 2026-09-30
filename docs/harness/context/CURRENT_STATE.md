@@ -3,6 +3,7 @@
 ## 30/09 — hướng mục tiêu và danh mục
 
 - Sau khi owner thêm giá trị và redeploy: live health executionConfigured=true, missing/invalid=[]; portfolio/read và demo/check vẫn 503 generic. Chrome extension đã kết nối; đã đọc Vercel Logs, không còn chờ owner gửi log. RPC URL khớp public Devnet, API configured trên Next production local trả 200. Đang bổ sung safe diagnostics + compiled configured bundle gate để xác định lỗi runtime, chưa kết luận RPC hoặc module là nguyên nhân. [Ghi chép](../../testing/runtime-diagnostics.md).
+- Diagnostics live `5e5e6e9` khoanh lỗi module_load tại SDK external alias do Turbopack tạo. Chuyển build production sang Webpack để giữ tên package thường, gate từ chối hashed SDK aliases. Local 71 unit + 29 browser và build/check PASS; chờ kiểm runtime Vercel sau deploy. Giữ nguyên AI/config Kamino/SDK; không ký/gửi giao dịch.
 
 - Người dùng yêu cầu build theo plan và commit/push main. Hướng hiện hành ở [goal-portfolio](../plans/active/goal-portfolio.md), thay phần mở rộng single-position của MVP cũ.
 - `/portfolio`: UI ba bước VI/EN, tối đa ba vị thế, buffer 5% từ giá đã shock, số dư ví dùng một lần, trả mức tối thiểu khi đủ ngân sách. Thiếu ngân sách không khuyến nghị partial khi model chưa kiểm chứng.
