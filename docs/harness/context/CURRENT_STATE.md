@@ -10,6 +10,7 @@
 - Live health ngày 30/09 vẫn thiếu ba biến Kamino, AI và Redis báo đã cấu hình. Đây là health bản deploy trước checkpoint mới, không xác nhận Redis journal runtime hoặc giao dịch thực tế.
 - Chưa có chữ ký vay/trả/withdraw thật. Owner cần deploy và ký theo [walkthrough](../../deployment/portfolio-demo.md). Không đóng gate bằng mock hoặc simulation.
 - Local verify PASS 67 unit tests, 28 browser tests, build/format/lint/types; traced SDK bundle import PASS, README 89 links/assets PASS. Profile B slot202 deposit simulation PASS (không ký/gửi). [Bằng chứng](../../testing/portfolio-validation.md).
+- Checkpoint `ea0f963` đã push main, Quality CI PASS và Vercel Production success. Live health đã có portfolioPlanStoreConfigured=true + allocator unavailable, vẫn thiếu ba giá trị Kamino. Bổ sung sau checkpoint: recovery ghi known signature vào journal mà không broadcast lại; 68 unit tests và check PASS.
 
 Các mục bên dưới là lịch sử, không thay trạng thái hiện hành.
 

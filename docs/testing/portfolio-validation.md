@@ -2,6 +2,8 @@
 
 30/09 local: `npm run verify` PASS với 67 unit tests và 28 browser tests, format/lint/types/build, bao gồm recovery portfolio sau reload. `server-bundle.mjs` chép 2.501 traced files vào temp độc lập và SDK_IMPORT_OK. README checker PASS 89 links/assets; screenshot desktop portfolio đã xem trực tiếp.
 
+`ea0f963`: [Quality CI PASS](https://github.com/2274802010922/picachu__/actions/runs/36698792701), Vercel Production success. Health mới có journal configured=true, allocator unavailable, nhưng vẫn thiếu ba biến Kamino. Sau đó thêm unit case known signed receipt: hook journal được gọi dù signature đã có trên chain, không đọc balance/oracle hoặc gửi lại; `npm run check` PASS 68 unit tests. Đây vẫn là RPC mock, không chữ ký thật.
+
 Benchmark search abstract 3 × 201 candidates, 5 lần: 189/170/166/163/160 ms, p95 mẫu khoảng 189 ms trên máy local. Không bao gồm RPC hoặc tính model loss, không phải performance claim production.
 
 Probe mới ngày 30/09, ví owner public: slot 202 `6GF42T5yCrr6YeV3pwFcX94da3VzgbsMcAHTFfzHaLzh`, profile B nominal55%, oracle đã qua adapter và deposit 0,1 SOL simulation PASS, fee 5.000 lamports. `signed=false`, `submitted=false`; không nghiệm thu borrow/repay. Probe SDK gốc riêng vẫn báo oracle valid=false do bug đơn vị đã ghi ở checkpoint trước; kết quả simulation dùng adapter đã sửa, không hạ cổng xác thực.

@@ -170,8 +170,11 @@ export async function submitRepayment(
   const c = await devnetConnection();
   const signature = bs58.encode(tx.signatures[0]);
   const existing = await c.getSignatureStatuses([signature], { searchTransactionHistory: true });
-  if (existing.value[0])
+  if (existing.value[0]) {
+    // Recover a known signature into the portfolio journal without broadcasting twice.
+    await beforeSend?.(signature);
     return { signature, phase: existing.value[0].err ? "failed" : "submitted" };
+  }
   if (
     Date.now() > bound.expiresAt ||
     (await c.getBlockHeight("confirmed")) > bound.lastValidBlockHeight

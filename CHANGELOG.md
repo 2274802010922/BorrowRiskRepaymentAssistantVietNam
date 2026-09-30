@@ -7,6 +7,7 @@
 - Demo A/B/C slots 201/202/203 với nominal adjusted LTV 65/55/45%, mỗi khoản 0,1 SOL; kiểm cap và simulation trước ký.
 - Cost-grid search có unit tests và brute-force cross-check. Allocator/loss estimate vẫn tắt vì chưa có Kamino parity; chưa nghiệm thu vòng vay/trả thật.
 - Cập nhật hướng dẫn, README VI/EN, ảnh thật, kiến trúc và ngữ cảnh; local 67 unit + 28 browser tests PASS.
+- Sửa recovery khi chữ ký đã có trên chain: ghi vào journal mà không gửi lại; thêm unit case nâng tổng lên 68. Checkpoint chính CI và Vercel Production đã qua, live vẫn thiếu giá trị Kamino.
 
 ## 2026-09-29 — kiểm chứng bước gửi thế chấp Devnet
 
