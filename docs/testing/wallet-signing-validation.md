@@ -11,3 +11,11 @@ Thêm signingSnapshot copy độc lập, verifyWalletResult dùng chung cho demo
 Setup bỏ preview đã bị thay đổi, kiểm expiry lần nữa sau lúc chờ ví để không lưu/gửi một chữ ký từ preview hết hạn. Backend vẫn kiểm HMAC/message hash/Ed25519 như trước, không nới lỏng guard. Các case chữ ký đúng, account switch, blockhash edit và fee edit đều cần pass/fail đúng.
 
 Cần owner ký lại một preview mới sau deploy để capture wallet_signing_guard nếu còn lỗi. Không yêu cầu private key và không tự ký thay owner. Mocks không đóng live acceptance.
+
+## Lần ký thật sau diagnostics
+
+Chrome console đã ghi: walletMatches=true, messageMatches=false, changedFields=[instructions], computeBudgetOnly=true, message length873→885 (30/09 21:44 giờ VN). Tài khoản/blockhash/account keys/header/lookups và non-budget instructions đều giữ nguyên. Vì vậy đây là thay đổi Compute Budget ở ví, không phải lỗi API đọc market hoặc mất SOL; vẫn chặn trước gửi.
+
+Sửa builder demo và repay: đưa ComputeUnitPrice 1000 micro-lamports vào trước compile/simulation/HMAC, giữ SDK CU limit (thêm limit1m nếu chưa có), bỏ giá cũ trùng để mỗi loại có một instruction. Với limit1m, priority fee1000 lamports cộng base5000; phí mới được RPC getFeeForMessage tính và hiển thị trước ký. Mức6000 vẫn dưới cap50000. Không chấp nhận payload ví sửa; exact bytes + Ed25519/binding vẫn bắt buộc. Cần owner ký preview mới sau deploy để xác nhận Phantom giữ message này.
+
+Local: 77 unit tests, 31 browser tests và build/check PASS. Chưa đóng live acceptance chỉ từ test builder.

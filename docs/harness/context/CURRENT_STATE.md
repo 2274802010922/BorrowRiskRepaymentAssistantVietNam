@@ -2,6 +2,8 @@
 
 ## 30/09 — hướng mục tiêu và danh mục
 
+- Lần ký thật sau guard diagnostics: walletMatches=true, changedFields chỉ instructions, computeBudgetOnly=true, bytes873→885. Đã xác định ví thay phần Compute Budget; builder bổ sung giá1000 micro-lamports trước simulation/binding cho demo/repay, giữ exact-byte guard. Local77 unit +31 browser/build/check PASS, cần preview mới và owner ký sau deploy để xác nhận hết mismatch.
+
 - Owner đã thử ký nhưng UI chặn TRANSACTION_CHANGED trước submit; Devnet còn stage deposit/balance cũ, chưa có thế chấp. Thêm guard dùng chung + safe console diagnostics để phân biệt account/message changes và giữ exact bytes; setup bỏ preview mismatch, kiểm expiry sau khi ví trả về. Cần ký lại sau deploy để xác định phần thay đổi thực tế, không giả định priority fee là nguyên nhân. [Ghi chép](../../testing/wallet-signing-validation.md).
 
 - Runtime sửa `3a16008` đã có CI + Vercel Production PASS. Domain chính portfolio/read và demo/check trả 200; ví owner chưa có vị thế. demo/prepare 0,1 SOL profile A simulation PASS, fee5000, total debit0,12353556 SOL; không ký/gửi. Cần owner ký bước deposit trên `/setup` trước khi kiểm borrow/repay. Chrome và env đã đủ cho bước này, không cần lấy lại log hoặc thêm key. [Bằng chứng](../../testing/runtime-diagnostics.md).

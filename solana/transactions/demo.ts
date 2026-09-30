@@ -18,6 +18,7 @@ import { loadMarket, TOKEN_PROGRAM, associatedToken } from "../adapters/kamino";
 import { devnetConnection } from "../network/rpc";
 import { KAMINO_PROGRAM_ID } from "../network/constants.mjs";
 import { messageHash } from "./repay";
+import { quotedComputeBudget } from "./compute-budget";
 import { isOracleFresh } from "../../core/risk/oracle";
 import { demoProfile } from "../../core/validation/demo-profile";
 
@@ -264,7 +265,7 @@ export async function demoAction(input: unknown) {
     const message = new TransactionMessage({
       payerKey: new PublicKey(request.wallet),
       recentBlockhash: latest.blockhash,
-      instructions,
+      instructions: quotedComputeBudget(instructions),
     }).compileToV0Message(lookups.map((l) => l.value!));
     if (message.header.numRequiredSignatures !== 1) throw new AppError("UNSUPPORTED_POSITION");
     const tx = new VersionedTransaction(message);

@@ -16,6 +16,7 @@ import { readPosition, associatedToken, TOKEN_PROGRAM } from "../adapters/kamino
 import { devnetConnection } from "../network/rpc";
 import { planRepayment } from "../../core/repayment/planner";
 import { constraintsSchema, snapshotSchema } from "../../shared/types";
+import { quotedComputeBudget } from "./compute-budget";
 
 const addressText = z
   .string()
@@ -92,7 +93,7 @@ export async function prepareRepayment(input: unknown) {
   const message = new TransactionMessage({
     payerKey: new PublicKey(request.wallet),
     recentBlockhash: latest.blockhash,
-    instructions,
+    instructions: quotedComputeBudget(instructions),
   }).compileToV0Message(lookups.map((l) => l.value!));
   if (message.header.numRequiredSignatures !== 1) throw new AppError("UNSUPPORTED_POSITION");
   const tx = new VersionedTransaction(message);
