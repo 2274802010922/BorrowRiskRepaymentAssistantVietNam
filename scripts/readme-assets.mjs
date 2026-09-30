@@ -81,6 +81,9 @@ try {
       .screenshot({ path: target(`explanation-${locale}.png`) });
     await page.goto("http://127.0.0.1:3100/setup");
     await page.locator("#main").screenshot({ path: target(`setup-${locale}.png`) });
+    await page.goto("http://127.0.0.1:3100/portfolio");
+    await page.evaluate(() => document.fonts.ready);
+    await page.locator("#main").screenshot({ path: target(`portfolio-${locale}.png`) });
   }
   await page.setViewportSize({ width: 375, height: 812 });
   await page.context().clearCookies();

@@ -8,7 +8,7 @@ for (const locale of ["vi", "en"])
         { name: "borrowrisk-locale", value: locale, domain: "127.0.0.1", path: "/" },
       ]);
       await page.setViewportSize({ width, height: 1000 });
-      for (const route of ["/", "/workspace", "/guide", "/lab", "/setup"]) {
+      for (const route of ["/", "/workspace", "/portfolio", "/guide", "/lab", "/setup"]) {
         await page.goto(route);
         await expect(page.locator("html")).toHaveAttribute("lang", locale);
         await expect(page.locator("h1")).toBeVisible();
@@ -50,7 +50,7 @@ test("language persists across navigation and reload", async ({ page }) => {
   await page.goto("/");
   await page.getByLabel("Ngôn ngữ").selectOption("en");
   await page.getByRole("link", { name: "Explore an example" }).click();
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Your loan, clearly.");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("How much meets your goal?");
   await page.reload();
   await expect(page.locator("html")).toHaveAttribute("lang", "en");
 });

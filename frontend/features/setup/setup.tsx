@@ -52,6 +52,9 @@ export function Setup() {
   );
 }
 function SetupContent({ wallet }: { wallet: string | null }) {
+  const [demoSession, setDemoSession] = useState("legacy");
+  const slot = (demoSession === "legacy" ? 201 : Number(demoSession)) as 201 | 202 | 203;
+  const portfolioProfile = demoSession !== "legacy";
   const { t, locale } = useLanguage(),
     w = useWallet();
   const [check, setCheck] = useState<DemoCheck | null>(null);
@@ -124,8 +127,18 @@ function SetupContent({ wallet }: { wallet: string | null }) {
   async function refresh() {
     setPreview(null);
     setCheck(null);
-    const next = await postApi<DemoCheck>("/api/demo", { action: "check", wallet });
+    const next = await postApi<DemoCheck>("/api/demo", {
+      action: "check",
+      wallet,
+      slot,
+      portfolioProfile,
+    });
     setCheck(next);
+    if (portfolioProfile) {
+      setDeposit("0.1");
+      if (next.profileBorrowAtomic)
+        setBorrow(exactToken(next.profileBorrowAtomic, 6, "en").replaceAll(",", ""));
+    }
   }
   async function verifyRecord(record: DemoRecord) {
     const response = await postApi<{ phase: string }>("/api/demo", { ...record, action: "status" });
@@ -190,6 +203,41 @@ function SetupContent({ wallet }: { wallet: string | null }) {
         action={<StatusBadge tone="info">Solana Devnet</StatusBadge>}
       />
       <ExecutionReadiness />
+      <label className="setup-field">
+        {t("Chọn phiên demo", "Choose demo session")}
+        <select
+          value={demoSession}
+          disabled={busy || Boolean(pending)}
+          onChange={(e) => {
+            setDemoSession(e.target.value);
+            setPreview(null);
+            setCheck(null);
+            setResult(null);
+          }}
+        >
+          <option value="legacy">
+            {t("Phiên đơn hiện có (201)", "Existing single session (201)")}
+          </option>
+          <option value="201">
+            {t("Danh mục A · LTV mục tiêu 65%", "Portfolio A · target LTV 65%")}
+          </option>
+          <option value="202">
+            {t("Danh mục B · LTV mục tiêu 55%", "Portfolio B · target LTV 55%")}
+          </option>
+          <option value="203">
+            {t("Danh mục C · LTV mục tiêu 45%", "Portfolio C · target LTV 45%")}
+          </option>
+        </select>
+      </label>
+      {portfolioProfile && (
+        <Notice title={t("Demo ba khoản vay thử nghiệm", "Three-loan test demo")} tone="warning">
+          {t(
+            "Tạo lần lượt A, B, C; mỗi khoản thế chấp 0,1 SOL Devnet và ký riêng bước vay. Tổng thế chấp 0,3 SOL, cần giữ thêm ít nhất 0,05 SOL cho phí/rent. Phiên A dùng slot 201 như phiên cũ; không thể vay lại nếu đã có marker. Profile bị chặn nếu market không hỗ trợ.",
+            "Create A, B, then C; each deposits 0.1 Devnet SOL and requires a separate borrowing signature. Total collateral is 0.3 SOL; keep at least another 0.05 SOL for fees/rent. A shares slot 201 with the old session and cannot reborrow after its marker exists. Unsupported market profiles are blocked.",
+          )}{" "}
+          <Link href="/portfolio">{t("Xem phương án trả nợ", "View repayment planner")}</Link>
+        </Notice>
+      )}
       {check?.oracleInfo && (
         <div className="data-panel section-rail">
           <h2>{t("Nguồn giá đang dùng", "Current price sources")}</h2>
@@ -396,6 +444,8 @@ function SetupContent({ wallet }: { wallet: string | null }) {
                         action: "prepare",
                         operation: "withdraw",
                         wallet,
+                        slot,
+                        portfolioProfile,
                       }),
                     ),
                   )
@@ -414,7 +464,7 @@ function SetupContent({ wallet }: { wallet: string | null }) {
                 <input
                   inputMode="decimal"
                   value={check.stage === "deposit" ? deposit : borrow}
-                  disabled={busy || Boolean(pending)}
+                  disabled={busy || Boolean(pending) || portfolioProfile}
                   onChange={(e) => {
                     setPreview(null);
                     if (check.stage === "deposit") setDeposit(e.target.value);
@@ -448,6 +498,8 @@ function SetupContent({ wallet }: { wallet: string | null }) {
                         await postApi<DemoPrepared>("/api/demo", {
                           action: "prepare",
                           wallet,
+                          slot,
+                          portfolioProfile,
                           ...(check.stage === "deposit"
                             ? { depositAtomic: amount }
                             : { borrowAtomic: amount }),

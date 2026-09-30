@@ -13,7 +13,7 @@
 </p>
 
 <p align="center">
-  <a href="https://picachu-iota.vercel.app/workspace"><strong>Dùng thử</strong></a> ·
+  <a href="https://picachu-iota.vercel.app/portfolio"><strong>Dùng thử</strong></a> ·
   <a href="docs/deployment/demo-setup.md">Demo Devnet</a> ·
   <a href="docs/architecture/README.md">Kiến trúc</a> ·
   <a href="docs/judging/README.md">Dành cho giám khảo</a>
@@ -25,13 +25,15 @@
   <img src="https://img.shields.io/badge/stage-MVP-B7F34D?style=flat&labelColor=354256" alt="Giai đoạn MVP">
 </p>
 
-![Phương án minh họa: ngân sách 100 USDC, giữ lại 50 USDC, tỷ lệ nợ sau trả 62,5%.](docs/assets/readme/product-vi.png)
+![Phương án mục tiêu: chọn khoản vay, ngân sách và dư địa giá, rồi xem tổng cần trả.](docs/assets/readme/portfolio-vi.png)
 
 <p align="center"><sub>Ảnh chụp giao diện thật với dữ liệu minh họa — không phải bằng chứng khoản vay hoặc giao dịch trên chain.</sub></p>
 
 > [!NOTE]
 > **Có thể thử ngay:** giao diện VI/EN, mô phỏng và planner trên Vercel, không cần ví hoặc API key.
 > **Đang kiểm chứng:** luồng vay/trả Kamino Devnet đã có mã triển khai nhưng chưa nghiệm thu giao dịch thật. AI có giải thích mẫu dự phòng. [Xem trạng thái và bằng chứng](docs/harness/context/CURRENT_STATE.md).
+
+**Hướng hiện hành:** lập phương án đạt mục tiêu cho tối đa ba khoản vay. Dư địa mặc định 5% từ giá sau kịch bản, chỉ trả số cần thiết và giữ reserve. Nhật ký Redis kiểm từng bước ký/xác minh. **Allocator giảm tổn thất thanh lý chưa bật:** bộ tìm kiếm đã có test nhưng model Kamino chưa hoàn tất parity. [Kiến trúc mới](docs/architecture/goal-portfolio.md) · [Demo ba vị thế](docs/deployment/portfolio-demo.md).
 
 ## Vì sao có picachu?
 
@@ -40,6 +42,10 @@ Người vay muốn giảm rủi ro khi giá tài sản giảm, nhưng vẫn c�
 picachu đặt ba câu hỏi đó trong cùng một luồng: đọc vị thế → thử kịch bản → cân đối ngân sách → xem trước kết quả → tự ký bằng ví.
 
 ## Một ví dụ trong 30 giây
+
+Ở `/portfolio`, ba khoản nợ 65/55/45 USDC, mỗi khoản thế chấp 1 SOL × 100 USD; threshold 80%, factor 1, số dư 80 USDC. Chọn shock 30%, dư địa 5%, ngân sách 30 và reserve 20: cần trả **11,8 + 1,8 + 0 = 13,6 USDC**, giữ **66,4 USDC**. Thiếu ngân sách thì chỉ báo shortfall, không đưa ra partial chưa kiểm chứng. Đây là synthetic, không phải giao dịch chain.
+
+Luồng đơn cũ `/workspace` giữ nguyên ví dụ sau và lịch sử recovery:
 
 | Điều kiện minh họa                   |                      Giá trị |
 | :----------------------------------- | ---------------------------: |

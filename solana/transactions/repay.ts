@@ -141,7 +141,10 @@ export async function prepareRepayment(input: unknown) {
   };
 }
 
-export async function submitRepayment(input: unknown) {
+export async function submitRepayment(
+  input: unknown,
+  beforeSend?: (signature: string) => Promise<void>,
+) {
   const { token, transaction } = z
     .object({ token: z.string().max(20000), transaction: z.string().max(8192) })
     .parse(input);
@@ -182,6 +185,8 @@ export async function submitRepayment(input: unknown) {
     BigInt(snapshot.walletSolLamports) < BigInt(bound.feeLamports)
   )
     throw new AppError("INSUFFICIENT_FUNDS");
+  // Portfolio journal acquires its lock only after signature and balances are validated.
+  await beforeSend?.(signature);
   const sent = await c.sendRawTransaction(tx.serialize(), {
     skipPreflight: false,
     preflightCommitment: "confirmed",

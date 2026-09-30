@@ -31,6 +31,7 @@ function Navigation({ onNavigate }: { onNavigate?: () => void }) {
   const path = usePathname(),
     { t } = useLanguage();
   const items = [
+    { href: "/portfolio", label: t("Phương án trả nợ", "Repayment plan"), icon: Wallet },
     { href: "/workspace", label: t("Khoản vay của tôi", "My positions"), icon: LayoutDashboard },
     { href: "/setup", label: t("Thiết lập demo", "Demo setup"), icon: FlaskConical },
     { href: "/guide", label: t("Cách sử dụng", "How it works"), icon: BookOpen },

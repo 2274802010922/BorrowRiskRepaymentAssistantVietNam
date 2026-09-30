@@ -1,5 +1,7 @@
 # Hướng dẫn review
 
+Hành trình mới: mở `/portfolio` → ba khoản vay minh họa → shock 30%, buffer 5%, ngân sách 30, reserve 20 → tổng cần trả 13,6 USDC. Giảm ngân sách xuống 10 để thấy shortfall 3,6. [Walkthrough và giới hạn](../deployment/portfolio-demo.md). Bộ tìm kiếm allocator có kiểm thử trên cost vectors trừu tượng; không claim giảm loss Kamino khi parity chưa có. AI đã được chủ dự án xác nhận gọi được, nhưng đây không phải bằng chứng của transaction chain.
+
 <img src="../../public/brand/picachu-logo.jpg" alt="Logo pixel picachu" width="72">
 
 Checkpoint MVP có demo offline và bộ test tự động; chưa phải submission có bằng chứng live đầy đủ. Dự án chuẩn bị cho cả Best Product & Business và Best Technical Build. Bảng dưới là bản đồ bằng chứng của repo, không tự gán điểm hoặc thay thế rubric chính thức.

@@ -19,6 +19,7 @@ import { devnetConnection } from "../network/rpc";
 import { KAMINO_PROGRAM_ID } from "../network/constants.mjs";
 import { messageHash } from "./repay";
 import { isOracleFresh } from "../../core/risk/oracle";
+import { demoProfile } from "../../core/validation/demo-profile";
 
 const bindingSchema = z.object({
   purpose: z.literal("picachu-demo-v1"),
@@ -30,9 +31,12 @@ const bindingSchema = z.object({
   expiresAt: z.number(),
   lastValidBlockHeight: z.number(),
   debtMint: z.string(),
+  slot: z.union([z.literal(201), z.literal(202), z.literal(203)]).default(201),
+  portfolioProfile: z.boolean().default(false),
 });
 // Dedicated deterministic obligation: initialization fails atomically if another tab already created it.
-const demoType = () => new VanillaObligation(address(KAMINO_PROGRAM_ID), 201);
+const demoType = (slot: 201 | 202 | 203 = 201) =>
+  new VanillaObligation(address(KAMINO_PROGRAM_ID), slot);
 async function borrowMarker(wallet: string, position: string) {
   const seed = "picachu-" + messageHash(Buffer.from(position)).slice(0, 24);
   return {
@@ -41,7 +45,11 @@ async function borrowMarker(wallet: string, position: string) {
   };
 }
 
-export async function inspectDemo(wallet: string) {
+export async function inspectDemo(
+  wallet: string,
+  slot: 201 | 202 | 203 = 201,
+  portfolioProfile = false,
+) {
   const owner = new PublicKey(wallet);
   const context = await loadMarket();
   const collateral = context.market.getReserveByAddress(address(context.ids.collateral))!;
@@ -62,7 +70,7 @@ export async function inspectDemo(wallet: string) {
     )
       throw new AppError("STALE_DATA");
   }
-  const position = await demoType().toPda(address(context.ids.market), address(wallet));
+  const position = await demoType(slot).toPda(address(context.ids.market), address(wallet));
   const obligation = await context.market.getObligationByAddress(position);
   if (obligation && obligation.state.owner !== wallet) throw new AppError("UNSUPPORTED_POSITION");
   const deposits = obligation?.getDeposits() ?? [];
@@ -94,14 +102,33 @@ export async function inspectDemo(wallet: string) {
     debt.address,
     0,
   );
-  const maxBorrowAtomic = demoBorrowCap(
-    collateralAtomic,
-    collateral.getOracleMarketPrice().toString(),
-    debt.getOracleMarketPrice().toString(),
-    risk.maxLtv,
-    risk.borrowFactor,
-    debt.getLiquidityAvailableAmount().toFixed(0),
-  );
+  let profile: ReturnType<typeof demoProfile> | null;
+  try {
+    profile =
+      portfolioProfile && ["deposit", "borrow"].includes(stage)
+        ? demoProfile(
+            slot,
+            collateralAtomic === "0" ? "100000000" : collateralAtomic,
+            collateral.getOracleMarketPrice().toString(),
+            debt.getOracleMarketPrice().toString(),
+            risk.maxLtv,
+            risk.borrowFactor,
+            debt.getLiquidityAvailableAmount().floor().toFixed(0),
+          )
+        : null;
+  } catch {
+    throw new AppError("DEMO_PROFILE_UNAVAILABLE");
+  }
+  const maxBorrowAtomic =
+    profile?.amountAtomic ??
+    demoBorrowCap(
+      collateralAtomic,
+      collateral.getOracleMarketPrice().toString(),
+      debt.getOracleMarketPrice().toString(),
+      risk.maxLtv,
+      risk.borrowFactor,
+      debt.getLiquidityAvailableAmount().toFixed(0),
+    );
   if (
     stage === "deposit" &&
     (debt.state.config.borrowLimit.isZero() ||
@@ -112,6 +139,9 @@ export async function inspectDemo(wallet: string) {
   )
     throw new AppError("DEMO_MARKET_UNAVAILABLE");
   const check: DemoCheck = {
+    slot,
+    profileBorrowAtomic: profile?.amountAtomic,
+    profileLtvPct: profile?.ltvPct,
     stage,
     canWithdraw: Boolean(obligation && BigInt(collateralAtomic) > 0n && BigInt(debtAtomic) === 0n),
     oracleInfo: [collateral, debt].map((r) => ({
@@ -137,10 +167,15 @@ export async function inspectDemo(wallet: string) {
 export async function demoAction(input: unknown) {
   const request = demoInputSchema.parse(input);
   new PublicKey(request.wallet);
-  if (request.action === "check") return (await inspectDemo(request.wallet)).check;
+  if (request.action === "check")
+    return (await inspectDemo(request.wallet, request.slot, request.portfolioProfile)).check;
   if (request.action === "prepare") {
     seal({ readiness: true });
-    const { check, context, obligation, connection, debt } = await inspectDemo(request.wallet);
+    const { check, context, obligation, connection, debt } = await inspectDemo(
+      request.wallet,
+      request.slot,
+      request.portfolioProfile,
+    );
     const stage = request.operation === "withdraw" ? "withdraw" : check.stage;
     if (stage === "ready" || stage === "closed") throw new AppError("DEMO_ALREADY_EXISTS");
     if (stage === "withdraw" && !check.canWithdraw) throw new AppError("DEMO_WITHDRAW_BLOCKED");
@@ -164,6 +199,12 @@ export async function demoAction(input: unknown) {
     } catch {
       throw new AppError("INVALID_INPUT");
     }
+    if (
+      request.portfolioProfile &&
+      ((stage === "deposit" && amount !== "100000000") ||
+        (stage === "borrow" && amount !== check.profileBorrowAtomic))
+    )
+      throw new AppError("DEMO_PROFILE_UNAVAILABLE");
     // Leave SOL for rent/fees; simulation remains the authoritative account-creation check.
     if (
       BigInt(check.walletSol) <
@@ -175,7 +216,7 @@ export async function demoAction(input: unknown) {
       amount: stage === "withdraw" ? "18446744073709551615" : amount,
       reserveAddress: address(stage !== "borrow" ? context.ids.collateral : context.ids.debt),
       owner: createNoopSigner(address(request.wallet)),
-      obligation: obligation ?? demoType(),
+      obligation: obligation ?? demoType(request.slot),
       useV2Ixs: true,
       scopeRefreshConfig: undefined,
       currentLedgerInstant: context.ledger,
@@ -257,6 +298,8 @@ export async function demoAction(input: unknown) {
       expiresAt,
       lastValidBlockHeight: latest.lastValidBlockHeight,
       debtMint: debt.state.liquidity.mintPubkey,
+      slot: request.slot,
+      portfolioProfile: request.portfolioProfile,
     });
     return {
       token: seal(bound),
@@ -298,7 +341,7 @@ export async function demoAction(input: unknown) {
     ).value[0];
     if (status) return { signature, phase: status.err ? "failed" : "submitted" };
     if (Date.now() > bound.expiresAt) throw new AppError("PREVIEW_EXPIRED");
-    const { check } = await inspectDemo(bound.wallet);
+    const { check } = await inspectDemo(bound.wallet, bound.slot, bound.portfolioProfile);
     if (
       (bound.stage === "withdraw" ? !check.canWithdraw : check.stage !== bound.stage) ||
       check.position !== bound.position

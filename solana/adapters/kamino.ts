@@ -98,7 +98,13 @@ export async function loadMarket() {
 export async function readPosition(
   wallet: string,
   position?: string,
-  existing?: { context: Awaited<ReturnType<typeof loadMarket>>; obligations: KaminoObligation[] },
+  existing?: {
+    context: Awaited<ReturnType<typeof loadMarket>>;
+    obligations: KaminoObligation[];
+    balances?: Awaited<
+      ReturnType<import("@solana/web3.js").Connection["getMultipleAccountsInfoAndContext"]>
+    >;
+  },
 ): Promise<{
   snapshot: PositionSnapshot;
   context: Awaited<ReturnType<typeof loadMarket>>;
@@ -131,9 +137,11 @@ export async function readPosition(
   const owner = new PublicKey(wallet),
     ata = associatedToken(wallet, debt.state.liquidity.mintPubkey);
   const connection = await devnetConnection();
-  const balances = await connection.getMultipleAccountsInfoAndContext([owner, ata], {
-    commitment: "confirmed",
-  });
+  const balances =
+    existing?.balances ??
+    (await connection.getMultipleAccountsInfoAndContext([owner, ata], {
+      commitment: "confirmed",
+    }));
   const account = balances.value[1];
   if (
     account &&
@@ -262,10 +270,17 @@ export async function readPositions(
     : obligations.filter((o) => supported(o, context.ids));
   if (!found.length && obligations.length && !position) throw new AppError("UNSUPPORTED_POSITION");
   if (found.length > 10) throw new AppError("TOO_MANY_POSITIONS");
+  const connection = await devnetConnection();
+  const debt = context.market.getReserveByAddress(address(context.ids.debt))!;
+  const balances = await connection.getMultipleAccountsInfoAndContext(
+    [new PublicKey(wallet), associatedToken(wallet, debt.state.liquidity.mintPubkey)],
+    { commitment: "confirmed" },
+  );
   return Promise.all(
     found.map(
       async (o) =>
-        (await readPosition(wallet, o.obligationAddress, { context, obligations })).snapshot,
+        (await readPosition(wallet, o.obligationAddress, { context, obligations, balances }))
+          .snapshot,
     ),
   );
 }

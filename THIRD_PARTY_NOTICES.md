@@ -1,5 +1,9 @@
 # Nguồn và phạm vi kế thừa
 
+## Đối chiếu liquidation Kamino
+
+Nguồn logic đã đọc: [liquidation_operations.rs](https://github.com/Kamino-Finance/klend/blob/a08760976f51a3a58c4a0c6ea27b4a0e565bca79/programs/klend/src/state/liquidation_operations.rs), revision `a08760976f51a3a58c4a0c6ea27b4a0e565bca79`; [LICENSE](https://github.com/Kamino-Finance/klend/blob/a08760976f51a3a58c4a0c6ea27b4a0e565bca79/LICENSE) là Business Source License 1.1. Chưa sao chép/port contract này vào runtime. Goal planner và cost-grid search là triển khai độc lập; test search không chứng minh parity protocol. Không gán MIT của SDK cho source contract hoặc logo.
+
 ## Logo picachu
 
 Ảnh `logo pixel picachu.jpg` do chủ dự án cung cấp ngày 28/09/2026, được giữ nguyên tại `public/brand/picachu-logo.jpg` và dùng làm nhận diện theo yêu cầu. Không ghi nhận đây là artwork do Codex sáng tác hoặc có giấy phép MIT.

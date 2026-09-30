@@ -44,6 +44,8 @@ export const constraintsSchema = z.object({
   reserveAtomic: atomic,
   shockBps: z.number().int().min(0).max(9000),
   targetLtvBps: z.number().int().min(100).max(9500),
+  // When supplied, the goal is relative to the stressed price, not today's price.
+  bufferBps: z.number().int().min(1).max(5000).optional(),
 });
 export type Constraints = z.infer<typeof constraintsSchema>;
 export type Metrics = {

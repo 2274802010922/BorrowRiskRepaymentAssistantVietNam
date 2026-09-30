@@ -5,6 +5,7 @@
 - `hero-light.svg`, `hero-dark.svg`: bố cục banner chứa logo pixel do người dùng cung cấp; màu theo design system. Bản PNG dùng trong README để hiển thị ảnh nhúng ổn định trên GitHub. Banner dùng tiếng Anh cho cả hai bản README.
 - `social-preview.png`: 1280 × 640 px, sẵn sàng tải lên GitHub Settings → General → Social preview.
 - `product-*.png`, `explanation-*.png`, `setup-*.png`: screenshot trực tiếp từ app với giao diện VI/EN. Product và explanation dùng fixture có nhãn; không phải proof chain.
+- `portfolio-*.png`: giao diện mục tiêu ba khoản vay, synthetic và VI/EN; README chính dùng ảnh này từ checkpoint 30/09.
 - `mobile-preview.png`: screenshot viewport 375 × 812, tiếng Việt.
 
 Tái tạo sau khi UI thay đổi:

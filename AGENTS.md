@@ -19,7 +19,7 @@ Vietnamese-first borrower decision-support web app. Target: Vercel + Solana Devn
 
 ## Boundaries
 
-- The user authorized end-to-end implementation and checkpoint commit/push. Use `docs/harness/plans/active/mvp.md` for scope and gates. State explicitly which integrations have actually been verified.
+- The user authorized end-to-end implementation and checkpoint commit/push. Current scope: `docs/harness/plans/active/goal-portfolio.md`; old MVP checkpoints remain in `mvp.md`. State explicitly which integrations have actually been verified. Loss allocation must remain hidden until protocol parity is independently verified.
 - Preserve source labels. Never turn missing data into zero, failed reads into empty positions, or submitted transactions into success.
 - Financial code added later must use explicit units and protocol parameters; AI must not invent metrics or control signing.
 - Devnet only. Never add custody, secret keys to the browser, or automatic signing. Confirm chain identity before future live integration.

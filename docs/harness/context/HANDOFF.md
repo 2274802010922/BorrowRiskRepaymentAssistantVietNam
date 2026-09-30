@@ -1,5 +1,15 @@
 # Bàn giao
 
+30/09: hướng mới ở `docs/harness/plans/active/goal-portfolio.md`; `/portfolio` là điểm vào chính. Build bổ sung goal engine 1–3 vị thế + shared balance, journal Redis/HMAC, ký tuần tự, demo profiles 201/202/203. Đọc `docs/architecture/goal-portfolio.md` và `docs/deployment/portfolio-demo.md` trước khi sửa tiếp.
+
+Allocator chưa đủ protocol parity: chỉ có cost-grid search và test abstract vectors, không có loss Kamino đã chứng minh. Giữ gate unavailable, không bật bằng env hay fixtures. Tiếp theo cần reference harness với program/IDL tương thích, golden vectors rounding/cap/bonus/fee rồi mới nối engine vào API/UI và partial opt-in.
+
+Live health 30/09 thiếu KAMINO_MARKET_ID/COLLATERAL_RESERVE/DEBT_RESERVE, AI + Redis configured. Chưa đăng nhập được dashboard Vercel hoặc có quyền ký Phantom để tự hoàn tất live acceptance. Không tiếp tục sửa AI đã hoạt động. Khóa portfolio không phải khóa protocol: ứng dụng khác và route đơn cũ vẫn có thể chi ví; fresh read phát hiện thay đổi và dừng.
+
+Nhật ký giữ 24 giờ và token kế hoạch frontend có signature/binding backup; trước gửi còn lưu `ExecutionRecord` vào recovery cũ để `/workspace` có thể kiểm receipt qua `/api/repayments/status` khi journal hết TTL. Không tự xóa tiến độ hoặc ký lại unknown. Journal dài hạn/khôi phục lại cursor sau TTL vẫn là giới hạn cần cải thiện trước dùng lâu dài.
+
+Các đoạn dưới là bàn giao các checkpoint cũ.
+
 Bước Kamino đang chuyển sang kiểm thử bằng ví: xem `docs/testing/devnet-oracle-validation.md` để lấy ba biến đã qua simulation deposit 0,1 SOL. Adapter sửa lỗi price/confidence khác đơn vị của SDK, xác thực Pyth receiver + Full và freshness theo reserve. Người dùng xác nhận AI đã hoạt động; không tiếp tục sửa AI khi chưa có yêu cầu mới. Chưa gửi/ký deposit; bước vay cần vị thế sau deposit thật.
 
 Đợt hardening Web3 ngày 29/09/2026: đọc `docs/testing/web3-hardening.md` trước khi làm tiếp. Live cần kiểm lỗi API sau deploy, đăng nhập Vercel để đọc log gốc, cấu hình market thực sự hoạt động và Redis quota nếu bật OpenRouter. Không làm mất pending records hoặc coi receipt đã verified là giao dịch chưa gửi chỉ vì hiện tại không đọc được oracle.

@@ -13,7 +13,7 @@ const min = (...v: bigint[]) => v.reduce((a, b) => (a < b ? a : b));
 export function planRepayment(input: PositionSnapshot, values: Constraints): RepaymentPlan {
   const s = snapshotSchema.parse(input),
     c = constraintsSchema.parse(values);
-  if (c.targetLtvBps >= s.liquidationThresholdBps)
+  if (c.bufferBps === undefined && c.targetLtvBps >= s.liquidationThresholdBps)
     throw new Error("TARGET_AT_LIQUIDATION_THRESHOLD");
   const balance = BigInt(s.walletDebtAtomic),
     reserve = BigInt(c.reserveAtomic),
@@ -25,7 +25,8 @@ export function planRepayment(input: PositionSnapshot, values: Constraints): Rep
     .mul(new D(10000 - c.shockBps).div(10000));
   if (stressedCollateral.lte(0) && debt > 0n) throw new Error("NO_COLLATERAL");
   const targetDebtTokens = stressedCollateral
-    .mul(c.targetLtvBps)
+    .mul(c.bufferBps === undefined ? c.targetLtvBps : s.liquidationThresholdBps)
+    .mul(c.bufferBps === undefined ? 1 : new D(10000 - c.bufferBps).div(10000))
     .div(s.borrowFactorBps)
     .div(s.debt.priceUsd);
   const targetDebtAtomic = BigInt(

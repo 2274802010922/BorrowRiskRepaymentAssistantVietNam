@@ -1,10 +1,13 @@
 import { randomBytes } from "node:crypto";
 import { demoAction, inspectDemo } from "../../solana/transactions/demo";
 import { AppError } from "../../backend/services/http";
-const [wallet, market, collateral, debt] = process.argv.slice(2);
+const [wallet, market, collateral, debt, rawSlot] = process.argv.slice(2);
+const slot = rawSlot ? (Number(rawSlot) as 201 | 202 | 203) : 201;
+if (![201, 202, 203].includes(slot)) throw new Error("INVALID_DEMO_SLOT");
+const portfolioProfile = Boolean(rawSlot);
 if (!wallet || !market || !collateral || !debt) {
   console.error(
-    "Usage: npx tsx scripts/checks/simulate-demo.ts <wallet> <market> <collateral-reserve> <debt-reserve>",
+    "Usage: npx tsx scripts/checks/simulate-demo.ts <wallet> <market> <collateral-reserve> <debt-reserve> [201|202|203 for portfolio profile]",
   );
   process.exit(1);
 }
@@ -17,7 +20,7 @@ const timer = setTimeout(() => {
   process.exit(1);
 }, 90000);
 try {
-  const { check } = await inspectDemo(wallet);
+  const { check } = await inspectDemo(wallet, slot, portfolioProfile);
   console.log(JSON.stringify({ check, signed: false, submitted: false }));
   if (check.stage === "ready" || check.stage === "closed") {
     console.log("Existing session: no new transaction prepared.");
@@ -25,8 +28,10 @@ try {
     const prepared = await demoAction({
       action: "prepare",
       wallet,
+      slot,
+      portfolioProfile,
       depositAtomic: "100000000",
-      borrowAtomic: "1000000",
+      borrowAtomic: check.profileBorrowAtomic ?? "1000000",
     });
     console.log(
       JSON.stringify({

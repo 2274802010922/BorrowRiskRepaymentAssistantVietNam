@@ -27,7 +27,7 @@ export function Landing() {
               )}
             </p>
             <div className="hero-actions">
-              <Link className="button button-primary" href="/workspace">
+              <Link className="button button-primary" href="/portfolio">
                 {t("Thử với dữ liệu minh họa", "Explore an example")}
                 <ArrowRight size={18} aria-hidden="true" />
               </Link>

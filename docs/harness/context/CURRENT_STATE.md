@@ -1,5 +1,18 @@
 # Trạng thái hiện tại
 
+## 30/09 — hướng mục tiêu và danh mục
+
+- Người dùng yêu cầu build theo plan và commit/push main. Hướng hiện hành ở [goal-portfolio](../plans/active/goal-portfolio.md), thay phần mở rộng single-position của MVP cũ.
+- `/portfolio`: UI ba bước VI/EN, tối đa ba vị thế, buffer 5% từ giá đã shock, số dư ví dùng một lần, trả mức tối thiểu khi đủ ngân sách. Thiếu ngân sách không khuyến nghị partial khi model chưa kiểm chứng.
+- `/api/plans*`: snapshot mới từ server, HMAC ID, journal Redis CAS, khóa sau kiểm chữ ký, ký từng bước, receipt historical, dừng khi unknown/lỗi/số dư hoặc số tiền mục tiêu đổi. Legacy recovery còn nguyên.
+- `/setup`: chọn phiên cũ hoặc profile A/B/C (201/202/203), mỗi profile 0,1 SOL, nominal adjusted LTV 65/55/45%. Chặn cap/thanh khoản/simulation; không reset marker cũ hoặc auto-sign.
+- Cost-grid search đã có unit tests trừu tượng + so exhaustive small grid. Chưa có model liquidation Kamino được kiểm chứng, allocator không nối vào API/UI; health unavailable. Đây là phần chưa hoàn thành của hướng khác biệt.
+- Live health ngày 30/09 vẫn thiếu ba biến Kamino, AI và Redis báo đã cấu hình. Đây là health bản deploy trước checkpoint mới, không xác nhận Redis journal runtime hoặc giao dịch thực tế.
+- Chưa có chữ ký vay/trả/withdraw thật. Owner cần deploy và ký theo [walkthrough](../../deployment/portfolio-demo.md). Không đóng gate bằng mock hoặc simulation.
+- Local verify PASS 67 unit tests, 28 browser tests, build/format/lint/types; traced SDK bundle import PASS, README 89 links/assets PASS. Profile B slot202 deposit simulation PASS (không ký/gửi). [Bằng chứng](../../testing/portfolio-validation.md).
+
+Các mục bên dưới là lịch sử, không thay trạng thái hiện hành.
+
 - Người dùng xác nhận AI đã gọi thành công và yêu cầu chuyển sang Kamino; giữ nguyên code/cấu hình AI đang chạy, hủy các chỉnh sửa AI thử nghiệm chưa commit.
 - 29/09: phát hiện SDK 11.0.1 so sánh price/confidence khác đơn vị. Adapter Pyth-only mới kiểm receiver owner + Full verification + confidence/TWAP; freshness theo từng reserve và cảnh báo giá quá 5 phút. [Bằng chứng](../../testing/devnet-oracle-validation.md).
 - Đã simulation deposit 0,1 SOL PASS bằng public wallet người dùng cung cấp; chưa ký/gửi. Bộ market/reserve trong tài liệu có thể đưa vào Vercel sau khi bản sửa được deploy, rồi người dùng tự ký deposit trước khi kiểm bước borrow.

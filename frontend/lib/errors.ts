@@ -1,5 +1,37 @@
 import type { Locale } from "../../shared/types";
 const messages: Record<string, [string, string]> = {
+  DEMO_PROFILE_UNAVAILABLE: [
+    "Market, thanh khoản hoặc giá hiện tại không cho phép profile demo này. Không tăng mức vay hay đổi market tự động; hãy kiểm tra lại.",
+    "The current market, liquidity or prices do not support this demo profile. Borrow amounts and markets will not be changed automatically.",
+  ],
+  PLAN_CHANGED: [
+    "Giá, lãi, số dư hoặc tiến độ đã thay đổi. Kiểm tra kết quả và lập phương án mới trước khi ký.",
+    "Prices, interest, balance or progress changed. Check the result and create a new plan before signing.",
+  ],
+  PLAN_PENDING: [
+    "Có bước trả nợ đang chờ xác minh. Kiểm tra kết quả, chưa gửi bước khác.",
+    "A repayment is awaiting verification. Check its result before sending another step.",
+  ],
+  PLAN_EXPIRED: [
+    "Phương án đã hết hạn. Lập phương án mới sau khi kiểm tra các giao dịch đang chờ.",
+    "The plan expired. Create a new plan after checking pending transactions.",
+  ],
+  PLAN_COMPLETE: [
+    "Không còn bước trả nợ trong phương án này.",
+    "There are no remaining repayments in this plan.",
+  ],
+  PLAN_NOT_ACHIEVABLE: [
+    "Phương án hiện tại không cần trả thêm hoặc chưa đủ ngân sách. Làm mới và xem lại mục tiêu.",
+    "The current goal is already met or the budget is insufficient. Refresh and review.",
+  ],
+  PLAN_STORE_NOT_CONFIGURED: [
+    "Cần cấu hình hai biến Redis để lưu tiến độ trả nhiều khoản vay.",
+    "Configure both Redis variables to persist multi-loan repayment progress.",
+  ],
+  PLAN_STORE_UNAVAILABLE: [
+    "Chưa truy cập được nhật ký kế hoạch. Dừng gửi và kiểm tra lại kết quả sau.",
+    "The plan journal is unavailable. Stop sending and check results later.",
+  ],
   ORACLE_INVALID: [
     "Nguồn giá chưa vượt qua kiểm tra xác thực, độ tin cậy hoặc TWAP. Chưa tạo giao dịch.",
     "The price feed failed verification, confidence or TWAP checks. No transaction was prepared.",
@@ -149,7 +181,11 @@ export async function postApi<T>(path: string, body: unknown): Promise<T> {
     method: "POST",
     headers: { "content-type": "application/json" },
     body: JSON.stringify(body),
-    signal: AbortSignal.timeout(path === "/api/demo" ? 65_000 : 35_000),
+    signal: AbortSignal.timeout(
+      path === "/api/demo" || path.startsWith("/api/plans") || path === "/api/portfolio/read"
+        ? 65_000
+        : 35_000,
+    ),
   });
   const result = await response.json().catch(() => null);
   if (!response.ok || !result)

@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-09-30 — phương án trả nợ có mục tiêu
+
+- Thêm `/portfolio` ba bước VI/EN, mục tiêu dư địa 5% sau shock, tối đa ba vị thế và một số dư chung; tính số tiền tối thiểu bằng Decimal/atomic.
+- Thêm API plans, journal Redis CAS, ký tuần tự, kiểm receipt và recovery backup; chặn unknown, số dư thay đổi và khoản mục tiêu cần lập lại.
+- Demo A/B/C slots 201/202/203 với nominal adjusted LTV 65/55/45%, mỗi khoản 0,1 SOL; kiểm cap và simulation trước ký.
+- Cost-grid search có unit tests và brute-force cross-check. Allocator/loss estimate vẫn tắt vì chưa có Kamino parity; chưa nghiệm thu vòng vay/trả thật.
+- Cập nhật hướng dẫn, README VI/EN, ảnh thật, kiến trúc và ngữ cảnh; local 67 unit + 28 browser tests PASS.
+
 ## 2026-09-29 — kiểm chứng bước gửi thế chấp Devnet
 
 - Chuẩn hóa price/confidence cùng đơn vị cho nguồn Pyth-only của SDK Kamino 11.0.1; giữ kiểm owner, Full verification và TWAP.

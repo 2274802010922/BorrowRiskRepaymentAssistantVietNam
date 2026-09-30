@@ -1,5 +1,7 @@
 # Kiến trúc được chọn
 
+Hướng hiện hành từ 30/09: [phương án theo mục tiêu và danh mục](goal-portfolio.md). Luồng `/workspace` đơn giữ tương thích; `/portfolio` là hành trình chính mới. [Plan thực thi](../harness/plans/active/goal-portfolio.md) ghi rõ các cổng chưa nghiệm thu.
+
 <img src="../../public/brand/picachu-logo.jpg" alt="Logo pixel picachu" width="72">
 
 Đối chiếu ngày 27/09/2026: bản của người dùng và kế hoạch end-to-end thống nhất về app không giữ tiền, protocol adapter, core quyết định, người dùng tự ký và Vercel + Devnet.

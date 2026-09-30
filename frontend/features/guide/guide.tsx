@@ -38,17 +38,17 @@ export function Guide() {
             ),
           ],
           [
-            t("2. LTV và hệ số sức khỏe", "2. LTV and health factor"),
+            t("2. Chọn dư địa giá", "2. Choose a price buffer"),
             t(
-              "LTV mô tả nợ so với giá trị thế chấp theo tham số giao thức. Ngưỡng thanh lý và borrow factor phải được đọc từ vị thế. Một con số sức khỏe không bao quát mọi rủi ro.",
-              "LTV describes debt relative to collateral under protocol parameters. Liquidation thresholds and borrow factors come from the position. A health metric does not cover every risk.",
+              "Chọn kịch bản SOL giảm 10%, 20%, 30% hoặc tùy chỉnh. Dư địa mặc định 5% nghĩa là sau kịch bản, giá còn có thể giảm thêm khoảng 5% trước ngưỡng thanh lý theo dữ liệu hiện tại. Đây là mục tiêu, không phải bảo đảm an toàn.",
+              "Choose a 10%, 20%, 30% or custom SOL drop. The default 5% buffer means another approximately 5% price drop after the scenario before the liquidation threshold under current data. This is a goal, not a safety guarantee.",
             ),
           ],
           [
             t("3. Ngân sách và dự trữ", "3. Budget and reserve"),
             t(
-              "Ngân sách là mức tối đa bạn muốn dùng. Dự trữ là lượng token nợ muốn giữ lại trong ví. SOL trả phí được kiểm tra riêng. Trả một phần có thể giảm rủi ro mà chưa đạt mục tiêu.",
-              "Budget is the maximum you want to spend. Reserve is the debt-token balance you want to keep. SOL fees are checked separately. A partial repayment may improve a position without meeting your target.",
+              "Ngân sách là mức tối đa, không phải số phải dùng hết. Khoản muốn giữ lại là USDC trong ví. picachu tính tổng tối thiểu cần trả cho các khoản đã chọn; thiếu tiền thì báo cần thêm. SOL trả phí được kiểm riêng.",
+              "Your budget is a maximum, not an amount to spend in full. The reserve is USDC to keep in your wallet. picachu calculates the minimum total needed for your selected loans and shows any shortfall. SOL fees are checked separately.",
             ),
           ],
           [
@@ -61,8 +61,8 @@ export function Guide() {
           [
             t("5. Giới hạn của bản MVP", "5. MVP boundaries"),
             t(
-              "MVP hỗ trợ một cặp tài sản được cấu hình và repay trực tiếp. Không tự đổi token, không tự ký và không quản lý toàn bộ danh mục. Tên protocol và nguồn giá được hiển thị để bạn kiểm tra.",
-              "The MVP supports one configured asset pair and direct repayment. It does not automatically swap, sign, or manage an entire portfolio. Protocol and price sources are shown for inspection.",
+              "MVP hỗ trợ tối đa ba khoản vay cùng ví và cặp SOL/USDC trên Kamino Devnet. Bạn ký từng bước trả nợ. Phân bổ theo tổn thất thanh lý đang tắt trong lúc chờ kiểm chứng model; không tự đổi token hoặc tự ký.",
+              "The MVP supports up to three loans from one wallet and SOL/USDC pair on Kamino Devnet. You sign each repayment step. Loss-based allocation is disabled pending model verification; swapping and signing are not automatic.",
             ),
           ],
         ].map(([title, body]) => (
@@ -77,8 +77,8 @@ export function Guide() {
           {t("Thiết lập demo Devnet", "Set up Devnet demo")}
         </Link>
       </div>
-      <Link href="/workspace" className="button button-primary">
-        {t("Mở không gian khoản vay", "Open workspace")}
+      <Link href="/portfolio" className="button button-primary">
+        {t("Lập phương án trả nợ", "Plan repayment")}
       </Link>
     </WorkspaceShell>
   );

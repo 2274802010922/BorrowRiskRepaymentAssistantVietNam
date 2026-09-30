@@ -13,7 +13,7 @@
 </p>
 
 <p align="center">
-  <a href="https://picachu-iota.vercel.app/workspace"><strong>Try the demo</strong></a> ·
+  <a href="https://picachu-iota.vercel.app/portfolio"><strong>Try the demo</strong></a> ·
   <a href="docs/deployment/demo-setup.md">Devnet setup</a> ·
   <a href="docs/architecture/README.md">Architecture</a> ·
   <a href="docs/judging/README.md">For judges</a>
@@ -25,13 +25,15 @@
   <img src="https://img.shields.io/badge/stage-MVP-B7F34D?style=flat&labelColor=354256" alt="MVP stage">
 </p>
 
-![Illustrative plan: repay 100 USDC, keep 50 USDC, and reach a 62.5% scenario debt ratio.](docs/assets/readme/product-en.png)
+![Goal-based repayment: choose loans, set your budget and price buffer, and see the required total.](docs/assets/readme/portfolio-en.png)
 
 <p align="center"><sub>Actual application screenshot with synthetic data. It is not evidence of a live loan or an on-chain transaction.</sub></p>
 
 > [!NOTE]
 > **Ready to explore:** the bilingual interface, scenarios, and planner run on Vercel without a wallet or API key.
 > **Still being validated:** Kamino Devnet borrowing and repayment code is implemented, but live transactions have not passed acceptance. AI has a deterministic fallback. [Current evidence and status](docs/harness/context/CURRENT_STATE.md).
+
+**Current direction:** goal-based repayment for up to three loans, with a default 5% buffer measured from the stressed price, minimum required spend and a wallet reserve. Redis tracks sequential signatures and verified receipts. **Liquidation-loss allocation remains disabled:** the search engine has abstract cost-vector tests, but Kamino model parity is not verified. [Architecture](docs/architecture/goal-portfolio.md) · [Three-position demo](docs/deployment/portfolio-demo.md).
 
 ## Why picachu?
 
@@ -40,6 +42,10 @@ Borrowers want to reduce risk when collateral prices fall while keeping funds in
 picachu brings those questions into one workflow: inspect a position → explore a scenario → set a budget → compare the outcome → sign with your wallet.
 
 ## A 30-second example
+
+In `/portfolio`, three debts of 65/55/45 USDC are each backed by 1 SOL at 100 USD; threshold 80%, borrow factor 1, wallet balance 80 USDC. With a 30% shock, 5% buffer, budget 30 and reserve 20, the minimum repayment is **11.8 + 1.8 + 0 = 13.6 USDC**, leaving **66.4 USDC**. Insufficient budgets show a shortfall without unverified partial recommendations. These are synthetic inputs.
+
+The legacy `/workspace` retains the following single-loan example and its transaction recovery:
 
 | Illustrative input                     |                        Value |
 | :------------------------------------- | ---------------------------: |
