@@ -2,6 +2,8 @@
 
 ## 30/09 — hướng mục tiêu và danh mục
 
+- Runtime sửa `3a16008` đã có CI + Vercel Production PASS. Domain chính portfolio/read và demo/check trả 200; ví owner chưa có vị thế. demo/prepare 0,1 SOL profile A simulation PASS, fee5000, total debit0,12353556 SOL; không ký/gửi. Cần owner ký bước deposit trên `/setup` trước khi kiểm borrow/repay. Chrome và env đã đủ cho bước này, không cần lấy lại log hoặc thêm key. [Bằng chứng](../../testing/runtime-diagnostics.md).
+
 - Sau khi owner thêm giá trị và redeploy: live health executionConfigured=true, missing/invalid=[]; portfolio/read và demo/check vẫn 503 generic. Chrome extension đã kết nối; đã đọc Vercel Logs, không còn chờ owner gửi log. RPC URL khớp public Devnet, API configured trên Next production local trả 200. Đang bổ sung safe diagnostics + compiled configured bundle gate để xác định lỗi runtime, chưa kết luận RPC hoặc module là nguyên nhân. [Ghi chép](../../testing/runtime-diagnostics.md).
 - Diagnostics live `5e5e6e9` khoanh lỗi module_load tại SDK external alias. Checkpoint thử Webpack `bb94959` làm lộ ERR_REQUIRE_ESM; alias không phải nguyên nhân gốc. Đã tái hiện bằng Node strict CJS: rpc-websockets 9.3.9 require UUID 14 ESM. Pin dependency dưới web3.js 1.98.4 về 9.3.8 / UUID 11, khôi phục Turbopack và bỏ cổng alias sai; bundle gate luôn dùng --no-experimental-require-module. STRICT_CJS_SDK_IMPORT_OK, đang kiểm full checks/deploy. Không đổi AI/config Kamino/SDK, không ký/gửi giao dịch.
 

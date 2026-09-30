@@ -25,3 +25,9 @@ Tái hiện chính xác bằng `node --no-experimental-require-module`: `@kamino
 Sửa có phạm vi: override rpc-websockets dưới web3.js 1.98.4 sang 9.3.8 (vẫn thuộc range ^9.0.2 của web3.js), dùng UUID 11.1.1 có export CommonJS. Giữ Next/SDK/Kit và công thức tài chính. Khôi phục Turbopack production vì compiler không phải nguyên nhân gốc. Gate bundle luôn chạy với `--no-experimental-require-module` để không dựa vào cơ chế interop của Node local.
 
 Sau npm install, STRICT_CJS_SDK_IMPORT_OK. Audit giữ nguyên 21 transitive warnings (9 moderate/12 high); không audit fix --force. Chờ full checks và API live sau deploy; đây chưa phải bằng chứng vay/trả thật.
+
+## Nghiệm thu runtime bản sửa 3a16008
+
+[Quality CI PASS](https://github.com/2274802010922/picachu__/actions/runs/36708586217), 71 unit + 29 browser tests và strict-CJS compiled bundle probe. Vercel Production deployment `6758193289` success. Trên domain chính: portfolio/read trả 200 và positions=[] cho ví owner; demo/check profile A trả 200, stage deposit, số dư 2.998111626 SOL Devnet. Đây là ví chưa có vị thế, không phải lỗi đọc bị chuyển thành trống.
+
+demo/prepare profile A, 0,1 SOL trả 200: simulation PASS, fee 5000 lamports, tổng SOL debit 123535560 lamports (bao gồm tài khoản/rent), position `BLTZxEYz32BNieH7SKEkxgSgN9LmzRMrnf7wb5jwe1nJ`. Không ghi token binding hoặc transaction vào tài liệu/log. signed=false, submitted=false. Cần owner ký deposit rồi mới nghiệm thu borrow và repay; chưa đóng live transaction gate.

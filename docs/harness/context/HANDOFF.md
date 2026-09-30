@@ -1,5 +1,7 @@
 # Bàn giao
 
+Runtime `3a16008` đã xác nhận CI/Production success và API read/check/prepare 200 trên domain chính. Profile A gửi thế chấp 0,1 SOL simulation PASS, tổng debit0,12353556 SOL, chưa ký/gửi. Tiếp theo là owner ký trên `/setup`, sau đó đối chiếu signature và position để kiểm borrow rồi repay. Không tiếp tục điều tra lỗi module đã sửa hoặc yêu cầu thêm biến mới cho gate này.
+
 30/09: hướng mới ở `docs/harness/plans/active/goal-portfolio.md`; `/portfolio` là điểm vào chính. Build bổ sung goal engine 1–3 vị thế + shared balance, journal Redis/HMAC, ký tuần tự, demo profiles 201/202/203. Đọc `docs/architecture/goal-portfolio.md` và `docs/deployment/portfolio-demo.md` trước khi sửa tiếp.
 
 Allocator chưa đủ protocol parity: chỉ có cost-grid search và test abstract vectors, không có loss Kamino đã chứng minh. Giữ gate unavailable, không bật bằng env hay fixtures. Tiếp theo cần reference harness với program/IDL tương thích, golden vectors rounding/cap/bonus/fee rồi mới nối engine vào API/UI và partial opt-in.
