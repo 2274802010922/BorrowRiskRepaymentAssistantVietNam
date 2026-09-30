@@ -13,6 +13,7 @@ import { exactToken } from "../../../shared/format";
 import type { DemoCheck, DemoPrepared, DemoRecord } from "../../../shared/demo";
 import { ExecutionReadiness } from "../../components/feedback/readiness";
 import { PreviewExpiry } from "../../components/feedback/preview-expiry";
+import { signingSnapshot, verifyWalletResult } from "../../lib/wallet-signing";
 
 const storageKey = "picachu-demo-pending";
 function subscribe(fn: () => void) {
@@ -157,18 +158,23 @@ function SetupContent({ wallet }: { wallet: string | null }) {
       throw new Error("PREVIEW_EXPIRED");
     }
     const unsigned = VersionedTransaction.deserialize(Buffer.from(p.transaction, "base64"));
-    const originalMessage = Buffer.from(unsigned.message.serialize());
+    const originalMessage = signingSnapshot(unsigned);
     let signed: VersionedTransaction;
     try {
       signed = await provider.signTransaction(unsigned);
     } catch {
       throw new Error("SIGNATURE_REJECTED");
     }
-    if (
-      provider.publicKey?.toBase58() !== wallet ||
-      !Buffer.from(signed.message.serialize()).equals(originalMessage)
-    )
-      throw new Error("TRANSACTION_CHANGED");
+    try {
+      verifyWalletResult(originalMessage, signed, wallet, provider.publicKey?.toBase58(), "demo");
+    } catch (e) {
+      setPreview(null);
+      throw e;
+    }
+    if (Date.now() >= p.expiresAt) {
+      setPreview(null);
+      throw new Error("PREVIEW_EXPIRED");
+    }
     const record: DemoRecord = {
       wallet,
       token: p.token,

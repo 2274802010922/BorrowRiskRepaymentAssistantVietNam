@@ -8,6 +8,7 @@ import { compactNumber, exactToken } from "../../../shared/format";
 import { previewKey, writeRecovery, pendingPhases } from "../../lib/transaction-state";
 import { ExecutionReadiness } from "../../components/feedback/readiness";
 import { PreviewExpiry } from "../../components/feedback/preview-expiry";
+import { signingSnapshot, verifyWalletResult } from "../../lib/wallet-signing";
 import { WorkspaceShell } from "../../components/layout/shell";
 import {
   ContentSkeleton,
@@ -327,16 +328,10 @@ function WorkspaceContent({ wallet }: { wallet: string | null }) {
       if (Date.now() >= p.expiresAt) throw new Error("PREVIEW_EXPIRED");
       const { VersionedTransaction } = await import("@solana/web3.js");
       const tx = VersionedTransaction.deserialize(Buffer.from(p.transaction, "base64"));
-      const before = tx.message.serialize();
+      const before = signingSnapshot(tx);
       const signed = await provider.signTransaction(tx);
       if (version !== requestVersion.current) throw new Error("PREVIEW_CHANGED");
-      const after = signed.message.serialize();
-      if (
-        provider.publicKey?.toBase58() !== wallet ||
-        before.length !== after.length ||
-        before.some((b, i) => b !== after[i])
-      )
-        throw new Error("TRANSACTION_CHANGED");
+      verifyWalletResult(before, signed, wallet, provider.publicKey?.toBase58(), "repayment");
       if (Date.now() >= p.expiresAt) throw new Error("PREVIEW_EXPIRED");
       const signature = bs58.encode(signed.signatures[0]);
       record = {
@@ -376,6 +371,7 @@ function WorkspaceContent({ wallet }: { wallet: string | null }) {
             [
               "PREVIEW_EXPIRED",
               "TRANSACTION_CHANGED",
+              "WALLET_ACCOUNT_CHANGED",
               "STORAGE_UNAVAILABLE",
               "PREVIEW_CHANGED",
             ].includes(e.message)

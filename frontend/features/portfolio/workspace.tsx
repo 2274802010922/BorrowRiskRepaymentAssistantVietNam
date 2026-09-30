@@ -6,6 +6,7 @@ import Link from "next/link";
 import { WorkspaceShell } from "../../components/layout/shell";
 import { PageHeading, Notice, ContentSkeleton } from "../../components/feedback/states";
 import { PreviewExpiry } from "../../components/feedback/preview-expiry";
+import { signingSnapshot, verifyWalletResult } from "../../lib/wallet-signing";
 import { useLanguage } from "../../i18n/provider";
 import { useWallet } from "../../components/wallet/provider";
 import { postApi, errorMessage } from "../../lib/errors";
@@ -272,16 +273,10 @@ function Content({ wallet }: { wallet: string | null }) {
       if (Date.now() >= prepared.expiresAt) throw new Error("PREVIEW_EXPIRED");
       const { VersionedTransaction } = await import("@solana/web3.js"),
         tx = VersionedTransaction.deserialize(Buffer.from(prepared.transaction, "base64")),
-        before = tx.message.serialize();
+        before = signingSnapshot(tx);
       if (provider.publicKey?.toBase58() !== wallet) throw new Error("TRANSACTION_CHANGED");
-      const signed = await provider.signTransaction(tx),
-        after = signed.message.serialize();
-      if (
-        provider.publicKey?.toBase58() !== wallet ||
-        before.length !== after.length ||
-        before.some((b, i) => b !== after[i])
-      )
-        throw new Error("TRANSACTION_CHANGED");
+      const signed = await provider.signTransaction(tx);
+      verifyWalletResult(before, signed, wallet, provider.publicKey?.toBase58(), "portfolio");
       if (Date.now() >= prepared.expiresAt) throw new Error("PREVIEW_EXPIRED");
       const pending = {
         ...session,

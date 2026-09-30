@@ -2,6 +2,8 @@
 
 ## 30/09 — hướng mục tiêu và danh mục
 
+- Owner đã thử ký nhưng UI chặn TRANSACTION_CHANGED trước submit; Devnet còn stage deposit/balance cũ, chưa có thế chấp. Thêm guard dùng chung + safe console diagnostics để phân biệt account/message changes và giữ exact bytes; setup bỏ preview mismatch, kiểm expiry sau khi ví trả về. Cần ký lại sau deploy để xác định phần thay đổi thực tế, không giả định priority fee là nguyên nhân. [Ghi chép](../../testing/wallet-signing-validation.md).
+
 - Runtime sửa `3a16008` đã có CI + Vercel Production PASS. Domain chính portfolio/read và demo/check trả 200; ví owner chưa có vị thế. demo/prepare 0,1 SOL profile A simulation PASS, fee5000, total debit0,12353556 SOL; không ký/gửi. Cần owner ký bước deposit trên `/setup` trước khi kiểm borrow/repay. Chrome và env đã đủ cho bước này, không cần lấy lại log hoặc thêm key. [Bằng chứng](../../testing/runtime-diagnostics.md).
 
 - Sau khi owner thêm giá trị và redeploy: live health executionConfigured=true, missing/invalid=[]; portfolio/read và demo/check vẫn 503 generic. Chrome extension đã kết nối; đã đọc Vercel Logs, không còn chờ owner gửi log. RPC URL khớp public Devnet, API configured trên Next production local trả 200. Đang bổ sung safe diagnostics + compiled configured bundle gate để xác định lỗi runtime, chưa kết luận RPC hoặc module là nguyên nhân. [Ghi chép](../../testing/runtime-diagnostics.md).

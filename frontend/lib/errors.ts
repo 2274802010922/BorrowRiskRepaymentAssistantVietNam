@@ -1,5 +1,9 @@
 import type { Locale } from "../../shared/types";
 const messages: Record<string, [string, string]> = {
+  WALLET_ACCOUNT_CHANGED: [
+    "Tài khoản ví đã đổi trong lúc ký. Chưa gửi giao dịch; kết nối lại đúng ví rồi chuẩn bị bản mới.",
+    "The wallet account changed while signing. Nothing was sent; reconnect the intended wallet and prepare a fresh preview.",
+  ],
   DEMO_PROFILE_UNAVAILABLE: [
     "Market, thanh khoản hoặc giá hiện tại không cho phép profile demo này. Không tăng mức vay hay đổi market tự động; hãy kiểm tra lại.",
     "The current market, liquidity or prices do not support this demo profile. Borrow amounts and markets will not be changed automatically.",
