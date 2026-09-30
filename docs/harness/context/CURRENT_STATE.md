@@ -2,6 +2,8 @@
 
 ## 30/09 — hướng mục tiêu và danh mục
 
+- Deposit slot201 đã finalized, collateral0,1 SOL/debt0, UI verified/borrow; receipt ở docs/testing/live-devnet-cycle.md. Owner đã cho phép agent tự test giao dịch Devnet, không ghi thông tin unlock vào tài liệu. Sửa race cap profile check→prepare để principal chỉ giữ nguyên/giảm; submit dùng conservative protocol cap thay nominal equality. Chưa nghiệm thu borrow/repay.
+
 - Lần ký thật sau guard diagnostics: walletMatches=true, changedFields chỉ instructions, computeBudgetOnly=true, bytes873→885. Đã xác định ví thay phần Compute Budget; builder bổ sung giá1000 micro-lamports trước simulation/binding cho demo/repay, giữ exact-byte guard. Local77 unit +31 browser/build/check PASS, cần preview mới và owner ký sau deploy để xác nhận hết mismatch.
 
 - Owner đã thử ký nhưng UI chặn TRANSACTION_CHANGED trước submit; Devnet còn stage deposit/balance cũ, chưa có thế chấp. Thêm guard dùng chung + safe console diagnostics để phân biệt account/message changes và giữ exact bytes; setup bỏ preview mismatch, kiểm expiry sau khi ví trả về. Cần ký lại sau deploy để xác định phần thay đổi thực tế, không giả định priority fee là nguyên nhân. [Ghi chép](../../testing/wallet-signing-validation.md).

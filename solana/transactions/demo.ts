@@ -13,7 +13,13 @@ import bs58 from "bs58";
 import { seal, unseal } from "../../backend/services/binding";
 import { AppError } from "../../backend/services/http";
 import { demoInputSchema, type DemoCheck } from "../../shared/demo";
-import { demoBorrow, demoBorrowCap, demoDeposit } from "../../core/validation/demo";
+import {
+  demoBorrow,
+  demoBorrowCap,
+  demoDeposit,
+  demoProfileBorrow,
+  protocolBorrowCap,
+} from "../../core/validation/demo";
 import { loadMarket, TOKEN_PROGRAM, associatedToken } from "../adapters/kamino";
 import { devnetConnection } from "../network/rpc";
 import { KAMINO_PROGRAM_ID } from "../network/constants.mjs";
@@ -162,7 +168,15 @@ export async function inspectDemo(
     debtSymbol: debt.getTokenSymbol(),
     config: context.ids,
   };
-  return { check, context, obligation, connection, debt };
+  const submitBorrowMaximum = protocolBorrowCap(
+    collateralAtomic,
+    collateral.getOracleMarketPrice().toString(),
+    debt.getOracleMarketPrice().toString(),
+    risk.maxLtv,
+    risk.borrowFactor,
+    debt.getLiquidityAvailableAmount().floor().toFixed(0),
+  );
+  return { check, context, obligation, connection, debt, submitBorrowMaximum };
 }
 
 export async function demoAction(input: unknown) {
@@ -196,15 +210,13 @@ export async function demoAction(input: unknown) {
           ? check.collateralAtomic
           : stage === "deposit"
             ? demoDeposit(request.depositAtomic)
-            : demoBorrow(request.borrowAtomic, check.maxBorrowAtomic);
+            : request.portfolioProfile
+              ? demoProfileBorrow(request.borrowAtomic, check.maxBorrowAtomic)
+              : demoBorrow(request.borrowAtomic, check.maxBorrowAtomic);
     } catch {
       throw new AppError("INVALID_INPUT");
     }
-    if (
-      request.portfolioProfile &&
-      ((stage === "deposit" && amount !== "100000000") ||
-        (stage === "borrow" && amount !== check.profileBorrowAtomic))
-    )
+    if (request.portfolioProfile && stage === "deposit" && amount !== "100000000")
       throw new AppError("DEMO_PROFILE_UNAVAILABLE");
     // Leave SOL for rent/fees; simulation remains the authoritative account-creation check.
     if (
@@ -342,7 +354,11 @@ export async function demoAction(input: unknown) {
     ).value[0];
     if (status) return { signature, phase: status.err ? "failed" : "submitted" };
     if (Date.now() > bound.expiresAt) throw new AppError("PREVIEW_EXPIRED");
-    const { check } = await inspectDemo(bound.wallet, bound.slot, bound.portfolioProfile);
+    const { check, submitBorrowMaximum } = await inspectDemo(
+      bound.wallet,
+      bound.slot,
+      bound.portfolioProfile,
+    );
     if (
       (bound.stage === "withdraw" ? !check.canWithdraw : check.stage !== bound.stage) ||
       check.position !== bound.position
@@ -350,7 +366,9 @@ export async function demoAction(input: unknown) {
       throw new AppError("DEMO_ALREADY_EXISTS");
     if (bound.stage === "borrow") {
       try {
-        demoBorrow(bound.amountAtomic, check.maxBorrowAtomic);
+        // The fixed amount was reviewed and signed already. Check the fresh
+        // conservative protocol limit, not exact nominal profile equality.
+        demoBorrow(bound.amountAtomic, submitBorrowMaximum);
       } catch {
         throw new AppError("INVALID_PREVIEW");
       }
