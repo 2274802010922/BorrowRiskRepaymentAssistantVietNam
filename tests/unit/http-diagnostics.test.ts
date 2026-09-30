@@ -1,6 +1,11 @@
 import { afterEach, expect, it, vi } from "vitest";
 import { apiError, safeErrorDiagnostics } from "../../backend/services/http";
 afterEach(() => vi.restoreAllMocks());
+it("extracts web3 HTTP statuses without the provider body or URL", () => {
+  const result = safeErrorDiagnostics(new Error("403 Forbidden: {private-token: abc}"));
+  expect(result.causeCodes).toEqual(["RPC_HTTP_403"]);
+  expect(JSON.stringify(result)).not.toContain("private-token");
+});
 it("records HTTP/SDK numeric codes without logging context headers or credentials", () => {
   const info = safeErrorDiagnostics({
     message: "RPC failed",

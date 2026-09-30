@@ -111,6 +111,8 @@ export function safeErrorDiagnostics(error: unknown) {
     )
       causeCodes.push(item.code.slice(0, 64));
     const message = typeof item.message === "string" ? item.message : "";
+    const http = message.match(/^([1-5]\d{2})\s/);
+    if (http) causeCodes.push(`RPC_HTTP_${http[1]}`);
     const category =
       /Cannot find module|Failed to load external module|require is not defined|require\(\) of ES Module/i.test(
         message,

@@ -2,6 +2,8 @@
 
 ## 30/09 — hướng mục tiêu và danh mục
 
+- Ví test riêng 3kHR...FmRo nhận5 SOL Devnet, runner API có --execute-devnet riêng và giữ pending/không lặp unknown. Lần gửi đầu gặp web3 HTTP transport error; signed simulation PASS, signature đã kiểm expired, chưa có vị thế ví test. Đang xác định HTTP status bằng diagnostics; Chrome không truy cập popup Phantom nên không dùng thông tin unlock để giả lập ký ví user.
+
 - Deposit slot201 đã finalized, collateral0,1 SOL/debt0, UI verified/borrow; receipt ở docs/testing/live-devnet-cycle.md. Owner đã cho phép agent tự test giao dịch Devnet, không ghi thông tin unlock vào tài liệu. Sửa race cap profile check→prepare để principal chỉ giữ nguyên/giảm; submit dùng conservative protocol cap thay nominal equality. Chưa nghiệm thu borrow/repay.
 
 - Lần ký thật sau guard diagnostics: walletMatches=true, changedFields chỉ instructions, computeBudgetOnly=true, bytes873→885. Đã xác định ví thay phần Compute Budget; builder bổ sung giá1000 micro-lamports trước simulation/binding cho demo/repay, giữ exact-byte guard. Local77 unit +31 browser/build/check PASS, cần preview mới và owner ký sau deploy để xác nhận hết mismatch.
