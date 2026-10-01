@@ -6,7 +6,7 @@ import {
   SystemProgram,
   ComputeBudgetProgram,
 } from "@solana/web3.js";
-import { signingSnapshot, verifyWalletResult } from "../../frontend/lib/wallet-signing";
+import { signingSnapshot, verifyWalletResult } from "../../src/frontend/lib/wallet-signing";
 afterEach(() => vi.restoreAllMocks());
 it("identifies fee-only edits while continuing to block them", () => {
   const owner = Keypair.generate(),

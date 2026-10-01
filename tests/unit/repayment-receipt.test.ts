@@ -1,18 +1,18 @@
 import { afterEach, beforeEach, expect, it, vi } from "vitest";
 import { Keypair, TransactionMessage, SystemProgram, VersionedTransaction } from "@solana/web3.js";
 import { createHash } from "node:crypto";
-import { seal } from "../../backend/services/binding";
+import { seal } from "../../src/backend/services/binding";
 import { exampleSnapshot } from "../fixtures/position";
 const rpc = vi.hoisted(() => ({ getSignatureStatuses: vi.fn(), getTransaction: vi.fn() }));
 const current = vi.hoisted(() => vi.fn());
-vi.mock("../../solana/network/rpc", () => ({ devnetConnection: async () => rpc }));
+vi.mock("../../src/solana/network/rpc", () => ({ devnetConnection: async () => rpc }));
 const token = Keypair.generate().publicKey;
-vi.mock("../../solana/adapters/kamino", () => ({
+vi.mock("../../src/solana/adapters/kamino", () => ({
   readPosition: current,
   associatedToken: () => token,
   TOKEN_PROGRAM: {},
 }));
-import { repaymentStatus, submitRepayment } from "../../solana/transactions/repay";
+import { repaymentStatus, submitRepayment } from "../../src/solana/transactions/repay";
 beforeEach(() => {
   vi.clearAllMocks();
   vi.stubEnv("PLAN_BINDING_SECRET", "x".repeat(32));

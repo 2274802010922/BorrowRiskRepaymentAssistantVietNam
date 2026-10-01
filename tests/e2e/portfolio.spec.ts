@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
-import { examplePortfolio } from "../../shared/examples/portfolio";
-import { planPortfolio } from "../../core/repayment/portfolio";
+import { examplePortfolio } from "../../src/shared/examples/portfolio";
+import { planPortfolio } from "../../src/core/repayment/portfolio";
 
 test("updated repayment quote requires review before opening the wallet", async ({ page }) => {
   const wallet = "11111111111111111111111111111111",

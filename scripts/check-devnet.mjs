@@ -1,4 +1,4 @@
-import { assertDevnetGenesis, KAMINO_PROGRAM_ID } from "../solana/network/constants.mjs";
+import { assertDevnetGenesis, KAMINO_PROGRAM_ID } from "../src/solana/network/constants.mjs";
 
 const endpoint = process.env.SOLANA_RPC_URL || "https://api.devnet.solana.com";
 

@@ -1,5 +1,5 @@
 import { expect, it } from "vitest";
-import { demoBorrow, demoProfileBorrow, protocolBorrowCap } from "../../core/validation/demo";
+import { demoBorrow, demoProfileBorrow, protocolBorrowCap } from "../../src/core/validation/demo";
 it("refreshes a profile quote downward without rejecting a now-higher displayed amount", () => {
   expect(demoProfileBorrow("7734567", "7721067")).toBe("7721067");
 });

@@ -21,7 +21,7 @@ import { useWallet } from "../../components/wallet/provider";
 import { errorMessage, postApi } from "../../lib/errors";
 import { planRepayment } from "../../../core/repayment/planner";
 import { parseUsdcInput } from "../../../core/validation/amount-input";
-import { exampleSnapshot } from "../../../tests/fixtures/position";
+import { exampleSnapshot } from "../../../../tests/fixtures/position";
 import { metrics, units } from "../../../core/risk/metrics";
 import type {
   Constraints,

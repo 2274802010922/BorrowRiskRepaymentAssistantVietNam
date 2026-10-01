@@ -1,8 +1,8 @@
 import { afterEach, expect, it, vi } from "vitest";
-import { executionReadiness } from "../../backend/services/readiness";
-import { readJson } from "../../backend/services/http";
-import { consumeBudget } from "../../backend/services/limits";
-import { previewKey, writeRecovery } from "../../frontend/lib/transaction-state";
+import { executionReadiness } from "../../src/backend/services/readiness";
+import { readJson } from "../../src/backend/services/http";
+import { consumeBudget } from "../../src/backend/services/limits";
+import { previewKey, writeRecovery } from "../../src/frontend/lib/transaction-state";
 import { exampleSnapshot } from "../fixtures/position";
 afterEach(() => {
   vi.unstubAllEnvs();

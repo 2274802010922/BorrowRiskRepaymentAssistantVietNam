@@ -1,4 +1,4 @@
-import type { PositionSnapshot } from "../../shared/types";
+import type { PositionSnapshot } from "../../src/shared/types";
 
 export function exampleSnapshot(): PositionSnapshot {
   return {

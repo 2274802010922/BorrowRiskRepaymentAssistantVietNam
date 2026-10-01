@@ -1,17 +1,17 @@
 import { afterEach, beforeEach, expect, it, vi } from "vitest";
 import { Keypair, SystemProgram, TransactionMessage, VersionedTransaction } from "@solana/web3.js";
-import { seal } from "../../backend/services/binding";
+import { seal } from "../../src/backend/services/binding";
 import { createHash } from "node:crypto";
 const rpc = vi.hoisted(() => ({
   getSignatureStatuses: vi.fn(),
   getBlockHeight: vi.fn(),
   sendRawTransaction: vi.fn(),
 }));
-vi.mock("../../solana/network/rpc", () => ({
+vi.mock("../../src/solana/network/rpc", () => ({
   devnetConnection: async () => rpc,
   rpcUrl: () => "test",
 }));
-vi.mock("../../solana/adapters/kamino", () => ({
+vi.mock("../../src/solana/adapters/kamino", () => ({
   loadMarket: vi.fn(async () => {
     throw new Error("No market configured in this test");
   }),
@@ -19,7 +19,7 @@ vi.mock("../../solana/adapters/kamino", () => ({
   associatedToken: vi.fn(),
   TOKEN_PROGRAM: { toBase58: () => "" },
 }));
-import { demoAction } from "../../solana/transactions/demo";
+import { demoAction } from "../../src/solana/transactions/demo";
 const owner = Keypair.generate();
 function preview(expiresAt = Date.now() + 60000) {
   const message = new TransactionMessage({

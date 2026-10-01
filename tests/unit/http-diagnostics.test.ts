@@ -1,5 +1,5 @@
 import { afterEach, expect, it, vi } from "vitest";
-import { apiError, safeErrorDiagnostics } from "../../backend/services/http";
+import { apiError, safeErrorDiagnostics } from "../../src/backend/services/http";
 afterEach(() => vi.restoreAllMocks());
 it("extracts web3 HTTP statuses without the provider body or URL", () => {
   const result = safeErrorDiagnostics(new Error("403 Forbidden: {private-token: abc}"));

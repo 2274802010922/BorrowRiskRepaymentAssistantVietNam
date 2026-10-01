@@ -1,6 +1,6 @@
 import { it, expect } from "vitest";
 import { ComputeBudgetProgram, SystemProgram, Keypair } from "@solana/web3.js";
-import { quotedComputeBudget } from "../../solana/transactions/compute-budget";
+import { quotedComputeBudget } from "../../src/solana/transactions/compute-budget";
 it("adds one explicit price before binding and preserves protocol instructions and the SDK limit", () => {
   const limit = ComputeBudgetProgram.setComputeUnitLimit({ units: 800000 }),
     transfer = SystemProgram.transfer({

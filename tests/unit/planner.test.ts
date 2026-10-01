@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
-import { planRepayment } from "../../core/repayment/planner";
-import { metrics } from "../../core/risk/metrics";
-import { parseUsdcInput } from "../../core/validation/amount-input";
+import { planRepayment } from "../../src/core/repayment/planner";
+import { metrics } from "../../src/core/risk/metrics";
+import { parseUsdcInput } from "../../src/core/validation/amount-input";
 import { exampleSnapshot } from "../fixtures/position";
 
 const c = {

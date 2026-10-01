@@ -1,5 +1,5 @@
 import { expect, it } from "vitest";
-import { searchAllocation, type AllocationGrid } from "../../core/allocation/search";
+import { searchAllocation, type AllocationGrid } from "../../src/core/allocation/search";
 const verified = { verified: true, version: "abstract-test-vector" };
 const grid: AllocationGrid = [
   {

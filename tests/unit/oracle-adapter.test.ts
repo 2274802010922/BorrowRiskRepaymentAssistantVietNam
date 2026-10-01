@@ -12,7 +12,7 @@ vi.mock("@kamino-finance/klend-sdk/dist/@codegen/pyth_rec/accounts/priceUpdateV2
 vi.mock("@kamino-finance/klend-sdk/dist/@codegen/pyth_rec/programId.js", () => ({
   PROGRAM_ID: "receiver",
 }));
-import { readOracleData } from "../../solana/adapters/oracle";
+import { readOracleData } from "../../src/solana/adapters/oracle";
 const nil = "11111111111111111111111111111111";
 const entry = {
   address: "reserve",

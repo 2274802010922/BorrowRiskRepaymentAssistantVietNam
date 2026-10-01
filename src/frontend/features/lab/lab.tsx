@@ -8,7 +8,11 @@ import {
   StatusBadge,
 } from "../../components/feedback/states";
 import { useLanguage } from "../../i18n/provider";
-import { scenarioIds, scenarioTones, type ScenarioId } from "../../../tests/fixtures/ui-scenarios";
+import {
+  scenarioIds,
+  scenarioTones,
+  type ScenarioId,
+} from "../../../../tests/fixtures/ui-scenarios";
 const descriptions: Record<ScenarioId, [string, string, string, string]> = {
   ready: [
     "Dữ liệu sẵn sàng",

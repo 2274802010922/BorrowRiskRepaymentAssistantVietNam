@@ -1,6 +1,6 @@
 import { randomBytes } from "node:crypto";
-import { demoAction, inspectDemo } from "../../solana/transactions/demo";
-import { AppError } from "../../backend/services/http";
+import { demoAction, inspectDemo } from "../../src/solana/transactions/demo";
+import { AppError } from "../../src/backend/services/http";
 const [wallet, market, collateral, debt, rawSlot] = process.argv.slice(2);
 const slot = rawSlot ? (Number(rawSlot) as 201 | 202 | 203) : 201;
 if (![201, 202, 203].includes(slot)) throw new Error("INVALID_DEMO_SLOT");

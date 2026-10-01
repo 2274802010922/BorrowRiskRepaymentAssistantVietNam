@@ -1,6 +1,6 @@
 import { expect, it } from "vitest";
-import { compactNumber, exactToken } from "../../shared/format";
-import { demoBorrow, demoBorrowCap, demoDeposit } from "../../core/validation/demo";
+import { compactNumber, exactToken } from "../../src/shared/format";
+import { demoBorrow, demoBorrowCap, demoDeposit } from "../../src/core/validation/demo";
 it("removes only insignificant zeros and localizes separators", () => {
   expect(exactToken("50000000", 6)).toBe("50");
   expect(exactToken("50120000", 6)).toBe("50,12");

@@ -1,9 +1,9 @@
 import { readFile, writeFile, mkdir, unlink, rename } from "node:fs/promises";
 import { Keypair, Connection, VersionedTransaction } from "@solana/web3.js";
 import bs58 from "bs58";
-import { assertDevnetGenesis } from "../../solana/network/constants.mjs";
-import type { DemoCheck, DemoPrepared } from "../../shared/demo";
-import type { PositionSnapshot } from "../../shared/types";
+import { assertDevnetGenesis } from "../../src/solana/network/constants.mjs";
+import type { DemoCheck, DemoPrepared } from "../../src/shared/demo";
+import type { PositionSnapshot } from "../../src/shared/types";
 const execute = process.argv.includes("--execute-devnet"),
   keyFile = process.argv.find((a) => a.startsWith("--wallet-file="))?.slice(14);
 if (!keyFile)

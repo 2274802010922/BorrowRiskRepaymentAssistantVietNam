@@ -1,5 +1,5 @@
 import { expect, it } from "vitest";
-import { isOracleFresh, normalizePyth } from "../../core/risk/oracle";
+import { isOracleFresh, normalizePyth } from "../../src/core/risk/oracle";
 it("compares price and confidence in the same units", () => {
   const result = normalizePyth("11940134390", "1790711", -8, "11940134390", 0);
   expect(result.price.toString()).toBe("119.4013439");

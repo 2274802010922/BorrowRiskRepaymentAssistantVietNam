@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
-import { inspectDemo } from "../../solana/transactions/demo";
-import { AppError } from "../../backend/services/http";
+import { inspectDemo } from "../../src/solana/transactions/demo";
+import { AppError } from "../../src/backend/services/http";
 dotenv.config({ path: ".env.local", quiet: true });
 const wallet = process.argv[2];
 if (!wallet) {

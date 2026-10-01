@@ -1,8 +1,8 @@
 import { expect, it } from "vitest";
-import { examplePortfolio } from "../../shared/examples/portfolio";
-import { planPortfolio, liquidationBuffer } from "../../core/repayment/portfolio";
-import { planRepayment } from "../../core/repayment/planner";
-import { demoProfile } from "../../core/validation/demo-profile";
+import { examplePortfolio } from "../../src/shared/examples/portfolio";
+import { planPortfolio, liquidationBuffer } from "../../src/core/repayment/portfolio";
+import { planRepayment } from "../../src/core/repayment/planner";
+import { demoProfile } from "../../src/core/validation/demo-profile";
 const goal = {
   budgetAtomic: "30000000",
   reserveAtomic: "20000000",

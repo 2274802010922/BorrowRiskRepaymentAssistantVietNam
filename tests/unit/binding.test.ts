@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { seal, unseal } from "../../backend/services/binding";
-import { assertDevnetGenesis, DEVNET_GENESIS_HASH } from "../../solana/network/constants.mjs";
+import { seal, unseal } from "../../src/backend/services/binding";
+import { assertDevnetGenesis, DEVNET_GENESIS_HASH } from "../../src/solana/network/constants.mjs";
 afterEach(() => vi.unstubAllEnvs());
 describe("preview authenticity", () => {
   it("fails closed when the binding secret is missing", () => {

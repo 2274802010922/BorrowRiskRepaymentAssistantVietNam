@@ -1,5 +1,5 @@
 import { afterEach, expect, it, vi } from "vitest";
-import { explain } from "../../backend/ai/explain";
+import { explain } from "../../src/backend/ai/explain";
 import { exampleSnapshot } from "../fixtures/position";
 afterEach(() => {
   vi.unstubAllEnvs();

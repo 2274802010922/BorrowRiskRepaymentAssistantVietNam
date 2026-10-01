@@ -1,6 +1,6 @@
 import { createRequire } from "node:module";
 import { mkdir, writeFile } from "node:fs/promises";
-import { assertDevnetGenesis, KAMINO_PROGRAM_ID } from "../../solana/network/constants.mjs";
+import { assertDevnetGenesis, KAMINO_PROGRAM_ID } from "../../src/solana/network/constants.mjs";
 const require = createRequire(import.meta.url);
 const { Reserve } = require("@kamino-finance/klend-sdk/dist/@codegen/klend/accounts/Reserve.js");
 const url = process.env.SOLANA_RPC_URL || "https://api.devnet.solana.com";

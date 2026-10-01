@@ -1,5 +1,5 @@
 import { it, expect, vi, afterEach } from "vitest";
-import { rpcFetch, retryKitRpc } from "../../solana/network/fetch";
+import { rpcFetch, retryKitRpc } from "../../src/solana/network/fetch";
 afterEach(() => {
   vi.useRealTimers();
   vi.unstubAllGlobals();

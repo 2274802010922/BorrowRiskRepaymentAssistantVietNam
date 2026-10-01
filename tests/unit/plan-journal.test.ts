@@ -1,7 +1,7 @@
 import { beforeEach, afterEach, expect, it, vi } from "vitest";
 import { Keypair } from "@solana/web3.js";
-import { examplePortfolio } from "../../shared/examples/portfolio";
-import type { PositionSnapshot } from "../../shared/types";
+import { examplePortfolio } from "../../src/shared/examples/portfolio";
+import type { PositionSnapshot } from "../../src/shared/types";
 const deps = vi.hoisted(() => ({
   read: vi.fn(),
   prepare: vi.fn(),
@@ -9,20 +9,20 @@ const deps = vi.hoisted(() => ({
   status: vi.fn(),
   redis: vi.fn(),
 }));
-vi.mock("../../solana/adapters/kamino", () => ({ readPositions: deps.read }));
-vi.mock("../../solana/transactions/repay", () => ({
+vi.mock("../../src/solana/adapters/kamino", () => ({ readPositions: deps.read }));
+vi.mock("../../src/solana/transactions/repay", () => ({
   prepareRepayment: deps.prepare,
   submitRepayment: deps.submit,
   repaymentStatus: deps.status,
 }));
-vi.mock("../../backend/services/redis", () => ({ redis: deps.redis }));
+vi.mock("../../src/backend/services/redis", () => ({ redis: deps.redis }));
 import {
   createPlan,
   preparePlan,
   submitPlan,
   statusPlan,
   cancelPlan,
-} from "../../backend/services/plans";
+} from "../../src/backend/services/plans";
 let positions: PositionSnapshot[];
 const store = new Map<string, string>();
 const goal = {
