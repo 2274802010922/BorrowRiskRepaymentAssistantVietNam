@@ -234,4 +234,3 @@ Chưa có tuyên bố doanh thu hay khách hàng trả tiền.
 58
 00:04:43,166 --> 00:04:48,928
 Mời giám khảo mở bản demo và đối chiếu biên nhận, mã nguồn cùng phạm vi kiểm thử trong repo.
-

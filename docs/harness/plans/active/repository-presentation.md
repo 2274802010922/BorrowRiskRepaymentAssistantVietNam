@@ -11,4 +11,4 @@ User đã duyệt plan và yêu cầu thực hiện end-to-end, commit/push. Ph�
 5. Commit tiếng Việt, push main, Quality/Vercel success, kiểm UI/API sau chuyển thư mục.
 6. Publish Release video/ZIP tại commit cuối, About/topics và social preview, kiểm asset có thể tải.
 
-Trạng thái: đang thực hiện. Không thêm chức năng tài chính, thay env hoặc bật allocator. [Kết quả](../../../evidence/validation/repository-reorganization.md).
+Trạng thái: bước1–5 PASS; Release/About/topics và public download bước6 PASS. Social preview upload setting còn mở do browser/CDP timeout; file đã tạo và có trong Release. Không thêm chức năng tài chính, thay env hoặc bật allocator. [Kết quả](../../../evidence/validation/repository-reorganization.md).
