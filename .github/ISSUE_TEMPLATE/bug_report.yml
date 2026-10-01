@@ -1,0 +1,21 @@
+name: Báo lỗi
+description: Mô tả lỗi có thể tái hiện trong picachu.
+body:
+  - type: textarea
+    id: steps
+    attributes:
+      label: Các bước tái hiện
+      description: Ghi route, ngôn ngữ, trình duyệt và thao tác trước khi lỗi xuất hiện.
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: Kết quả mong muốn và kết quả thực tế
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Bằng chứng
+      description: Ảnh đã che thông tin riêng, requestId hoặc signature Devnet công khai. Không gửi mật khẩu, key, seed phrase, binding token hoặc raw signed transaction.

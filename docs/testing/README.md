@@ -1,22 +1,17 @@
-# Kiểm tra và phạm vi bằng chứng
+# Kiểm tra và phạm vi nghiệm thu
 
-<img src="../../public/brand/picachu-logo.jpg" alt="Logo pixel picachu" width="72">
+Checkpoint 360e17f: **87 unit tests +32 browser tests**, format/lint/types/build, strict deployment bundle và [Quality CI](https://github.com/2274802010922/picachu__/actions/runs/36765109243) PASS. Kết quả chuyển thư mục ngày 01/10 ghi ở [reorganization](../evidence/validation/repository-reorganization.md).
 
-01/10: `7d398c0` có 87 unit tests +32 browser tests, check/build/CI PASS. [Vòng Devnet thật](live-devnet-cycle.md) qua API Vercel bằng test signer riêng: ba deposit, ba borrow, hai repay và Redis journal verified. Snapshot sau trả cho thấy giá/lãi có thể đổi mục tiêu tiếp; UI kiểm riêng trạng thái hiện tại. Chưa nghiệm thu đầy đủ popup Phantom hoặc liquidation parity; không dùng test abstraction để bật allocator.
+| Cổng                     | Lệnh / bằng chứng                                |
+| ------------------------ | ------------------------------------------------ |
+| Offline core và guards   | `npm test`                                       |
+| Format, lint, TypeScript | `npm run check`                                  |
+| Production + E2E/a11y    | `npm run verify`                                 |
+| Strict CJS traced bundle | `node scripts/checks/server-bundle.mjs`          |
+| Liên kết docs và asset   | `node scripts/check-readme.mjs`                  |
+| Devnet thật              | [Ba vị thế +hai repay](live-devnet-cycle.md)     |
+| Thao tác Phantom         | [Báo cáo owner](manual-acceptance-2026-10-01.md) |
 
-Release picachu 28/09/2026: 34 unit tests và 21 Chromium tests PASS. Bổ sung format số, giới hạn demo, binding sai ví/sai message/expired, chống gửi lại signature đã tồn tại, lỗi oracle không mở ký và khôi phục pending sau reload. Năm trang được kiểm a11y; setup có mặt trong ma trận viewport/ngôn ngữ. Production build PASS. Đây là bằng chứng offline/mocked; live Phantom và market còn mở.
+Browser tests dùng mocked wallet cho các case chữ ký/pending, VI/EN bốn viewport 375/768/1024/1440 và axe. Chúng không thay chứng minh live. Allocator search chỉ có cost vectors trừu tượng, chưa thể công bố loss Kamino.
 
-Ngày 27/09/2026, `npm run verify` PASS trên Node 24.16.0/Windows: 20 unit tests, 17 Chromium tests, format/lint/typecheck và production build. Browser tests gồm VI/EN × 375/768/1024/1440px, form validation, locale persistence, drawer focus/Escape, fixture không ký, Phantom vắng mặt và axe trên 4 route. Không có live provider trong các test này.
-
-Ảnh minh họa: [mobile](../evidence/workspace-vi-375.png), [desktop](../evidence/workspace-vi-1440.png). Đây là dữ liệu synthetic, không phải bằng chứng giao dịch.
-
-- `npm test`: core, validation, preview binding và template explanation; không gọi dịch vụ bên ngoài.
-- `npm run typecheck`, `npm run lint`, `npm run format:check`: static checks.
-- `npm run build`: production build Next.js.
-- `npm run test:e2e`: Chromium, VI/EN, bốn viewport, drawer/keyboard, form, trạng thái fixture và axe.
-- `npm run check:devnet`: genesis/program executable; không thực thi khoản vay.
-- `node scripts/checks/discover-devnet.mjs`: đọc reserve theo schema SDK; không chứng minh có thể vay hoặc trả nợ.
-
-Live repayment, Phantom thật và AI provider thật là các nghiệm thu riêng. Bộ test offline không chứng minh chúng hoạt động. Không trình bày screenshot UI synthetic thành traction, chain proof hoặc live AI evidence.
-
-`npm audit` hiện có cảnh báo transitive từ SDK Solana/Kamino. Bản này chưa được thẩm định cho tài sản mainnet. Ghi riêng kết quả audit và thay đổi dependency, không dùng `audit fix --force` mà không kiểm tương thích.
+[Evidence index](../evidence/README.md) · [Lịch sử điều tra](../archive/README.md). Audit transitive tại checkpoint trước còn21 cảnh báo; không dùng audit fix force hoặc nâng dependency trong đợt dọn cấu trúc này.

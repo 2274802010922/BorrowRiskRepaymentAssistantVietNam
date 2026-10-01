@@ -1,16 +1,16 @@
-## Problem and result
+## Vấn đề và kết quả
 
-What changes for the user? Link the task and acceptance criteria.
+Hành vi nào thay đổi với người dùng? Liên kết đầu việc và điều kiện nghiệm thu.
 
-## Evidence
+## Bằng chứng
 
-- Commands run and outcomes:
-- UI changes: VI/EN and 375 / 768 / 1024 / 1440 screenshots:
-- Data source: synthetic / recorded / live Devnet:
-- Network changes: simulation / submitted / confirmed / state re-read:
+- Lệnh kiểm tra và kết quả:
+- UI: VI/EN, screenshot 375 / 768 / 1024 / 1440:
+- Nguồn dữ liệu: synthetic / recorded / live Devnet:
+- Giao dịch: simulation / submitted / confirmed / receipt / đọc lại:
 
-## Scope and provenance
+## Phạm vi và nguồn kế thừa
 
-- Upstream code/assets and license notices:
-- Known limitations and follow-up work:
-- No private keys, API credentials, or real user wallet data in fixtures.
+- Code/asset kế thừa và giấy phép:
+- Giới hạn và việc tiếp theo:
+- Không có private key, API credentials hoặc dữ liệu riêng của ví thật trong fixtures.

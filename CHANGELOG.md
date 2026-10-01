@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-10-01 — tổ chức repository và đóng gói demo
+
+- Gom mã nguồn vào `src/`, giữ config/public ở root; cập nhật import, mock, alias và đường dẫn tài liệu.
+- Gom screenshot, evidence Devnet và lịch sử; bảo toàn nội dung kiến trúc gốc ở archive.
+- README VI/EN tập trung goal portfolio, banner mới, poster/video có giọng đọc và phụ đề, lối đọc hai track.
+- Video MP4/ZIP phân phối qua Release, không commit file dựng hoặc key test; kiểm liên kết docs được đưa vào CI.
+- Checkpoint trước `360e17f` đã có 87 unit/32 browser, CI/Production PASS; vòng test thật verified ba deposit/ba borrow/hai repay. Owner báo test thủ công ổn, nguồn này được ghi riêng.
+
 ## 2026-09-30 — phương án trả nợ có mục tiêu
 
 - Thêm `/portfolio` ba bước VI/EN, mục tiêu dư địa 5% sau shock, tối đa ba vị thế và một số dư chung; tính số tiền tối thiểu bằng Decimal/atomic.

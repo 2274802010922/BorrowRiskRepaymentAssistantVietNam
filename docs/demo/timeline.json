@@ -1,0 +1,77 @@
+[
+  {
+    "start": 0,
+    "end": 16.776,
+    "title": "Trả bao nhiêu, giữ lại bao nhiêu?"
+  },
+  {
+    "start": 16.776,
+    "end": 34.736000000000004,
+    "title": "Một ví, tối đa ba khoản"
+  },
+  {
+    "start": 34.736000000000004,
+    "end": 52.712,
+    "title": "Ngân sách và tiền cần giữ lại"
+  },
+  {
+    "start": 52.712,
+    "end": 71.232,
+    "title": "Giảm 30%, còn dư địa 5%"
+  },
+  {
+    "start": 71.232,
+    "end": 90.168,
+    "title": "Chỉ trả phần cần để đạt mục tiêu"
+  },
+  {
+    "start": 90.168,
+    "end": 109.08800000000001,
+    "title": "Biết rõ số tiền còn thiếu"
+  },
+  {
+    "start": 109.08800000000001,
+    "end": 127.256,
+    "title": "Có thể lập kế hoạch cho từng khoản"
+  },
+  {
+    "start": 127.256,
+    "end": 148.096,
+    "title": "Tạo khoản vay bằng token thử nghiệm"
+  },
+  {
+    "start": 148.096,
+    "end": 168.45600000000002,
+    "title": "Xem trước rồi ký. Không giao khóa cho app."
+  },
+  {
+    "start": 168.45600000000002,
+    "end": 187.81600000000003,
+    "title": "Xác minh xong mới sang bước tiếp"
+  },
+  {
+    "start": 187.81600000000003,
+    "end": 208.81600000000003,
+    "title": "Giao dịch thật trên Solana Devnet"
+  },
+  {
+    "start": 208.81600000000003,
+    "end": 227.25600000000003,
+    "title": "Trả 2,406756 USDC. Ví còn 17,401774."
+  },
+  {
+    "start": 227.25600000000003,
+    "end": 246.45600000000002,
+    "title": "Biên nhận thành công khác mục tiêu hiện tại"
+  },
+  {
+    "start": 246.45600000000002,
+    "end": 267.536,
+    "title": "Phép tính kiểm được. Giải thích dễ đọc."
+  },
+  {
+    "start": 267.536,
+    "end": 289.592,
+    "title": "Mục tiêu rõ ràng. Quyết định vẫn ở bạn."
+  }
+]

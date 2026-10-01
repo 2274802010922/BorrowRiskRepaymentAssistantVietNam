@@ -1,0 +1,15 @@
+name: Đề xuất cải tiến
+description: Đề xuất từ vấn đề hoặc nhu cầu của người sử dụng.
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Người dùng đang gặp vấn đề gì?
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Kết quả muốn đạt và cách kiểm chứng
+    validations:
+      required: true

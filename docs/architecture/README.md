@@ -8,7 +8,7 @@ Hướng hiện hành từ 30/09: [phương án theo mục tiêu và danh mục]
 
 | Phần         | Quyết định triển khai                                                    | Lý do                                                  |
 | ------------ | ------------------------------------------------------------------------ | ------------------------------------------------------ |
-| Tài liệu gốc | Giữ nguyên ở root                                                        | Bảo toàn ý tưởng và lịch sử của người dùng             |
+| Tài liệu gốc | Giữ nguyên nội dung trong docs/archive                                   | Bảo toàn ý tưởng và lịch sử của người dùng             |
 | Kiến trúc    | Next.js app; frontend, core, backend, solana tách trách nhiệm            | Nhẹ cho một người, core kiểm được offline              |
 | Tính toán    | Atomic integer + Decimal; borrow factor và threshold là input            | Tránh number float và ngưỡng giả định cho mọi protocol |
 | Planner      | Target + phương án tối đa trong ngân sách; partial không đồng nghĩa fail | Người dùng thấy rõ mục tiêu chưa đạt                   |

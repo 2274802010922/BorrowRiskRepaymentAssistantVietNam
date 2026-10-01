@@ -1,16 +1,17 @@
 # Tài liệu picachu
 
-<img src="../public/brand/picachu-logo.jpg" alt="Logo pixel picachu" width="72">
+Một đường đọc cho mỗi nhu cầu. Trạng thái hiện hành ở [CURRENT_STATE](harness/context/CURRENT_STATE.md); lịch sử điều tra nằm trong archive.
 
-[Thiết lập khoản vay Devnet bằng ví](deployment/demo-setup.md)
+| Bạn muốn            | Bắt đầu ở đây                                                                                   |
+| ------------------- | ----------------------------------------------------------------------------------------------- |
+| Hiểu sản phẩm       | [Phạm vi và giá trị](product/README.md)                                                         |
+| Xem video / demo    | [Video, phụ đề và walkthrough](demo/README.md)                                                  |
+| Chấm hai track      | [Hướng dẫn giám khảo](judging/README.md)                                                        |
+| Kiểm giao dịch thật | [Vòng Devnet](testing/live-devnet-cycle.md), [bằng chứng](evidence/README.md)                   |
+| Đọc kiến trúc       | [Tổng quan](architecture/README.md), [goal portfolio](architecture/goal-portfolio.md)           |
+| Triển khai          | [Vercel / Devnet](deployment/README.md), [biến môi trường](deployment/environment-checklist.md) |
+| Tiếp tục phát triển | [Bàn giao](harness/context/HANDOFF.md), [plan](harness/plans/active/goal-portfolio.md)          |
+| Đối chiếu thiết kế  | [Design system](design/system.md), [ảnh sản phẩm](assets/screenshots/README.md)                 |
+| Xem lịch sử         | [Archive](archive/README.md)                                                                    |
 
-| Người đọc      | Bắt đầu từ                                                                                                                           |
-| -------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| Tiếp tục build | [Current state](harness/context/CURRENT_STATE.md), [handoff](harness/context/HANDOFF.md), [plan active](harness/plans/active/mvp.md) |
-| Kiến trúc      | [Lựa chọn và đối chiếu](architecture/README.md)                                                                                      |
-| Giao diện      | [Design system](design/system.md)                                                                                                    |
-| Kiểm chứng     | [Testing](testing/README.md)                                                                                                         |
-| Triển khai     | [Vercel / Devnet](deployment/README.md)                                                                                              |
-| Giám khảo      | [Walkthrough và phạm vi](judging/README.md)                                                                                          |
-
-Tài liệu kiến trúc ở root được bảo toàn như bản gốc của người dùng. Bằng chứng hiện tại và code quyết định việc một tính năng đã hoạt động hay chưa.
+Mã nguồn ở `src/`; kiểm thử ở `tests/`; công cụ ở `scripts/`. Không coi tài liệu lịch sử, screenshot minh họa hoặc báo đã gửi là proof giao dịch thành công.

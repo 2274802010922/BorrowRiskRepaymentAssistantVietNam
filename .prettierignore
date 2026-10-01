@@ -6,4 +6,4 @@ test-results
 playwright-report
 package-lock.json
 next-env.d.ts
-solana_borrow_risk_repayment_architecture.md
+docs/archive/original-architecture.md

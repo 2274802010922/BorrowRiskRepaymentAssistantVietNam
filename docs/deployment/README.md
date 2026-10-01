@@ -2,7 +2,7 @@
 
 [Bảng đầy đủ 11 biến môi trường và cách kiểm tra](environment-checklist.md)
 
-Từ đợt sửa Web3: để gọi OpenRouter trên Vercel, cấu hình thêm `RATE_LIMIT_REDIS_URL` và `RATE_LIMIT_REDIS_TOKEN` (Redis REST tương thích Upstash). Nếu chưa có, app dùng template, không phát sinh lượt gọi provider. Health trả `aiSharedBudgetConfigured`; xem [hạn mức và nghiệm thu](../testing/web3-hardening.md).
+Từ đợt sửa Web3: để gọi OpenRouter trên Vercel, cấu hình thêm `RATE_LIMIT_REDIS_URL` và `RATE_LIMIT_REDIS_TOKEN` (Redis REST tương thích Upstash). Nếu chưa có, app dùng template, không phát sinh lượt gọi provider. Health trả `aiSharedBudgetConfigured`; xem [hạn mức và nghiệm thu](../archive/investigations/web3-hardening.md).
 
 <img src="../../public/brand/picachu-logo.jpg" alt="Logo pixel picachu" width="72">
 

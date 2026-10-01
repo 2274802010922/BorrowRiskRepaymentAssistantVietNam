@@ -18,7 +18,9 @@ HMAC token chứa ID ngẫu nhiên + wallet, đặt trong body, không URL/log. 
 
 Submit kiểm chữ ký Ed25519, message, số dư và reserve trước khi gọi hook khóa. Lua CAS khóa wallet + ghi pending một cách nguyên tử; hai plan không cùng broadcast qua luồng portfolio. Không phát sinh khóa chỉ từ người khác biết public wallet. Khoản vay đơn cũ có recovery riêng; khóa này không khóa ví ở protocol hay ứng dụng khác.
 
-Status đối chiếu receipt lịch sử, ghi cursor bằng CAS và không dựa vào giá oracle hiện tại để phủ nhận giao dịch đã thực hiện. Unknown/confirmed chưa khớp hiệu ứng token không cho bước sau. Failed/expired dừng kế hoạch. Sau verified, prepare tiếp đọc lại và dừng khi giá/lãi/số dư làm số tiền cần trả thay đổi. Không silently tăng tiền hay retry broadcast chưa rõ kết quả.
+Status đối chiếu receipt lịch sử, ghi cursor bằng CAS và không dựa vào giá oracle hiện tại để phủ nhận giao dịch đã thực hiện. Unknown/confirmed chưa khớp hiệu ứng token không cho bước sau. Failed/expired dừng kế hoạch. Prepare đọc lại và cập nhật các bước chưa thực hiện trong ngân sách/reserve gốc; số tiền đổi yêu cầu review trước ký và submit. Yêu cầu review không bị xóa bởi prepare lặp lại. Số dư ví đổi bất ngờ, quote vượt giới hạn hoặc bước không còn cần trả thì chặn để lập lại. Không sửa receipt cũ hoặc tự replay giao dịch.
+
+Sau khi tất cả bước verified, frontend đọc một snapshot mới để kiểm mục tiêu riêng. Có thể cần trả thêm vì giá/lãi tiếp tục đổi; UI hiển thị số cần thêm và yêu cầu lập phương án mới. Lỗi đọc không được trình bày thành mục tiêu đã đạt.
 
 Nhật ký Redis giữ 24 giờ; frontend giữ token kế hoạch và signature/binding trước gửi. Không lưu signed transaction hoặc key của ví. Người vận hành cần giữ Redis hoạt động và dùng receipt recovery riêng nếu journal hết TTL. Reserve chỉ là kiểm tra snapshot, không cam kết các ứng dụng khác không chi số dư.
 

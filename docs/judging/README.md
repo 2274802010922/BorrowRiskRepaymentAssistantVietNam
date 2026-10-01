@@ -1,31 +1,24 @@
-# Hướng dẫn review
+# Lối đọc dành cho giám khảo
 
-Hành trình mới: mở `/portfolio` → ba khoản vay minh họa → shock 30%, buffer 5%, ngân sách 30, reserve 20 → tổng cần trả 13,6 USDC. Giảm ngân sách xuống 10 để thấy shortfall 3,6. [Walkthrough và giới hạn](../deployment/portfolio-demo.md). Bộ tìm kiếm allocator có kiểm thử trên cost vectors trừu tượng; không claim giảm loss Kamino khi parity chưa có. AI đã được chủ dự án xác nhận gọi được, nhưng đây không phải bằng chứng của transaction chain.
+[Dùng thử](https://picachu-iota.vercel.app/portfolio) · [Video 4:50](../demo/README.md) · [Evidence Devnet](../testing/live-devnet-cycle.md)
 
-<img src="../../public/brand/picachu-logo.jpg" alt="Logo pixel picachu" width="72">
+| Track                   | Điều có thể kiểm                                                                                            | Đường dẫn                                                                                                                                              |
+| ----------------------- | ----------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Best Product & Business | Vấn đề người vay, mục tiêu/reserve, luồng dễ hiểu, phạm vi và giả thuyết tiếp theo                          | [Sản phẩm](../product/README.md), [video](../demo/README.md), [UI](../assets/screenshots/README.md)                                                    |
+| Best Technical Build    | Atomic/Decimal, shared balance, bounded quote review, simulation/binding, ký tuần tự và historical receipts | [Kiến trúc](../architecture/goal-portfolio.md), [core](../../src/core/), [giao dịch](../../src/solana/transactions/), [kiểm thử](../testing/README.md) |
 
-Checkpoint MVP có demo offline và bộ test tự động; chưa phải submission có bằng chứng live đầy đủ. Dự án chuẩn bị cho cả Best Product & Business và Best Technical Build. Bảng dưới là bản đồ bằng chứng của repo, không tự gán điểm hoặc thay thế rubric chính thức.
+## Kiểm chứng trong ba phút
 
-| Track              | Nội dung có thể review                                                     | Bằng chứng                                              | Còn thiếu                                                         |
-| ------------------ | -------------------------------------------------------------------------- | ------------------------------------------------------- | ----------------------------------------------------------------- |
-| Product & Business | Luồng tiếng Việt: hiểu rủi ro → thử giá giảm → giữ dự trữ → chọn phương án | Landing, workspace, guide; ảnh UI trong `docs/evidence` | Phỏng vấn người vay, willingness-to-pay, pilot và kết quả đo được |
-| Technical Build    | Planner số nguyên/Decimal, protocol guard, simulation và binding giao dịch | `core/`, `solana/`, `backend/`, unit tests và CI        | Giao dịch Devnet thật, Phantom recovery và deploy acceptance      |
+1. Ví dụ minh họa: ba nợ 65/55/45, SOL 100 USD, collateral 1 SOL mỗi khoản, threshold 80%, factor 1; shock 30/buffer 5/budget 30/reserve 20.
+2. Kết quả13,6 USDC, còn66,4; budget 10 thì thiếu 3,6. Dữ liệu minh họa không tạo giao dịch.
+3. Đọc ba deposit/ba borrow/hai repay đã verified trên Devnet qua API triển khai và test signer riêng.
+4. Đối chiếu [CI](https://github.com/2274802010922/picachu__/actions/workflows/quality.yml), unit/e2e tests và giới hạn trong tài liệu.
 
-## Walkthrough 3 phút
+## Ranh giới claim
 
-1. 30 giây: mô tả người đã có khoản vay và cần quyết định trả bao nhiêu mà vẫn còn tiền dự trữ.
-2. 60 giây: mở workspace dữ liệu minh họa; tăng shock lên 20%, ngân sách 100 và dự trữ 50; giải thích vì sao chỉ cải thiện một phần, thiếu 20 để đạt target.
-3. 30 giây: sửa ngân sách/dự trữ, xem kết quả và giải thích deterministic; không quảng bá template là live AI.
-4. 45 giây: trình bày các bước chuẩn bị/simulation/ký/xác minh trong code. Chỉ demo giao dịch thật khi đã có bằng chứng nghiệm thu.
-5. 15 giây: chỉ ra kiểm thử và kế hoạch xác thực nhu cầu người dùng; không dùng số khách hàng/doanh thu chưa có.
+- Owner báo thao tác Phantom thủ công ổn ngày 01/10; đây là owner-reported acceptance, không phải video agent quay popup hoặc bộ receipt độc lập mới.
+- AI đã được owner xác nhận gọi live; không dùng AI tạo số tiền hay điều khiển ký.
+- Allocator tổn thất chưa bật: protocol parity chưa hoàn tất.
+- Không công bố doanh thu, người dùng trả tiền, pilot hoặc hiệu quả giảm thanh lý chưa đo.
 
-## Đường dẫn kiểm chứng
-
-1. [Mở workspace minh họa](https://picachu-iota.vercel.app/workspace), không cần ví.
-2. Thay đổi shock, budget, reserve và target; phân biệt partial improvement.
-3. [Xem lab](https://picachu-iota.vercel.app/lab) để đối chiếu các trạng thái minh họa error/stale/pending/verified.
-4. [Đọc core tests](../../tests/unit/planner.test.ts) để kiểm đơn vị, rounding và ràng buộc.
-5. [Xem CI](https://github.com/2274802010922/picachu__/actions/workflows/quality.yml) và [bằng chứng hiện có](../testing/README.md).
-6. Chỉ dùng proof Devnet có signature và trạng thái trước/sau khi gate được hoàn thành.
-
-Hai bảng chấm sẽ liên kết các claim tới code và evidence. Chưa có bằng chứng nhu cầu trả tiền hoặc pilot bên thứ ba. Chưa xác nhận AI live. Các phần này phải được bổ sung trung thực trước khi dự thi.
+Tài liệu này là bản đồ evidence của picachu, không tự gán điểm hoặc thay rubric của cuộc thi.

@@ -1,0 +1,237 @@
+1
+00:00:00,100 --> 00:00:04,916
+Picachu là công cụ giúp người đã có khoản vay lập phương án trả nợ có mục tiêu.
+
+2
+00:00:04,916 --> 00:00:10,773
+Người vay không chỉ cần biết tỷ lệ nợ, mà còn muốn biết phải trả bao nhiêu và giữ lại bao nhiêu tiền.
+
+3
+00:00:10,773 --> 00:00:16,130
+Video này đi từ ví dụ dễ kiểm tra đến bằng chứng giao dịch thật trên Solana Devnet.
+
+4
+00:00:16,876 --> 00:00:20,930
+Trước hết, mở trang phương án trả nợ mà không cần kết nối ví.
+
+5
+00:00:20,930 --> 00:00:26,645
+Ví dụ có ba khoản nợ lần lượt là sáu mươi lăm, năm mươi lăm và bốn mươi lăm USDC.
+
+6
+00:00:26,645 --> 00:00:30,430
+Mỗi khoản thế chấp một SOL với giá giả định một trăm đô la.
+
+7
+00:00:30,430 --> 00:00:34,061
+Nhãn minh họa luôn hiện rõ để không nhầm với khoản vay thật.
+
+8
+00:00:34,836 --> 00:00:38,402
+Số dư chung trong ví dụ là tám mươi USDC.
+
+9
+00:00:38,402 --> 00:00:42,628
+Người dùng muốn giữ lại hai mươi và chi tối đa ba mươi để trả nợ.
+
+10
+00:00:42,628 --> 00:00:47,831
+Ứng dụng tính số dư ví một lần cho toàn bộ danh mục, tránh cộng trùng tiền giữa các khoản.
+
+11
+00:00:47,831 --> 00:00:52,045
+Ngân sách là giới hạn chi, không phải số tiền bắt buộc phải trả hết.
+
+12
+00:00:52,812 --> 00:00:56,140
+Tiếp theo chọn tình huống giá SOL giảm ba mươi phần trăm.
+
+13
+00:00:56,140 --> 00:01:01,962
+Mục tiêu là sau mức giảm đó, các khoản đã chọn còn chịu được mức giảm thêm năm phần trăm trước ngưỡng thanh lý.
+
+14
+00:01:01,962 --> 00:01:06,700
+Trong ví dụ này, ngưỡng thanh lý là tám mươi phần trăm và hệ số vay bằng một.
+
+15
+00:01:06,700 --> 00:01:10,557
+Đây là phép tính có giả định, không phải dự báo thị trường.
+
+16
+00:01:11,332 --> 00:01:18,529
+Kết quả là trả mười một phẩy tám USDC cho khoản thứ nhất, một phẩy tám cho khoản thứ hai, và không trả thêm cho
+khoản thứ ba.
+
+17
+00:01:18,529 --> 00:01:22,589
+Tổng cần trả là mười ba phẩy sáu, thấp hơn ngân sách ba mươi.
+
+18
+00:01:22,589 --> 00:01:25,886
+Ví còn sáu mươi sáu phẩy bốn USDC.
+
+19
+00:01:25,886 --> 00:01:29,517
+Khoản đã đủ dư địa không tạo giao dịch trả nợ dư thừa.
+
+20
+00:01:30,268 --> 00:01:35,322
+Khi hạ ngân sách xuống mười USDC, trang báo thiếu ba phẩy sáu để đạt mục tiêu.
+
+21
+00:01:35,322 --> 00:01:38,953
+Ứng dụng không gọi một phương án trả thiếu là đã an toàn.
+
+22
+00:01:38,953 --> 00:01:45,156
+Mô hình phân bổ theo tổn thất thanh lý hiện chưa được kiểm chứng tương thích protocol, nên phần khuyến nghị đó vẫn
+tắt.
+
+23
+00:01:45,156 --> 00:01:48,429
+Người dùng có thể đổi mục tiêu hoặc điều chỉnh ngân sách.
+
+24
+00:01:49,188 --> 00:01:53,123
+Người dùng cũng có thể bỏ chọn các khoản không muốn đưa vào phương án.
+
+25
+00:01:53,123 --> 00:01:58,409
+Khi chỉ chọn khoản thứ nhất, tổng cần trả trong ví dụ còn mười một phẩy tám USDC.
+
+26
+00:01:58,409 --> 00:02:03,885
+Thiết kế ba bước giúp việc chọn khoản, đặt mục tiêu và đọc kết quả đi theo một trình tự rõ ràng.
+
+27
+00:02:03,885 --> 00:02:06,599
+Giao diện có tiếng Việt và tiếng Anh.
+
+28
+00:02:07,356 --> 00:02:13,720
+Để thử với khoản vay thật trên mạng thử nghiệm, mở trang thiết lập demo và kết nối ví Phantom ở Devnet.
+
+29
+00:02:13,720 --> 00:02:18,160
+Ba profile A, B và C dùng mỗi khoản không phẩy một SOL thế chấp.
+
+30
+00:02:18,160 --> 00:02:24,327
+Trước khi cho ký, server kiểm mạng, market, oracle, thanh khoản và mô phỏng giao dịch.
+
+31
+00:02:24,327 --> 00:02:27,434
+Người dùng ký riêng bước thế chấp và bước vay.
+
+32
+00:02:28,196 --> 00:02:33,715
+Khi trả nợ, server tạo giao dịch chưa ký với số tiền, phí và hạn dùng rõ ràng.
+
+33
+00:02:33,715 --> 00:02:38,488
+Nếu giá hoặc lãi làm phương án thay đổi, người dùng phải xem lại trước khi ký.
+
+34
+00:02:38,488 --> 00:02:43,143
+Ví giữ khóa bí mật; server kiểm chữ ký và nội dung đã được ràng buộc.
+
+35
+00:02:43,143 --> 00:02:47,798
+Sơ đồ này giải thích luồng xử lý, không giả lập một cửa sổ xác nhận ví thật.
+
+36
+00:02:48,556 --> 00:02:52,158
+Với nhiều khoản vay, các giao dịch được thực hiện tuần tự.
+
+37
+00:02:52,158 --> 00:02:58,003
+Nhật ký Redis lưu bước hiện tại và các biên nhận đã xác minh, đồng thời kiểm soát kế hoạch gửi cùng ví.
+
+38
+00:02:58,003 --> 00:03:01,146
+Chỉ khi bước trước được xác minh mới mở bước sau.
+
+39
+00:03:01,146 --> 00:03:07,146
+Nếu trạng thái chưa rõ, ứng dụng chặn bước tiếp và cho kiểm tra kết quả, thay vì tự gửi lại.
+
+40
+00:03:07,916 --> 00:03:12,387
+Phần bằng chứng được kiểm bằng ví test riêng qua API Vercel đang triển khai.
+
+41
+00:03:12,387 --> 00:03:15,732
+Ba lần thế chấp và ba khoản vay đã được xác minh.
+
+42
+00:03:15,732 --> 00:03:19,137
+Kế hoạch sau đó hoàn thành hai bước trả nợ cần thiết.
+
+43
+00:03:19,137 --> 00:03:24,661
+Biên nhận đang hiển thị trên Solana Explorer có trạng thái thành công và đã hoàn tất xác nhận.
+
+44
+00:03:24,661 --> 00:03:28,149
+Các signature đầy đủ nằm trong tài liệu repo.
+
+45
+00:03:28,916 --> 00:03:36,161
+Trong vòng test đó, khoản B trả không phẩy sáu không hai năm tám chín USDC; khoản A trả một phẩy tám không bốn
+một sáu bảy.
+
+46
+00:03:36,161 --> 00:03:42,542
+Tổng trả hai phẩy bốn không sáu bảy năm sáu, và ví còn mười bảy phẩy bốn không một bảy bảy bốn USDC.
+
+47
+00:03:42,542 --> 00:03:46,601
+Số dư vẫn cao hơn mức dự trữ một USDC đã chọn.
+
+48
+00:03:47,356 --> 00:03:50,732
+Giá và lãi tiếp tục thay đổi sau khi giao dịch hoàn tất.
+
+49
+00:03:50,732 --> 00:03:57,922
+Lần đọc riêng sau vòng test cần thêm khoảng không phẩy không không bảy không bốn một USDC để đạt đúng dư địa
+năm phần trăm ở giá mới.
+
+50
+00:03:57,922 --> 00:04:01,934
+Vì vậy, trang kết quả kiểm lại mục tiêu bằng dữ liệu mới.
+
+51
+00:04:01,934 --> 00:04:05,791
+Biên nhận thành công không được trình bày thành bảo đảm tránh thanh lý.
+
+52
+00:04:06,556 --> 00:04:13,991
+Phép tính dùng số nguyên atomic và Decimal; trí tuệ nhân tạo chỉ hỗ trợ diễn giải, không quyết định số tiền hay ký giao
+dịch.
+
+53
+00:04:13,991 --> 00:04:20,563
+Checkpoint này có tám mươi bảy kiểm thử đơn vị và ba mươi hai kiểm thử trình duyệt đã đạt, cùng CI và bản deploy.
+
+54
+00:04:20,563 --> 00:04:26,860
+Bước phát triển tiếp là kiểm chứng mô hình tổn thất trước khi mở allocator và phỏng vấn người vay để kiểm tra nhu cầu.
+
+55
+00:04:27,636 --> 00:04:33,416
+Picachu hướng tới việc biến một bảng số liệu khoản vay thành một phương án trả nợ dễ hiểu và kiểm chứng được.
+
+56
+00:04:33,416 --> 00:04:39,928
+Hiện sản phẩm giới hạn ở một ví, tối đa ba vị thế cùng cặp SOL và USDC trên Kamino Devnet.
+
+57
+00:04:39,928 --> 00:04:43,166
+Chưa có tuyên bố doanh thu hay khách hàng trả tiền.
+
+58
+00:04:43,166 --> 00:04:48,928
+Mời giám khảo mở bản demo và đối chiếu biên nhận, mã nguồn cùng phạm vi kiểm thử trong repo.
+

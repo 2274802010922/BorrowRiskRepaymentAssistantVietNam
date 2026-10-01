@@ -1,0 +1,10 @@
+{
+  "durationSeconds": 289.613333,
+  "sizeBytes": 7872942,
+  "resolution": "1920x1080",
+  "chapters": 15,
+  "subtitleCues": 58,
+  "audio": "Vietnamese synthetic narration",
+  "validation": "Full video/audio decode PASS; subtitle timing, non-overlap and two-line checks PASS",
+  "presentation": "Edited screenshots of actual UI + explanatory cards; not continuous screen recording or Phantom signing footage"
+}
