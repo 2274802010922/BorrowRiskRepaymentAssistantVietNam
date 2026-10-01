@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-10-01 — xem demo trực tiếp trên YouTube
+
+- Đổi nút và poster trong README VI/EN, trang demo và lối đọc giám khảo sang link YouTube owner cung cấp.
+- Giữ MP4/ZIP trong Release như bản tải xuống tùy chọn; cập nhật ngữ cảnh để giữ thống nhất đường xem video.
+
 ## 2026-10-01 — tổ chức repository và đóng gói demo
 
 - Gom mã nguồn vào `src/`, giữ config/public ở root; cập nhật import, mock, alias và đường dẫn tài liệu.

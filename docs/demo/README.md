@@ -1,11 +1,12 @@
 # Video và demo
 
-[![Video demo picachu](../assets/video/demo-poster.jpg)](https://github.com/2274802010922/picachu__/releases/download/v0.1.0-demo/picachu-demo-vi.mp4)
+[![Xem video demo picachu trên YouTube](../assets/video/demo-poster.jpg)](https://www.youtube.com/watch?v=Uw-04c9cROQ)
 
 **4 phút 50 giây · 1080p · giọng tổng hợp tiếng Việt · phụ đề · 15 chương.**
 
-- [Video MP4](https://github.com/2274802010922/picachu__/releases/download/v0.1.0-demo/picachu-demo-vi.mp4)
-- [Gói video và phụ đề](https://github.com/2274802010922/picachu__/releases/download/v0.1.0-demo/picachu-demo-package.zip)
+- **[Xem trực tiếp trên YouTube](https://www.youtube.com/watch?v=Uw-04c9cROQ)** — đường xem chính, không cần tải file.
+- [Tải MP4 nếu cần xem offline](https://github.com/2274802010922/picachu__/releases/download/v0.1.0-demo/picachu-demo-vi.mp4)
+- [Tải gói video và phụ đề](https://github.com/2274802010922/picachu__/releases/download/v0.1.0-demo/picachu-demo-package.zip)
 - [Kịch bản](script.md) · [SRT](picachu-demo-vi.srt) · [Timeline](timeline.json) · [Kiểm tra file](../evidence/validation/video.json)
 - [Dùng thử](https://picachu-iota.vercel.app/portfolio) · [Thiết lập ví](../deployment/portfolio-demo.md)
 
@@ -19,4 +20,4 @@ Video dựng từ ảnh giao diện thật và đồ họa giải thích, không
 4. Đối chiếu [receipt thật](../testing/live-devnet-cycle.md) với nguồn minh họa.
 5. Có ví Devnet: xem lại preview, ký từng bước, chờ verified và đọc lại mục tiêu.
 
-Không đưa keypair, password, binding token hoặc raw signed transaction vào video/tài liệu. MP4 và ZIP được phân phối qua Release; không đưa file dựng hoặc thư mục work vào lịch sử Git.
+Không đưa keypair, password, binding token hoặc raw signed transaction vào video/tài liệu. Owner cung cấp link YouTube ngày 01/10/2026; đây là đường xem chính. MP4 và ZIP trong Release là bản tải xuống tùy chọn; không đưa file dựng hoặc thư mục work vào lịch sử Git.

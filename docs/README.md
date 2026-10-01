@@ -5,7 +5,7 @@ Một đường đọc cho mỗi nhu cầu. Trạng thái hiện hành ở [CURR
 | Bạn muốn            | Bắt đầu ở đây                                                                                   |
 | ------------------- | ----------------------------------------------------------------------------------------------- |
 | Hiểu sản phẩm       | [Phạm vi và giá trị](product/README.md)                                                         |
-| Xem video / demo    | [Video, phụ đề và walkthrough](demo/README.md)                                                  |
+| Xem video / demo    | [YouTube](https://www.youtube.com/watch?v=Uw-04c9cROQ), [phụ đề và walkthrough](demo/README.md) |
 | Chấm hai track      | [Hướng dẫn giám khảo](judging/README.md)                                                        |
 | Kiểm giao dịch thật | [Vòng Devnet](testing/live-devnet-cycle.md), [bằng chứng](evidence/README.md)                   |
 | Đọc kiến trúc       | [Tổng quan](architecture/README.md), [goal portfolio](architecture/goal-portfolio.md)           |

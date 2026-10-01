@@ -14,7 +14,7 @@
 
 <p align="center">
   <a href="https://picachu-iota.vercel.app/portfolio"><strong>Try the app</strong></a> ·
-  <a href="docs/demo/README.md"><strong>Watch the 4:50 demo</strong></a> ·
+  <a href="https://www.youtube.com/watch?v=Uw-04c9cROQ"><strong>Watch on YouTube</strong></a> ·
   <a href="docs/testing/live-devnet-cycle.md">Devnet evidence</a> ·
   <a href="docs/judging/README.md">For judges</a>
 </p>
@@ -35,9 +35,9 @@ Borrowers need to reduce risk when collateral prices fall while keeping funds in
 
 ## Watch the demo
 
-[![Watch the picachu demo with Vietnamese narration and subtitles](docs/assets/video/demo-poster.jpg)](https://github.com/2274802010922/picachu__/releases/download/v0.1.0-demo/picachu-demo-vi.mp4)
+[![Watch the picachu demo on YouTube with Vietnamese narration and subtitles](docs/assets/video/demo-poster.jpg)](https://www.youtube.com/watch?v=Uw-04c9cROQ)
 
-**4 minutes 50 seconds · 1080p · Vietnamese · subtitles · 15 chapters.** Edited screenshots of the actual interface, explanatory graphics and Devnet receipts; no Phantom popup footage. [MP4 and download bundle](docs/demo/README.md) · [script](docs/demo/script.md) · [subtitles](docs/demo/picachu-demo-vi.srt). Technical documents are currently in Vietnamese.
+**4 minutes 50 seconds · 1080p · Vietnamese · subtitles · 15 chapters.** [Watch directly on YouTube](https://www.youtube.com/watch?v=Uw-04c9cROQ), with no download required. Edited screenshots of the actual interface, explanatory graphics and Devnet receipts; no Phantom popup footage. [Documentation and optional downloads](docs/demo/README.md) · [script](docs/demo/script.md) · [subtitles](docs/demo/picachu-demo-vi.srt). Technical documents are currently in Vietnamese.
 
 ## Try it in 60 seconds
 

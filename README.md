@@ -14,7 +14,7 @@
 
 <p align="center">
   <a href="https://picachu-iota.vercel.app/portfolio"><strong>Dùng thử</strong></a> ·
-  <a href="docs/demo/README.md"><strong>Xem video 4:50</strong></a> ·
+  <a href="https://www.youtube.com/watch?v=Uw-04c9cROQ"><strong>Xem video trên YouTube</strong></a> ·
   <a href="docs/testing/live-devnet-cycle.md">Bằng chứng Devnet</a> ·
   <a href="docs/judging/README.md">Dành cho giám khảo</a>
 </p>
@@ -35,9 +35,9 @@ Người vay cần giảm rủi ro khi giá thế chấp giảm, nhưng vẫn c�
 
 ## Xem demo
 
-[![Xem video picachu có thuyết minh và phụ đề tiếng Việt](docs/assets/video/demo-poster.jpg)](https://github.com/2274802010922/picachu__/releases/download/v0.1.0-demo/picachu-demo-vi.mp4)
+[![Xem video picachu trên YouTube, có thuyết minh và phụ đề tiếng Việt](docs/assets/video/demo-poster.jpg)](https://www.youtube.com/watch?v=Uw-04c9cROQ)
 
-**4 phút 50 giây · 1080p · tiếng Việt · phụ đề · 15 chương.** Video dựng từ ảnh giao diện thật, đồ họa giải thích và biên nhận Devnet; không quay popup Phantom. [MP4 và gói tải xuống](docs/demo/README.md) · [kịch bản](docs/demo/script.md) · [phụ đề](docs/demo/picachu-demo-vi.srt).
+**4 phút 50 giây · 1080p · tiếng Việt · phụ đề · 15 chương.** [Xem trực tiếp trên YouTube](https://www.youtube.com/watch?v=Uw-04c9cROQ), không cần tải file. Video dựng từ ảnh giao diện thật, đồ họa giải thích và biên nhận Devnet; không quay popup Phantom. [Tài liệu và bản tải xuống tùy chọn](docs/demo/README.md) · [kịch bản](docs/demo/script.md) · [phụ đề](docs/demo/picachu-demo-vi.srt).
 
 ## Thử trong 60 giây
 
