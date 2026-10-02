@@ -1,5 +1,7 @@
 # Video và demo
 
+[Bộ slide/PDF, notes/Q&A và clip thao tác 76,5 giây](../judging/presentation/README.md). Clip mới quay thao tác thật với synthetic example và receipt lịch sử, không quay ký ví. Walkthrough YouTube vẫn là đường xem chính bên dưới.
+
 [![Xem video demo picachu trên YouTube](../assets/video/demo-poster.jpg)](https://www.youtube.com/watch?v=Uw-04c9cROQ)
 
 **4 phút 50 giây · 1080p · giọng tổng hợp tiếng Việt · phụ đề · 15 chương.**

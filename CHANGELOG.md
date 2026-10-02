@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-10-02 — sản phẩm, demo và slide chung kết
+
+- Main portfolio có goal draft cần apply, giải thích từ core và AI comment/fallback, shared funds và preset Devnet explicit.
+- Sửa thiếu budget, tên khoản ổn định, kết quả receipt/fresh balance và landing cùng ví dụ13,6/còn66,4.
+- Public source/notes/Q&A/preview cho deck12 slide và clip live76,5s, binary phân phối Release. Clip không có signing footage, receipt là lịch sử.
+- Không phỏng vấn/outreach, không bật allocator chưa parity hoặc claim đã có guard program.
+
 ## 2026-10-01 — xem demo trực tiếp trên YouTube
 
 - Đổi nút và poster trong README VI/EN, trang demo và lối đọc giám khảo sang link YouTube owner cung cấp.

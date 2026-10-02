@@ -78,6 +78,18 @@ it("does not send missing fields or a wallet address to the provider", async () 
   );
   expect(fetchMock).not.toHaveBeenCalled();
 });
+it("sends only explicit goal clauses, excluding unrelated contact text", async () => {
+  configure();
+  const fetchMock = vi.fn().mockResolvedValue(response(goal));
+  vi.stubGlobal("fetch", fetchMock);
+  await draftGoal({
+    text: "Trả tối đa 10 USDC, giữ 1 USDC, SOL giảm 30%, liên hệ person@example.test",
+    locale: "vi",
+  });
+  const body = JSON.parse(fetchMock.mock.calls[0][1].body);
+  expect(body.messages[1].content).not.toContain("person");
+  expect(body.messages[1].content).not.toContain("@");
+});
 it("keeps exact portfolio facts when the provider fails", async () => {
   configure();
   vi.stubGlobal("fetch", vi.fn().mockRejectedValue(new Error("offline")));

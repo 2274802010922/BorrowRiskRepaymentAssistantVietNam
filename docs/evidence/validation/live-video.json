@@ -1,0 +1,8 @@
+{
+  "durationSeconds": 76.52,
+  "resolution": "1920x1080",
+  "source": "https://picachu-iota.vercel.app",
+  "scope": "Actual UI actions on synthetic example and historical Devnet receipt. No signing footage, no new transaction submitted by this recording.",
+  "recording": "Actual browser interactions; synthetic example plus historical Explorer receipt, no signing footage",
+  "validation": "Full decode PASS; duration between 60 and 90 seconds"
+}

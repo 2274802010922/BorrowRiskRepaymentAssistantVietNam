@@ -1,0 +1,54 @@
+{
+  "scope": "Eight sequential read-only requests to deployed Vercel endpoint; not an SLA and not a cold/warm controlled benchmark",
+  "commit": "19c156a",
+  "rows": [
+    {
+      "sample": 1,
+      "milliseconds": 4746,
+      "status": 200,
+      "positions": 3
+    },
+    {
+      "sample": 2,
+      "milliseconds": 4721,
+      "status": 200,
+      "positions": 3
+    },
+    {
+      "sample": 3,
+      "milliseconds": 749,
+      "status": 200,
+      "positions": 3
+    },
+    {
+      "sample": 4,
+      "milliseconds": 11273,
+      "status": 200,
+      "positions": 3
+    },
+    {
+      "sample": 5,
+      "milliseconds": 2784,
+      "status": 200,
+      "positions": 3
+    },
+    {
+      "sample": 6,
+      "milliseconds": 718,
+      "status": 200,
+      "positions": 3
+    },
+    {
+      "sample": 7,
+      "milliseconds": 11319,
+      "status": 200,
+      "positions": 3
+    },
+    {
+      "sample": 8,
+      "milliseconds": 3768,
+      "status": 200,
+      "positions": 3
+    }
+  ]
+}

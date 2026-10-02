@@ -2,6 +2,8 @@
 
 Đợt mới được user duyệt ngày02/10: [final-demo-day](../plans/active/final-demo-day.md). Sản phẩm mới local109 unit/34 browser/check/build PASS; giữ allocator tắt. Đang dựng deck12 slide bằng bundled artifact-tool và clip live. Files private trong work/presentation; chỉ source/notes/poster vào Git và binary chọn lọc lên Release. Không interviews. Xem [validation](../../testing/final-demo-day.md), cập nhật sau live CI/deploy/publish, không dừng ở draft.
 
+Product19c156a CI/Vercel PASS; privacy projection mới local110 unit/check PASS. Deck/PDF/clip đã xuất và xem, source/preview/notes/Q&A đã chọn cho repo; Release v0.2.0-final-demo đang chuẩn bị. Clip là thao tác synthetic +historical receipt, không quay ký và không gửi tx mới. Chrome upload bị quyền file URLs; pending lựa chọn user, không tự bật. Hoàn tất publish/download/CI checkpoint trước khi chốt.
+
 Đọc [CURRENT_STATE](CURRENT_STATE.md) và [plan repo](../plans/active/repository-presentation.md). Mã nguồn nằm dưới src/, docs là cổng đọc; không phục hồi bản root cũ chỉ để khớp liên kết lịch sử.
 
 Video xem chính trên YouTube https://www.youtube.com/watch?v=Uw-04c9cROQ, owner cung cấp ngày 01/10. Không đổi nút/poster trở lại link tải MP4; Release chỉ là lựa chọn offline.

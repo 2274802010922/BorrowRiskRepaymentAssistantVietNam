@@ -7,6 +7,9 @@
 - AI main: goals/draft tạo draft cần review; portfolio/explain giữ facts từ core và summary ngắn, fallback; không gửi wallet-looking strings/key text vào provider và không ký.
 - Local109 unit/34 browser +build24 route/check/strict bundle PASS. Demo/deck đang render/kiểm; chưa claim đã publish bản cuối. [Validation](../../testing/final-demo-day.md).
 - Allocator vẫn tắt; không thêm program chưa test để lấy điểm. Các giới hạn và evidence lịch sử bên dưới vẫn áp dụng.
+- Product checkpoint19c156a đã CI36985875186/Vercel PASS; public goals/draft trả200 ready đúng goal, source rules được ghi rõ. Privacy projection mới chỉ gửi matched clauses, local110 unit/check PASS; browser34 tại product checkpoint.
+- Deck12 slide editable, PDF12 trang,2 link,5 native tables và render đã kiểm; notes/Q&A ở docs/judging/presentation. Clip76,52s thao tác Vercel synthetic +Explorer receipt lịch sử, không signing footage. Đang publish Release v0.2.0-final-demo và kiểm download.
+- Browser Chrome đã đọc menu upload nhưng setFiles bị chặn vì extension chưa có Allow access to file URLs. Đã hỏi user lựa chọn quyền; chưa coi elapsed time là approval và chưa đổi setting.
 
 ## Sản phẩm
 

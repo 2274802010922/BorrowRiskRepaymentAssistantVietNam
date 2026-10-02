@@ -15,6 +15,7 @@
 <p align="center">
   <a href="https://picachu-iota.vercel.app/portfolio"><strong>Dùng thử</strong></a> ·
   <a href="https://www.youtube.com/watch?v=Uw-04c9cROQ"><strong>Xem video trên YouTube</strong></a> ·
+  <a href="docs/judging/presentation/README.md"><strong>Slide và clip live</strong></a> ·
   <a href="docs/testing/live-devnet-cycle.md">Bằng chứng Devnet</a> ·
   <a href="docs/judging/README.md">Dành cho giám khảo</a>
 </p>
@@ -56,22 +57,23 @@ Mỗi khoản thế chấp 1 SOL × 100 USD; threshold 80%, borrow factor 1, USD
 
 ## Điều gì làm nên picachu?
 
-| Khả năng                             | Giá trị                                                       |
-| :----------------------------------- | :------------------------------------------------------------ |
-| **Mục tiêu thay vì một bảng chỉ số** | Thấy rõ trả bao nhiêu và giữ lại bao nhiêu.                   |
-| **Nhiều khoản, một ngân sách**       | Tối đa ba vị thế; không cộng trùng số dư ví.                  |
-| **Chỉ trả phần cần thiết**           | Khoản đã đạt mục tiêu không tạo bước trả dư thừa.             |
-| **Bạn giữ quyền ký**                 | Preview, simulation, kiểm chữ ký/nội dung và ký tuần tự.      |
-| **Kết quả có thể đối chiếu**         | Nhật ký Redis, receipt và kiểm lại mục tiêu theo dữ liệu mới. |
+| Khả năng                             | Giá trị                                                                      |
+| :----------------------------------- | :--------------------------------------------------------------------------- |
+| **Mục tiêu thay vì một bảng chỉ số** | Thấy rõ trả bao nhiêu và giữ lại bao nhiêu.                                  |
+| **Nhiều khoản, một ngân sách**       | Tối đa ba vị thế; không cộng trùng số dư ví.                                 |
+| **Chỉ trả phần cần thiết**           | Khoản đã đạt mục tiêu không tạo bước trả dư thừa.                            |
+| **Bạn giữ quyền ký**                 | Preview, simulation, kiểm chữ ký/nội dung và ký tuần tự.                     |
+| **Kết quả có thể đối chiếu**         | Nhật ký Redis, receipt và kiểm lại mục tiêu theo dữ liệu mới.                |
+| **Mục tiêu bằng câu ngắn**           | AI hoặc quy tắc tạo draft, core kiểm giá trị, bạn xem lại trước khi áp dụng. |
 
 ## Bằng chứng, không chỉ screenshot
 
-| Đã ghi nhận                          | Nguồn và phạm vi                                                                                                                                        |
-| :----------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **3 deposit +3 borrow +2 repay**     | API Vercel +signer Devnet riêng; có [report và receipt](docs/testing/live-devnet-cycle.md).                                                             |
-| **Trả 2,406756 USDC; còn 17,401774** | Số liệu vòng test lịch sử, giữ reserve 1 USDC; không gọi là số dư hiện tại.                                                                             |
-| **87 unit +32 browser tests**        | Baseline 360e17f; [Quality CI](https://github.com/2274802010922/picachu__/actions/workflows/quality.yml) và [phạm vi kiểm thử](docs/testing/README.md). |
-| **Thao tác Phantom / AI**            | Owner báo test ổn và gọi AI live; [nguồn nghiệm thu thủ công](docs/testing/manual-acceptance-2026-10-01.md), không phải video agent quay popup.         |
+| Đã ghi nhận                          | Nguồn và phạm vi                                                                                                                                                                              |
+| :----------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **3 deposit +3 borrow +2 repay**     | API Vercel +signer Devnet riêng; có [report và receipt](docs/testing/live-devnet-cycle.md).                                                                                                   |
+| **Trả 2,406756 USDC; còn 17,401774** | Số liệu vòng test lịch sử, giữ reserve 1 USDC; không gọi là số dư hiện tại.                                                                                                                   |
+| **Mục tiêu, preset và fallback**     | [Nghiệm thu chung kết](docs/testing/final-demo-day.md), [Quality CI](https://github.com/2274802010922/picachu__/actions/workflows/quality.yml) và [phạm vi kiểm thử](docs/testing/README.md). |
+| **Thao tác Phantom / AI**            | Owner báo test ổn và gọi AI live; [nguồn nghiệm thu thủ công](docs/testing/manual-acceptance-2026-10-01.md), không phải video agent quay popup.                                               |
 
 > [!IMPORTANT]
 > MVP chỉ dùng **Kamino Devnet, một ví, cùng cặp SOL/USDC**. Giá và lãi có thể đổi sau trả; receipt verified không bảo đảm tránh thanh lý. **Allocator theo tổn thất chưa bật** vì protocol parity chưa hoàn tất. Không công bố doanh thu hoặc pilot chưa xác minh.

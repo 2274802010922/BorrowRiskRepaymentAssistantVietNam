@@ -1,0 +1,9 @@
+{
+  "slides": 12,
+  "nativeTables": 5,
+  "font": "Arial",
+  "pptxSha256": "d899a1172c788b66d7339d4096612ccd58f0b118d33a51c25bef5dceb16ff106",
+  "packageIntegrity": "pass",
+  "layoutStatus": null,
+  "scope": "PPTX structural/import/layout and render checks, not native PowerPoint UI acceptance"
+}

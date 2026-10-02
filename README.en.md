@@ -15,6 +15,7 @@
 <p align="center">
   <a href="https://picachu-iota.vercel.app/portfolio"><strong>Try the app</strong></a> ·
   <a href="https://www.youtube.com/watch?v=Uw-04c9cROQ"><strong>Watch on YouTube</strong></a> ·
+  <a href="docs/judging/presentation/README.md"><strong>Slides and live clip</strong></a> ·
   <a href="docs/testing/live-devnet-cycle.md">Devnet evidence</a> ·
   <a href="docs/judging/README.md">For judges</a>
 </p>
@@ -56,22 +57,23 @@ Each loan has 1 SOL collateral at 100 USD; threshold 80%, borrow factor 1, USDC 
 
 ## What makes picachu useful?
 
-| Capability                        | Value                                                                     |
-| :-------------------------------- | :------------------------------------------------------------------------ |
-| **A goal beyond a metrics table** | Know what to repay and what to keep.                                      |
-| **Several loans, one budget**     | Up to three positions without double-counting wallet funds.               |
-| **Only the required repayment**   | A loan already meeting the goal creates no extra repayment step.          |
-| **You retain signing control**    | Preview, simulation, signature/message validation and sequential signing. |
-| **Results you can inspect**       | Redis journal, receipts and a fresh goal check after repayment.           |
+| Capability                        | Value                                                                              |
+| :-------------------------------- | :--------------------------------------------------------------------------------- |
+| **A goal beyond a metrics table** | Know what to repay and what to keep.                                               |
+| **Several loans, one budget**     | Up to three positions without double-counting wallet funds.                        |
+| **Only the required repayment**   | A loan already meeting the goal creates no extra repayment step.                   |
+| **You retain signing control**    | Preview, simulation, signature/message validation and sequential signing.          |
+| **Results you can inspect**       | Redis journal, receipts and a fresh goal check after repayment.                    |
+| **Goals in a short sentence**     | AI or rules create a draft, the core validates it, and you review before applying. |
 
 ## Evidence beyond screenshots
 
-| Recorded result                               | Source and scope                                                                                                                                                 |
-| :-------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **3 deposits +3 borrows +2 repayments**       | Deployed Vercel API +dedicated Devnet test signer; [reports and receipts](docs/testing/live-devnet-cycle.md).                                                    |
-| **2.406756 USDC repaid; 17.401774 remaining** | Historical test cycle, reserve 1 USDC preserved; not current balances.                                                                                           |
-| **87 unit +32 browser tests**                 | Baseline 360e17f; [Quality CI](https://github.com/2274802010922/picachu__/actions/workflows/quality.yml) and [test scope](docs/testing/README.md).               |
-| **Phantom / AI usage**                        | Owner reported successful manual testing and live AI calls; [acceptance source](docs/testing/manual-acceptance-2026-10-01.md), not agent-recorded popup footage. |
+| Recorded result                               | Source and scope                                                                                                                                                                            |
+| :-------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **3 deposits +3 borrows +2 repayments**       | Deployed Vercel API +dedicated Devnet test signer; [reports and receipts](docs/testing/live-devnet-cycle.md).                                                                               |
+| **2.406756 USDC repaid; 17.401774 remaining** | Historical test cycle, reserve 1 USDC preserved; not current balances.                                                                                                                      |
+| **Goals, presets and fallback**               | [Final sprint acceptance](docs/testing/final-demo-day.md), [Quality CI](https://github.com/2274802010922/picachu__/actions/workflows/quality.yml) and [test scope](docs/testing/README.md). |
+| **Phantom / AI usage**                        | Owner reported successful manual testing and live AI calls; [acceptance source](docs/testing/manual-acceptance-2026-10-01.md), not agent-recorded popup footage.                            |
 
 > [!IMPORTANT]
 > MVP supports **Kamino Devnet, one wallet and one SOL/USDC pair**. Prices and interest can change after repayment; verified receipts do not guarantee avoiding liquidation. **Loss-based allocation remains disabled** pending protocol parity. No unverified revenue or pilot claims.

@@ -55,3 +55,13 @@ export function explicitGoal(
     ? { status: "ready", goal: result.data, defaultBuffer: buffer === null }
     : { status: "needs_clarification" };
 }
+
+// Only matched goal clauses may leave the app. Unrelated names/contact text is not provider data.
+export function providerGoalText(text: string) {
+  const input = text.normalize("NFC").toLowerCase();
+  const clauses =
+    input.match(
+      /(?:trả tối đa(?: là)?|ngân sách|budget|repay up to|pay up to|giữ lại|giữ|dự trữ|keep|reserve)\s*:?\s*[0-9]{1,12}(?:[.,][0-9]{1,6})?\s*usdc|(?:sol\s*(?:giảm|giảm giá|falls?|drops?)|giá sol giảm|dư địa|buffer)\s*:?\s*[0-9]{1,2}(?:[.,][0-9]{1,2})?\s*%/g,
+    ) ?? [];
+  return clauses.join(", ");
+}
