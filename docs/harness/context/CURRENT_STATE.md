@@ -2,6 +2,9 @@
 
 ## Allocator — triển khai được duyệt 02/10
 
+- Checkpoint9fc07ff đã push main, Quality37066106588/Vercel success; live allocator available. Vòng API signer riêng verified0,780982 USDC/fee6000, số dư16,620792 >reserve1. [Nghiệm thu](../../testing/allocation-acceptance.md).
+- Deck/PDF12 trang cập nhật allocator và đã render kiểm; clip68,2s caption VI từ Vercel synthetic +receipt thật của vòng riêng, không popup signing. Artifacts đang đóng gói Releasev0.3.0-allocator. Không thêm env Vercel; Social preview permission vẫn chưa có câu trả lời.
+
 - 03/10:25 vector khớp executable Devnet trong LiteSVM; source build match chưa có. Core finite-grid/baselines và quote server đã có; CLI đọc live3 khoản và tính plan trong budget1 USDC (compute225ms, một sample).
 - UI/API/journal partial đã triển khai, explicit acceptance/review, frozen receipts và block legacy bypass. Các test mục tiêu đang pass; còn full browser/responsive/bundle, deploy và vòng partial Devnet thật trước nghiệm thu. [Cổng](../../testing/allocation-acceptance.md).
 

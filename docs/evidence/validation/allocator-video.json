@@ -1,0 +1,8 @@
+{
+  "durationSeconds": 68.2,
+  "resolution": "1920x1080",
+  "source": "https://picachu-iota.vercel.app",
+  "scope": "Actual Vercel UI with clearly synthetic figures, then a real verified Devnet receipt from the separately executed dedicated API test signer. No wallet signing footage, no transaction sent by this recording.",
+  "recording": "Actual Vercel UI with synthetic example; real receipt from separately verified API test signer, no signing footage",
+  "validation": "Full decode PASS; duration between 60 and 90 seconds"
+}

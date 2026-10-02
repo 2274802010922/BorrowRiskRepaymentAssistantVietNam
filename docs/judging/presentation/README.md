@@ -2,13 +2,13 @@ Trình bày slide
 
 Deck12 slide theo hướng sản phẩm/demo đã kiểm, light terminal, tiếng Việt. Không phỏng vấn, không dựng traction. Kinh doanh/GTM là giả thuyết. Phân biệt dữ liệu minh họa, biên nhận Devnet lịch sử và chức năng chưa bật.
 
-- [PowerPoint chỉnh sửa được](https://github.com/2274802010922/picachu__/releases/download/v0.2.0-final-demo/picachu-final.pptx)
-- [PDF](https://github.com/2274802010922/picachu__/releases/download/v0.2.0-final-demo/picachu-final.pdf)
-- [Clip thao tác dự phòng](https://github.com/2274802010922/picachu__/releases/download/v0.2.0-final-demo/picachu-live-demo.mp4)
+- [PowerPoint chỉnh sửa được](https://github.com/2274802010922/picachu__/releases/download/v0.3.0-allocator/picachu-allocator.pptx)
+- [PDF](https://github.com/2274802010922/picachu__/releases/download/v0.3.0-allocator/picachu-allocator.pdf)
+- [Clip allocator68,2 giây](https://github.com/2274802010922/picachu__/releases/download/v0.3.0-allocator/picachu-allocator-demo.mp4)
 - [Walkthrough trên YouTube](https://www.youtube.com/watch?v=Uw-04c9cROQ)
 - [Lời thuyết trình](speaker-notes.md) · [Q&A](qa.md) · [Kiểm tra](../../testing/final-demo-day.md)
 
-Clip quay thao tác trên Vercel với ví dụ synthetic, sau đó đọc receipt Devnet đã có trên Explorer. Không quay popup hoặc thao tác ký ví, không nói có giao dịch mới được gửi trong clip.
+Clip mới quay thao tác allocator trên Vercel với ví dụ synthetic, sau đó đọc receipt0,780982 USDC của vòng API test signer đã xác minh riêng. Không quay popup hoặc gửi giao dịch trong quá trình ghi video. Mô hình25 ca VM đã khớp executable, không claim source build match. [Nghiệm thu allocator](../../testing/allocation-acceptance.md). Walkthrough YouTube cũ vẫn là đường xem chính của owner.
 
 ## Các slide
 
@@ -34,5 +34,9 @@ Clip quay thao tác trên Vercel với ví dụ synthetic, sau đó đọc recei
 ![Biên nhận lịch sử](../../assets/slides/slide-5.png)
 
 ![Kiến trúc](../../assets/slides/slide-7.png)
+
+![Khác biệt và allocator](../../assets/slides/slide-9.png)
+
+![Evidence và roadmap](../../assets/slides/slide-11.png)
 
 Các hình trên là bản render của PPTX. Nguồn số liệu có trong notes và evidence; PDF xuất từ các bản render, không thay file PPTX editable.

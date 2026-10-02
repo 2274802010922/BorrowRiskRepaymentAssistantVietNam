@@ -1,0 +1,225 @@
+{
+  "source": "vercel-api-dedicated-devnet-test-signer",
+  "wallet": "3kHRwxR1vgCiyNRLozyQU3NWEv3hR54Cc5rsvreyFmRo",
+  "goal": {
+    "budgetAtomic": "1000000",
+    "reserveAtomic": "1000000",
+    "shockBps": 4500,
+    "bufferBps": 500
+  },
+  "startedAt": "2026-10-02T21:24:49.038Z",
+  "before": {
+    "positions": [
+      {
+        "schemaVersion": 1,
+        "source": "devnet",
+        "protocol": "kamino",
+        "cluster": "devnet",
+        "wallet": "3kHRwxR1vgCiyNRLozyQU3NWEv3hR54Cc5rsvreyFmRo",
+        "position": "854aw3w9crTC6K8fmKLzPddYcg6rVJsDkZ6cmhb5cCx",
+        "market": "9VaMhQPqEjQSByvZfjYFP6iiJLZFKzXTE5MNK9bDg1dr",
+        "collateral": {
+          "mint": "So11111111111111111111111111111111111111112",
+          "symbol": "SOL",
+          "decimals": 9,
+          "amountAtomic": "100000000",
+          "priceUsd": "117.98754946"
+        },
+        "debt": {
+          "mint": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+          "symbol": "USDC",
+          "decimals": 6,
+          "amountAtomic": "6002202",
+          "priceUsd": "0.99999453"
+        },
+        "walletDebtAtomic": "17401774",
+        "walletSolLamports": "4637706760",
+        "liquidationThresholdBps": 7500,
+        "borrowFactorBps": 10000,
+        "observedAt": "2026-10-02T21:24:34.018Z",
+        "priceObservedAt": "2026-10-02T20:55:59.000Z",
+        "slot": 506768711,
+        "warnings": ["PRICE_DELAYED"]
+      },
+      {
+        "schemaVersion": 1,
+        "source": "devnet",
+        "protocol": "kamino",
+        "cluster": "devnet",
+        "wallet": "3kHRwxR1vgCiyNRLozyQU3NWEv3hR54Cc5rsvreyFmRo",
+        "position": "8PpZyrJaWYNyYduWyihN4Hf6vQWppzwVgfHvyGgrqx4K",
+        "market": "9VaMhQPqEjQSByvZfjYFP6iiJLZFKzXTE5MNK9bDg1dr",
+        "collateral": {
+          "mint": "So11111111111111111111111111111111111111112",
+          "symbol": "SOL",
+          "decimals": 9,
+          "amountAtomic": "100000000",
+          "priceUsd": "117.98754946"
+        },
+        "debt": {
+          "mint": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+          "symbol": "USDC",
+          "decimals": 6,
+          "amountAtomic": "5403781",
+          "priceUsd": "0.99999453"
+        },
+        "walletDebtAtomic": "17401774",
+        "walletSolLamports": "4637706760",
+        "liquidationThresholdBps": 7500,
+        "borrowFactorBps": 10000,
+        "observedAt": "2026-10-02T21:24:34.010Z",
+        "priceObservedAt": "2026-10-02T20:55:59.000Z",
+        "slot": 506768711,
+        "warnings": ["PRICE_DELAYED"]
+      },
+      {
+        "schemaVersion": 1,
+        "source": "devnet",
+        "protocol": "kamino",
+        "cluster": "devnet",
+        "wallet": "3kHRwxR1vgCiyNRLozyQU3NWEv3hR54Cc5rsvreyFmRo",
+        "position": "HuUuEHfYSUADS6XBJqznm5XnhhVQ11xukVJnqt62RKkE",
+        "market": "9VaMhQPqEjQSByvZfjYFP6iiJLZFKzXTE5MNK9bDg1dr",
+        "collateral": {
+          "mint": "So11111111111111111111111111111111111111112",
+          "symbol": "SOL",
+          "decimals": 9,
+          "amountAtomic": "100000000",
+          "priceUsd": "117.98754946"
+        },
+        "debt": {
+          "mint": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+          "symbol": "USDC",
+          "decimals": 6,
+          "amountAtomic": "6004196",
+          "priceUsd": "0.99999453"
+        },
+        "walletDebtAtomic": "17401774",
+        "walletSolLamports": "4637706760",
+        "liquidationThresholdBps": 7500,
+        "borrowFactorBps": 10000,
+        "observedAt": "2026-10-02T21:24:34.017Z",
+        "priceObservedAt": "2026-10-02T20:55:59.000Z",
+        "slot": 506768711,
+        "warnings": ["PRICE_DELAYED"]
+      }
+    ]
+  },
+  "steps": [
+    {
+      "signature": "2HL9xJn4h59Z5gUxfDmJDUVedVpbjQYpKx8MWrTcZu3T5sWUbto1K5boayZz2L1PTjrfon39kLb8MXw4znYUosPB",
+      "repayAtomic": "780982",
+      "feeLamports": "6000",
+      "position": "8PpZyrJaWYNyYduWyihN4Hf6vQWppzwVgfHvyGgrqx4K",
+      "verified": true
+    }
+  ],
+  "status": {
+    "phase": "verified",
+    "cursor": 1,
+    "receipts": [
+      {
+        "signature": "2HL9xJn4h59Z5gUxfDmJDUVedVpbjQYpKx8MWrTcZu3T5sWUbto1K5boayZz2L1PTjrfon39kLb8MXw4znYUosPB",
+        "position": "8PpZyrJaWYNyYduWyihN4Hf6vQWppzwVgfHvyGgrqx4K",
+        "repayAtomic": "780982"
+      }
+    ]
+  },
+  "after": {
+    "positions": [
+      {
+        "schemaVersion": 1,
+        "source": "devnet",
+        "protocol": "kamino",
+        "cluster": "devnet",
+        "wallet": "3kHRwxR1vgCiyNRLozyQU3NWEv3hR54Cc5rsvreyFmRo",
+        "position": "854aw3w9crTC6K8fmKLzPddYcg6rVJsDkZ6cmhb5cCx",
+        "market": "9VaMhQPqEjQSByvZfjYFP6iiJLZFKzXTE5MNK9bDg1dr",
+        "collateral": {
+          "mint": "So11111111111111111111111111111111111111112",
+          "symbol": "SOL",
+          "decimals": 9,
+          "amountAtomic": "100000000",
+          "priceUsd": "117.96553482"
+        },
+        "debt": {
+          "mint": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+          "symbol": "USDC",
+          "decimals": 6,
+          "amountAtomic": "6002202",
+          "priceUsd": "0.99999453"
+        },
+        "walletDebtAtomic": "16620792",
+        "walletSolLamports": "4637700760",
+        "liquidationThresholdBps": 7500,
+        "borrowFactorBps": 10000,
+        "observedAt": "2026-10-02T21:25:09.055Z",
+        "priceObservedAt": "2026-10-02T20:55:59.000Z",
+        "slot": 506768855,
+        "warnings": ["PRICE_DELAYED"]
+      },
+      {
+        "schemaVersion": 1,
+        "source": "devnet",
+        "protocol": "kamino",
+        "cluster": "devnet",
+        "wallet": "3kHRwxR1vgCiyNRLozyQU3NWEv3hR54Cc5rsvreyFmRo",
+        "position": "8PpZyrJaWYNyYduWyihN4Hf6vQWppzwVgfHvyGgrqx4K",
+        "market": "9VaMhQPqEjQSByvZfjYFP6iiJLZFKzXTE5MNK9bDg1dr",
+        "collateral": {
+          "mint": "So11111111111111111111111111111111111111112",
+          "symbol": "SOL",
+          "decimals": 9,
+          "amountAtomic": "100000000",
+          "priceUsd": "117.96553482"
+        },
+        "debt": {
+          "mint": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+          "symbol": "USDC",
+          "decimals": 6,
+          "amountAtomic": "4622799",
+          "priceUsd": "0.99999453"
+        },
+        "walletDebtAtomic": "16620792",
+        "walletSolLamports": "4637700760",
+        "liquidationThresholdBps": 7500,
+        "borrowFactorBps": 10000,
+        "observedAt": "2026-10-02T21:25:10.611Z",
+        "priceObservedAt": "2026-10-02T20:55:59.000Z",
+        "slot": 506768855,
+        "warnings": ["PRICE_DELAYED"]
+      },
+      {
+        "schemaVersion": 1,
+        "source": "devnet",
+        "protocol": "kamino",
+        "cluster": "devnet",
+        "wallet": "3kHRwxR1vgCiyNRLozyQU3NWEv3hR54Cc5rsvreyFmRo",
+        "position": "HuUuEHfYSUADS6XBJqznm5XnhhVQ11xukVJnqt62RKkE",
+        "market": "9VaMhQPqEjQSByvZfjYFP6iiJLZFKzXTE5MNK9bDg1dr",
+        "collateral": {
+          "mint": "So11111111111111111111111111111111111111112",
+          "symbol": "SOL",
+          "decimals": 9,
+          "amountAtomic": "100000000",
+          "priceUsd": "117.96553482"
+        },
+        "debt": {
+          "mint": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+          "symbol": "USDC",
+          "decimals": 6,
+          "amountAtomic": "6004197",
+          "priceUsd": "0.99999453"
+        },
+        "walletDebtAtomic": "16620792",
+        "walletSolLamports": "4637700760",
+        "liquidationThresholdBps": 7500,
+        "borrowFactorBps": 10000,
+        "observedAt": "2026-10-02T21:25:10.592Z",
+        "priceObservedAt": "2026-10-02T20:55:59.000Z",
+        "slot": 506768855,
+        "warnings": ["PRICE_DELAYED"]
+      }
+    ]
+  }
+}

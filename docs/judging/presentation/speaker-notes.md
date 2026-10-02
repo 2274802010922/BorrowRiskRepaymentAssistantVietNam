@@ -10,9 +10,9 @@
 6. **Ranh giới thực thi,25s.** Quote mới cần review. Server kiểm message/chữ ký/expiry; chờ receipt verified trước bước sau. Unknown giữ tiến độ để kiểm, không gửi lại mù.
 7. **Kiến trúc,25s.** Core dùng atomic/Decimal, API/Redis quản lý preview/journal, ví giữ khóa. Kamino thực thi contract. Chúng tôi tích hợp protocol, không nhận công xây Kamino.
 8. **AI,20s.** AI hỗ trợ đọc goal và nhận xét ngắn. Chỉ các mệnh đề mục tiêu được gửi đến provider. Giá trị phải khớp explicit input; source rules/template có nhãn. AI không chọn allocation hoặc ký.
-9. **Khác biệt,20s.** Các giải pháp hiện có đã có health/scenario/repay. Picachu tập trung shared budget/reserve và staged execution. Allocator vẫn tắt chờ model parity.
+9. **Khác biệt,20s.** Các giải pháp hiện có đã có health/scenario/repay. Picachu tập trung shared budget/reserve và thực thi từng bước. Khi thiếu tiền, allocator so chi phí một lượt theo cùng dữ liệu;25 vector đã khớp executable Devnet trong VM.
 10. **Business,20s.** Giả thuyết là free planner rồi monitoring/API integration. Chưa có doanh thu, pilot hoặc willingness-to-pay được xác minh.
-11. **Phạm vi,20s.** Có evidence và quality gates; bước tiếp là reference model và benchmark đúng ràng buộc trước mở allocator. Giữ phạm vi một ví, tối đa ba khoản/cặp SOL/USDC.
+11. **Phạm vi,20s.** Có proof VM và receipt API test riêng. Bước tiếp là theo dõi và mở nhánh sau kiểm chứng. Giữ một ví, tối đa ba khoản/cặp SOL/USDC; không claim tối ưu global hay source build match.
 12. **Kết,15s.** Mời giám khảo mở app và kiểm repo/receipt. Tổng script có thể rút bằng cách giữ demo và đưa chi tiết vào Q&A.
 
 Thời lượng là phân bổ diễn tập, không cam kết đúng từng giây. Không chạy clip4:50 cùng toàn bộ speech trong slot5 phút.

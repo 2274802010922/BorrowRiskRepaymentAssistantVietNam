@@ -76,6 +76,7 @@ Mỗi khoản thế chấp 1 SOL × 100 USD; threshold 80%, borrow factor 1, USD
 | **Trả 2,406756 USDC; còn 17,401774** | Số liệu vòng test lịch sử, giữ reserve 1 USDC; không gọi là số dư hiện tại.                                                                                                                   |
 | **Mục tiêu, preset và fallback**     | [Nghiệm thu chung kết](docs/testing/final-demo-day.md), [Quality CI](https://github.com/2274802010922/picachu__/actions/workflows/quality.yml) và [phạm vi kiểm thử](docs/testing/README.md). |
 | **Thao tác Phantom / AI**            | Owner báo test ổn và gọi AI live; [nguồn nghiệm thu thủ công](docs/testing/manual-acceptance-2026-10-01.md), không phải video agent quay popup.                                               |
+| **Allocator Devnet**                 | [Vòng partial](docs/testing/allocation-acceptance.md): trả0,780982 USDC, journal verified, còn16,620792 trên ví test tại thời điểm nghiệm thu. API signer riêng, không popup Phantom.         |
 
 > [!IMPORTANT]
 > MVP chỉ dùng **Kamino Devnet, một ví, cùng cặp SOL/USDC**. Giá và lãi có thể đổi sau trả; receipt verified không bảo đảm tránh thanh lý. Allocator chỉ chạy trong phạm vi mô hình đã đối chiếu; đổi executable hoặc cấu hình không hỗ trợ sẽ chặn. Kết quả tốt nhất trong lưới hữu hạn cho một lượt thanh lý, không là tối ưu toàn cục hoặc dự báo xác suất. Không công bố doanh thu hoặc pilot chưa xác minh.

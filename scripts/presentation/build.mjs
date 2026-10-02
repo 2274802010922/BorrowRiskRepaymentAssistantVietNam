@@ -280,10 +280,10 @@ table(
   280,
   [375, 777],
 );
-text(s, "Allocator theo tổn thất còn tắt", 64, 512, 1130, 56, 34, true, blue);
+text(s, "Phân bổ tiền khi chưa đủ ngân sách", 64, 512, 1130, 56, 34, true, blue);
 text(
   s,
-  "Chỉ đưa vào sản phẩm sau khi model khớp protocol và có benchmark",
+  "25 ca khớp executable Devnet. Mô hình xét một lượt thanh lý.",
   64,
   595,
   1140,
@@ -309,16 +309,16 @@ text(
 );
 s = slide(
   "Đã chạy được và bước tiếp theo",
-  "Verified current features vs roadmap: goal planner, wallet guards/receipt cycle, draft/provider fallback unit/e2e, responsive VI/EN. Model parity incomplete; no fabricated globaloptimal loss, no mainnet. Next modelreference/benchmark before allocator. No interviews in current sprint. Evidence counts final report can differ from baseline87/32.",
+  "Source: docs/evidence/liquidation/parity-report.json, tests/fixtures/liquidation/vectors.json and docs/testing/allocation-acceptance.md. 25 vectors matched the deployed Devnet executable in a controlled local VM. No reproducible source build match. One-event solvent price-triggered model, finite-grid optimum only, unsupported versions/configurations fail closed. CLI live read benchmark225ms is one sample not SLA. No mainnet, interviews or fabricated traction.",
 );
 table(
   s,
   [
     ["Đã có bằng chứng", "Bước phát triển tiếp"],
-    ["Goal planner và số dư chung", "Liquidation reference đúng phiên bản"],
-    ["Vòng Devnet có receipt", "Benchmark allocator trên cùng snapshot"],
+    ["Goal planner và số dư chung", "Theo dõi theo thời gian"],
+    ["Allocator có 25 ca đối chứng", "Mở thêm nhánh sau kiểm chứng"],
     ["Draft cần xác nhận, fallback", "Kiểm chứng nhu cầu sau cuộc thi"],
-    ["VI/EN và quality gates", "Mở phạm vi sau khi có dữ liệu"],
+    ["VI/EN và vòng Devnet", "Mở phạm vi sau khi có dữ liệu"],
   ],
   64,
   184,

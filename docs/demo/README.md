@@ -1,6 +1,6 @@
 # Video và demo
 
-[Bộ slide/PDF, notes/Q&A và clip thao tác 76,5 giây](../judging/presentation/README.md). Clip mới quay thao tác thật với synthetic example và receipt lịch sử, không quay ký ví. Walkthrough YouTube vẫn là đường xem chính bên dưới.
+[Bộ slide/PDF, notes/Q&A và clip allocator68,2 giây](../judging/presentation/README.md). Clip quay giao diện thật với synthetic example rồi receipt của vòng API signer0,780982 USDC đã kiểm riêng. Không quay ký ví. Walkthrough YouTube vẫn là đường xem chính bên dưới.
 
 [![Xem video demo picachu trên YouTube](../assets/video/demo-poster.jpg)](https://www.youtube.com/watch?v=Uw-04c9cROQ)
 
@@ -18,7 +18,7 @@ Video dựng từ ảnh giao diện thật và đồ họa giải thích, không
 
 1. Mở portfolio không ví, đọc nhãn minh họa và ba khoản vay.
 2. Giữ reserve 20, budget 30, shock 30%, buffer 5%: tổng 13,6/còn 66,4 USDC.
-3. Hạ budget 10: thiếu 3,6; không có khuyến nghị partial chưa kiểm chứng.
+3. Hạ budget10: thiếu3,6; chọn “Xem cách phân bổ tiền” để xem phương án partial và baselines. Dữ liệu minh họa không ký/gửi; không coi partial là mọi mục tiêu đã đạt.
 4. Đối chiếu [receipt thật](../testing/live-devnet-cycle.md) với nguồn minh họa.
 5. Có ví Devnet: xem lại preview, ký từng bước, chờ verified và đọc lại mục tiêu.
 

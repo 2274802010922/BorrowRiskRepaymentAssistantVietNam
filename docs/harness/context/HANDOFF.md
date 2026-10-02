@@ -1,5 +1,7 @@
 # Bàn giao
 
+Allocator03/10:9fc07ff main/CI/Vercel PASS;158 unit/45 browser, bundle allocator2505. Một partial repayment thật0,780982 USDC đã verified qua API test signer; không chạy execute runner thêm để đuổi giá. Evidence trong docs/testing/allocation-acceptance.md. Deck12/clip68,2 đã kiểm; hoàn tất publishv0.3.0-allocator/public hashes rồi chốt docs. Phạm vi solvent/no e-mode/one-event/finite-grid; source build match chưa có.
+
 02/10: người dùng đã duyệt hoàn thành allocator end-to-end theo [plan active](../plans/active/loss-allocator-v1.md). Hướng dẫn giữ allocator tắt bên dưới là checkpoint cũ; cổng protocol parity vẫn bắt buộc. Bắt đầu fingerprint/VM proof trên WSL có sẵn, tiếp tục core/API/journal/UI và evidence. Không thay đổi quyền file URLs đang chờ riêng cho Social preview.
 
 03/10 checkpoint:25 VM vectors exact, hash5f3b..., live read-only context/plan225ms. API/UI/journal đã có; chưa push hoặc có partial receipt mới. Tiếp tục full QA/responsive/bundle → publish main/CI/Vercel → vòng partial test signer với cap1 USDC → evidence/README/slide. Giữ test port riêng `PICACHU_TEST_PORT=3102` vì3100 là server build cũ, không dùng kết quả hydrate lỗi của server đó để đánh giá code mới.

@@ -1,7 +1,7 @@
 import { PDFDocument, PDFName, PDFString } from "pdf-lib";
 import fs from "node:fs/promises";
 const root = process.cwd(),
-  dir = root + "/work/presentation/build/rendered-r5";
+  dir = root + "/work/presentation/build/rendered-" + (process.env.DECK_REVISION ?? "r5");
 const pdf = await PDFDocument.create();
 pdf.setTitle("picachu — Chung kết UniHackFest 2026");
 pdf.setAuthor("2274802010922");
@@ -27,5 +27,8 @@ for (let i = 1; i <= 12; i++) {
     page.node.set(PDFName.of("Annots"), pdf.context.obj(annotations));
   }
 }
-await fs.writeFile(root + "/work/presentation/output/picachu-final.pdf", await pdf.save());
+await fs.writeFile(
+  root + "/work/presentation/output/" + (process.env.PDF_NAME ?? "picachu-final.pdf"),
+  await pdf.save(),
+);
 console.log("PDF_12_PAGES");

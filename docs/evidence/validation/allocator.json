@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "productCommit": "9fc07ff1fc21eaaaacd1c68962e7d53e7d63d688",
+  "qualityRun": 37066106588,
+  "model": {
+    "cases": 25,
+    "executableSha256": "5f3b2634e5a3d787baf5a119e4c400a9512723787b79d289b7c17e509bbce4c5",
+    "sourceBuildMatched": false
+  },
+  "local": {
+    "unit": 158,
+    "browser": 45,
+    "buildRoutes": 25,
+    "bundleDemoFiles": 2504,
+    "bundleAllocatorFiles": 2505,
+    "responsiveWidths": [375, 768, 1024, 1440],
+    "locales": ["vi", "en"]
+  },
+  "live": {
+    "source": "vercel-api-dedicated-devnet-test-signer",
+    "startedAt": "2026-10-02T21:24:49.038Z",
+    "phase": "verified",
+    "paidAtomic": "780982",
+    "reserveAtomic": "1000000",
+    "balanceAfterAtomic": "16620792",
+    "receipts": [
+      {
+        "signature": "2HL9xJn4h59Z5gUxfDmJDUVedVpbjQYpKx8MWrTcZu3T5sWUbto1K5boayZz2L1PTjrfon39kLb8MXw4znYUosPB",
+        "repayAtomic": "780982",
+        "feeLamports": "6000",
+        "position": "8PpZyrJaWYNyYduWyihN4Hf6vQWppzwVgfHvyGgrqx4K",
+        "verified": true
+      }
+    ]
+  },
+  "video": {
+    "durationSeconds": 68.2,
+    "resolution": "1920x1080",
+    "source": "https://picachu-iota.vercel.app",
+    "scope": "Actual Vercel UI with clearly synthetic figures, then a real verified Devnet receipt from the separately executed dedicated API test signer. No wallet signing footage, no transaction sent by this recording.",
+    "recording": "Actual Vercel UI with synthetic example; real receipt from separately verified API test signer, no signing footage",
+    "validation": "Full decode PASS; duration between 60 and 90 seconds"
+  },
+  "slides": {
+    "count": 12,
+    "nativeTables": 5,
+    "renderReviewed": true,
+    "nativePowerPointTested": false,
+    "packageIntegrity": "pass"
+  },
+  "assets": [
+    {
+      "name": "picachu-allocator.pptx",
+      "bytes": 111092,
+      "sha256": "dd5b69bcb0ee793a0808e705f0c55bd743afaecec8028c7ac2a85850cc12c625"
+    },
+    {
+      "name": "picachu-allocator.pdf",
+      "bytes": 433846,
+      "sha256": "8ffce7fc24d3542c47436dfedb0bdfdeafe47a11030c7f35db39f27d58793151"
+    },
+    {
+      "name": "picachu-allocator-demo.mp4",
+      "bytes": 1568429,
+      "sha256": "ab3ae0f8cf0942694b04af87d0f968751275e2b4a9c4784ff948690ac1dd2690"
+    }
+  ]
+}

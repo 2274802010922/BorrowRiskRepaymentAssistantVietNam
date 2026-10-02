@@ -59,6 +59,8 @@ Each loan has 1 SOL collateral at 100 USD; threshold 80%, borrow factor 1, USDC 
 
 **When funds are insufficient:** allocation compares estimated one-event liquidation loss plus fees against no repayment, equal split and risk-first using the same data. Users review a partial plan and sign sequentially; verified receipts do not mean all goals are met. [Model and execution](docs/architecture/liquidation-model.md) · [25 executable reference cases](docs/evidence/liquidation/README.md).
 
+[A separate Devnet partial cycle](docs/testing/allocation-acceptance.md) repaid0.780982 USDC, verified its journal and retained16.620792 USDC at the test time. This used a dedicated API test signer; no Phantom signing footage is claimed.
+
 | Capability                        | Value                                                                              |
 | :-------------------------------- | :--------------------------------------------------------------------------------- |
 | **A goal beyond a metrics table** | Know what to repay and what to keep.                                               |
