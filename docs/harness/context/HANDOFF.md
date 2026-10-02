@@ -4,6 +4,8 @@
 
 Product19c156a CI/Vercel PASS; privacy projection mới local110 unit/check PASS. Deck/PDF/clip đã xuất và xem, source/preview/notes/Q&A đã chọn cho repo; Release v0.2.0-final-demo đang chuẩn bị. Clip là thao tác synthetic +historical receipt, không quay ký và không gửi tx mới. Chrome upload bị quyền file URLs; pending lựa chọn user, không tự bật. Hoàn tất publish/download/CI checkpoint trước khi chốt.
 
+Checkpoint10086dc đã CI/Vercel PASS và Release v0.2.0-final-demo public; bốn public download SHA256 khớp. Các gates sản phẩm/demo/deck/repo đã hoàn thành theo source labels. Khi tiếp tục, chỉ xử lý social upload nếu user trả lời approval; không tự mở lại interviews, allocator hoặc wallet test để đuổi biến động giá. Không coi clip như đã quay ký ví.
+
 Đọc [CURRENT_STATE](CURRENT_STATE.md) và [plan repo](../plans/active/repository-presentation.md). Mã nguồn nằm dưới src/, docs là cổng đọc; không phục hồi bản root cũ chỉ để khớp liên kết lịch sử.
 
 Video xem chính trên YouTube https://www.youtube.com/watch?v=Uw-04c9cROQ, owner cung cấp ngày 01/10. Không đổi nút/poster trở lại link tải MP4; Release chỉ là lựa chọn offline.

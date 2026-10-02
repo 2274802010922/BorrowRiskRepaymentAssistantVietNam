@@ -10,6 +10,7 @@
 - Product checkpoint19c156a đã CI36985875186/Vercel PASS; public goals/draft trả200 ready đúng goal, source rules được ghi rõ. Privacy projection mới chỉ gửi matched clauses, local110 unit/check PASS; browser34 tại product checkpoint.
 - Deck12 slide editable, PDF12 trang,2 link,5 native tables và render đã kiểm; notes/Q&A ở docs/judging/presentation. Clip76,52s thao tác Vercel synthetic +Explorer receipt lịch sử, không signing footage. Đang publish Release v0.2.0-final-demo và kiểm download.
 - Browser Chrome đã đọc menu upload nhưng setFiles bị chặn vì extension chưa có Allow access to file URLs. Đã hỏi user lựa chọn quyền; chưa coi elapsed time là approval và chưa đổi setting.
+  -10086dc CI36991760883/Vercel PASS;110 unit/34 browser, Release v0.2.0-final-demo public. Bốn artifact download SHA256 PASS. Repo/notes/preview đã cập nhật, không interviews. Bộ sản phẩm/demo/slide xong trong phạm vi đã ghi; không claim signing footage hoặc allocator verified.
 
 ## Sản phẩm
 

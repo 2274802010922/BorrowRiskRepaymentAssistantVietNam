@@ -20,4 +20,4 @@ Gates: kiểm số/goal/parser/provider failure, wallet guards/pending/recovery,
 
 Làm sản phẩm → ghi evidence/checkpoint → demo → dựng deck theo hành vi đã hoàn thành → kiểm và publish → cập nhật CURRENT_STATE/HANDOFF. Dùng release asset cho binary, giữ source/notes/poster/docs trong repo. Không copy work/private hoặc credential.
 
-Trạng thái: đang thực hiện. Baseline58d275f,87 unit/32 browser PASS. Chỉ đánh dấu từng cổng khi có kết quả thực tế.
+Trạng thái: sản phẩm, clip thao tác, deck/PDF/notes/Q&A và repo đã hoàn thiện tại19c156a/10086dc. Release v0.2.0-final-demo public; CI/Vercel PASS. Clip không quay ký Phantom; đó là phạm vi của artifact, không giả làm giao dịch mới. Allocator giữ tắt theo cổng đã chốt. Chỉ Social preview setting chờ quyền file URLs từ user; không tự bật khi chưa có reply. [Nghiệm thu](../../../testing/final-demo-day.md).
