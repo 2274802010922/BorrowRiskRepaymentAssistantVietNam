@@ -1,4 +1,4 @@
-# Bộ trình bày chung kết
+Trình bày slide
 
 Deck12 slide theo hướng sản phẩm/demo đã kiểm, light terminal, tiếng Việt. Không phỏng vấn, không dựng traction. Kinh doanh/GTM là giả thuyết. Phân biệt dữ liệu minh họa, biên nhận Devnet lịch sử và chức năng chưa bật.
 
