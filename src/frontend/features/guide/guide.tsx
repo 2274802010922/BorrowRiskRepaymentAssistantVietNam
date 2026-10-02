@@ -73,6 +73,12 @@ export function Guide() {
         ))}
       </div>
       <div className="actions-row">
+        <p>
+          {t(
+            "Có thể nhập mục tiêu bằng câu ngắn trong trang phương án. Luôn xem lại bản nháp trước khi áp dụng. Preset Devnet chỉ thay mục tiêu khi bạn chọn.",
+            "You can describe your goal in the planner. Always review the draft before applying. Devnet presets only change goals when you choose them.",
+          )}
+        </p>
         <Link href="/setup" className="button button-secondary">
           {t("Thiết lập demo Devnet", "Set up Devnet demo")}
         </Link>

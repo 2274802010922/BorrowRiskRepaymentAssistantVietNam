@@ -1332,6 +1332,32 @@ nav summary {
   border-radius: 8px;
   padding: 16px;
 }
+.goal-section textarea {
+  display: block;
+  width: 100%;
+  min-height: 90px;
+  resize: vertical;
+  padding: 14px;
+  border: 1px solid var(--muted);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  margin-top: 8px;
+}
+.goal-explanation,
+.goal-demo-preset {
+  margin-block: 16px;
+}
+.goal-explanation > .notice {
+  margin-top: 12px;
+}
+.field-warning {
+  display: block;
+  color: var(--warning);
+  font-size: 14px;
+  margin-top: 8px;
+}
 @media (max-width: 767px) {
   .panel.goal-section {
     padding: 18px;

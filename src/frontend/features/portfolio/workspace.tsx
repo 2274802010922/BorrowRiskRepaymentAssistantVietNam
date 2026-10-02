@@ -17,6 +17,7 @@ import { examplePortfolio } from "../../../shared/examples/portfolio";
 import { compactNumber, exactToken } from "../../../shared/format";
 import type { PositionSnapshot, ExecutionRecord } from "../../../shared/types";
 import type { GoalPlan, RepaymentGoal, PortfolioSnapshot } from "../../../shared/portfolio";
+import { GoalDraft, PortfolioExplanation } from "./assistance";
 type Prepared = {
   token: string;
   transaction: string;
@@ -97,6 +98,7 @@ function Content({ wallet }: { wallet: string | null }) {
   const [reviewed, setReviewed] = useState(false);
   const [afterPlan, setAfterPlan] = useState<GoalPlan | null>(null);
   const [afterError, setAfterError] = useState(false);
+  const [afterInfo, setAfterInfo] = useState<{ balance: string; observedAt: string } | null>(null);
   const amount = (s: string) => exactToken(s, 6, locale),
     number = (s: string) => compactNumber(s, locale, 2);
   const goal = useMemo<RepaymentGoal | null>(() => {
@@ -136,6 +138,21 @@ function Content({ wallet }: { wallet: string | null }) {
   const plan = session?.plan ?? calculated,
     shown = session?.portfolio.positions ?? portfolio.positions;
   const locked = Boolean(session) || busy;
+  const balance = portfolio.positions[0]?.walletDebtAtomic ?? "0";
+  const label = (s: PositionSnapshot) =>
+    s.position.startsWith("example-")
+      ? t(
+          `Khoản ${s.position.slice(-1).toUpperCase()}`,
+          `Loan ${s.position.slice(-1).toUpperCase()}`,
+        )
+      : `${s.collateral.symbol}/${s.debt.symbol} · ${s.position.slice(0, 6)}…${s.position.slice(-4)}`;
+  function applyGoal(g: RepaymentGoal) {
+    setBudget(exactToken(g.budgetAtomic, 6, "en").replaceAll(",", ""));
+    setReserve(exactToken(g.reserveAtomic, 6, "en").replaceAll(",", ""));
+    setShock(String(g.shockBps / 100));
+    setBuffer(String(g.bufferBps / 100));
+    setError(null);
+  }
   async function refresh() {
     if (!wallet) return;
     setLoading(true);
@@ -232,6 +249,10 @@ function Content({ wallet }: { wallet: string | null }) {
         );
         setPositions(r.positions);
         setAfterPlan(fresh);
+        setAfterInfo({
+          balance: snapshots[0]!.walletDebtAtomic,
+          observedAt: snapshots[0]!.observedAt,
+        });
         setAfterError(false);
       })
       .catch(() => {
@@ -379,6 +400,7 @@ function Content({ wallet }: { wallet: string | null }) {
       setStatus(null);
       setAfterPlan(null);
       setAfterError(false);
+      setAfterInfo(null);
       await refresh();
     } catch (e) {
       setError(e instanceof Error ? e.message : "PLAN_PENDING");
@@ -440,7 +462,7 @@ function Content({ wallet }: { wallet: string | null }) {
                 {!error && <Link href="/setup">{t("Thiết lập demo", "Set up a demo")}</Link>}
               </p>
             ) : (
-              positions.map((s, i) => (
+              positions.map((s) => (
                 <label key={s.position} className="goal-position">
                   <input
                     type="checkbox"
@@ -455,10 +477,12 @@ function Content({ wallet }: { wallet: string | null }) {
                     }
                   />
                   <span>
-                    <strong>
-                      {t("Khoản vay", "Loan")} {i + 1}
-                    </strong>
-                    <small className="goal-address">{s.position}</small>
+                    <strong>{label(s)}</strong>
+                    <small className="goal-address">
+                      {s.position.startsWith("example-")
+                        ? s.position
+                        : `${s.position.slice(0, 8)}…${s.position.slice(-6)}`}
+                    </small>
                   </span>
                   <span>
                     {amount(s.debt.amountAtomic)} {s.debt.symbol}
@@ -467,6 +491,18 @@ function Content({ wallet }: { wallet: string | null }) {
               ))
             )}
           </section>
+          {positions.length > 0 && (
+            <details className="goal-section">
+              <summary>{t("Địa chỉ đầy đủ của các khoản", "Full position addresses")}</summary>
+              {positions.map((s) => (
+                <p key={s.position} className="goal-address">
+                  <strong>{label(s)}</strong>
+                  <br />
+                  {s.position}
+                </p>
+              ))}
+            </details>
+          )}
           {!selected.length && positions.length > 0 && (
             <Notice title={t("Chọn ít nhất một khoản vay", "Choose at least one loan")}>
               {t(
@@ -488,6 +524,42 @@ function Content({ wallet }: { wallet: string | null }) {
           )}
           <section className="panel goal-section">
             <h2>{t("2. Đặt mục tiêu", "2. Set your goal")}</h2>
+            <p>
+              {t("Số dư chung", "Shared wallet balance")}: <strong>{amount(balance)} USDC</strong>
+              {calculated && (
+                <>
+                  {" "}
+                  · {t("Có thể dùng", "Available")}:{" "}
+                  <strong>{amount(calculated.spendableAtomic)} USDC</strong>
+                </>
+              )}
+            </p>
+            {wallet && !locked && positions.length > 0 && (
+              <div className="goal-demo-preset">
+                <p className="muted">
+                  {t(
+                    "Mục tiêu demo: ngân sách bằng số dư, giữ tối đa 1 USDC, SOL giảm 30%, dư địa 5%.",
+                    "Demo goal: budget equals balance, keep up to 1 USDC, SOL drops 30%, buffer 5%.",
+                  )}
+                </p>
+                <button
+                  className="button secondary"
+                  onClick={() =>
+                    applyGoal({
+                      budgetAtomic: balance,
+                      reserveAtomic: (BigInt(balance) > 1000000n
+                        ? 1000000n
+                        : BigInt(balance)
+                      ).toString(),
+                      shockBps: 3000,
+                      bufferBps: 500,
+                    })
+                  }
+                >
+                  {t("Dùng mục tiêu demo", "Use demo goal")}
+                </button>
+              </div>
+            )}
             <div className="goal-fields">
               <label>
                 {t("Tiền muốn giữ lại (USDC)", "Keep in wallet (USDC)")}
@@ -497,6 +569,14 @@ function Content({ wallet }: { wallet: string | null }) {
                   inputMode="decimal"
                   onChange={(e) => setReserve(e.target.value)}
                 />
+                {goal && BigInt(goal.reserveAtomic) > BigInt(balance) && (
+                  <small className="field-warning">
+                    {t(
+                      "Tiền muốn giữ cao hơn số dư. Chưa có tiền khả dụng để trả nợ.",
+                      "Reserve exceeds balance. No funds are available for repayment.",
+                    )}
+                  </small>
+                )}
               </label>
               <label>
                 {t("Trả tối đa (USDC)", "Maximum repayment (USDC)")}
@@ -564,14 +644,26 @@ function Content({ wallet }: { wallet: string | null }) {
               </Notice>
             )}
           </section>
+          {!session && <GoalDraft locked={locked} onApply={applyGoal} />}
           {plan && (
             <section className="panel goal-section">
               <h2>{t("3. Phương án của bạn", "3. Your plan")}</h2>
-              <p className="goal-total">{amount(plan.requiredAtomic)} USDC</p>
+              <p className="goal-total">
+                {amount(
+                  status?.phase === "verified"
+                    ? status.receipts.reduce((sum, r) => sum + BigInt(r.repayAtomic), 0n).toString()
+                    : plan.requiredAtomic,
+                )}{" "}
+                USDC
+              </p>
               <p>
                 {t(
-                  "Tổng cần trả để các khoản đã chọn đạt mục tiêu.",
-                  "Total repayment needed for your selected loans to meet the goal.",
+                  status?.phase === "verified"
+                    ? "Tổng đã trả, đối chiếu từ biên nhận."
+                    : "Tổng cần trả để các khoản đã chọn đạt mục tiêu.",
+                  status?.phase === "verified"
+                    ? "Total repaid, verified from receipts."
+                    : "Total repayment needed for your selected loans to meet the goal.",
                 )}
               </p>
               {plan.state === "already_met" ? (
@@ -585,8 +677,8 @@ function Content({ wallet }: { wallet: string | null }) {
                 <Notice tone="warning" title={t("Chưa đủ ngân sách", "Budget is insufficient")}>
                   {t("Cần thêm", "You need another")} {amount(plan.shortfallAtomic)} USDC.{" "}
                   {t(
-                    "Chưa đề xuất chia tiền trả một phần vì mô hình tổn thất thanh lý chưa được kiểm chứng.",
-                    "Partial allocations are unavailable until the liquidation loss model is verified.",
+                    "Chưa có phương án trong ngân sách này. Xem lại ngân sách, tiền muốn giữ hoặc mục tiêu.",
+                    "No plan fits this budget. Review the budget, reserve or goal.",
                   )}
                 </Notice>
               ) : (
@@ -601,13 +693,30 @@ function Content({ wallet }: { wallet: string | null }) {
                   return (
                     <div className="goal-result" key={step.position}>
                       <strong>
-                        {t("Khoản vay", "Loan")} {i + 1}
+                        {shown[i]
+                          ? label(shown[i])
+                          : `${step.position.slice(0, 6)}…${step.position.slice(-4)}`}
                       </strong>
                       <span>
-                        {t("Trả", "Repay")} {amount(step.repayAtomic)} USDC
+                        {plan.state === "insufficient_budget" ? (
+                          t("Chưa lập bước trả nợ", "No repayment step prepared")
+                        ) : (
+                          <>
+                            {t(session ? "Theo phương án" : "Trả", session ? "Planned" : "Repay")}{" "}
+                            {amount(step.repayAtomic)} USDC
+                          </>
+                        )}
                       </span>
                       <span>
-                        {t("Dư địa sau trả", "Buffer after repayment")}:{" "}
+                        {t(
+                          plan.state === "insufficient_budget"
+                            ? "Dư địa hiện tại trong kịch bản"
+                            : "Dư địa theo phương án",
+                          plan.state === "insufficient_budget"
+                            ? "Current scenario buffer"
+                            : "Planned buffer",
+                        )}
+                        :{" "}
                         {step.bufferAfterPct === null
                           ? t("Đã hết nợ", "Debt free")
                           : `${number(step.bufferAfterPct)}%`}
@@ -622,6 +731,13 @@ function Content({ wallet }: { wallet: string | null }) {
                   "Estimates use current prices and parameters. Interest or price changes require a new plan. Liquidation avoidance is not guaranteed.",
                 )}
               </p>
+              {!session && goal && portfolio.positions.length > 0 && (
+                <PortfolioExplanation
+                  key={JSON.stringify({ goal, locale, portfolio })}
+                  portfolio={portfolio}
+                  goal={goal}
+                />
+              )}
               {wallet && plan.state === "achievable" && (
                 <div className="goal-actions">
                   {!session?.pending &&
@@ -726,6 +842,14 @@ function Content({ wallet }: { wallet: string | null }) {
               )}
               {status?.phase === "verified" && (
                 <Notice title={t("Mục tiêu theo dữ liệu mới", "Goal with fresh data")}>
+                  {afterInfo && (
+                    <p>
+                      {t("Số dư đọc lại", "Refreshed balance")}: {amount(afterInfo.balance)} USDC ·{" "}
+                      {new Date(afterInfo.observedAt).toLocaleString(
+                        locale === "vi" ? "vi-VN" : "en-US",
+                      )}
+                    </p>
+                  )}
                   {afterPlan ? (
                     afterPlan.state === "already_met" ? (
                       <p>

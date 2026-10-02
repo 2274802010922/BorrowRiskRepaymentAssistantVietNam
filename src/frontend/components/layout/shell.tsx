@@ -32,7 +32,6 @@ function Navigation({ onNavigate }: { onNavigate?: () => void }) {
     { t } = useLanguage();
   const items = [
     { href: "/portfolio", label: t("Phương án trả nợ", "Repayment plan"), icon: Wallet },
-    { href: "/workspace", label: t("Khoản vay của tôi", "My positions"), icon: LayoutDashboard },
     { href: "/setup", label: t("Thiết lập demo", "Demo setup"), icon: FlaskConical },
     { href: "/guide", label: t("Cách sử dụng", "How it works"), icon: BookOpen },
   ];
@@ -51,8 +50,16 @@ function Navigation({ onNavigate }: { onNavigate?: () => void }) {
             {item.label}
           </Link>
         ))}
-        <details open={path === "/lab" || undefined}>
+        <details open={path === "/lab" || path === "/workspace" || undefined}>
           <summary>{t("Nâng cao", "Advanced")}</summary>
+          <Link
+            href="/workspace"
+            aria-current={path === "/workspace" ? "page" : undefined}
+            onClick={onNavigate}
+          >
+            <LayoutDashboard size={18} aria-hidden="true" />
+            {t("Khoản vay đơn và lịch sử", "Single loan and history")}
+          </Link>
           <Link
             href="/lab"
             aria-current={path === "/lab" ? "page" : undefined}

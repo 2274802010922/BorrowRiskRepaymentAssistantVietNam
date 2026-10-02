@@ -1,5 +1,13 @@
 # Trạng thái hiện tại — 01/10/2026
 
+## Sprint chung kết — 02/10
+
+- Người dùng duyệt workflow sản phẩm → demo → slide → ngữ cảnh/evidence → commit tiếng Việt/push main → README/Release. Không interviews/outreach. [Plan active](../plans/active/final-demo-day.md).
+- UI main có shared funds/reserve warning, preset Devnet explicit, stable position labels, no-zero recommendation khi thiếu budget, paid receipts và fresh balance. Landing đồng nhất13,6/còn66,4.
+- AI main: goals/draft tạo draft cần review; portfolio/explain giữ facts từ core và summary ngắn, fallback; không gửi wallet-looking strings/key text vào provider và không ký.
+- Local109 unit/34 browser +build24 route/check/strict bundle PASS. Demo/deck đang render/kiểm; chưa claim đã publish bản cuối. [Validation](../../testing/final-demo-day.md).
+- Allocator vẫn tắt; không thêm program chưa test để lấy điểm. Các giới hạn và evidence lịch sử bên dưới vẫn áp dụng.
+
 ## Sản phẩm
 
 - Luồng chính /portfolio: một ví, tối đa ba khoản SOL/USDC Kamino Devnet, goal buffer từ giá sau shock, shared balance, budget/reserve, preview review và receipt tuần tự Redis.

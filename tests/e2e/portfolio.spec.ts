@@ -115,12 +115,103 @@ test("goal planner shows exact minimal repayment and blocks unsupported partial 
   await page.getByLabel("Trả tối đa (USDC)").fill("10");
   await expect(page.getByText("Chưa đủ ngân sách", { exact: true })).toBeVisible();
   await expect(page.getByText(/Cần thêm 3,6 USDC/)).toBeVisible();
+  await expect(page.getByText("Chưa lập bước trả nợ", { exact: true })).toHaveCount(3);
+  await expect(page.getByText("Trả 0 USDC", { exact: true })).toHaveCount(0);
   await expect(page.getByRole("button", { name: /Ký bằng ví|Chuẩn bị bước trả nợ/ })).toHaveCount(
     0,
   );
   await page.getByLabel("Trả tối đa (USDC)").fill("-1");
   await expect(page.getByRole("alert").filter({ hasText: "Kiểm tra số đã nhập" })).toBeVisible();
   await expect(page.getByRole("checkbox")).toHaveCount(3);
+});
+
+test("goal draft needs explicit apply and facts remain visible without a provider", async ({
+  page,
+}) => {
+  await page.route("**/api/goals/draft", (route) =>
+    route.fulfill({
+      json: {
+        status: "ready",
+        goal: {
+          budgetAtomic: "10000000",
+          reserveAtomic: "1000000",
+          shockBps: 3000,
+          bufferBps: 500,
+        },
+        source: "rules",
+        defaultBuffer: true,
+      },
+    }),
+  );
+  await page.route("**/api/portfolio/explain", (route) =>
+    route.fulfill({
+      json: {
+        source: "template",
+        lines: ["Cần 13,6 USDC để mọi khoản đạt mục tiêu.", "Ngân sách khả dụng thiếu 3,6 USDC."],
+        caution: "Giá và lãi có thể đổi.",
+      },
+    }),
+  );
+  await page.goto("/portfolio");
+  await page.getByText("Nhập mục tiêu bằng câu ngắn", { exact: true }).click();
+  await page
+    .getByLabel("Mục tiêu của bạn", { exact: true })
+    .fill("Trả tối đa 10 USDC, giữ 1 USDC, nếu SOL giảm 30%");
+  await page.getByRole("button", { name: "Tạo bản nháp", exact: true }).click();
+  await expect(page.getByText("Xem lại bản nháp trước khi áp dụng", { exact: true })).toBeVisible();
+  await expect(page.getByLabel("Trả tối đa (USDC)")).toHaveValue("30");
+  await page.getByRole("button", { name: "Áp dụng mục tiêu này", exact: true }).click();
+  await expect(page.getByLabel("Trả tối đa (USDC)")).toHaveValue("10");
+  await expect(page.getByLabel("Tiền muốn giữ lại (USDC)")).toHaveValue("1");
+  await page.getByRole("button", { name: "Giải thích phương án", exact: true }).click();
+  await expect(page.getByText("Giải thích từ dữ kiện", { exact: true })).toBeVisible();
+  await page.getByLabel("Trả tối đa (USDC)").fill("30");
+  await expect(page.getByText("Giải thích từ dữ kiện", { exact: true })).toHaveCount(0);
+});
+
+test("Devnet preset is opt-in and refresh keeps the applied reserve", async ({ page }) => {
+  const wallet = "11111111111111111111111111111111",
+    portfolio = examplePortfolio();
+  portfolio.positions = portfolio.positions.map((s) => ({
+    ...s,
+    wallet,
+    source: "devnet",
+    protocol: "kamino",
+    walletDebtAtomic: "19800000",
+    warnings: [],
+  }));
+  await page.addInitScript(
+    ({ wallet }) => {
+      localStorage.setItem("picachu-wallet-connected", "true");
+      Object.defineProperty(window, "phantom", {
+        value: {
+          solana: {
+            isPhantom: true,
+            publicKey: { toBase58: () => wallet },
+            connect: async () => ({ publicKey: { toBase58: () => wallet } }),
+            on: () => {},
+            removeListener: () => {},
+          },
+        },
+      });
+    },
+    { wallet },
+  );
+  await page.route("**/api/portfolio/read", (route) =>
+    route.fulfill({ json: { positions: portfolio.positions } }),
+  );
+  await page.goto("/portfolio");
+  await expect(page.getByLabel("Tiền muốn giữ lại (USDC)")).toHaveValue("20");
+  await expect(
+    page.getByText("Tiền muốn giữ cao hơn số dư. Chưa có tiền khả dụng để trả nợ.", {
+      exact: true,
+    }),
+  ).toBeVisible();
+  await page.getByRole("button", { name: "Dùng mục tiêu demo", exact: true }).click();
+  await expect(page.getByLabel("Tiền muốn giữ lại (USDC)")).toHaveValue("1");
+  await expect(page.getByLabel("Trả tối đa (USDC)")).toHaveValue("19.8");
+  await page.getByRole("button", { name: "Làm mới", exact: true }).click();
+  await expect(page.getByLabel("Tiền muốn giữ lại (USDC)")).toHaveValue("1");
 });
 test("goal planner supports a single selected loan and debt goal remains explicit", async ({
   page,

@@ -52,45 +52,45 @@ export function Landing() {
             <div className="terminal-intro">
               <span>{t("Giả sử SOL giảm", "If SOL falls")}</span>
               <strong>
-                −20<span>%</span>
+                −30<span>%</span>
               </strong>
             </div>
             <div className="terminal-comparison">
               <div>
                 <span>{t("Nợ hiện tại", "Current debt")}</span>
                 <strong>
-                  600 <small>USDC</small>
+                  165 <small>USDC</small>
                 </strong>
               </div>
               <ArrowRight size={22} aria-hidden="true" />
               <div>
-                <span>{t("Nếu trả 100 USDC", "After a 100 USDC repayment")}</span>
+                <span>{t("Nếu trả 13,6 USDC", "After a 13.6 USDC repayment")}</span>
                 <strong>
-                  500 <small>USDC</small>
+                  {t("151,4", "151.4")} <small>USDC</small>
                 </strong>
               </div>
             </div>
             <div className="terminal-row">
               <span>{t("Tiền muốn giữ lại", "Reserve to keep")}</span>
-              <strong>50 USDC</strong>
+              <strong>20 USDC</strong>
             </div>
             <div className="terminal-row">
-              <span>{t("LTV trong kịch bản", "Scenario LTV")}</span>
-              <strong>{t("75% → 62,5%", "75% → 62.5%")}</strong>
+              <span>{t("Dư địa mục tiêu sau kịch bản", "Target buffer after the scenario")}</span>
+              <strong>5%</strong>
             </div>
             <div className="terminal-note">
               <Check size={17} aria-hidden="true" />
               <span>
                 {t(
-                  "Giữ đủ dự trữ. Chưa đạt mục tiêu LTV 60%.",
-                  "Reserve preserved. The 60% LTV target is not reached.",
+                  "Chỉ trả 13,6 USDC, còn 66,4 USDC trong ví.",
+                  "Repay only 13.6 USDC and keep 66.4 USDC in the wallet.",
                 )}
               </span>
             </div>
             <p className="terminal-caption">
               {t(
-                "Dữ liệu giả định, bỏ qua lãi và phí. Không phải số dư ví thật.",
-                "Hypothetical data, excluding interest and fees. Not a real wallet balance.",
+                "Ba khoản nợ 65/55/45 USDC, mỗi khoản 1 SOL × 100 USD, threshold 80%, factor 1. Dữ liệu giả định, chưa gồm lãi và phí.",
+                "Debts of 65/55/45 USDC, each backed by 1 SOL at 100 USD, threshold 80%, factor 1. Synthetic data, excluding interest and fees.",
               )}
             </p>
           </div>
