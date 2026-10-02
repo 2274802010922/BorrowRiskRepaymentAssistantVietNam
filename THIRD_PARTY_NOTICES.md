@@ -18,6 +18,8 @@ Nguồn logic đã đọc: [liquidation_operations.rs](https://github.com/Kamino
 
 ## Dependency chính
 
+Allocator dùng LiteSVM1.5.0 (Apache-2.0) trong harness riêng để thực thi executable Kamino Devnet. Source tham chiếu Kamino Lending tại commit `a08760976f51a3a58c4a0c6ea27b4a0e565bca79` có BSL1.1: https://github.com/Kamino-Finance/klend/blob/a08760976f51a3a58c4a0c6ea27b4a0e565bca79/LICENSE. Bytecode/source đối chứng chỉ ở work cho kiểm thử không production; không vendoring Rust source hoặc bytecode vào runtime Vercel/Git. Không tuyên bố source build match. Mô hình số học của picachu và bằng chứng độc lập được mô tả ở [đối chứng](docs/evidence/liquidation/README.md).
+
 Oracle adapter của picachu sửa cách chuẩn hóa price/confidence Pyth cho nguồn Pyth-only của SDK 11.0.1, giữ validation riêng và không sửa package trong node_modules. Tham chiếu nguồn/kiểm chứng ở `docs/testing/devnet-oracle-validation.md`.
 
 - Kamino SDK: https://github.com/Kamino-Finance/klend-sdk, metadata MIT. Dùng như dependency; không trình bày SDK thành code tự viết.

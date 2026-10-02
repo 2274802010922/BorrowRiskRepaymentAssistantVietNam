@@ -44,7 +44,7 @@ Người vay cần giảm rủi ro khi giá thế chấp giảm, nhưng vẫn c�
 
 1. Mở [phương án trả nợ](https://picachu-iota.vercel.app/portfolio), không cần ví hay API key.
 2. Giữ ngân sách **30 USDC**, dự trữ **20 USDC**, giá SOL giảm **30%**, dư địa **5%**.
-3. Xem tổng **13,6 USDC**, còn **66,4 USDC**. Đổi ngân sách thành **10** để thấy thiếu **3,6 USDC**.
+3. Xem tổng **13,6 USDC**, còn **66,4 USDC**. Đổi ngân sách thành **10** để thấy thiếu **3,6 USDC**, rồi chọn **Xem cách phân bổ tiền**.
 
 | Khoản vay minh họa |   Nợ ban đầu |       Cần trả |
 | :----------------- | -----------: | ------------: |
@@ -56,6 +56,8 @@ Người vay cần giảm rủi ro khi giá thế chấp giảm, nhưng vẫn c�
 Mỗi khoản thế chấp 1 SOL × 100 USD; threshold 80%, borrow factor 1, USDC 1 USD; số dư chung 80 USDC. Dư địa đo từ giá sau kịch bản; giữ giá token nợ cố định, chưa gồm lãi phát sinh. Đây là giả định minh họa. [Phạm vi sản phẩm](docs/product/README.md).
 
 ## Điều gì làm nên picachu?
+
+**Khi tiền không đủ:** phân bổ đề xuất dựa trên tổn thất của một lượt thanh lý cộng phí. So sánh với không trả, chia đều và ưu tiên rủi ro trên cùng dữ liệu. Người dùng duyệt partial plan và ký từng bước; receipt verified không có nghĩa mọi mục tiêu đã đạt. [Mô hình và luồng](docs/architecture/liquidation-model.md) · [25 ca đối chứng executable](docs/evidence/liquidation/README.md).
 
 | Khả năng                             | Giá trị                                                                      |
 | :----------------------------------- | :--------------------------------------------------------------------------- |
@@ -76,7 +78,7 @@ Mỗi khoản thế chấp 1 SOL × 100 USD; threshold 80%, borrow factor 1, USD
 | **Thao tác Phantom / AI**            | Owner báo test ổn và gọi AI live; [nguồn nghiệm thu thủ công](docs/testing/manual-acceptance-2026-10-01.md), không phải video agent quay popup.                                               |
 
 > [!IMPORTANT]
-> MVP chỉ dùng **Kamino Devnet, một ví, cùng cặp SOL/USDC**. Giá và lãi có thể đổi sau trả; receipt verified không bảo đảm tránh thanh lý. **Allocator theo tổn thất chưa bật** vì protocol parity chưa hoàn tất. Không công bố doanh thu hoặc pilot chưa xác minh.
+> MVP chỉ dùng **Kamino Devnet, một ví, cùng cặp SOL/USDC**. Giá và lãi có thể đổi sau trả; receipt verified không bảo đảm tránh thanh lý. Allocator chỉ chạy trong phạm vi mô hình đã đối chiếu; đổi executable hoặc cấu hình không hỗ trợ sẽ chặn. Kết quả tốt nhất trong lưới hữu hạn cho một lượt thanh lý, không là tối ưu toàn cục hoặc dự báo xác suất. Không công bố doanh thu hoặc pilot chưa xác minh.
 
 ## Cách hoạt động
 

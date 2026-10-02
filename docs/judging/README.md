@@ -12,7 +12,7 @@
 ## Kiểm chứng trong ba phút
 
 1. Ví dụ minh họa: ba nợ 65/55/45, SOL 100 USD, collateral 1 SOL mỗi khoản, threshold 80%, factor 1; shock 30/buffer 5/budget 30/reserve 20.
-2. Kết quả13,6 USDC, còn66,4; budget 10 thì thiếu 3,6. Dữ liệu minh họa không tạo giao dịch.
+2. Kết quả13,6 USDC, còn66,4; budget10 thì thiếu3,6. Chọn “Xem cách phân bổ tiền” để xem phương án một phần và bảng baseline. Dữ liệu minh họa không tạo giao dịch.
 3. Đọc ba deposit/ba borrow/hai repay đã verified trên Devnet qua API triển khai và test signer riêng.
 4. Đối chiếu [CI](https://github.com/2274802010922/picachu__/actions/workflows/quality.yml), unit/e2e tests và giới hạn trong tài liệu.
 
@@ -20,7 +20,7 @@
 
 - Owner báo thao tác Phantom thủ công ổn ngày 01/10; đây là owner-reported acceptance, không phải video agent quay popup hoặc bộ receipt độc lập mới.
 - AI đã được owner xác nhận gọi live; không dùng AI tạo số tiền hay điều khiển ký.
-- Allocator tổn thất chưa bật: protocol parity chưa hoàn tất.
+- Allocator v1 có25 vector khớp executable Devnet trong VM, phạm vi solvent/price-triggered/không e-mode. Source build match chưa có. [Evidence](../evidence/liquidation/README.md), [nghiệm thu](../testing/allocation-acceptance.md); không claim tối ưu toàn cục hoặc mọi cấu hình Kamino đều hỗ trợ.
 - Không công bố doanh thu, người dùng trả tiền, pilot hoặc hiệu quả giảm thanh lý chưa đo.
 
 Tài liệu này là bản đồ evidence của picachu, không tự gán điểm hoặc thay rubric của cuộc thi.

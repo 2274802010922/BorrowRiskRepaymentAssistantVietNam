@@ -3,7 +3,8 @@ import { resolve, dirname, relative } from "node:path";
 import { tmpdir } from "node:os";
 import { spawnSync } from "node:child_process";
 const base = process.cwd();
-const trace = resolve(base, ".next/server/app/api/demo/route.js.nft.json");
+const routePath = process.argv.includes("--allocator") ? "portfolio/allocate" : "demo";
+const trace = resolve(base, `.next/server/app/api/${routePath}/route.js.nft.json`);
 const { files } = JSON.parse(await readFile(trace, "utf8"));
 files.push("route.js");
 const target = await mkdtemp(resolve(tmpdir(), "picachu-bundle-"));
@@ -41,8 +42,9 @@ const probe = spawnSync(
     process.env.PLAN_BINDING_SECRET='0'.repeat(32);
     delete process.env.RATE_LIMIT_REDIS_URL; delete process.env.RATE_LIMIT_REDIS_TOKEN;
     globalThis.fetch=async()=>{throw new Error('OFFLINE_RPC_PROBE');};
-    const route=createRequire(process.cwd()+'/probe.cjs')('./.next/server/app/api/demo/route.js');
-    const response=await route.routeModule.userland.POST(new Request('http://localhost/api/demo',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({wallet:'CXjKGEBNTTotzoF26nGPfAG4AFicGgP72SMqUQKY1pJN',action:'check'})}));
+    const route=createRequire(process.cwd()+'/probe.cjs')('./.next/server/app/api/${routePath}/route.js');
+    const input=${JSON.stringify(routePath === "demo" ? { wallet: "CXjKGEBNTTotzoF26nGPfAG4AFicGgP72SMqUQKY1pJN", action: "check" } : { source: "devnet", wallet: "3kHRwxR1vgCiyNRLozyQU3NWEv3hR54Cc5rsvreyFmRo", positions: ["HuUuEHfYSUADS6XBJqznm5XnhhVQ11xukVJnqt62RKkE"], goal: { budgetAtomic: "1000000", reserveAtomic: "1000000", shockBps: 4500, bufferBps: 500 } })};
+    const response=await route.routeModule.userland.POST(new Request('http://localhost/api/${routePath}',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(input)}));
     const result=await response.json(); console.log('COMPILED_CONFIGURED_ROUTE',response.status,result.error?.code);
     if(result.error?.code!=='DEVNET_UNAVAILABLE')throw new Error('COMPILED_ROUTE_IMPORT_FAILED');`,
   ],

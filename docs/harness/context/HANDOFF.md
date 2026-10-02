@@ -1,5 +1,9 @@
 # Bàn giao
 
+02/10: người dùng đã duyệt hoàn thành allocator end-to-end theo [plan active](../plans/active/loss-allocator-v1.md). Hướng dẫn giữ allocator tắt bên dưới là checkpoint cũ; cổng protocol parity vẫn bắt buộc. Bắt đầu fingerprint/VM proof trên WSL có sẵn, tiếp tục core/API/journal/UI và evidence. Không thay đổi quyền file URLs đang chờ riêng cho Social preview.
+
+03/10 checkpoint:25 VM vectors exact, hash5f3b..., live read-only context/plan225ms. API/UI/journal đã có; chưa push hoặc có partial receipt mới. Tiếp tục full QA/responsive/bundle → publish main/CI/Vercel → vòng partial test signer với cap1 USDC → evidence/README/slide. Giữ test port riêng `PICACHU_TEST_PORT=3102` vì3100 là server build cũ, không dùng kết quả hydrate lỗi của server đó để đánh giá code mới.
+
 Đợt mới được user duyệt ngày02/10: [final-demo-day](../plans/active/final-demo-day.md). Sản phẩm mới local109 unit/34 browser/check/build PASS; giữ allocator tắt. Đang dựng deck12 slide bằng bundled artifact-tool và clip live. Files private trong work/presentation; chỉ source/notes/poster vào Git và binary chọn lọc lên Release. Không interviews. Xem [validation](../../testing/final-demo-day.md), cập nhật sau live CI/deploy/publish, không dừng ở draft.
 
 Product19c156a CI/Vercel PASS; privacy projection mới local110 unit/check PASS. Deck/PDF/clip đã xuất và xem, source/preview/notes/Q&A đã chọn cho repo; Release v0.2.0-final-demo đang chuẩn bị. Clip là thao tác synthetic +historical receipt, không quay ký và không gửi tx mới. Chrome upload bị quyền file URLs; pending lựa chọn user, không tự bật. Hoàn tất publish/download/CI checkpoint trước khi chốt.

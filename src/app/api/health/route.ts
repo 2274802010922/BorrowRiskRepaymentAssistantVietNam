@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { executionReadiness } from "../../../backend/services/readiness";
+import { liquidationManifest } from "../../../core/liquidation/manifest";
 export function GET() {
   const execution = executionReadiness();
   return NextResponse.json(
@@ -15,7 +16,14 @@ export function GET() {
       portfolioPlanStoreConfigured: Boolean(
         process.env.RATE_LIMIT_REDIS_URL && process.env.RATE_LIMIT_REDIS_TOKEN,
       ),
-      allocator: { available: false, reason: "LIQUIDATION_PARITY_NOT_VERIFIED" },
+      allocator: {
+        available: liquidationManifest.verified && execution.configured,
+        modelVerified: liquidationManifest.verified,
+        modelVersion: liquidationManifest.version,
+        evidence: liquidationManifest.evidence,
+        checkedPerQuote: true,
+        scope: "solvent price-triggered SOL/USDC, no e-mode",
+      },
       aiSharedBudgetConfigured: Boolean(
         process.env.RATE_LIMIT_REDIS_URL && process.env.RATE_LIMIT_REDIS_TOKEN,
       ),

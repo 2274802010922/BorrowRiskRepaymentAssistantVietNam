@@ -1,5 +1,13 @@
 # Trạng thái hiện tại — 01/10/2026
 
+## Allocator — triển khai được duyệt 02/10
+
+- 03/10:25 vector khớp executable Devnet trong LiteSVM; source build match chưa có. Core finite-grid/baselines và quote server đã có; CLI đọc live3 khoản và tính plan trong budget1 USDC (compute225ms, một sample).
+- UI/API/journal partial đã triển khai, explicit acceptance/review, frozen receipts và block legacy bypass. Các test mục tiêu đang pass; còn full browser/responsive/bundle, deploy và vòng partial Devnet thật trước nghiệm thu. [Cổng](../../testing/allocation-acceptance.md).
+
+- Người dùng yêu cầu hoàn thành end-to-end theo [plan allocator](../plans/active/loss-allocator-v1.md). Bắt đầu từ fingerprint/context và harness đối chứng executable; chưa bật allocator hoặc đánh dấu model verified.
+- Đã đồng bộ main tới 1ed1b2d, giữ chỉnh sửa tiêu đề slide của người dùng. LiteSVM Node không có native Windows package; Ubuntu-22.04 WSL có sẵn, đang chuẩn bị harness riêng ngoài bundle Vercel.
+
 ## Sprint chung kết — 02/10
 
 - Người dùng duyệt workflow sản phẩm → demo → slide → ngữ cảnh/evidence → commit tiếng Việt/push main → README/Release. Không interviews/outreach. [Plan active](../plans/active/final-demo-day.md).

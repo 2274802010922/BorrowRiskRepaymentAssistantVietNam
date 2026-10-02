@@ -221,7 +221,7 @@ function supported(o: KaminoObligation, ids: ReturnType<typeof configuredMarket>
     (!borrows[0] || borrows[0].reserveAddress === ids.debt)
   );
 }
-async function supportedObligations(
+export async function supportedObligations(
   context: Awaited<ReturnType<typeof loadMarket>>,
   wallet: string,
   position?: string,

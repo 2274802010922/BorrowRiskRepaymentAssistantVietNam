@@ -18,6 +18,8 @@ import { compactNumber, exactToken } from "../../../shared/format";
 import type { PositionSnapshot, ExecutionRecord } from "../../../shared/types";
 import type { GoalPlan, RepaymentGoal, PortfolioSnapshot } from "../../../shared/portfolio";
 import { GoalDraft, PortfolioExplanation } from "./assistance";
+import { AllocationControls, AllocationDetails } from "./allocation";
+import type { AllocationQuote, PortfolioPlan } from "../../../shared/allocation";
 type Prepared = {
   token: string;
   transaction: string;
@@ -27,13 +29,14 @@ type Prepared = {
   step: number;
   total: number;
   lastValidBlockHeight: number;
-  plan: GoalPlan;
+  plan: PortfolioPlan;
+  position?: string;
   portfolio: PortfolioSnapshot;
   reviewRequired: boolean;
 };
 type Session = {
   token: string;
-  plan: GoalPlan;
+  plan: PortfolioPlan;
   portfolio: PortfolioSnapshot;
   goal: RepaymentGoal;
   expiresAt: number;
@@ -47,6 +50,7 @@ type Session = {
 };
 type Status = {
   phase: string;
+  reason?: string;
   cursor: number;
   receipts: { signature: string; position: string; repayAtomic: string }[];
 };
@@ -96,6 +100,11 @@ function Content({ wallet }: { wallet: string | null }) {
     [prepared, setPrepared] = useState<Prepared | null>(null),
     [status, setStatus] = useState<Status | null>(null);
   const [reviewed, setReviewed] = useState(false);
+  const [allocationResult, setAllocationResult] = useState<{
+    key: string;
+    quote: AllocationQuote;
+  } | null>(null);
+  const [acceptedPartial, setAcceptedPartial] = useState(false);
   const [afterPlan, setAfterPlan] = useState<GoalPlan | null>(null);
   const [afterError, setAfterError] = useState(false);
   const [afterInfo, setAfterInfo] = useState<{ balance: string; observedAt: string } | null>(null);
@@ -135,8 +144,12 @@ function Content({ wallet }: { wallet: string | null }) {
       return null;
     }
   }, [portfolio, goal]);
-  const plan = session?.plan ?? calculated,
-    shown = session?.portfolio.positions ?? portfolio.positions;
+  const allocationKey = JSON.stringify({ wallet, selected, goal, portfolio });
+  const allocation = allocationResult?.key === allocationKey ? allocationResult.quote : null;
+  const plan = session?.plan ?? (allocation?.state === "ready" ? allocation.plan : calculated),
+    shown =
+      session?.portfolio.positions ??
+      (allocation?.state === "ready" ? allocation.portfolio.positions : portfolio.positions);
   const locked = Boolean(session) || busy;
   const balance = portfolio.positions[0]?.walletDebtAtomic ?? "0";
   const label = (s: PositionSnapshot) =>
@@ -301,10 +314,17 @@ function Content({ wallet }: { wallet: string | null }) {
     try {
       let s = session;
       if (!s) {
+        const partial =
+          allocation?.state === "ready" && allocation.plan.state === "partial_available";
+        if (partial && (!acceptedPartial || !allocation.executionAllowed || !allocation.token))
+          throw new Error("ALLOCATION_REVIEW_REQUIRED");
         const r = await postApi<Omit<Session, "goal" | "pending">>("/api/plans", {
           wallet,
           positions: selected,
           goal,
+          ...(partial
+            ? { mode: "loss-allocation-v1", quoteToken: allocation.token, acceptedPartial: true }
+            : {}),
         });
         s = { ...r, goal, pending: false };
         persist(wallet, s);
@@ -344,7 +364,9 @@ function Content({ wallet }: { wallet: string | null }) {
         pendingReceipt: {
           signature: bs58.encode(signed.signatures[0]),
           bindingToken: prepared.token,
-          position: prepared.step > 0 ? session.plan.steps[prepared.step - 1].position : "",
+          position:
+            prepared.position ??
+            (prepared.step > 0 ? session.plan.steps[prepared.step - 1].position : ""),
           repayAtomic: prepared.repayAtomic,
         },
       };
@@ -652,7 +674,9 @@ function Content({ wallet }: { wallet: string | null }) {
                 {amount(
                   status?.phase === "verified"
                     ? status.receipts.reduce((sum, r) => sum + BigInt(r.repayAtomic), 0n).toString()
-                    : plan.requiredAtomic,
+                    : plan.version === "allocation-v1"
+                      ? plan.totalRepayAtomic
+                      : plan.requiredAtomic,
                 )}{" "}
                 USDC
               </p>
@@ -660,10 +684,14 @@ function Content({ wallet }: { wallet: string | null }) {
                 {t(
                   status?.phase === "verified"
                     ? "Tổng đã trả, đối chiếu từ biên nhận."
-                    : "Tổng cần trả để các khoản đã chọn đạt mục tiêu.",
+                    : plan.version === "allocation-v1"
+                      ? "Tổng tiền phân bổ trong ngân sách; chưa đạt mọi mục tiêu."
+                      : "Tổng cần trả để các khoản đã chọn đạt mục tiêu.",
                   status?.phase === "verified"
                     ? "Total repaid, verified from receipts."
-                    : "Total repayment needed for your selected loans to meet the goal.",
+                    : plan.version === "allocation-v1"
+                      ? "Total allocated within budget; not all goals are met."
+                      : "Total repayment needed for your selected loans to meet the goal.",
                 )}
               </p>
               {plan.state === "already_met" ? (
@@ -677,8 +705,24 @@ function Content({ wallet }: { wallet: string | null }) {
                 <Notice tone="warning" title={t("Chưa đủ ngân sách", "Budget is insufficient")}>
                   {t("Cần thêm", "You need another")} {amount(plan.shortfallAtomic)} USDC.{" "}
                   {t(
-                    "Chưa có phương án trong ngân sách này. Xem lại ngân sách, tiền muốn giữ hoặc mục tiêu.",
-                    "No plan fits this budget. Review the budget, reserve or goal.",
+                    "Chưa đủ để đạt mọi mục tiêu. Bạn có thể xem cách phân bổ để cải thiện một phần hoặc điều chỉnh ngân sách.",
+                    "The budget cannot meet every goal. Explore partial allocation or review the budget.",
+                  )}
+                </Notice>
+              ) : plan.version === "allocation-v1" ? (
+                <Notice
+                  tone="warning"
+                  title={
+                    plan.state === "no_beneficial_allocation"
+                      ? t("Chưa đề xuất trả thêm", "No further repayment proposed")
+                      : t("Cải thiện một phần", "Partial improvement")
+                  }
+                >
+                  {t("Sau khi trả, còn", "After repayment, you keep")}{" "}
+                  {amount(plan.walletAfterAtomic)} USDC.{" "}
+                  {t(
+                    "Một số khoản vẫn chưa đạt dư địa mục tiêu.",
+                    "Some loans still fall short of the target buffer.",
                   )}
                 </Notice>
               ) : (
@@ -686,6 +730,21 @@ function Content({ wallet }: { wallet: string | null }) {
                   {t("Sau khi trả, còn", "After repayment, you keep")}{" "}
                   {amount(plan.walletAfterAtomic)} USDC {t("trong ví.", "in your wallet.")}
                 </Notice>
+              )}
+              {!session && calculated?.state === "insufficient_budget" && goal && (
+                <AllocationControls
+                  key={allocationKey}
+                  wallet={wallet}
+                  positions={selected}
+                  goal={goal}
+                  quote={allocation}
+                  disabled={busy}
+                  onQuote={(quote) => {
+                    setAllocationResult({ key: allocationKey, quote });
+                    setAcceptedPartial(false);
+                    setError(null);
+                  }}
+                />
               )}
               <div className="goal-results">
                 {plan.steps.map((step) => {
@@ -700,6 +759,15 @@ function Content({ wallet }: { wallet: string | null }) {
                       <span>
                         {plan.state === "insufficient_budget" ? (
                           t("Chưa lập bước trả nợ", "No repayment step prepared")
+                        ) : plan.version === "allocation-v1" && BigInt(step.repayAtomic) === 0n ? (
+                          t(
+                            "meetsGoal" in step && step.meetsGoal
+                              ? "Không cần trả"
+                              : "Chưa phân bổ",
+                            "meetsGoal" in step && step.meetsGoal
+                              ? "No repayment needed"
+                              : "Not allocated",
+                          )
                         ) : (
                           <>
                             {t(session ? "Theo phương án" : "Trả", session ? "Planned" : "Repay")}{" "}
@@ -707,6 +775,13 @@ function Content({ wallet }: { wallet: string | null }) {
                           </>
                         )}
                       </span>
+                      {"meetsGoal" in step && (
+                        <span>
+                          {step.meetsGoal
+                            ? t("Đạt mục tiêu", "Goal met")
+                            : t("Chưa đạt mục tiêu", "Goal not met")}
+                        </span>
+                      )}
                       <span>
                         {t(
                           plan.state === "insufficient_budget"
@@ -731,21 +806,44 @@ function Content({ wallet }: { wallet: string | null }) {
                   "Estimates use current prices and parameters. Interest or price changes require a new plan. Liquidation avoidance is not guaranteed.",
                 )}
               </p>
-              {!session && goal && portfolio.positions.length > 0 && (
-                <PortfolioExplanation
-                  key={JSON.stringify({ goal, locale, portfolio })}
-                  portfolio={portfolio}
-                  goal={goal}
-                />
+              {plan.version === "allocation-v1" && (
+                <AllocationDetails plan={plan} active={Boolean(session)} />
               )}
-              {wallet && plan.state === "achievable" && (
+              {!session &&
+                plan.version !== "allocation-v1" &&
+                goal &&
+                portfolio.positions.length > 0 && (
+                  <PortfolioExplanation
+                    key={JSON.stringify({ goal, locale, portfolio })}
+                    portfolio={portfolio}
+                    goal={goal}
+                  />
+                )}
+              {wallet && (plan.state === "achievable" || plan.state === "partial_available") && (
                 <div className="goal-actions">
+                  {!session && plan.state === "partial_available" && (
+                    <label className="allocation-accept">
+                      <input
+                        type="checkbox"
+                        checked={acceptedPartial}
+                        onChange={(e) => setAcceptedPartial(e.target.checked)}
+                      />
+                      {t(
+                        "Tôi đã xem phân bổ và chấp nhận trả một phần; chưa đạt mọi mục tiêu.",
+                        "I reviewed this partial repayment and accept that not all goals are met.",
+                      )}
+                    </label>
+                  )}
                   {!session?.pending &&
                     status?.phase !== "verified" &&
                     status?.phase !== "failed" && (
                       <button
                         className="button"
-                        disabled={busy || shown.some((s) => s.warnings.includes("STALE_DATA"))}
+                        disabled={
+                          busy ||
+                          (!session && plan.state === "partial_available" && !acceptedPartial) ||
+                          shown.some((s) => s.warnings.includes("STALE_DATA"))
+                        }
                         onClick={() => void prepare()}
                       >
                         {busy
@@ -815,7 +913,9 @@ function Content({ wallet }: { wallet: string | null }) {
                   tone={status.phase === "verified" ? "success" : "info"}
                   title={
                     status.phase === "verified"
-                      ? t("Đã xác minh toàn bộ bước trả nợ", "All repayments verified")
+                      ? plan.version === "allocation-v1"
+                        ? t("Đã xác minh các bước trả nợ", "Repayments verified")
+                        : t("Đã xác minh toàn bộ bước trả nợ", "All repayments verified")
                       : status.phase === "ready"
                         ? t("Có thể chuẩn bị bước tiếp theo", "Ready for the next step")
                         : status.phase === "failed"
@@ -826,6 +926,7 @@ function Content({ wallet }: { wallet: string | null }) {
                             )
                   }
                 >
+                  {status.reason && <p>{errorMessage(status.reason, locale)}</p>}
                   {status.receipts.map((r) => (
                     <p key={r.signature}>
                       <a
@@ -861,8 +962,12 @@ function Content({ wallet }: { wallet: string | null }) {
                     ) : (
                       <p>
                         {t(
-                          "Giá hoặc lãi đã đổi sau khi trả. Cần trả thêm",
-                          "Prices or interest changed after repayment. Additional repayment needed:",
+                          session?.plan.version === "allocation-v1"
+                            ? "Phương án trả một phần đã được xác minh. Để đạt mọi mục tiêu, cần trả thêm"
+                            : "Giá hoặc lãi đã đổi sau khi trả. Cần trả thêm",
+                          session?.plan.version === "allocation-v1"
+                            ? "Partial repayment was verified. To meet all goals, further repayment is needed:"
+                            : "Prices or interest changed after repayment. Additional repayment needed:",
                         )}{" "}
                         {amount(afterPlan.requiredAtomic)} USDC.{" "}
                         {t(
@@ -894,8 +999,8 @@ function Content({ wallet }: { wallet: string | null }) {
         <summary>{t("Nguồn dữ liệu và giới hạn", "Data and limitations")}</summary>
         <p>
           {t(
-            "MVP: tối đa ba vị thế, một ví, cùng cặp SOL/USDC trên Kamino Devnet. Dư địa được tính từ giá đã giảm trong kịch bản. Mô hình allocator theo tổn thất đang tắt vì chưa hoàn tất kiểm chứng protocol.",
-            "MVP: up to three positions, one wallet, one SOL/USDC pair on Kamino Devnet. Buffer is measured from the stressed price. Loss-based allocation is disabled pending protocol verification.",
+            "MVP: tối đa ba vị thế, một ví, cùng cặp SOL/USDC trên Kamino Devnet. Dư địa tính từ giá kịch bản. Phân bổ xét một lượt thanh lý, theo mô hình đã đối chiếu executable Devnet; phiên bản hoặc cấu hình không hỗ trợ sẽ chặn tính năng.",
+            "MVP: up to three positions, one wallet, one SOL/USDC pair on Kamino Devnet. Buffer uses the scenario price. Allocation models one liquidation event and was compared with the Devnet executable; unsupported versions or configurations disable the feature.",
           )}
         </p>
         {positions.some((s) => s.warnings.includes("PRICE_DELAYED")) && (

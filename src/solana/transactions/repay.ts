@@ -37,6 +37,13 @@ const prepareSchema = z.object({
   constraints: constraintsSchema,
   repayAtomic: z.string().regex(/^\d{1,20}$/),
 });
+const allocationAuthorizationSchema = z.object({
+  kind: z.literal("allocation"),
+  planId: z.uuid(),
+  revision: z.number().int().positive(),
+  programFingerprint: z.string().regex(/^[a-f0-9]{64}$/),
+});
+export type AllocationAuthorization = z.infer<typeof allocationAuthorizationSchema>;
 const bindingSchema = z.object({
   version: z.literal(1),
   wallet: addressText,
@@ -49,10 +56,17 @@ const bindingSchema = z.object({
   expiresAt: z.number(),
   lastValidBlockHeight: z.number(),
   feeLamports: z.string(),
+  policy: allocationAuthorizationSchema.optional(),
 });
 export const messageHash = (bytes: Uint8Array) => createHash("sha256").update(bytes).digest("hex");
 
-export async function prepareRepayment(input: unknown) {
+export async function prepareRepayment(
+  input: unknown,
+  allocationAuthorization?: AllocationAuthorization,
+) {
+  const policy = allocationAuthorization
+    ? allocationAuthorizationSchema.parse(allocationAuthorization)
+    : undefined;
   const request = prepareSchema.parse(input);
   // Validate deployment readiness before spending RPC calls.
   seal({ readiness: true });
@@ -129,6 +143,7 @@ export async function prepareRepayment(input: unknown) {
     expiresAt: Date.now() + 90000,
     lastValidBlockHeight: latest.lastValidBlockHeight,
     feeLamports: String(fee.value),
+    policy,
   });
   return {
     token: seal(payload),
@@ -144,12 +159,14 @@ export async function prepareRepayment(input: unknown) {
 
 export async function submitRepayment(
   input: unknown,
-  beforeSend?: (signature: string) => Promise<void>,
+  beforeSend?: (signature: string, recovered?: boolean) => Promise<void>,
 ) {
   const { token, transaction } = z
     .object({ token: z.string().max(20000), transaction: z.string().max(8192) })
     .parse(input);
   const bound = bindingSchema.parse(unseal(token));
+  if (bound.policy?.kind === "allocation" && !beforeSend)
+    throw new AppError("ALLOCATION_PLAN_REQUIRED", 409);
   const tx = VersionedTransaction.deserialize(Buffer.from(transaction, "base64")),
     message = tx.message.serialize();
   if (
@@ -173,7 +190,8 @@ export async function submitRepayment(
   const existing = await c.getSignatureStatuses([signature], { searchTransactionHistory: true });
   if (existing.value[0]) {
     // Recover a known signature into the portfolio journal without broadcasting twice.
-    await beforeSend?.(signature);
+    if (bound.policy) await beforeSend?.(signature, true);
+    else await beforeSend?.(signature);
     return { signature, phase: existing.value[0].err ? "failed" : "submitted" };
   }
   if (

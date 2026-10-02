@@ -1,5 +1,45 @@
 import type { Locale } from "../../shared/types";
 const messages: Record<string, [string, string]> = {
+  ALLOCATION_REVIEW_REQUIRED: [
+    "Xem phân bổ và xác nhận chấp nhận trả một phần trước khi tiếp tục.",
+    "Review the allocation and accept partial repayment before continuing.",
+  ],
+  ALLOCATION_PLAN_REQUIRED: [
+    "Giao dịch này phải gửi qua nhật ký phương án phân bổ.",
+    "This transaction must be submitted through its allocation plan journal.",
+  ],
+  ALLOCATION_NO_LONGER_BENEFICIAL: [
+    "Dữ liệu mới không còn đề xuất bước trả một phần này. Kế hoạch dừng; các biên nhận đã xác minh vẫn được giữ.",
+    "Fresh data no longer supports this partial repayment. The plan stops; verified receipts are retained.",
+  ],
+  ALLOCATION_NOT_NEEDED: [
+    "Mục tiêu hiện tại đã đạt hoặc đủ ngân sách. Dùng phương án mục tiêu thông thường.",
+    "The goal is already met or affordable. Use the regular goal plan.",
+  ],
+  UNSUPPORTED_INSOLVENCY: [
+    "Kịch bản đưa một khoản vào vùng gần mất khả năng trả nợ, ngoài phạm vi mô hình hiện tại. Điều chỉnh kịch bản; chưa tạo giao dịch.",
+    "The scenario puts a loan near insolvency, outside the current model scope. Review the scenario; no transaction was prepared.",
+  ],
+  UNSUPPORTED_LIQUIDATION_CONTEXT: [
+    "Loại vị thế hoặc tham số Kamino này chưa thuộc phạm vi đã kiểm chứng. Bạn vẫn có thể dùng planner mục tiêu.",
+    "This position or Kamino configuration is outside the verified model scope. The goal planner remains available.",
+  ],
+  UNSUPPORTED_LIQUIDATION_DUST: [
+    "Khoản vay quá nhỏ để mô hình biểu diễn chính xác mức làm tròn này. Chưa đề xuất giao dịch phân bổ.",
+    "The loan is too small for this rounding case in the model. No allocation transaction is proposed.",
+  ],
+  UNSUPPORTED_LIQUIDATION_LIQUIDITY: [
+    "Thanh khoản reserve không đáp ứng giả định mô hình hiện tại. Chưa đề xuất phân bổ.",
+    "Reserve liquidity does not meet the model assumptions. No allocation is proposed.",
+  ],
+  LIQUIDATION_PROGRAM_CHANGED: [
+    "Phiên bản Kamino đã đổi so với bản đối chứng. Phân bổ được tạm chặn để kiểm chứng lại.",
+    "Kamino changed since the reference verification. Allocation is disabled until reverified.",
+  ],
+  LIQUIDATION_PARITY_NOT_VERIFIED: [
+    "Mô hình thanh lý chưa qua đối chứng cho bản triển khai này.",
+    "The liquidation model has not passed reference verification for this deployment.",
+  ],
   WALLET_ACCOUNT_CHANGED: [
     "Tài khoản ví đã đổi trong lúc ký. Chưa gửi giao dịch; kết nối lại đúng ví rồi chuẩn bị bản mới.",
     "The wallet account changed while signing. Nothing was sent; reconnect the intended wallet and prepare a fresh preview.",

@@ -1,0 +1,64 @@
+{
+  "version": 1,
+  "passed": true,
+  "cases": 25,
+  "generatedAt": "2026-10-02T16:16:29.142Z",
+  "captureAt": "2026-10-02T15:23:50.160Z",
+  "program": "KLend2g3cP87fffoy8q1mQqGKjrxjC8boSyAYavgmjD",
+  "programData": "9uSbGW1y9H5Av6H5TKxQ1wnFApSq2t3oEpfF2YfjDQGA",
+  "upgradeSlot": "491561420",
+  "executableSha256": "5f3b2634e5a3d787baf5a119e4c400a9512723787b79d289b7c17e509bbce4c5",
+  "sourceCommitReference": "a08760976f51a3a58c4a0c6ea27b4a0e565bca79",
+  "sourceBuildMatched": false,
+  "vm": "litesvm@1.5.0",
+  "scope": "solvent, price-triggered, one collateral/debt, 100% borrow factor, no elevation group",
+  "modelFiles": [
+    {
+      "path": "src/core/liquidation/fixed-point.ts",
+      "sha256": "fe5583976455834fb336d3fbb32f4795e4b8a3d381969b78d0f57d04e4112164"
+    },
+    {
+      "path": "src/core/liquidation/kamino-price-event.ts",
+      "sha256": "25a8e4cfc4ae4a112207221f4348446b588b8cb0f9033dfb330317ae1e57dd5b"
+    }
+  ],
+  "verifiedFields": [
+    "eligible",
+    "debtAfterUserSf",
+    "collateralValueSf",
+    "debtValueSf",
+    "settleAmountSf",
+    "collateralTakenAtomic",
+    "liquidatorRepayAtomic",
+    "protocolFeeAtomic",
+    "grossRedeemedAtomic",
+    "lossUsd"
+  ],
+  "caseIds": [
+    "healthy",
+    "shock-3000",
+    "shock-3500",
+    "shock-4000",
+    "shock-4500",
+    "shock-4700",
+    "shock-4750",
+    "shock-4800",
+    "repay-1",
+    "repay-100000",
+    "repay-500000",
+    "repay-1000000",
+    "repay-2000000",
+    "repay-3000000",
+    "small-loan-full",
+    "small-loan-edge",
+    "fraction-exchange",
+    "protocol-fee",
+    "small-collateral",
+    "event-cap",
+    "threshold-80",
+    "threshold-80-repay",
+    "liquidation-boundary--1",
+    "liquidation-boundary-0",
+    "liquidation-boundary-1"
+  ]
+}

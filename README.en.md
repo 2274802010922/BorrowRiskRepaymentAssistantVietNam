@@ -57,6 +57,8 @@ Each loan has 1 SOL collateral at 100 USD; threshold 80%, borrow factor 1, USDC 
 
 ## What makes picachu useful?
 
+**When funds are insufficient:** allocation compares estimated one-event liquidation loss plus fees against no repayment, equal split and risk-first using the same data. Users review a partial plan and sign sequentially; verified receipts do not mean all goals are met. [Model and execution](docs/architecture/liquidation-model.md) · [25 executable reference cases](docs/evidence/liquidation/README.md).
+
 | Capability                        | Value                                                                              |
 | :-------------------------------- | :--------------------------------------------------------------------------------- |
 | **A goal beyond a metrics table** | Know what to repay and what to keep.                                               |
@@ -76,7 +78,7 @@ Each loan has 1 SOL collateral at 100 USD; threshold 80%, borrow factor 1, USDC 
 | **Phantom / AI usage**                        | Owner reported successful manual testing and live AI calls; [acceptance source](docs/testing/manual-acceptance-2026-10-01.md), not agent-recorded popup footage.                            |
 
 > [!IMPORTANT]
-> MVP supports **Kamino Devnet, one wallet and one SOL/USDC pair**. Prices and interest can change after repayment; verified receipts do not guarantee avoiding liquidation. **Loss-based allocation remains disabled** pending protocol parity. No unverified revenue or pilot claims.
+> MVP supports **Kamino Devnet, one wallet and one SOL/USDC pair**. Prices and interest can change after repayment; verified receipts do not guarantee avoiding liquidation. Allocation is restricted to the verified model scope; unsupported executable versions or configurations disable it. It finds the best result in a finite grid for one event, not a global optimum or probability forecast. No unverified revenue or pilot claims.
 
 ## How it works
 

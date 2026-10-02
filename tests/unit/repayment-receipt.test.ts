@@ -1,7 +1,8 @@
 import { afterEach, beforeEach, expect, it, vi } from "vitest";
 import { Keypair, TransactionMessage, SystemProgram, VersionedTransaction } from "@solana/web3.js";
 import { createHash } from "node:crypto";
-import { seal } from "../../src/backend/services/binding";
+import { seal, unseal } from "../../src/backend/services/binding";
+import { randomUUID } from "node:crypto";
 import { exampleSnapshot } from "../fixtures/position";
 const rpc = vi.hoisted(() => ({ getSignatureStatuses: vi.fn(), getTransaction: vi.fn() }));
 const current = vi.hoisted(() => vi.fn());
@@ -80,6 +81,23 @@ it("keeps confirmation separate from unmatched token effects", async () => {
     reason: "TOKEN_EFFECT_NOT_MATCHED",
   });
   expect(current).not.toHaveBeenCalled();
+});
+it("blocks allocation bindings submitted through the legacy endpoint without a journal hook", async () => {
+  const r = receipt(),
+    data = unseal(r.bindingToken) as Record<string, unknown>;
+  const allocation = seal({
+    ...data,
+    policy: {
+      kind: "allocation",
+      planId: randomUUID(),
+      revision: 1,
+      programFingerprint: "a".repeat(64),
+    },
+  });
+  await expect(
+    submitRepayment({ token: allocation, transaction: "not-a-signed-message" }),
+  ).rejects.toThrow("ALLOCATION_PLAN_REQUIRED");
+  expect(rpc.getSignatureStatuses).not.toHaveBeenCalled();
 });
 it("registers a known signed receipt in the portfolio journal without rechecking balances or broadcasting", async () => {
   const owner = Keypair.generate(),
