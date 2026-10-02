@@ -1,6 +1,6 @@
 # Hoàn thiện allocator trả nợ nhiều khoản — đề xuất ngày 02/10/2026
 
-Trạng thái: **người dùng đã duyệt triển khai end-to-end ngày 02/10**, chưa phải nghiệm thu hoàn thành. Phạm vi giữ picachu, Vercel + Kamino Solana Devnet, UI đơn giản, một người cùng Codex, chuẩn bị chung kết 10/10. Không mở thêm interviews/outreach trong đợt này.
+Trạng thái: **đã nghiệm thu allocator v1 ngày03/10 trong phạm vi bên dưới**. Main9fc07ff/143c8a7 đã CI/Vercel PASS, có partial receipt thật và Releasev0.3.0-allocator public/download hashes PASS. [Nghiệm thu](../../../testing/allocation-acceptance.md). Phạm vi giữ picachu, Vercel + Kamino Solana Devnet, UI đơn giản, một người cùng Codex, chuẩn bị chung kết 10/10. Không mở thêm interviews/outreach trong đợt này.
 
 ## 1. Kết quả sản phẩm cần đạt
 
@@ -263,13 +263,13 @@ Nếu đến hết 04/10 parity chưa đạt, công bố checkpoint đó và gi�
 
 ## 8. Định nghĩa hoàn thành allocator v1
 
-- [ ] Có supported scope, executable fingerprint và manifest model cụ thể.
-- [ ] Mô hình tạo cost từ account/protocol data; parity độc lập khớp mọi branch hỗ trợ.
-- [ ] Search + critical points + baselines tái chạy được, giới hạn lưới và giả định một lượt ghi rõ.
-- [ ] Server tính và bind quote; client/LLM không thể tự khai model verified hay sửa amount.
-- [ ] Partial execution có review và một vòng Devnet verified, kèm fault/recovery tests.
-- [ ] Goal state tách khỏi transaction state; reserve/budget/fees được giữ đúng.
-- [ ] UI VI/EN đơn giản, responsive/a11y, số ngắn và giải thích rõ.
-- [ ] README/slides/video/evidence đồng nhất; CI/build/bundle và Vercel pass.
+- [x] Có supported scope, executable fingerprint và manifest model cụ thể.
+- [x] Mô hình tạo cost từ account/protocol data; parity độc lập khớp các branch trong scope runtime.
+- [x] Search + critical points + baselines tái chạy được, giới hạn lưới và giả định một lượt ghi rõ.
+- [x] Server tính và bind quote; client/LLM không thể tự khai model verified hay sửa amount.
+- [x] Partial execution có review và một vòng Devnet verified, kèm fault/recovery tests.
+- [x] Goal state tách khỏi transaction state; reserve/budget/fees được giữ đúng.
+- [x] UI VI/EN đơn giản, responsive/a11y, số ngắn và giải thích rõ.
+- [x] README/slides/video/evidence đồng nhất; CI/build/bundle và Vercel pass.
 
 Môi trường: dự kiến dùng nguyên RPC/Kamino IDs, binding secret, Redis và OpenRouter hiện có. Phiên bản model là manifest trong source, không là env bypass. Harness có toolchain riêng ở máy/CI; không cần thêm private key hay model flag vào Vercel chỉ để bật tính năng.

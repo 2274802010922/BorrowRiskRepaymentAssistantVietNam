@@ -15,8 +15,10 @@
 - Journal verified, cursor1; USDC17,401774 xuống16,620792, debit chính xác780982 atomic. Nợ khoản đó5,403781 xuống4,622799 USDC. Các số là lịch sử thời điểm vòng test, không số dư hiện tại hay đo tổn thất thanh lý thực tế.
 - Full local:158 unit,45 browser, build25 routes; strict traced demo/allocator bundles2504/2505 PASS. VI/EN375/768/1024/1440 không overflow và ảnh đã xem. [Report](../evidence/devnet/allocator-cycle-2026-10-03.json).
 
-## Cổng còn cần đóng trước chốt release
+## Sau publish
 
-- README/demo/slide và artifact ghi đúng nguồn; CI/deploy và link public xác nhận.
+- 143c8a7 Quality37068551907/Vercel success. README/demo/slide/notes cập nhật phạm vi allocator và giữ walkthrough YouTube của owner.
+- [Releasev0.3.0-allocator](https://github.com/2274802010922/picachu__/releases/tag/v0.3.0-allocator) public prerelease; PPTX/PDF/MP4/ZIP tải không đăng nhập và SHA256 khớp bản local.
+- Deck12 slide/5 native tables có package/layout/font/import checks và từng render đã xem. PDF12 trang; chưa mở PowerPoint native. Clip68,2s decode PASS, caption VI, synthetic UI +receipt của vòng API riêng, không popup signing footage.
 
-Không gọi các cổng còn mở là đã xong. [Plan active](../harness/plans/active/loss-allocator-v1.md).
+Allocator v1 hoàn tất trong supported scope. Mainnet, cascade, e-mode, source build match và custom reserve guard chưa nằm trong nghiệm thu này. [Plan active](../harness/plans/active/loss-allocator-v1.md).

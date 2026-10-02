@@ -2,6 +2,8 @@
 
 ## Allocator — triển khai được duyệt 02/10
 
+- Đã chốt03/10:143c8a7 CI37068551907/Vercel PASS. Releasev0.3.0-allocator public, bốn asset public-download/SHA256 PASS; About cập nhật. Plan v1 đã tick theo evidence. Chưa kiểm PowerPoint native hoặc quay popup, không claim source build match/mainnet/cascade.
+
 - Checkpoint9fc07ff đã push main, Quality37066106588/Vercel success; live allocator available. Vòng API signer riêng verified0,780982 USDC/fee6000, số dư16,620792 >reserve1. [Nghiệm thu](../../testing/allocation-acceptance.md).
 - Deck/PDF12 trang cập nhật allocator và đã render kiểm; clip68,2s caption VI từ Vercel synthetic +receipt thật của vòng riêng, không popup signing. Artifacts đang đóng gói Releasev0.3.0-allocator. Không thêm env Vercel; Social preview permission vẫn chưa có câu trả lời.
 

@@ -1,5 +1,7 @@
 # Bàn giao
 
+Đã hoàn tất allocator v1 ngày03/10:143c8a7 CI37068551907/Vercel PASS, Releasev0.3.0-allocator public và bốn asset SHA256 PASS. Khi tiếp tục không chạy lại execute để đuổi giá; dùng evidence và active plan completed. Phiên bản/config đổi làm gate đóng đúng chủ đích, cần parity mới trước mở phạm vi. Không thay đổi quyền Social preview đang chờ trả lời.
+
 Allocator03/10:9fc07ff main/CI/Vercel PASS;158 unit/45 browser, bundle allocator2505. Một partial repayment thật0,780982 USDC đã verified qua API test signer; không chạy execute runner thêm để đuổi giá. Evidence trong docs/testing/allocation-acceptance.md. Deck12/clip68,2 đã kiểm; hoàn tất publishv0.3.0-allocator/public hashes rồi chốt docs. Phạm vi solvent/no e-mode/one-event/finite-grid; source build match chưa có.
 
 02/10: người dùng đã duyệt hoàn thành allocator end-to-end theo [plan active](../plans/active/loss-allocator-v1.md). Hướng dẫn giữ allocator tắt bên dưới là checkpoint cũ; cổng protocol parity vẫn bắt buộc. Bắt đầu fingerprint/VM proof trên WSL có sẵn, tiếp tục core/API/journal/UI và evidence. Không thay đổi quyền file URLs đang chờ riêng cho Social preview.
