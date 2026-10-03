@@ -1,6 +1,6 @@
 # Kiểm tra và phạm vi nghiệm thu
 
-Checkpoint 360e17f: **87 unit tests +32 browser tests**, format/lint/types/build, strict deployment bundle và [Quality CI](https://github.com/2274802010922/picachu__/actions/runs/36765109243) PASS. Kết quả chuyển thư mục ngày 01/10 ghi ở [reorganization](../evidence/validation/repository-reorganization.md).
+Baseline allocator03/10: **158 unit +45 browser**, build25 routes, strict bundle và CI/Vercel PASS; [nghiệm thu](allocation-acceptance.md). Sprint hiện tại thêm regression BN và evidence tái tạo; kết quả cuối ghi trong [nghiệm thu hồ sơ](final-repo-polish-2026-10-03.md). Checkpoint87/32 ngày01/10 là [lịch sử reorganization](../evidence/validation/repository-reorganization.md), không phải số hiện hành.
 
 | Cổng                     | Lệnh / bằng chứng                                |
 | ------------------------ | ------------------------------------------------ |
@@ -12,6 +12,6 @@ Checkpoint 360e17f: **87 unit tests +32 browser tests**, format/lint/types/build
 | Devnet thật              | [Ba vị thế +hai repay](live-devnet-cycle.md)     |
 | Thao tác Phantom         | [Báo cáo owner](manual-acceptance-2026-10-01.md) |
 
-Browser tests dùng mocked wallet cho các case chữ ký/pending, VI/EN bốn viewport 375/768/1024/1440 và axe. Chúng không thay chứng minh live. Allocator search chỉ có cost vectors trừu tượng, chưa thể công bố loss Kamino.
+Browser tests dùng mocked wallet cho chữ ký/pending, VI/EN375/768/1024/1440 và axe; không thay live proof. Allocator có search/core tests,25 executable VM cases và một partial receipt riêng. [Ví dụ/benchmark](../evidence/allocation/README.md) là synthetic compute, không phải số tiết kiệm đã đo trên người dùng.
 
-[Evidence index](../evidence/README.md) · [Lịch sử điều tra](../archive/README.md). Audit transitive tại checkpoint trước còn21 cảnh báo; không dùng audit fix force hoặc nâng dependency trong đợt dọn cấu trúc này.
+[Evidence index](../evidence/README.md) · [Lịch sử điều tra](../archive/README.md) · [Dependency triage hiện tại](dependency-review-2026-10-03.md). Không gọi CI/test parity là security audit hoặc mainnet readiness.

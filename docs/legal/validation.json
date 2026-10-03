@@ -13,5 +13,7 @@
     "localizedReadmeScopes": "passed"
   },
   "scope": "First-party contributions only. Third-party rights, supplied artwork and media are not relicensed; technical source/parity inspection is not clean-room certification or legal clearance.",
-  "runtimeCodeChanged": false
+  "runtimeCodeChanged": false,
+  "baselineCommit": "9fbd8875bd52f03a8676597bb6740adc178a4fb5",
+  "snapshotNote": "Licensing-phase validation before the later BN patch and final-repo polish; not a current dependency/runtime change report."
 }

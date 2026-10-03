@@ -1,0 +1,52 @@
+{
+  "source": "synthetic-example-no-chain-execution",
+  "goal": {
+    "budgetAtomic": "10000000",
+    "reserveAtomic": "20000000",
+    "shockBps": 3000,
+    "bufferBps": 500
+  },
+  "assumptions": "65/55/45 USDC debt; each 1 SOL at100 USD; threshold80%, borrow factor1; shared balance80; SOL shock30%; fee6000lamports/step, SOL100 USD. One-event model; no forecast or measured savings.",
+  "model": {
+    "available": true,
+    "version": "kamino-price-event-v1",
+    "algorithm": "finite-grid-prefix-v1",
+    "candidateCounts": [171, 163, 1]
+  },
+  "totalRepayAtomic": "9000001",
+  "unspentAtomic": "999999",
+  "baselines": [
+    {
+      "id": "none",
+      "totalRepayAtomic": "0",
+      "lossUsd": "0.9285713700000000105083675094874706701375544071197509765625",
+      "feeUsd": "0",
+      "costUsd": "0.9285713700000000105083675094874706701375544071197509765625",
+      "goalsMet": 1
+    },
+    {
+      "id": "equal",
+      "totalRepayAtomic": "10000000",
+      "lossUsd": "0.129828560000000058950730963402975248754955828189849853515625",
+      "feeUsd": "0.0012",
+      "costUsd": "0.131028560000000058950730963402975248754955828189849853515625",
+      "goalsMet": 2
+    },
+    {
+      "id": "risk_first",
+      "totalRepayAtomic": "10000000",
+      "lossUsd": "0",
+      "feeUsd": "0.0006",
+      "costUsd": "0.0006",
+      "goalsMet": 1
+    },
+    {
+      "id": "proposed",
+      "totalRepayAtomic": "9000001",
+      "lossUsd": "0",
+      "feeUsd": "0.0006",
+      "costUsd": "0.0006",
+      "goalsMet": 1
+    }
+  ]
+}

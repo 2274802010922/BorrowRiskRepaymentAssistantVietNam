@@ -1,5 +1,12 @@
 # Trạng thái hiện tại — 03/10/2026
 
+## Hồ sơ chung kết — được duyệt end-to-end
+
+- [Plan](../plans/active/final-repo-polish.md). Đồng bộ tài liệu cũ, định vị3 điểm mạnh/quantitative baselines, own-vs-integrated, buyer API/GTM hypothesis và nguồn thị trường; không phỏng vấn/outreach/traction giả.
+- BN5.2.2→5.2.5 là thay đổi package duy nhất; full audit26→25, omit-dev20 còn lại đã triage, không claim hết vulnerabilities. Regression process con kiểm maskn(0). [Review](../../testing/dependency-review-2026-10-03.md).
+- Benchmark30 samples cho1–3 vị thế synthetic stressed, p50/p95 compute; không SLA. Synthetic allocation không cần import SDK Devnet; import chỉ ở nhánh thật. E2E đợi response ready rồi kiểm UI, giữ failure/status assertions.
+- Local159 unit/45 browser/build25 routes/strict2504/links PASS, lần cuối không retry. Slide9/10 đã render/kiểm,10 slide khác byte-identical; finalizer/PDF12 PASS. Model source hash không đổi. Đang source publish → CI/Vercel → Releasev0.4.1/public SHA. Giữ25 VM/receipt/video, không ký thêm/mainnet. [Nghiệm thu](../../testing/final-repo-polish-2026-10-03.md).
+
 ## License — đã duyệt Apache-2.0
 
 - Người dùng chốt Apache-2.0 cho phần mã nguồn thuộc quyền cấp phép; LICENSE nguyên văn ASF, NOTICE dùng GitHub2274802010922. [Phạm vi](../../legal/README.md), [asset exclusions](../../legal/ASSETS.md), [plan](../plans/active/licensing.md).

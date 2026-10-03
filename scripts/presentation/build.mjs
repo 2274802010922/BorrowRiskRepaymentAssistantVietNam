@@ -263,27 +263,28 @@ text(s, "Bản nháp có schema, người dùng xem lại trước khi áp dụn
 text(s, "Số tiền do core kiểm tra\nProvider lỗi vẫn có form và fallback", 64, 478, 1130, 103, 29);
 text(s, "AI không chọn allocation và không có quyền ký", 64, 620, 1130, 34, 22, false, muted);
 s = slide(
-  "Khác biệt ở ngân sách chung và thực thi",
-  "Comparison based on vendor primary docs and GitHub readme, not audited competitors. Kamino/OneKey already provide borrow/repay/health; monitor repo scenarios+target repay. No claim no competitors. Picachu chosen focus sharedbudget/reserve and staged execution. Sources: https://github.com/csacanam/kamino-positions-monitor ; https://help.onekey.so/en/articles/13434810-how-to-borrow-cryptos-in-onekey-app",
+  "Ngân sách 10: giữ lại gần 1 USDC",
+  "Synthetic example only: shared balance80, reserve20, budget10, SOL shock30%, buffer5%; debt65/55/45, collateral1 SOL per loan at100 USD, threshold80%, factor1, fee6000lamports/step. Risk-first spends10USDC and proposal9.000001; both estimated one-event cost0.0006USD and goals1/3. Equal meets2/3 goals but costs about0.131USD. Objective loss plus fees differs from goal count; principal is not loss. Source: docs/evidence/allocation/demo-comparison.json. Existing products already support health/scenarios/repay; no absence/first-of-kind claim. Competitor sources: https://github.com/csacanam/kamino-positions-monitor ; https://defisaver.com/ .",
 );
 table(
   s,
   [
-    ["Giải pháp", "Trọng tâm được mô tả"],
-    ["Kamino / OneKey", "Borrow, repay và health của khoản vay"],
-    ["Positions Monitor", "Kịch bản giá, báo cáo và gợi ý repay"],
-    ["picachu", "Goal, budget/reserve chung và staged receipts"],
+    ["Cách trả", "Trả USDC", "Tổn thất + phí USD", "Đạt mục tiêu"],
+    ["Không trả", "0", "≈0,93", "1/3"],
+    ["Chia đều", "10", "≈0,13", "2/3"],
+    ["Ưu tiên rủi ro", "10", "0,0006", "1/3"],
+    ["Picachu đề xuất", "9,000001", "0,0006", "1/3"],
   ],
   64,
   183,
   1152,
   280,
-  [375, 777],
+  [405, 230, 292, 225],
 );
-text(s, "Phân bổ tiền khi chưa đủ ngân sách", 64, 512, 1130, 56, 34, true, blue);
+text(s, "Minh họa: cùng chi phí và mục tiêu đạt được", 64, 512, 1130, 56, 32, true, blue);
 text(
   s,
-  "25 ca khớp executable Devnet. Mô hình xét một lượt thanh lý.",
+  "Chưa đạt mọi mục tiêu. Mô hình một lượt, không bảo đảm tránh thanh lý.",
   64,
   595,
   1140,
@@ -293,14 +294,22 @@ text(
   muted,
 );
 s = slide(
-  "Kinh doanh là giả thuyết cần kiểm chứng",
-  "No interviews per user scope, no revenue/traction/WTP declared. Potential buyer borrower wanting reliable scenario planning or wallet integrating APIs. Hypothesis free goal planner then premium monitoring/API. No payment integration built. First go-to-market targeted DeFi communities/integration, not claiming signed partners.",
+  "Giả thuyết: API cho ví và dApp",
+  "Chosen buyer hypothesis: wallet/lending dApp developers may pay for hosted API, model maintenance and integration support; borrowers are end users. No billing/commercial API, interviews, revenue, WTP or pilot claimed. GTM plan demo/sandbox -> voluntary test integration -> measure partial-goal understanding, completion/recovery and repeat demand after competition. Open-source code can be self-hosted; paid value must be operations/maintenance/support. Market context only: Kamino Forum July2026 reported repay volume0.38BUSD, not Picachu TAM/demand. Source: docs/product/market-and-business.md ; https://gov.kamino.finance/t/kamino-lend-monthly-risk-insights-july-2026/888 .",
 );
-text(s, "Bản cơ bản: người vay thử phương án theo mục tiêu", 64, 190, 1130, 77, 32, true);
-text(s, "Giả thuyết trả tiền: theo dõi hoặc tích hợp API\ncho ví và dApp", 64, 331, 1130, 113, 31);
+text(s, "Người dùng: người vay cần giữ tiền khi trả nợ", 64, 190, 1130, 77, 32, true);
 text(
   s,
-  "Kênh thử ban đầu: cộng đồng DeFi và đối tác tích hợp\nChưa có doanh thu hoặc pilot được xác minh",
+  "Bên mua giả định: ví/dApp lending tích hợp API\nVận hành API, cập nhật mô hình và hỗ trợ tích hợp",
+  64,
+  331,
+  1130,
+  113,
+  31,
+);
+text(
+  s,
+  "Demo/sandbox → tích hợp thử → đo nhu cầu lặp lại\nChưa có billing, pilot hoặc doanh thu",
   64,
   489,
   1130,

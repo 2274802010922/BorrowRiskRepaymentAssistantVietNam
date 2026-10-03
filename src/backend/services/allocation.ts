@@ -4,7 +4,6 @@ import { goalSchema, type RepaymentGoal } from "../../shared/portfolio";
 import type { AllocationPlan, AllocationQuote } from "../../shared/allocation";
 import { planAllocation, type AllocationContext } from "../../core/allocation/plan";
 import { exampleAllocationContext } from "../../core/allocation/example";
-import { readAllocationContext } from "../../solana/adapters/kamino-liquidation";
 import { isPublicKey } from "./readiness";
 import { redis } from "./redis";
 import { seal, unseal } from "./binding";
@@ -73,7 +72,9 @@ export async function allocationQuote(input: unknown): Promise<AllocationQuote> 
     context =
       request.source === "synthetic"
         ? exampleAllocationContext(request.goal.shockBps, request.positions)
-        : await readAllocationContext(request.wallet, request.positions, request.goal.shockBps);
+        : await (
+            await import("../../solana/adapters/kamino-liquidation")
+          ).readAllocationContext(request.wallet, request.positions, request.goal.shockBps);
     plan = planAllocation(context, request.goal);
   } catch (e) {
     const code = e instanceof AppError ? e.code : e instanceof Error ? e.message : "";

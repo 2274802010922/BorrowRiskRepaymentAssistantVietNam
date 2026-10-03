@@ -8,7 +8,7 @@
 <p align="center"><strong>Tiếng Việt</strong> · <a href="README.en.md">English</a></p>
 
 <p align="center">
-  Công cụ lập phương án trả nợ có mục tiêu cho người vay trên Solana.<br>
+  Cân đối tối đa ba khoản vay Kamino bằng một ngân sách và tiền dự trữ chung.<br>
   <strong>Chọn khoản vay. Giữ tiền dự trữ. Xem lại trước khi tự ký.</strong>
 </p>
 
@@ -31,6 +31,12 @@
 ## Trả bao nhiêu để đạt mục tiêu?
 
 Người vay cần giảm rủi ro khi giá thế chấp giảm, nhưng vẫn cần tiền trong ví. picachu tính **số cần trả, tiền còn lại và khoảng cách tới mục tiêu** cho tối đa ba khoản vay, theo ngân sách và kịch bản người dùng chọn.
+
+| Điểm mạnh                             | Điều có thể kiểm                                                                                                                          |
+| ------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| **Một ngân sách, nhiều khoản**        | Số dư dùng chung, reserve rõ ràng; khoản đã đạt mục tiêu không phải trả thêm.                                                             |
+| **Phân bổ khi chưa đủ tiền**          | So cùng dữ liệu với không trả/chia đều/ưu tiên rủi ro; [ví dụ tái tạo được](docs/evidence/allocation/README.md).                          |
+| **Mô hình và thực thi có bằng chứng** | [25 ca VM](docs/evidence/liquidation/README.md), preview/review, ký từng bước và [receipt Devnet](docs/testing/allocation-acceptance.md). |
 
 ![Giao diện lập phương án trả nợ theo mục tiêu, tiếng Việt.](docs/assets/screenshots/portfolio-vi.png)
 
@@ -57,7 +63,19 @@ Người vay cần giảm rủi ro khi giá thế chấp giảm, nhưng vẫn c�
 
 Mỗi khoản thế chấp 1 SOL × 100 USD; threshold 80%, borrow factor 1, USDC 1 USD; số dư chung 80 USDC. Dư địa đo từ giá sau kịch bản; giữ giá token nợ cố định, chưa gồm lãi phát sinh. Đây là giả định minh họa. [Phạm vi sản phẩm](docs/product/README.md).
 
-## Điều gì làm nên picachu?
+### Khi chỉ có 10 USDC để trả
+
+| Cách trả trong cùng ví dụ |    Dùng ngân sách | Loss một lượt + phí ước tính | Đạt mục tiêu |
+| ------------------------- | ----------------: | ---------------------------: | -----------: |
+| Không trả                 |            0 USDC |                    ≈0,93 USD |          1/3 |
+| Chia đều                  |           10 USDC |                    ≈0,13 USD |          2/3 |
+| Ưu tiên rủi ro            |           10 USDC |                   0,0006 USD |          1/3 |
+| **Picachu đề xuất**       | **9,000001 USDC** |               **0,0006 USD** |      **1/3** |
+
+Trong ví dụ này, đề xuất đạt **cùng chi phí ước tính và số mục tiêu như ưu tiên rủi ro, giữ gần1 USDC ngân sách chưa dùng**. Chia đều đạt nhiều goal hơn nhưng chi phí cao hơn; objective là loss một lượt +fee, không phải tối đa số goal. Mục tiêu vẫn chưa đạt đầy đủ. Fee giả định6000lamports/bước với SOL100USD; principal trả nợ không phải loss. [Input/output](docs/evidence/allocation/demo-comparison.json) · [benchmark compute](docs/evidence/allocation/README.md).
+
+<details>
+<summary><strong>Chi tiết chức năng và ranh giới thực thi</strong></summary>
 
 **Khi tiền không đủ:** phân bổ đề xuất dựa trên tổn thất của một lượt thanh lý cộng phí. So sánh với không trả, chia đều và ưu tiên rủi ro trên cùng dữ liệu. Người dùng duyệt partial plan và ký từng bước; receipt verified không có nghĩa mọi mục tiêu đã đạt. [Mô hình và luồng](docs/architecture/liquidation-model.md) · [25 ca đối chứng executable](docs/evidence/liquidation/README.md).
 
@@ -70,7 +88,11 @@ Mỗi khoản thế chấp 1 SOL × 100 USD; threshold 80%, borrow factor 1, USD
 | **Kết quả có thể đối chiếu**         | Nhật ký Redis, receipt và kiểm lại mục tiêu theo dữ liệu mới.                |
 | **Mục tiêu bằng câu ngắn**           | AI hoặc quy tắc tạo draft, core kiểm giá trị, bạn xem lại trước khi áp dụng. |
 
+</details>
+
 ## Bằng chứng, không chỉ screenshot
+
+**Phần tự xây:** goal/shared funds, finite-grid allocator, model số học/VM harness, quote binding và journal/recovery. **Phần tích hợp:** Kamino lending program, Solana RPC/SPL token, ví Phantom và OpenRouter. [Phân công on/off-chain](docs/architecture/goal-portfolio.md). API không giữ khóa; reserve kiểm off-chain/simulation, không phải một guard on-chain riêng.
 
 | Đã ghi nhận                          | Nguồn và phạm vi                                                                                                                                                                              |
 | :----------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -82,6 +104,16 @@ Mỗi khoản thế chấp 1 SOL × 100 USD; threshold 80%, borrow factor 1, USD
 
 > [!IMPORTANT]
 > MVP chỉ dùng **Kamino Devnet, một ví, cùng cặp SOL/USDC**. Giá và lãi có thể đổi sau trả; receipt verified không bảo đảm tránh thanh lý. Allocator chỉ chạy trong phạm vi mô hình đã đối chiếu; đổi executable hoặc cấu hình không hỗ trợ sẽ chặn. Kết quả tốt nhất trong lưới hữu hạn cho một lượt thanh lý, không là tối ưu toàn cục hoặc dự báo xác suất. Không công bố doanh thu hoặc pilot chưa xác minh.
+
+## Thị trường, lựa chọn thay thế và hướng kinh doanh
+
+Người dùng đầu tiên là người đã có khoản vay Kamino, cần giữ USDC và quyết định cách trả khi giá SOL biến động. [Positions Monitor](https://github.com/csacanam/kamino-positions-monitor) đã có kịch bản và gợi ý repay; [DeFi Saver](https://defisaver.com/) có quản lý/automation vị thế. Picachu tập trung tổ hợp **budget/reserve chung → phân bổ có baseline → người dùng review/ký → receipt và dữ liệu mới**, không claim sản phẩm đầu tiên hoặc không có đối thủ.
+
+**Buyer/revenue là giả thuyết:** ví/dApp lending trả cho hosted API, cập nhật model và hỗ trợ tích hợp; borrower là người dùng cuối. API thương mại, billing, pilot và willingness-to-pay chưa được xác minh. GTM dự kiến bắt đầu bằng demo/sandbox và mẫu tích hợp, đo khả năng hiểu partial, completion/recovery và nhu cầu lặp lại sau chung kết. [Nguồn thị trường, so sánh và GTM](docs/product/market-and-business.md).
+
+**Vì sao Solana:** vị thế và token nợ được đọc từ Kamino/SPL; vay/trả thực thi trên Solana và receipt là kết quả mạng xác nhận. Core/AI/API chạy off-chain để lập và kiểm phương án. Nếu bỏ tích hợp chain, sản phẩm chỉ còn calculator, mất nguồn vị thế thật, thực thi và xác minh trả nợ.
+
+[Rà dependency](docs/testing/dependency-review-2026-10-03.md) ghi bản vá và phần cảnh báo còn lại. CI và25 ca VM không tương đương audit bảo mật hoặc mainnet readiness.
 
 ## Cách hoạt động
 

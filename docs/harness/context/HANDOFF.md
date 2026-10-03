@@ -1,5 +1,9 @@
 # Bàn giao
 
+## 03/10 — hoàn thiện hồ sơ, đang nghiệm thu
+
+[Plan active](../plans/active/final-repo-polish.md), user duyệt toàn review. README/docs/evidence/market-GTM và rubric map cập nhật. BN5.2.5 patch-only, advisory25 full/20 prod còn lại triage; SDK versions giữ. Benchmark compute30 samples/case, không RPC/API SLA. SDK import chỉ nhánh Devnet; E2E kiểm response200/ready. Local159 unit/build25/45 browser/strict2504/links PASS, lần cuối không retry; lần trước1 cold-import timeout được ghi trong report. Finalizer12 slide/5 native tables/PDF PASS;9/10 đã xem,10 ảnh còn lại byte-identical, model hash không đổi. Cần sourceCI/Vercel → Releasev0.4.1/public digest → checkpoint. Không ký, dựng lại video/outreach. [Nghiệm thu](../../testing/final-repo-polish-2026-10-03.md).
+
 ## 03/10 — cấp phép đã được người dùng duyệt
 
 Apache-2.0 cho mã nguồn thuộc quyền owner, LICENSE canonical ASF, NOTICE với GitHub2274802010922, package/root lock metadata và README VI/EN. [Plan](../plans/active/licensing.md) · [Scope](../../legal/README.md) · [Local validation PASS](../../legal/validation.json). Logo/media ngoài phần mềm; dependencies giữ terms gốc, font/icon notices nguyên bản. Model có nghiên cứu nguồn Rust BSL và đối chiếu VM, không claim clean-room/legal clearance. Implementation/local checks đã xong, không đổi runtime/dependency versions/artwork. Xác nhận GitHub license detection và CI của HEAD khi xem trạng thái xuất bản; không mở lại signing/video/allocator.

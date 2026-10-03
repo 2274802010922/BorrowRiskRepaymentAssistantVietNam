@@ -1,0 +1,40 @@
+{
+  "generatedAt": "2026-10-03T04:20:39.910Z",
+  "platform": "win32",
+  "node": "v24.16.0",
+  "scope": "Synchronous planAllocation compute only, static synthetic stressed positions, one process. Excludes import/startup, RPC, HTTP, UI, wallet signing and network confirmations. Not worst-case or a production SLA.",
+  "command": "npx tsx scripts/checks/allocation-evidence.ts",
+  "warmupPerScenario": 3,
+  "samples": [
+    {
+      "loans": 1,
+      "candidateCounts": [170],
+      "firstComputeMs": 9.36420000000021,
+      "sampleCount": 30,
+      "p50Ms": 7.901399999999967,
+      "p95Ms": 12.820500000000038,
+      "minMs": 5.096400000000131,
+      "maxMs": 13.346600000000308
+    },
+    {
+      "loans": 2,
+      "candidateCounts": [170, 170],
+      "firstComputeMs": 21.86750000000029,
+      "sampleCount": 30,
+      "p50Ms": 11.416999999999916,
+      "p95Ms": 29.082600000000184,
+      "minMs": 9.30099999999993,
+      "maxMs": 33.62480000000005
+    },
+    {
+      "loans": 3,
+      "candidateCounts": [171, 171, 171],
+      "firstComputeMs": 175.82749999999987,
+      "sampleCount": 30,
+      "p50Ms": 285.4246999999996,
+      "p95Ms": 350.01380000000063,
+      "minMs": 230.88570000000072,
+      "maxMs": 353.5676000000003
+    }
+  ]
+}

@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-10-03 — hồ sơ chung kết và dependency review
+
+- README VI/EN làm rõ3 điểm mạnh, bảng baseline tái tạo, tự xây/tích hợp và buyer API/GTM hypothesis có nguồn; đồng bộ cổng product/testing/deployment/evidence/rubric.
+- Vá BN5.2.5 cùng major, thêm regression maskn(0); giữ SDK và ghi triage25 advisories còn lại, không claim audited.
+- Synthetic allocation không load SDK Devnet không cần thiết; kiểm response trước state UI trong E2E.
+- Thêm benchmark compute30 mẫu cho1–3 khoản synthetic; đồng bộ slides/notes/baseline/market hypothesis, giữ video và receipt lịch sử.
+
 ## 2026-10-03 — cấp phép mã nguồn Apache-2.0
 
 - Thêm LICENSE chính thức, NOTICE với chủ bản quyền GitHub2274802010922 và phạm vi cấp phép.

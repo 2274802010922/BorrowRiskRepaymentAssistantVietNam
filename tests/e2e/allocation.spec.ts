@@ -1,15 +1,25 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, type Page } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import { exampleAllocationContext } from "../../src/core/allocation/example";
 import { planAllocation } from "../../src/core/allocation/plan";
 import { mkdir } from "node:fs/promises";
+
+async function requestAllocation(page: Page, name: string) {
+  const response = page.waitForResponse(
+    (r) => r.url().endsWith("/api/portfolio/allocate") && r.request().method() === "POST",
+  );
+  await page.getByRole("button", { name, exact: true }).click();
+  const result = await response;
+  expect(result.status()).toBe(200);
+  expect((await result.json()).state).toBe("ready");
+}
 
 test("example allocation improves the scenario while remaining clearly non-executable", async ({
   page,
 }) => {
   await page.goto("/portfolio");
   await page.getByLabel("Trả tối đa (USDC)").fill("10");
-  await page.getByRole("button", { name: "Xem cách phân bổ tiền", exact: true }).click();
+  await requestAllocation(page, "Xem cách phân bổ tiền");
   await expect(page.getByText("Cải thiện một phần", { exact: true })).toBeVisible();
   await expect(page.getByText("Chưa đạt mục tiêu", { exact: true }).first()).toBeVisible();
   await expect(page.getByRole("button", { name: "Ký bằng ví", exact: true })).toHaveCount(0);
@@ -133,12 +143,10 @@ for (const width of [375, 768, 1024, 1440])
       await page
         .getByLabel(locale === "vi" ? "Trả tối đa (USDC)" : "Maximum repayment (USDC)")
         .fill("10");
-      await page
-        .getByRole("button", {
-          name: locale === "vi" ? "Xem cách phân bổ tiền" : "Explore repayment allocation",
-          exact: true,
-        })
-        .click();
+      await requestAllocation(
+        page,
+        locale === "vi" ? "Xem cách phân bổ tiền" : "Explore repayment allocation",
+      );
       await expect(
         page.getByText(locale === "vi" ? "Cải thiện một phần" : "Partial improvement", {
           exact: true,

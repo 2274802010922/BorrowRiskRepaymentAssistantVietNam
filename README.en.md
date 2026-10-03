@@ -8,7 +8,7 @@
 <p align="center"><a href="README.md">Tiếng Việt</a> · <strong>English</strong></p>
 
 <p align="center">
-  A goal-based repayment planner for Solana borrowers.<br>
+  Plan across up to three Kamino loans with one shared budget and reserve.<br>
   <strong>Choose your loans. Preserve reserves. Review before you sign.</strong>
 </p>
 
@@ -32,6 +32,12 @@
 
 Borrowers need to reduce risk when collateral prices fall while keeping funds in their wallet. picachu calculates **the repayment needed, remaining funds and distance to the goal** for up to three loans, using the user's budget and price scenario.
 
+| Strength                                   | What you can verify                                                                                                                                   |
+| ------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **One budget, several loans**              | Shared wallet funds, explicit reserves, and no extra payment for a loan already meeting the goal.                                                     |
+| **Allocation when funds are insufficient** | Compare no repayment, equal split and risk-first on the same data; [reproducible example](docs/evidence/allocation/README.md).                        |
+| **Verified model and execution evidence**  | [25 VM cases](docs/evidence/liquidation/README.md), preview/review, sequential signing and a [Devnet receipt](docs/testing/allocation-acceptance.md). |
+
 ![Goal-based repayment planner in English.](docs/assets/screenshots/portfolio-en.png)
 
 <p align="center"><sub>Actual interface · synthetic data · not wallet balances or on-chain proof.</sub></p>
@@ -46,7 +52,7 @@ Borrowers need to reduce risk when collateral prices fall while keeping funds in
 
 1. Open the [repayment planner](https://picachu-iota.vercel.app/portfolio); no wallet or API key required.
 2. Keep budget **30 USDC**, reserve **20 USDC**, SOL price shock **30%** and buffer **5%**.
-3. See **13.6 USDC** required and **66.4 USDC** remaining. Change the budget to **10** to see a **3.6 USDC** shortfall.
+3. See **13.6 USDC** required and **66.4 USDC** remaining. Change the budget to **10** to see a **3.6 USDC** shortfall, then select **Explore repayment allocation**.
 
 | Illustrative loan | Initial debt | Repayment needed |
 | :---------------- | -----------: | ---------------: |
@@ -57,7 +63,19 @@ Borrowers need to reduce risk when collateral prices fall while keeping funds in
 
 Each loan has 1 SOL collateral at 100 USD; threshold 80%, borrow factor 1, USDC 1 USD; shared balance 80 USDC. Buffer is measured from the stressed price; debt-token price is fixed and accrued interest is excluded. These are synthetic assumptions. [Product scope](docs/product/README.md).
 
-## What makes picachu useful?
+### When only 10 USDC is available
+
+| Approach in the same example |       Budget used | Estimated one-event loss + fees | Goals met |
+| ---------------------------- | ----------------: | ------------------------------: | --------: |
+| No repayment                 |            0 USDC |                       ≈0.93 USD |       1/3 |
+| Equal split                  |           10 USDC |                       ≈0.13 USD |       2/3 |
+| Risk first                   |           10 USDC |                      0.0006 USD |       1/3 |
+| **Picachu proposal**         | **9.000001 USDC** |                  **0.0006 USD** |   **1/3** |
+
+Here the proposal matches risk-first cost and goals met while retaining nearly1 USDC of unused budget. Equal split meets more goals at a higher estimated cost: the objective is one-event loss plus fees, rather than maximizing goal count. Not all goals are met. Assumed fee6000lamports/step at SOL100USD; repayment principal is not liquidation loss. [Inputs/outputs](docs/evidence/allocation/demo-comparison.json) · [compute benchmark](docs/evidence/allocation/README.md).
+
+<details>
+<summary><strong>Feature details and execution boundaries</strong></summary>
 
 **When funds are insufficient:** allocation compares estimated one-event liquidation loss plus fees against no repayment, equal split and risk-first using the same data. Users review a partial plan and sign sequentially; verified receipts do not mean all goals are met. [Model and execution](docs/architecture/liquidation-model.md) · [25 executable reference cases](docs/evidence/liquidation/README.md).
 
@@ -72,7 +90,11 @@ Each loan has 1 SOL collateral at 100 USD; threshold 80%, borrow factor 1, USDC 
 | **Results you can inspect**       | Redis journal, receipts and a fresh goal check after repayment.                    |
 | **Goals in a short sentence**     | AI or rules create a draft, the core validates it, and you review before applying. |
 
+</details>
+
 ## Evidence beyond screenshots
+
+**Built here:** goals/shared funds, finite-grid allocation, arithmetic model/VM harness, quote binding and journal/recovery. **Integrated:** Kamino lending program, Solana RPC/SPL tokens, Phantom and OpenRouter. [On/off-chain responsibilities](docs/architecture/goal-portfolio.md). Keys remain in the wallet; reserve checks are off-chain/simulation checks, not a separate on-chain guard.
 
 | Recorded result                               | Source and scope                                                                                                                                                                            |
 | :-------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -83,6 +105,16 @@ Each loan has 1 SOL collateral at 100 USD; threshold 80%, borrow factor 1, USDC 
 
 > [!IMPORTANT]
 > MVP supports **Kamino Devnet, one wallet and one SOL/USDC pair**. Prices and interest can change after repayment; verified receipts do not guarantee avoiding liquidation. Allocation is restricted to the verified model scope; unsupported executable versions or configurations disable it. It finds the best result in a finite grid for one event, not a global optimum or probability forecast. No unverified revenue or pilot claims.
+
+## Market, alternatives and business hypothesis
+
+The initial user already has a Kamino loan and needs to keep USDC while deciding how to repay after a SOL-price scenario. [Positions Monitor](https://github.com/csacanam/kamino-positions-monitor) already offers scenarios and target repayments; [DeFi Saver](https://defisaver.com/) offers position management and automation. Picachu focuses on shared budget/reserve, comparable allocations, explicit review/signing and verified receipts. No first-of-its-kind or competitor-absence claim.
+
+**Buyer/revenue hypothesis:** lending wallets/dApps may pay for a hosted API, model maintenance and integration support, with borrowers as end users. Commercial API/billing, pilots and willingness-to-pay are not verified. Proposed GTM starts with a demo/sandbox and integration examples, then measures partial-plan understanding, completion/recovery and recurring demand after the competition. [Market sources, comparison and GTM](docs/product/market-and-business.md).
+
+**Why Solana:** authoritative Kamino positions and SPL debt tokens, lending/repayment settlement, and network-confirmed receipts. Core/AI/API run off-chain. Removing chain integration leaves a calculator without live positions, execution or repayment verification.
+
+[Dependency review](docs/testing/dependency-review-2026-10-03.md) records the patch and remaining advisories. CI and25 VM cases are not a security audit or mainnet-readiness certification.
 
 ## How it works
 
