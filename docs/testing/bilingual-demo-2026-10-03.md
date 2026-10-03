@@ -1,6 +1,6 @@
 # Nghiệm thu hai video demo — 03/10/2026
 
-Trạng thái: **dựng và bàn giao local hoàn tất; người dùng đã gửi hai URL ngày03/10**. [VI](https://www.youtube.com/watch?v=Dk57TInsyYM)/[EN](https://www.youtube.com/watch?v=VzjOFclnBBg) phát được; đang hoàn tất xuất bản GitHub. Các kiểm tra dưới đây mô tả giai đoạn dựng local trước upload; checkpoint xuất bản được ghi riêng.
+Trạng thái: **hoàn tất xuất bản**. [VI](https://www.youtube.com/watch?v=Dk57TInsyYM)/[EN](https://www.youtube.com/watch?v=VzjOFclnBBg) phát được; README/docs/notes và Release đã đồng bộ. Các kiểm tra media dưới đây mô tả giai đoạn dựng local trước upload; checkpoint xuất bản được ghi riêng.
 
 ## Đầu ra
 
@@ -31,9 +31,13 @@ Cả hai: 1920×1080/H.264/yuv420p/30fps; AAC 48kHz; 10 chapter. File và SRT, p
 - Đã xem contact sheet toàn timeline của hai bản, frame từng scene và frame sớm của draft/allocator. Source rules, phần review trước apply,9,000001 và cảnh báo partial hiển thị đúng; không thấy subtitle che UI/ra ngoài frame.
 - ESLint bộ script JavaScript và Python compile: PASS. Chỉ thêm công cụ dựng/media/context; không đổi runtime ứng dụng nên không chạy lại toàn bộ kiểm thử sản phẩm.
 
-## Còn chờ
+## Xuất bản và dọn video cũ
 
 1. Người dùng đã upload hai MP4 thủ công và gửi URL VI/EN; link/player đã kiểm. YouTube hiển thị3:36 (làm tròn xuống) và4:02, phù hợp duration file216,933/242,4s.
-2. Đang hoàn tất README VI/EN/guide/judging/Release, cleanup và commit tiếng Việt/push main. Video YouTube cũ báo người tải lên đã xóa; không có hành động xóa của agent.
+2. [Releasev0.4.0](https://github.com/2274802010922/picachu__/releases/tag/v0.4.0-bilingual-demo) public,7 file tải không đăng nhập/SHA256 khớp. MP4 mới có2 bản riêng, ZIP tài liệu không chứa video; PPTX/PDF12 slide với notes mới.
+3. Gỡ6 asset MP4/mixed ZIP của v0.1/v0.2/v0.3. Giữ slide/PDF/proof; v0.2/v0.3 có ZIP slide-only thay thế được kiểm tải/SHA. Video YouTube cũ báo người tải lên đã xóa, kênh owner chỉ thấy hai demo mới; không có hành động xóa của agent.
+4. Sourceade1309 push main, Quality37089595585/Vercel success. Local158 unit/build25 route/45 browser với2 workers PASS. Run8 workers ban đầu có6 timeout allocator cold import, rerun toàn bộ2 workers PASS, không đổi assertions. Bundle local2504/CI2505 và256 relative links PASS.
+
+[Báo cáo xuất bản](../evidence/validation/bilingual-video-publication.json) ghi URL, digest và từng asset cleanup. About repo cập nhật VI/EN narrated demos. Guide VI/EN live xác nhận câu giới hạn allocator mới; không thêm env hoặc gửi giao dịch mới.
 
 Card cuối trang guide đã được đồng bộ phạm vi allocator trong lượt xuất bản; footage gốc không sửa DOM. Notes PPTX12 slide thay link VI/EN;12 render khớp bản trước, package/layout/font/import PASS.

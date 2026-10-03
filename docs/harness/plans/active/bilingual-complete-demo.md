@@ -1,6 +1,6 @@
 # Hai video demo hoàn chỉnh — bàn giao local ngày 03/10/2026
 
-Checkpoint: **VI3:37 và EN4:02 đã dựng/kiểm/bàn giao local**, giọng nam,1080p và subtitle. [Nghiệm thu](../../../testing/bilingual-demo-2026-10-03.md). Người dùng đã gửi hai URL; điều kiện tiếp tục publish/commit/push và dọn video cũ đã đáp ứng. Đang hoàn tất xuất bản GitHub.
+Checkpoint: **hoàn tất**. VI3:37 và EN4:02 đã dựng/kiểm/bàn giao; người dùng upload và gửi hai URL, đã đồng bộ README/docs/notes và xuất bản Releasev0.4.0. Sourceade1309 Quality37089595585/Vercel PASS. [Nghiệm thu](../../../testing/bilingual-demo-2026-10-03.md) · [Evidence xuất bản và cleanup](../../../evidence/validation/bilingual-video-publication.json).
 
 Trạng thái: **đã duyệt dựng end-to-end ngày03/10**. Chỉ bàn giao hai video hoàn chỉnh trước; người dùng tự upload YouTube và gửi hai URL, sau đó mới cập nhật GitHub và xử lý video cũ. Muốn vừa chi tiết vừa ngắn, cảnh thao tác khoảng1,5×; giọng đọc nam cho cả VI/EN. Không tự upload/quản lý YouTube trong lượt này.
 
@@ -80,4 +80,4 @@ Không lấy giọng nữ video cũ rồi chỉnh cao độ thành nam. Không c
 - Hai link xem mới hoạt động, README/docs nhất quán, artifacts/checkpoints lên main.
 - Video cũ không còn ở đường xem công khai trong phạm vi đã xác minh; slide và proof giữ được.
 
-Ưu tiên mới của người dùng thay bước publish/gỡ ở trên: dựng và kiểm hai bản, chờ upload YouTube thủ công; giữ đường xem/video cũ đến khi nhận link mới. Cập nhật ngữ cảnh local, chưa push thay đổi GitHub trong khi chờ.
+Điều kiện upload thủ công đã đáp ứng. Hai URL phát được;7 asset mới tải anonymous/SHA256 PASS. Sáu asset video/gói mixed cũ đã gỡ; giữ slide/PDF/proof và hai ZIP slide-only thay thế. YouTube cũ báo owner đã xóa, không có hành động xóa của agent. Không cần dựng lại, test signing hoặc đổi env để chốt việc này.

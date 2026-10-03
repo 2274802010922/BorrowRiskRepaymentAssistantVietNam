@@ -1,12 +1,12 @@
 # Bàn giao
 
-## 03/10 — đã nhận hai URL, đang xuất bản và dọn video cũ
+## 03/10 — hai video đã xuất bản, nghiệm thu xong
 
 Hai video hoàn chỉnh đã dựng và kiểm: VI216,933s, EN242,4s; male voice, captions,1080p. Delivery `C:\Users\haban\Downloads\picachu-demo-2026-10-03` gồm MP4/SRT/poster/script/chapter/YouTube metadata/QA/manifest. [Nghiệm thu](../../testing/bilingual-demo-2026-10-03.md), [plan](../plans/active/bilingual-complete-demo.md).
 
-Người dùng đã upload và gửi [VI](https://www.youtube.com/watch?v=Dk57TInsyYM)/[EN](https://www.youtube.com/watch?v=VzjOFclnBBg). Hai bản phát được; video cũ báo owner đã xóa. Đang hoàn tất GitHub Releasev0.4.0 và cleanup giữ slide/proof, commit tiếng Việt/push main. Cả hai API draft/allocator footage200; draft nguồn rules. Không ký mới; receipt lịch sử ghi rõ. Không claim nghe audio trực tiếp.
+Người dùng đã upload và gửi [VI](https://www.youtube.com/watch?v=Dk57TInsyYM)/[EN](https://www.youtube.com/watch?v=VzjOFclnBBg). Hai bản phát được; video cũ báo owner đã xóa. Releasev0.4.0 public với7 asset anonymous/SHA256 PASS. Sáu asset MP4/mixed ZIP cũ đã gỡ, giữ slide/PDF/proof và xuất hai gói slide không video. [Evidence](../../evidence/validation/bilingual-video-publication.json). Không ký mới; receipt lịch sử ghi rõ; không claim nghe audio trực tiếp.
 
-README/demo/judging và notes dùng link mới; guide đã đồng bộ finite-grid/one-event. Local158 unit/build25 route và45 browser với2 workers PASS;8 workers ban đầu có6 cold-start timeout. Deck finalizer PASS,12 ảnh khớp bản trước. Tiếp theo push → public-download SHA verification → cleanup MP4/mixed ZIP cũ → checkpoint và kiểm CI/Vercel.
+README/demo/judging và notes dùng link mới; guide đã đồng bộ finite-grid/one-event. Local158 unit/build25 route và45 browser với2 workers PASS;8 workers ban đầu có6 cold-start timeout. Deck finalizer PASS,12 ảnh khớp bản trước. Sourceade1309 đã push main, Quality37089595585/Vercel success, guide VI/EN live đã kiểm. Checkpoint này ghi toàn bộ nghiệm thu xuất bản; kiểm CI của HEAD khi cần xác nhận trạng thái mới nhất. Không tự dựng lại, publish hoặc ký thêm trong heartbeat nếu không có yêu cầu mới.
 
 ## Checkpoint sản phẩm trước lượt video
 

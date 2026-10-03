@@ -1,11 +1,12 @@
 # Trạng thái hiện tại — 03/10/2026
 
-## Hai video VI/EN — đã nhận link, đang xuất bản GitHub
+## Hai video VI/EN — đã xuất bản và dọn video cũ
 
 - Dựng mới end-to-end: VI3:37, EN4:02;1080p, giọng nam, phụ đề và10 chapter. Files trong Downloads/picachu-demo-2026-10-03; raw/work bị ignore. [Nghiệm thu](../../testing/bilingual-demo-2026-10-03.md).
 - Decode/loudness/subtitle bounds PASS, contact sheets/scene frames đã xem; lời đọc đối chiếu timing và ASR, không claim human listening. API footage draft200/rules và allocation200/ready; không ký hoặc gửi transaction mới.
-- Người dùng đã gửi [bản Việt](https://www.youtube.com/watch?v=Dk57TInsyYM) và [bản Anh](https://www.youtube.com/watch?v=VzjOFclnBBg); cả hai phát được. Video cũ đã được owner xóa theo thông báo YouTube. Đang publish Releasev0.4.0 và dọn video cũ trên GitHub, giữ slide/proof.
+- Người dùng đã gửi [bản Việt](https://www.youtube.com/watch?v=Dk57TInsyYM) và [bản Anh](https://www.youtube.com/watch?v=VzjOFclnBBg); cả hai phát được. [Releasev0.4.0](https://github.com/2274802010922/picachu__/releases/tag/v0.4.0-bilingual-demo) đã public,7 asset tải anonymous/SHA256 PASS. Sáu asset MP4/mixed ZIP cũ đã gỡ; slide/PDF/proof giữ, hai gói slide thay thế không chứa video. YouTube cũ đã được owner xóa. [Evidence](../../evidence/validation/bilingual-video-publication.json).
 - Guide đã đồng bộ allocator finite-grid/one-event và cảnh báo partial. Local158 unit, build25 route,45 browser với2 workers PASS;8 workers ban đầu gặp6 timeout khi cold import, không đổi assertions để bỏ lỗi. Notes slide dùng hai URL mới,12 ảnh render khớp bản trước.
+- Sourceade1309 main, Quality37089595585 và Vercel success; live guide VI/EN đã kiểm. About repo ghi VI/EN narrated demos. Công việc sản phẩm/video đã xong trong phạm vi đã duyệt, không chạy lại signing hoặc publish khi chưa có yêu cầu mới.
 
 ## Allocator — triển khai được duyệt 02/10
 

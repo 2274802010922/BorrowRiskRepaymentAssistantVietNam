@@ -1,0 +1,126 @@
+{
+  "sourceCommit": "ade130999e45f8373da0133a882cad0d99ec27f7",
+  "youtube": [
+    {
+      "locale": "vi",
+      "url": "https://www.youtube.com/watch?v=Dk57TInsyYM",
+      "title": "picachu demo ( VN version )",
+      "playerDuration": "3:36",
+      "playbackVerified": true
+    },
+    {
+      "locale": "en",
+      "url": "https://www.youtube.com/watch?v=VzjOFclnBBg",
+      "title": "picachu demo ( ENG ver )",
+      "playerDuration": "4:02",
+      "playbackVerified": true
+    }
+  ],
+  "oldYoutube": {
+    "url": "https://www.youtube.com/watch?v=Uw-04c9cROQ",
+    "observedMessage": "Người tải lên đã xóa video này",
+    "deletedByAgent": false,
+    "ownerChannelVideoList": "Two new demo videos; no older Picachu video visible."
+  },
+  "githubRelease": {
+    "release": "https://github.com/2274802010922/picachu__/releases/tag/v0.4.0-bilingual-demo",
+    "assets": [
+      {
+        "name": "picachu-demo-en.mp4",
+        "bytes": 13639407,
+        "sha256": "5f6db9777308c7b7b74bd319d5d436f02355569b60cf2f102e19d182fc575da5",
+        "anonymousDownload": "passed"
+      },
+      {
+        "name": "picachu-demo-en.srt",
+        "bytes": 5943,
+        "sha256": "65a523bab11c450fbb7564af14e3f6a3058fe2ded7b8e7c12b3c162a7b1eca20",
+        "anonymousDownload": "passed"
+      },
+      {
+        "name": "picachu-demo-materials.zip",
+        "bytes": 136764,
+        "sha256": "1e8a932d11a4ee0fafbfc086e42c226feb11c50157acab0557daf713fc7d16b5",
+        "anonymousDownload": "passed"
+      },
+      {
+        "name": "picachu-demo-vi.mp4",
+        "bytes": 11922606,
+        "sha256": "d5e1f1db8dc9bfced8eb2f87c2e822677e2496c6d3518df7fd6739b8cc74b2c3",
+        "anonymousDownload": "passed"
+      },
+      {
+        "name": "picachu-demo-vi.srt",
+        "bytes": 6160,
+        "sha256": "33e0df65a60030a96754d57c97fcbb650cb46319d8b1e3fac3dbdbde81534d94",
+        "anonymousDownload": "passed"
+      },
+      {
+        "name": "picachu-slides.pdf",
+        "bytes": 433846,
+        "sha256": "e2213445447b57f4d18e01c1a49020c009c06b69bd1fb9f4de6b17e412b9c8ee",
+        "anonymousDownload": "passed"
+      },
+      {
+        "name": "picachu-slides.pptx",
+        "bytes": 111121,
+        "sha256": "e29dbe6bdf97c77c9837ea9882c74f18f032cca9cb2c2180e5580332fb7fb7ba",
+        "anonymousDownload": "passed"
+      }
+    ]
+  },
+  "oldReleaseCleanup": [
+    {
+      "release": "v0.1.0-demo",
+      "removed": ["picachu-demo-vi.mp4", "picachu-demo-package.zip"],
+      "remaining": ["social-preview.png"],
+      "replacementZip": null
+    },
+    {
+      "release": "v0.2.0-final-demo",
+      "removed": ["picachu-live-demo.mp4", "picachu-final-package.zip"],
+      "remaining": ["picachu-final-slides.zip", "picachu-final.pdf", "picachu-final.pptx"],
+      "replacementZip": "picachu-final-slides.zip"
+    },
+    {
+      "release": "v0.3.0-allocator",
+      "removed": ["picachu-allocator-demo.mp4", "picachu-allocator-package.zip"],
+      "remaining": [
+        "picachu-allocator-slides.zip",
+        "picachu-allocator.pdf",
+        "picachu-allocator.pptx"
+      ],
+      "replacementZip": "picachu-allocator-slides.zip"
+    }
+  ],
+  "slides": {
+    "file": "picachu-slides.pptx",
+    "sha256": "e29dbe6bdf97c77c9837ea9882c74f18f032cca9cb2c2180e5580332fb7fb7ba",
+    "slideCount": 12,
+    "pixelIdenticalToPreviousRenders": 12,
+    "notesContainBothNewUrls": true,
+    "nativeTableOwnerSlides": [4, 5, 7, 9, 11],
+    "finalizer": "package/layout/font/first-party-import passed",
+    "nativePowerPointOpened": false
+  },
+  "localValidation": {
+    "unitTests": 158,
+    "browserTests": 45,
+    "browserWorkers": 2,
+    "initialEightWorkerRun": "6 allocator cold-start assertion timeouts; complete rerun with 2 workers passed without changing assertions.",
+    "buildRoutes": 25,
+    "tracedBundleFiles": 2504,
+    "relativeDocLinks": 256,
+    "markdownFiles": 59
+  },
+  "sourceCi": {
+    "runId": 37089595585,
+    "url": "https://github.com/2274802010922/picachu__/actions/runs/37089595585",
+    "conclusion": "success"
+  },
+  "sourceVercel": {
+    "conclusion": "success",
+    "liveGuideVIENVerified": true
+  },
+  "scope": "No new transaction, no new environment variables. Public source labels and historical financial proof preserved."
+}

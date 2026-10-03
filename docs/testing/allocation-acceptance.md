@@ -1,5 +1,7 @@
 # Nghiệm thu allocator — 03/10/2026
 
+Video và slide hiện hành ở [bộ demo VI/EN](../demo/README.md). MP4/gói chứa video của Releasev0.3 đã gỡ sau khi v0.4 được kiểm, giữ PPTX/PDF/proof và gói slide-only; các kết quả download/hash bên dưới là nghiệm thu lịch sử trước cleanup.
+
 ## Đã có bằng chứng
 
 - 25 vector executable Devnet trong local VM khớp exact; [report](../evidence/liquidation/parity-report.json). Không claim source build match hoặc public liquidation thật.
