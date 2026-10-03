@@ -14,7 +14,8 @@
 
 <p align="center">
   <a href="https://picachu-iota.vercel.app/portfolio"><strong>Dùng thử</strong></a> ·
-  <a href="https://www.youtube.com/watch?v=Uw-04c9cROQ"><strong>Xem video trên YouTube</strong></a> ·
+  <a href="https://www.youtube.com/watch?v=Dk57TInsyYM"><strong>Video tiếng Việt</strong></a> ·
+  <a href="https://www.youtube.com/watch?v=VzjOFclnBBg">English video</a> ·
   <a href="docs/judging/presentation/README.md"><strong>Slide và clip live</strong></a> ·
   <a href="docs/testing/live-devnet-cycle.md">Bằng chứng Devnet</a> ·
   <a href="docs/judging/README.md">Dành cho giám khảo</a>
@@ -36,9 +37,9 @@ Người vay cần giảm rủi ro khi giá thế chấp giảm, nhưng vẫn c�
 
 ## Xem demo
 
-[![Xem video picachu trên YouTube, có thuyết minh và phụ đề tiếng Việt](docs/assets/video/demo-poster.jpg)](https://www.youtube.com/watch?v=Uw-04c9cROQ)
+[![Xem demo picachu tiếng Việt, giọng nam và phụ đề](docs/assets/video/demo-vi-poster.jpg)](https://www.youtube.com/watch?v=Dk57TInsyYM)
 
-**4 phút 50 giây · 1080p · tiếng Việt · phụ đề · 15 chương.** [Xem trực tiếp trên YouTube](https://www.youtube.com/watch?v=Uw-04c9cROQ), không cần tải file. Video dựng từ ảnh giao diện thật, đồ họa giải thích và biên nhận Devnet; không quay popup Phantom. [Tài liệu và bản tải xuống tùy chọn](docs/demo/README.md) · [kịch bản](docs/demo/script.md) · [phụ đề](docs/demo/picachu-demo-vi.srt).
+**3 phút 37 giây · 1080p · giọng nam · phụ đề Việt · 10 chương.** [Xem bản Việt](https://www.youtube.com/watch?v=Dk57TInsyYM) · [English, 4:02](https://www.youtube.com/watch?v=VzjOFclnBBg). Luồng hoàn chỉnh từ chọn khoản vay, đặt mục tiêu đến allocator và biên nhận Devnet. Giao diện quay mới theo từng ngôn ngữ; dữ liệu minh họa, sơ đồ thực thi và receipt lịch sử có nhãn riêng. Không quay popup Phantom. [Tài liệu demo](docs/demo/README.md) · [kịch bản](docs/demo/script-vi.md) · [phụ đề](docs/demo/picachu-demo-vi.srt).
 
 ## Thử trong 60 giây
 

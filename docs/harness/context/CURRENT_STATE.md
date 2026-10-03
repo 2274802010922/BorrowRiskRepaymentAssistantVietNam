@@ -1,4 +1,11 @@
-# Trạng thái hiện tại — 01/10/2026
+# Trạng thái hiện tại — 03/10/2026
+
+## Hai video VI/EN — đã nhận link, đang xuất bản GitHub
+
+- Dựng mới end-to-end: VI3:37, EN4:02;1080p, giọng nam, phụ đề và10 chapter. Files trong Downloads/picachu-demo-2026-10-03; raw/work bị ignore. [Nghiệm thu](../../testing/bilingual-demo-2026-10-03.md).
+- Decode/loudness/subtitle bounds PASS, contact sheets/scene frames đã xem; lời đọc đối chiếu timing và ASR, không claim human listening. API footage draft200/rules và allocation200/ready; không ký hoặc gửi transaction mới.
+- Người dùng đã gửi [bản Việt](https://www.youtube.com/watch?v=Dk57TInsyYM) và [bản Anh](https://www.youtube.com/watch?v=VzjOFclnBBg); cả hai phát được. Video cũ đã được owner xóa theo thông báo YouTube. Đang publish Releasev0.4.0 và dọn video cũ trên GitHub, giữ slide/proof.
+- Guide đã đồng bộ allocator finite-grid/one-event và cảnh báo partial. Local158 unit, build25 route,45 browser với2 workers PASS;8 workers ban đầu gặp6 timeout khi cold import, không đổi assertions để bỏ lỗi. Notes slide dùng hai URL mới,12 ảnh render khớp bản trước.
 
 ## Allocator — triển khai được duyệt 02/10
 
@@ -36,7 +43,7 @@
 
 - Mã ứng dụng chuyển vào src/{app,frontend,backend,core,solana,shared}; public và config giữ root. Import tests/scripts và alias cập nhật; không đổi nghiệp vụ.
 - Docs có product/demo/judging, evidence/devnet, assets/screenshots và archive. Kiến trúc gốc giữ nguyên nội dung ở docs/archive/original-architecture.md.
-- README VI/EN lấy /portfolio làm ví dụ chính; nút và poster video dẫn trực tiếp tới [YouTube do owner cung cấp](https://www.youtube.com/watch?v=Uw-04c9cROQ) ngày 01/10. Release v0.1.0-demo giữ MP4/ZIP như bản tải xuống tùy chọn; media không được chép nguyên thư mục work vào Git.
+- README VI/EN lấy /portfolio làm ví dụ chính. Video01/10 đã được thay bằng hai bản VI/EN ngày03/10; metadata cũ giữ ở archive, binary phân phối Release, không chép nguyên thư mục work vào Git.
 - Local đợt này PASS: 87 unit +32 browser, format/lint/types, build22 route, strict bundle2504 file, 44 Markdown/181 links. Commits4c6ba4a +3bd06ff đã push main; Quality36843794539 và Vercel Production PASS. Release v0.1.0-demo public prerelease, các asset tải được và SHA256 khớp. Public API portfolio/read200 đủ3 vị thế, không ký/gửi. Social preview file sẵn nhưng browser upload đang timeout; không claim setting đã áp dụng. Chi tiết ở [validation](../../evidence/validation/repository-reorganization.md). [Plan](../plans/active/repository-presentation.md).
 
 Baseline 360e17f:87 unit +32 browser, check/build/CI và strict bundle PASS. [Lịch sử trước đợt này](../../archive/context/current-state-2026-10-01.md).

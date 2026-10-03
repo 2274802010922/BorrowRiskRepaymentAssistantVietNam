@@ -1,0 +1,131 @@
+{
+  "version": 1,
+  "base": "https://picachu-iota.vercel.app",
+  "receipt": "2HL9xJn4h59Z5gUxfDmJDUVedVpbjQYpKx8MWrTcZu3T5sWUbto1K5boayZz2L1PTjrfon39kLb8MXw4znYUosPB",
+  "voices": { "vi": "vi-VN-NamMinhNeural", "en": "en-US-AndrewMultilingualNeural" },
+  "rate": "+8%",
+  "scenes": [
+    {
+      "id": "intro",
+      "speed": 1.0,
+      "title": { "vi": "Trả nợ theo mục tiêu", "en": "Repayment with a clear goal" },
+      "label": {
+        "vi": "Giao diện Picachu đang triển khai",
+        "en": "Current deployed Picachu interface"
+      },
+      "vi": "Picachu giúp người vay trên Solana quyết định trả bao nhiêu và giữ lại bao nhiêu tiền. Mục tiêu là dùng một ngân sách để giảm rủi ro, vẫn giữ tiền cho nhu cầu khác. Video đi qua phương án đầy đủ, phân bổ khi thiếu tiền, rồi đối chiếu bằng chứng trả nợ trên mạng thử nghiệm.",
+      "en": "Picachu helps borrowers on Solana decide how much to repay and how much cash to keep. Use a limited budget to reduce risk while preserving funds for other needs. This walkthrough covers the complete planner, allocation when funds are insufficient, and a verified repayment receipt on the test network."
+    },
+    {
+      "id": "loans",
+      "speed": 1.5,
+      "title": { "vi": "Chọn khoản vay và số dư chung", "en": "Select loans and a shared balance" },
+      "label": {
+        "vi": "Dữ liệu minh họa, không phải ví thật",
+        "en": "Synthetic example, not a live wallet"
+      },
+      "vi": "Đầu tiên, chọn những khoản muốn đưa vào kế hoạch. Ví dụ minh họa có ba khoản nợ sáu mươi lăm, năm mươi lăm và bốn mươi lăm U S D C. Mỗi khoản thế chấp một SOL, giá giả định một trăm đô la. Khi kết nối ví, ứng dụng đọc các khoản Kamino Devnet được hỗ trợ. Số dư ví dùng chung, không cộng ba lần.",
+      "en": "First, select the loans to include. This labeled synthetic example has debts of sixty-five, fifty-five, and forty-five U S D C. Each has one SOL of collateral at an assumed price of one hundred dollars. Connecting a wallet loads supported Kamino Devnet positions. The wallet balance is shared, rather than counted once for every position."
+    },
+    {
+      "id": "goals",
+      "speed": 1.5,
+      "title": {
+        "vi": "Ngân sách, tiền giữ lại và kịch bản",
+        "en": "Budget, reserve and price scenario"
+      },
+      "label": {
+        "vi": "Kịch bản giả định, không phải dự báo giá",
+        "en": "Assumed scenario, not a price forecast"
+      },
+      "vi": "Bước hai, ví dụ có tám mươi U S D C. Giữ lại hai mươi, trả tối đa ba mươi, và xét giá SOL giảm ba mươi phần trăm. Dư địa mục tiêu là thêm năm phần trăm tính từ giá đã giảm, trước ngưỡng thanh lý. Ngân sách là giới hạn chi, không bắt buộc dùng hết. Đây là kịch bản bạn chọn, không phải dự báo thị trường.",
+      "en": "Next, the example wallet holds eighty U S D C. Keep twenty, repay at most thirty, and test a thirty percent fall in SOL's price. The target is an additional five percent price buffer after that fall, before liquidation. The budget is a limit, not a requirement to spend everything. This is a chosen scenario, not a market forecast."
+    },
+    {
+      "id": "full-result",
+      "speed": 1.0,
+      "title": {
+        "vi": "Đủ tiền: chỉ trả phần cần thiết",
+        "en": "Affordable goal: repay only what is needed"
+      },
+      "label": { "vi": "Kết quả từ dữ liệu minh họa", "en": "Results from the synthetic example" },
+      "vi": "Khoản A cần trả mười một phẩy tám U S D C, khoản B một phẩy tám, còn khoản C không cần trả thêm. Tổng mười ba phẩy sáu, thấp hơn ngân sách ba mươi. Ví còn sáu mươi sáu phẩy bốn. Mỗi dòng có số tiền và dư địa theo phương án. Bộ tính toán dùng ngưỡng thanh lý và hệ số vay của ví dụ, không để AI tạo các con số này.",
+      "en": "Loan A needs eleven point eight U S D C, loan B one point eight, and loan C no extra repayment. The total, thirteen point six, is below the budget, leaving sixty-six point four in the wallet. Each row shows its repayment and scenario buffer. The core uses the example's liquidation threshold and borrowing factor; AI does not invent these amounts."
+    },
+    {
+      "id": "draft",
+      "speed": 1.5,
+      "title": { "vi": "Mục tiêu bằng câu ngắn", "en": "Describe a goal in plain language" },
+      "label": {
+        "vi": "Bản nháp cần người dùng xem lại",
+        "en": "A draft requires the user's review"
+      },
+      "vi": "Bạn có thể viết: trả tối đa mười, giữ hai mươi U S D C, nếu SOL giảm ba mươi phần trăm. Ứng dụng tạo bản nháp để xem lại và chủ động áp dụng. AI hỗ trợ đọc câu, còn bộ tính toán kiểm tra giá trị. Nếu dùng quy tắc thay AI, giao diện ghi rõ. AI không quyết định phân bổ hoặc ký giao dịch.",
+      "en": "You can write: repay up to ten U S D C, keep twenty, if SOL falls thirty percent. Picachu creates a draft for review and explicit application. AI can extract the goal, while the core validates its values. If fixed rules are used instead, the interface identifies that source. AI cannot decide the allocation or sign a transaction."
+    },
+    {
+      "id": "shortfall",
+      "speed": 1.0,
+      "title": {
+        "vi": "Thiếu tiền để đạt tất cả mục tiêu",
+        "en": "The budget cannot meet every goal"
+      },
+      "label": {
+        "vi": "Dữ liệu minh họa, chưa tạo giao dịch",
+        "en": "Synthetic data; no transaction prepared"
+      },
+      "vi": "Ngân sách mười U S D C thiếu ba phẩy sáu để đạt mọi mục tiêu. Picachu giữ cảnh báo, không gọi trả thiếu là đã an toàn. Xem cách phân bổ tiền để biết cách trả nào giảm chi phí thanh lý ước tính tốt hơn trong kịch bản. Bạn vẫn có thể tăng ngân sách hoặc đổi mục tiêu.",
+      "en": "Ten dollars is three point six U S D C short of meeting every goal. The warning remains: partial payment is not full protection. Explore allocation to compare repayments that reduce estimated liquidation costs in this scenario. You can still increase the budget or change the goal."
+    },
+    {
+      "id": "allocation",
+      "speed": 1.0,
+      "title": {
+        "vi": "Phân bổ và so sánh cách trả",
+        "en": "Allocation and comparable alternatives"
+      },
+      "label": {
+        "vi": "Ước tính một lượt thanh lý theo kịch bản",
+        "en": "Estimated one-event liquidation scenario"
+      },
+      "vi": "Mô hình đề xuất trả khoảng chín U S D C cho A, giữ gần một U S D C ngân sách chưa dùng. Số chính xác trên màn hình. A chưa đạt dư địa năm phần trăm, nên vẫn là cải thiện một phần. Giải thích gồm tổn thất của một lượt thanh lý giả định và phí trả nợ. Bảng so sánh cùng dữ liệu, ngân sách cho không trả, chia đều, ưu tiên rủi ro và phương án đề xuất. Chi phí thấp nhất trong tập đã xét khác với đạt mọi mục tiêu. Tiền gốc trả nợ không phải tổn thất thanh lý.",
+      "en": "The model proposes about nine U S D C for A, leaving nearly one dollar unused. The exact amount is visible. A still lacks the five percent target buffer, so this remains partial improvement. The explanation separates loss from one assumed liquidation event and repayment fees. Compare no repayment, equal split, risk-first repayment, and the proposal using the same data and budget. The lowest cost among these candidates is different from meeting every goal. Repayment principal is not liquidation loss."
+    },
+    {
+      "id": "execution",
+      "speed": 1.0,
+      "title": { "vi": "Xem trước, tự ký và xác minh", "en": "Review, sign and verify" },
+      "label": {
+        "vi": "Hướng dẫn luồng thật, không quay popup ký ví",
+        "en": "Execution workflow guide, no wallet popup footage"
+      },
+      "vi": "Khi thực thi, xem số tiền, phí và hạn dùng rồi tự ký bằng ví. Phương án đổi thì duyệt lại. Mỗi bước phải có biên nhận xác minh mới mở bước tiếp. Nhật ký giữ tiến độ khi tải lại trang. Trạng thái chưa rõ chặn gửi tiếp để kiểm tra, không tự gửi lại mù. Ví giữ khóa bí mật. Đây là giải thích quy trình, không phải cảnh quay popup xác nhận Phantom.",
+      "en": "Review the amount, fee, and expiry, then sign with your wallet. Plan changes require another review. Each step opens only after the previous receipt is verified. The journal preserves progress across reloads. An uncertain status blocks further sending until checked, avoiding blind retries. Your wallet keeps the private key. This is a workflow explanation, not footage of a Phantom confirmation popup."
+    },
+    {
+      "id": "receipt",
+      "speed": 1.0,
+      "title": {
+        "vi": "Biên nhận Devnet đã xác minh",
+        "en": "A verified Devnet repayment receipt"
+      },
+      "label": {
+        "vi": "Vòng API test riêng ngày 03/10, số liệu lịch sử",
+        "en": "Separate API test cycle, 3 October; historical values"
+      },
+      "vi": "Biên nhận thật này đến từ vòng API Vercel với ví Devnet riêng. Ngân sách một U S D C, giữ lại một, kịch bản SOL giảm bốn mươi lăm phần trăm. Sau duyệt preview mới, ví trả khoảng không phẩy bảy tám U S D C; số đầy đủ trên màn hình. Nhật ký xác minh bước trả. Ví còn khoảng mười sáu phẩy sáu hai, trên mức giữ lại. Biên nhận thành công không đồng nghĩa mọi mục tiêu hiện tại đã đạt; giá và lãi có thể đổi.",
+      "en": "This real receipt comes from a separate Vercel API test with a dedicated Devnet wallet. The budget and reserve were each one U S D C, with a forty-five percent SOL scenario. After reviewing the new preview, the wallet repaid about zero point seven eight; the full amount is shown. The journal verified the step. About sixteen point six two remained, above the reserve. A successful receipt does not mean every current goal is met; prices and interest can change."
+    },
+    {
+      "id": "close",
+      "speed": 1.0,
+      "title": { "vi": "Phạm vi và dùng thử", "en": "Scope and next step" },
+      "label": {
+        "vi": "Vercel, Kamino Solana Devnet, tối đa ba khoản",
+        "en": "Vercel, Kamino Solana Devnet, up to three loans"
+      },
+      "vi": "Mô hình khớp hai mươi lăm ca đối chứng chương trình Kamino Devnet. Phiên bản hoặc cấu hình ngoài phạm vi sẽ chặn phân bổ. Kết quả tốt nhất trong lưới hữu hạn xét một lượt, không dự đoán xác suất hoặc thanh lý dây chuyền. Picachu hỗ trợ một ví, tối đa ba khoản SOL và U S D C. Mời bạn dùng thử, chọn mục tiêu và đối chiếu mã nguồn, bằng chứng trong GitHub.",
+      "en": "The model matched twenty-five cases against the Kamino Devnet executable. Unsupported versions or configurations disable allocation. It finds the best result in a finite grid for one event, without predicting probabilities or cascading liquidations. Picachu supports one wallet and up to three SOL and U S D C loans. Try the planner, choose your goal, and inspect the source and evidence on GitHub."
+    }
+  ]
+}

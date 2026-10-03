@@ -2,13 +2,13 @@ Trình bày slide
 
 Deck12 slide theo hướng sản phẩm/demo đã kiểm, light terminal, tiếng Việt. Không phỏng vấn, không dựng traction. Kinh doanh/GTM là giả thuyết. Phân biệt dữ liệu minh họa, biên nhận Devnet lịch sử và chức năng chưa bật.
 
-- [PowerPoint chỉnh sửa được](https://github.com/2274802010922/picachu__/releases/download/v0.3.0-allocator/picachu-allocator.pptx)
-- [PDF](https://github.com/2274802010922/picachu__/releases/download/v0.3.0-allocator/picachu-allocator.pdf)
-- [Clip allocator68,2 giây](https://github.com/2274802010922/picachu__/releases/download/v0.3.0-allocator/picachu-allocator-demo.mp4)
-- [Walkthrough trên YouTube](https://www.youtube.com/watch?v=Uw-04c9cROQ)
+- [PowerPoint chỉnh sửa được](https://github.com/2274802010922/picachu__/releases/download/v0.4.0-bilingual-demo/picachu-slides.pptx)
+- [PDF](https://github.com/2274802010922/picachu__/releases/download/v0.4.0-bilingual-demo/picachu-slides.pdf)
+- [Demo hoàn chỉnh tiếng Việt3:37](https://www.youtube.com/watch?v=Dk57TInsyYM)
+- [Complete English demo4:02](https://www.youtube.com/watch?v=VzjOFclnBBg)
 - [Lời thuyết trình](speaker-notes.md) · [Q&A](qa.md) · [Kiểm tra](../../testing/final-demo-day.md)
 
-Clip mới quay thao tác allocator trên Vercel với ví dụ synthetic, sau đó đọc receipt0,780982 USDC của vòng API test signer đã xác minh riêng. Không quay popup hoặc gửi giao dịch trong quá trình ghi video. Mô hình25 ca VM đã khớp executable, không claim source build match. [Nghiệm thu allocator](../../testing/allocation-acceptance.md). Walkthrough YouTube cũ vẫn là đường xem chính của owner.
+Hai video mới có giọng nam, phụ đề và UI theo VI/EN, đi qua mục tiêu, draft, shortfall, allocator và receipt0,780982 USDC của vòng API test signer đã xác minh riêng. Không quay popup hoặc gửi giao dịch trong recording. Mô hình25 ca VM khớp executable, không claim source build match. [Nghiệm thu allocator](../../testing/allocation-acceptance.md) · [Tài liệu hai video](../../demo/README.md). Clip ngắn cũ đã được thay thế trong đường xem chính.
 
 ## Các slide
 

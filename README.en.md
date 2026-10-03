@@ -14,7 +14,8 @@
 
 <p align="center">
   <a href="https://picachu-iota.vercel.app/portfolio"><strong>Try the app</strong></a> ·
-  <a href="https://www.youtube.com/watch?v=Uw-04c9cROQ"><strong>Watch on YouTube</strong></a> ·
+  <a href="https://www.youtube.com/watch?v=VzjOFclnBBg"><strong>English video</strong></a> ·
+  <a href="https://www.youtube.com/watch?v=Dk57TInsyYM">Video tiếng Việt</a> ·
   <a href="docs/judging/presentation/README.md"><strong>Slides and live clip</strong></a> ·
   <a href="docs/testing/live-devnet-cycle.md">Devnet evidence</a> ·
   <a href="docs/judging/README.md">For judges</a>
@@ -36,9 +37,9 @@ Borrowers need to reduce risk when collateral prices fall while keeping funds in
 
 ## Watch the demo
 
-[![Watch the picachu demo on YouTube with Vietnamese narration and subtitles](docs/assets/video/demo-poster.jpg)](https://www.youtube.com/watch?v=Uw-04c9cROQ)
+[![Watch the complete picachu demo with English male narration and subtitles](docs/assets/video/demo-en-poster.jpg)](https://www.youtube.com/watch?v=VzjOFclnBBg)
 
-**4 minutes 50 seconds · 1080p · Vietnamese · subtitles · 15 chapters.** [Watch directly on YouTube](https://www.youtube.com/watch?v=Uw-04c9cROQ), with no download required. Edited screenshots of the actual interface, explanatory graphics and Devnet receipts; no Phantom popup footage. [Documentation and optional downloads](docs/demo/README.md) · [script](docs/demo/script.md) · [subtitles](docs/demo/picachu-demo-vi.srt). Technical documents are currently in Vietnamese.
+**4 minutes 02 seconds · 1080p · male narration · English subtitles · 10 chapters.** [Watch in English](https://www.youtube.com/watch?v=VzjOFclnBBg) · [Tiếng Việt, 3:37](https://www.youtube.com/watch?v=Dk57TInsyYM). A complete walkthrough from loan selection and goals to budget allocation and a verified Devnet receipt. Fresh localized interface footage; synthetic data, the workflow diagram and historical receipt are clearly labeled. No Phantom popup footage. [Demo documentation](docs/demo/README.md) · [English script](docs/demo/script-en.md) · [English subtitles](docs/demo/picachu-demo-en.srt). Technical documents are currently in Vietnamese.
 
 ## Try it in 60 seconds
 

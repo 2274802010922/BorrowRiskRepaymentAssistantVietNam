@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-10-03 — hai video hoàn chỉnh Việt/Anh
+
+- Hai video quay mới, giọng nam,1080p và phụ đề theo ngôn ngữ; VI3:37/EN4:02, từ mục tiêu đến allocator và biên nhận Devnet lịch sử có nhãn.
+- README VI/EN, cổng demo/giám khảo, notes slide và tài liệu đã dùng hai link YouTube owner cung cấp. Metadata cũ được lưu trữ; MP4 phân phối qua Release.
+- Đồng bộ hướng dẫn UI với allocator đã kiểm chứng: finite grid/one-event, chặn cấu hình không hỗ trợ, partial không đồng nghĩa đạt mọi mục tiêu.
+
 ## 2026-10-02 — sản phẩm, demo và slide chung kết
 
 - Main portfolio có goal draft cần apply, giải thích từ core và AI comment/fallback, shared funds và preset Devnet explicit.

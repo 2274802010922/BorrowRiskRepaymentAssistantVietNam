@@ -1,5 +1,15 @@
 # Bàn giao
 
+## 03/10 — đã nhận hai URL, đang xuất bản và dọn video cũ
+
+Hai video hoàn chỉnh đã dựng và kiểm: VI216,933s, EN242,4s; male voice, captions,1080p. Delivery `C:\Users\haban\Downloads\picachu-demo-2026-10-03` gồm MP4/SRT/poster/script/chapter/YouTube metadata/QA/manifest. [Nghiệm thu](../../testing/bilingual-demo-2026-10-03.md), [plan](../plans/active/bilingual-complete-demo.md).
+
+Người dùng đã upload và gửi [VI](https://www.youtube.com/watch?v=Dk57TInsyYM)/[EN](https://www.youtube.com/watch?v=VzjOFclnBBg). Hai bản phát được; video cũ báo owner đã xóa. Đang hoàn tất GitHub Releasev0.4.0 và cleanup giữ slide/proof, commit tiếng Việt/push main. Cả hai API draft/allocator footage200; draft nguồn rules. Không ký mới; receipt lịch sử ghi rõ. Không claim nghe audio trực tiếp.
+
+README/demo/judging và notes dùng link mới; guide đã đồng bộ finite-grid/one-event. Local158 unit/build25 route và45 browser với2 workers PASS;8 workers ban đầu có6 cold-start timeout. Deck finalizer PASS,12 ảnh khớp bản trước. Tiếp theo push → public-download SHA verification → cleanup MP4/mixed ZIP cũ → checkpoint và kiểm CI/Vercel.
+
+## Checkpoint sản phẩm trước lượt video
+
 Đã hoàn tất allocator v1 ngày03/10:143c8a7 CI37068551907/Vercel PASS, Releasev0.3.0-allocator public và bốn asset SHA256 PASS. Khi tiếp tục không chạy lại execute để đuổi giá; dùng evidence và active plan completed. Phiên bản/config đổi làm gate đóng đúng chủ đích, cần parity mới trước mở phạm vi. Không thay đổi quyền Social preview đang chờ trả lời.
 
 Allocator03/10:9fc07ff main/CI/Vercel PASS;158 unit/45 browser, bundle allocator2505. Một partial repayment thật0,780982 USDC đã verified qua API test signer; không chạy execute runner thêm để đuổi giá. Evidence trong docs/testing/allocation-acceptance.md. Deck12/clip68,2 đã kiểm; hoàn tất publishv0.3.0-allocator/public hashes rồi chốt docs. Phạm vi solvent/no e-mode/one-event/finite-grid; source build match chưa có.
@@ -16,7 +26,7 @@ Checkpoint10086dc đã CI/Vercel PASS và Release v0.2.0-final-demo public; bố
 
 Đọc [CURRENT_STATE](CURRENT_STATE.md) và [plan repo](../plans/active/repository-presentation.md). Mã nguồn nằm dưới src/, docs là cổng đọc; không phục hồi bản root cũ chỉ để khớp liên kết lịch sử.
 
-Video xem chính trên YouTube https://www.youtube.com/watch?v=Uw-04c9cROQ, owner cung cấp ngày 01/10. Không đổi nút/poster trở lại link tải MP4; Release chỉ là lựa chọn offline.
+Đường xem chính là hai YouTube VI/EN ở đầu tài liệu; chọn đúng ngôn ngữ. Release là lựa chọn offline. Video01/10 đã bị owner xóa, không phục hồi vào README.
 
 User đã cho phép end-to-end và commit/push main bằng tiếng Việt. Đợt này gồm tổ chức file, README, Release demo và About/social preview. Phải kiểm format/lint/types/unit/build/e2e, toàn bộ liên kết docs và strict server bundle trước chốt; kết quả/live deploy ghi trong validation.
 

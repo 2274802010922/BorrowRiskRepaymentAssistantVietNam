@@ -61,8 +61,8 @@ export function Guide() {
           [
             t("5. Giới hạn của bản MVP", "5. MVP boundaries"),
             t(
-              "MVP hỗ trợ tối đa ba khoản vay cùng ví và cặp SOL/USDC trên Kamino Devnet. Bạn ký từng bước trả nợ. Phân bổ theo tổn thất thanh lý đang tắt trong lúc chờ kiểm chứng model; không tự đổi token hoặc tự ký.",
-              "The MVP supports up to three loans from one wallet and SOL/USDC pair on Kamino Devnet. You sign each repayment step. Loss-based allocation is disabled pending model verification; swapping and signing are not automatic.",
+              "MVP hỗ trợ tối đa ba khoản vay cùng ví và cặp SOL/USDC trên Kamino Devnet. Khi thiếu ngân sách, bạn có thể so sánh phân bổ theo mô hình một lượt thanh lý trong lưới hữu hạn. Phiên bản hoặc cấu hình ngoài phạm vi đã kiểm chứng sẽ chặn phân bổ. Cải thiện một phần không có nghĩa mọi mục tiêu đã đạt. Bạn xem lại và ký từng bước; không tự đổi token hoặc tự ký.",
+              "The MVP supports up to three loans from one wallet and SOL/USDC pair on Kamino Devnet. When the budget is insufficient, compare allocations using a one-event liquidation model and a finite grid. Unsupported versions or configurations disable allocation. Partial improvement does not mean every goal is met. You review and sign each step; swapping and signing are not automatic.",
             ),
           ],
         ].map(([title, body]) => (

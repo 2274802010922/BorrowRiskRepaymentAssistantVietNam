@@ -1,0 +1,399 @@
+{
+  "duration": 216.93333333333334,
+  "scenes": [
+    {
+      "id": "intro",
+      "start": 0,
+      "end": 16.333333333333332,
+      "rawStart": 2.1612221,
+      "rawEnd": 18.4843979,
+      "visualSpeed": 1.0,
+      "voice": "vi-VN-NamMinhNeural",
+      "rate": "+8%"
+    },
+    {
+      "id": "loans",
+      "start": 16.333333333333332,
+      "end": 35.93333333333334,
+      "rawStart": 18.518828499999998,
+      "rawEnd": 47.918827400000005,
+      "visualSpeed": 1.5,
+      "voice": "vi-VN-NamMinhNeural",
+      "rate": "+8%"
+    },
+    {
+      "id": "goals",
+      "start": 35.93333333333334,
+      "end": 55.60000000000001,
+      "rawStart": 47.964708,
+      "rawEnd": 77.4475902,
+      "visualSpeed": 1.5,
+      "voice": "vi-VN-NamMinhNeural",
+      "rate": "+8%"
+    },
+    {
+      "id": "full-result",
+      "start": 55.60000000000001,
+      "end": 77.03333333333335,
+      "rawStart": 77.49420599999999,
+      "rawEnd": 98.9197452,
+      "visualSpeed": 1.0,
+      "voice": "vi-VN-NamMinhNeural",
+      "rate": "+8%"
+    },
+    {
+      "id": "draft",
+      "start": 77.03333333333335,
+      "end": 97.93333333333334,
+      "rawStart": 98.96166129999999,
+      "rawEnd": 130.271185,
+      "visualSpeed": 1.5,
+      "voice": "vi-VN-NamMinhNeural",
+      "rate": "+8%"
+    },
+    {
+      "id": "shortfall",
+      "start": 97.93333333333334,
+      "end": 114.9,
+      "rawStart": 130.3169169,
+      "rawEnd": 147.2865075,
+      "visualSpeed": 1.0001723339882125,
+      "voice": "vi-VN-NamMinhNeural",
+      "rate": "+8%"
+    },
+    {
+      "id": "allocation",
+      "start": 114.9,
+      "end": 144.3,
+      "rawStart": 147.3283763,
+      "rawEnd": 176.7215113,
+      "visualSpeed": 1.0,
+      "voice": "vi-VN-NamMinhNeural",
+      "rate": "+8%"
+    },
+    {
+      "id": "execution",
+      "start": 144.3,
+      "end": 168.26666666666668,
+      "rawStart": 176.7630459,
+      "rawEnd": 200.7144378,
+      "visualSpeed": 1.0,
+      "voice": "vi-VN-NamMinhNeural",
+      "rate": "+8%"
+    },
+    {
+      "id": "receipt",
+      "start": 168.26666666666668,
+      "end": 195.20000000000002,
+      "rawStart": 200.757386,
+      "rawEnd": 227.6781047,
+      "visualSpeed": 1.0,
+      "voice": "vi-VN-NamMinhNeural",
+      "rate": "+8%"
+    },
+    {
+      "id": "close",
+      "start": 195.20000000000002,
+      "end": 216.93333333333334,
+      "rawStart": 227.73364360000002,
+      "rawEnd": 249.44835070000002,
+      "visualSpeed": 1.0,
+      "voice": "vi-VN-NamMinhNeural",
+      "rate": "+8%"
+    }
+  ],
+  "chapters": [
+    {
+      "start": 0,
+      "end": 16.333333333333332,
+      "title": "Trả nợ theo mục tiêu"
+    },
+    {
+      "start": 16.333333333333332,
+      "end": 35.93333333333334,
+      "title": "Chọn khoản vay và số dư chung"
+    },
+    {
+      "start": 35.93333333333334,
+      "end": 55.60000000000001,
+      "title": "Ngân sách, tiền giữ lại và kịch bản"
+    },
+    {
+      "start": 55.60000000000001,
+      "end": 77.03333333333335,
+      "title": "Đủ tiền: chỉ trả phần cần thiết"
+    },
+    {
+      "start": 77.03333333333335,
+      "end": 97.93333333333334,
+      "title": "Mục tiêu bằng câu ngắn"
+    },
+    {
+      "start": 97.93333333333334,
+      "end": 114.9,
+      "title": "Thiếu tiền để đạt tất cả mục tiêu"
+    },
+    {
+      "start": 114.9,
+      "end": 144.3,
+      "title": "Phân bổ và so sánh cách trả"
+    },
+    {
+      "start": 144.3,
+      "end": 168.26666666666668,
+      "title": "Xem trước, tự ký và xác minh"
+    },
+    {
+      "start": 168.26666666666668,
+      "end": 195.20000000000002,
+      "title": "Biên nhận Devnet đã xác minh"
+    },
+    {
+      "start": 195.20000000000002,
+      "end": 216.93333333333334,
+      "title": "Phạm vi và dùng thử"
+    }
+  ],
+  "cues": [
+    {
+      "start": 0.04000000000000001,
+      "end": 4.400373999999999,
+      "text": "picachu giúp người vay trên Solana quyết định trả bao\nnhiêu và giữ lại bao nhiêu tiền."
+    },
+    {
+      "start": 4.932125,
+      "end": 9.049415999999999,
+      "text": "Mục tiêu là dùng một ngân sách để giảm rủi ro, vẫn giữ\ntiền cho nhu cầu khác."
+    },
+    {
+      "start": 9.584916,
+      "end": 15.299457,
+      "text": "Video đi qua phương án đầy đủ, phân bổ khi thiếu tiền,\nrồi đối chiếu bằng chứng trả nợ trên mạng thử nghiệm."
+    },
+    {
+      "start": 16.37333333333333,
+      "end": 19.043916333333332,
+      "text": "Đầu tiên, chọn những khoản muốn đưa vào kế hoạch."
+    },
+    {
+      "start": 19.57566633333333,
+      "end": 24.043249333333332,
+      "text": "Ví dụ minh họa có ba khoản nợ sáu mươi lăm, năm mươi lăm\nvà bốn mươi lăm USDC."
+    },
+    {
+      "start": 24.043249333333332,
+      "end": 27.211499333333332,
+      "text": "Mỗi khoản thế chấp một SOL, giá giả định một trăm đô la."
+    },
+    {
+      "start": 27.746958333333332,
+      "end": 31.79479033333333,
+      "text": "Khi kết nối ví, ứng dụng đọc các khoản Kamino Devnet\nđược hỗ trợ."
+    },
+    {
+      "start": 32.330291333333335,
+      "end": 34.93137433333333,
+      "text": "Số dư ví dùng chung, không cộng ba lần."
+    },
+    {
+      "start": 35.973333333333336,
+      "end": 41.82983333333334,
+      "text": "Bước hai, ví dụ có tám mươi USDC. Giữ lại hai mươi, trả\ntối đa ba mươi, và xét giá SOL giảm"
+    },
+    {
+      "start": 41.82983333333334,
+      "end": 47.64479133333334,
+      "text": "ba mươi phần trăm. Dư địa mục tiêu là thêm năm phần trăm\ntính từ giá đã giảm, trước ngưỡng thanh lý."
+    },
+    {
+      "start": 48.18029133333334,
+      "end": 51.07074933333334,
+      "text": "Ngân sách là giới hạn chi, không bắt buộc dùng hết."
+    },
+    {
+      "start": 51.606208333333335,
+      "end": 54.566124333333335,
+      "text": "Đây là kịch bản bạn chọn, không phải dự báo thị trường."
+    },
+    {
+      "start": 55.64000000000001,
+      "end": 61.35449900000001,
+      "text": "Khoản A cần trả mười một phẩy tám USDC, khoản B một phẩy\ntám, còn khoản C không cần trả thêm."
+    },
+    {
+      "start": 61.88629100000001,
+      "end": 64.846207,
+      "text": "Tổng mười ba phẩy sáu, thấp hơn ngân sách ba mươi."
+    },
+    {
+      "start": 65.38166600000001,
+      "end": 70.54062400000001,
+      "text": "Ví còn sáu mươi sáu phẩy bốn. Mỗi dòng có số tiền và dư\nđịa theo phương án."
+    },
+    {
+      "start": 71.076125,
+      "end": 76.02674900000001,
+      "text": "Bộ tính toán dùng ngưỡng thanh lý và hệ số vay của ví\ndụ, không để AI tạo các con số này."
+    },
+    {
+      "start": 77.07333333333335,
+      "end": 82.71841633333335,
+      "text": "Bạn có thể viết: trả tối đa mười, giữ hai mươi USDC, nếu\nSOL giảm ba mươi phần trăm."
+    },
+    {
+      "start": 83.25016633333334,
+      "end": 86.19854133333334,
+      "text": "Ứng dụng tạo bản nháp để xem lại và chủ động áp dụng."
+    },
+    {
+      "start": 86.73399933333334,
+      "end": 90.20316633333334,
+      "text": "AI hỗ trợ đọc câu, còn bộ tính toán kiểm tra giá trị."
+    },
+    {
+      "start": 90.73862433333335,
+      "end": 93.89524933333334,
+      "text": "Nếu dùng quy tắc thay AI, giao diện ghi rõ."
+    },
+    {
+      "start": 94.43074933333335,
+      "end": 96.89295733333334,
+      "text": "AI không quyết định phân bổ hoặc ký giao dịch."
+    },
+    {
+      "start": 97.97333333333334,
+      "end": 101.56979133333334,
+      "text": "Ngân sách mười USDC thiếu ba phẩy sáu để đạt mọi mục\ntiêu."
+    },
+    {
+      "start": 102.10158333333334,
+      "end": 105.55916633333334,
+      "text": "picachu giữ cảnh báo, không gọi trả thiếu là đã an toàn."
+    },
+    {
+      "start": 106.09462433333334,
+      "end": 110.81379033333334,
+      "text": "Xem cách phân bổ tiền để biết cách trả nào giảm chi phí\nthanh lý ước tính tốt hơn trong kịch bản."
+    },
+    {
+      "start": 111.34924933333333,
+      "end": 113.90408233333333,
+      "text": "Bạn vẫn có thể tăng ngân sách hoặc đổi mục tiêu."
+    },
+    {
+      "start": 114.94000000000001,
+      "end": 120.35362400000001,
+      "text": "Mô hình đề xuất trả khoảng chín USDC cho A, giữ gần một\nUSDC ngân sách chưa dùng."
+    },
+    {
+      "start": 120.88537500000001,
+      "end": 126.64616600000001,
+      "text": "Số chính xác trên màn hình. A chưa đạt dư địa năm phần\ntrăm, nên vẫn là cải thiện một phần."
+    },
+    {
+      "start": 127.181666,
+      "end": 130.685541,
+      "text": "Giải thích gồm tổn thất của một lượt thanh lý giả định\nvà phí trả nợ."
+    },
+    {
+      "start": 131.221,
+      "end": 136.704083,
+      "text": "Bảng so sánh cùng dữ liệu, ngân sách cho không trả, chia\nđều, ưu tiên rủi ro và phương án đề xuất."
+    },
+    {
+      "start": 137.239541,
+      "end": 140.373041,
+      "text": "Chi phí thấp nhất trong tập đã xét khác với đạt mọi mục\ntiêu."
+    },
+    {
+      "start": 140.9085,
+      "end": 143.28970700000002,
+      "text": "Tiền gốc trả nợ không phải tổn thất thanh lý."
+    },
+    {
+      "start": 144.34,
+      "end": 148.434166,
+      "text": "Khi thực thi, xem số tiền, phí và hạn dùng rồi tự ký\nbằng ví."
+    },
+    {
+      "start": 148.96591600000002,
+      "end": 153.99758300000002,
+      "text": "Phương án đổi thì duyệt lại. Mỗi bước phải có biên nhận\nxác minh mới mở bước tiếp."
+    },
+    {
+      "start": 154.53304100000003,
+      "end": 156.671207,
+      "text": "Nhật ký giữ tiến độ khi tải lại trang."
+    },
+    {
+      "start": 157.206666,
+      "end": 160.93045700000002,
+      "text": "Trạng thái chưa rõ chặn gửi tiếp để kiểm tra, không tự\ngửi lại mù."
+    },
+    {
+      "start": 161.46591600000002,
+      "end": 167.249874,
+      "text": "Ví giữ khóa bí mật. Đây là giải thích quy trình, không\nphải cảnh quay popup xác nhận Phantom."
+    },
+    {
+      "start": 168.30666666666667,
+      "end": 171.86845766666667,
+      "text": "Biên nhận thật này đến từ vòng API Vercel với ví Devnet\nriêng."
+    },
+    {
+      "start": 172.40016666666668,
+      "end": 177.1193746666667,
+      "text": "Ngân sách một USDC, giữ lại một, kịch bản SOL giảm bốn\nmươi lăm phần trăm."
+    },
+    {
+      "start": 177.6548326666667,
+      "end": 181.6825826666667,
+      "text": "Sau duyệt preview mới, ví trả khoảng không phẩy bảy tám\nUSDC;"
+    },
+    {
+      "start": 181.6825826666667,
+      "end": 185.39483266666667,
+      "text": "số đầy đủ trên màn hình. Nhật ký xác minh bước trả."
+    },
+    {
+      "start": 185.93029166666668,
+      "end": 189.1563746666667,
+      "text": "Ví còn khoảng mười sáu phẩy sáu hai, trên mức giữ lại."
+    },
+    {
+      "start": 189.69183266666667,
+      "end": 192.6548326666667,
+      "text": "Biên nhận thành công không đồng nghĩa mọi mục tiêu hiện\ntại đã đạt;"
+    },
+    {
+      "start": 192.6548326666667,
+      "end": 194.17954066666667,
+      "text": "giá và lãi có thể đổi."
+    },
+    {
+      "start": 195.24,
+      "end": 198.66287400000002,
+      "text": "Mô hình khớp hai mươi lăm ca đối chứng chương trình\nKamino Devnet."
+    },
+    {
+      "start": 199.19462500000003,
+      "end": 202.15454100000002,
+      "text": "Phiên bản hoặc cấu hình ngoài phạm vi sẽ chặn phân bổ."
+    },
+    {
+      "start": 202.69000000000003,
+      "end": 207.51333300000002,
+      "text": "Kết quả tốt nhất trong lưới hữu hạn xét một lượt, không\ndự đoán xác suất hoặc thanh lý dây chuyền."
+    },
+    {
+      "start": 208.04879100000002,
+      "end": 211.77566600000003,
+      "text": "picachu hỗ trợ một ví, tối đa ba khoản SOL và USDC."
+    },
+    {
+      "start": 211.77566600000003,
+      "end": 215.90454100000002,
+      "text": "Mời bạn dùng thử, chọn mục tiêu và đối chiếu mã nguồn,\nbằng chứng trong GitHub."
+    }
+  ]
+}

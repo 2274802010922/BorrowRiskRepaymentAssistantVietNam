@@ -1,0 +1,41 @@
+{
+  "file": "picachu-demo-en.mp4",
+  "sha256": "5f6db9777308c7b7b74bd319d5d436f02355569b60cf2f102e19d182fc575da5",
+  "bytes": 13639407,
+  "duration": 242.4,
+  "video": {
+    "codec": "h264",
+    "width": 1920,
+    "height": 1080,
+    "fps": "30/1"
+  },
+  "audio": {
+    "codec": "aac",
+    "sampleRate": "48000",
+    "loudness": {
+      "input_i": "-16.29",
+      "input_tp": "-1.47",
+      "input_lra": "3.50",
+      "input_thresh": "-26.86",
+      "output_i": "-16.00",
+      "output_tp": "-1.50",
+      "output_lra": "3.30",
+      "output_thresh": "-26.57",
+      "normalization_type": "dynamic",
+      "target_offset": "-0.00"
+    }
+  },
+  "chapters": 10,
+  "subtitleCues": 59,
+  "fullDecode": "passed",
+  "subtitleBoundsAndNonOverlap": "passed",
+  "narrationSources": [
+    {
+      "voice": "en-US-AndrewMultilingualNeural",
+      "rate": "+8%"
+    }
+  ],
+  "audioReview": "Provider word alignment, independent ASR and decode/loudness checks. No claim of human listening.",
+  "visualReview": "Contact sheets and scene frames generated for inspection.",
+  "publication": "Local delivery; awaiting owner-uploaded YouTube URLs. Existing public videos and links untouched."
+}

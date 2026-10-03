@@ -1,0 +1,267 @@
+1
+00:00:00,033 --> 00:00:05,365
+picachu helps borrowers on Solana decide how much to
+repay and how much cash to keep.
+
+2
+00:00:05,507 --> 00:00:09,891
+Use a limited budget to reduce risk while preserving
+funds for other needs.
+
+3
+00:00:10,021 --> 00:00:12,402
+This walkthrough covers the complete planner,
+
+4
+00:00:12,590 --> 00:00:14,949
+allocation when funds are insufficient,
+
+5
+00:00:15,114 --> 00:00:18,085
+and a verified repayment receipt on the test network.
+
+6
+00:00:18,734 --> 00:00:24,263
+First, select the loans to include. This labeled
+synthetic example has debts of sixty-five,
+
+7
+00:00:24,382 --> 00:00:30,181
+fifty-five, and forty-five USDC. Each has one SOL of
+collateral at an
+
+8
+00:00:30,181 --> 00:00:35,609
+assumed price of one hundred dollars. Connecting a
+wallet loads supported Kamino Devnet
+
+9
+00:00:35,609 --> 00:00:38,442
+positions. The wallet balance is shared,
+
+10
+00:00:38,583 --> 00:00:41,312
+rather than counted once for every position.
+
+11
+00:00:41,888 --> 00:00:45,253
+Next, the example wallet holds eighty USDC.
+
+12
+00:00:45,557 --> 00:00:51,213
+Keep twenty, repay at most thirty, and test a thirty
+percent fall in SOL's price.
+
+13
+00:00:51,355 --> 00:00:56,155
+The target is an additional five percent price buffer
+after that fall, before liquidation.
+
+14
+00:00:56,286 --> 00:01:00,010
+The budget is a limit, not a requirement to spend
+everything.
+
+15
+00:01:00,140 --> 00:01:03,216
+This is a chosen scenario, not a market forecast.
+
+16
+00:01:03,821 --> 00:01:08,193
+Loan A needs eleven point eight USDC, loan B one point
+eight,
+
+17
+00:01:08,439 --> 00:01:13,806
+and loan C no extra repayment. The total, thirteen point
+six, is below the budget,
+
+18
+00:01:13,937 --> 00:01:16,225
+leaving sixty-six point four in the wallet.
+
+19
+00:01:16,367 --> 00:01:19,316
+Each row shows its repayment and scenario buffer.
+
+20
+00:01:19,469 --> 00:01:23,505
+The core uses the example's liquidation threshold and
+borrowing factor;
+
+21
+00:01:23,763 --> 00:01:25,820
+AI does not invent these amounts.
+
+22
+00:01:26,433 --> 00:01:30,411
+You can write: repay up to ten USDC, keep twenty,
+
+23
+00:01:30,599 --> 00:01:36,661
+if SOL falls thirty percent. picachu creates a draft for
+review and explicit application.
+
+24
+00:01:36,803 --> 00:01:40,480
+AI can extract the goal, while the core validates its
+values.
+
+25
+00:01:40,622 --> 00:01:44,960
+If fixed rules are used instead, the interface
+identifies that source.
+
+26
+00:01:45,102 --> 00:01:48,548
+AI cannot decide the allocation or sign a transaction.
+
+27
+00:01:49,133 --> 00:01:53,505
+Ten dollars is three point six USDC short of meeting
+every goal.
+
+28
+00:01:53,646 --> 00:01:57,532
+The warning remains: partial payment is not full
+protection.
+
+29
+00:01:57,663 --> 00:02:03,736
+Explore allocation to compare repayments that reduce
+estimated liquidation costs in this scenario.
+
+30
+00:02:03,878 --> 00:02:06,456
+You can still increase the budget or change the goal.
+
+31
+00:02:07,066 --> 00:02:10,338
+The model proposes about nine USDC for A,
+
+32
+00:02:10,527 --> 00:02:14,586
+leaving nearly one dollar unused. The exact amount is
+visible.
+
+33
+00:02:14,716 --> 00:02:19,158
+A still lacks the five percent target buffer, so this
+remains partial improvement.
+
+34
+00:02:19,300 --> 00:02:24,621
+The explanation separates loss from one assumed
+liquidation event and repayment fees.
+
+35
+00:02:24,751 --> 00:02:28,602
+Compare no repayment, equal split, risk-first repayment,
+
+36
+00:02:28,779 --> 00:02:31,253
+and the proposal using the same data and budget.
+
+37
+00:02:31,395 --> 00:02:35,605
+The lowest cost among these candidates is different from
+meeting every goal.
+
+38
+00:02:35,723 --> 00:02:38,649
+Repayment principal is not liquidation loss.
+
+39
+00:02:39,233 --> 00:02:43,534
+Review the amount, fee, and expiry, then sign with your
+wallet.
+
+40
+00:02:43,664 --> 00:02:49,529
+Plan changes require another review. Each step opens
+only after the previous receipt is verified.
+
+41
+00:02:49,648 --> 00:02:52,747
+The journal preserves progress across reloads.
+
+42
+00:02:52,842 --> 00:02:56,786
+An uncertain status blocks further sending until
+checked,
+
+43
+00:02:56,905 --> 00:03:00,559
+avoiding blind retries. Your wallet keeps the private
+key.
+
+44
+00:03:00,690 --> 00:03:05,050
+This is a workflow explanation, not footage of a Phantom
+confirmation popup.
+
+45
+00:03:05,666 --> 00:03:10,559
+This real receipt comes from a separate Vercel API test
+with a dedicated Devnet wallet.
+
+46
+00:03:10,701 --> 00:03:13,904
+The budget and reserve were each one USDC,
+
+47
+00:03:14,034 --> 00:03:16,519
+with a forty-five percent SOL scenario.
+
+48
+00:03:16,627 --> 00:03:21,311
+After reviewing the new preview, the wallet repaid about
+zero point seven eight;
+
+49
+00:03:21,349 --> 00:03:24,795
+the full amount is shown. The journal verified the step.
+
+50
+00:03:24,925 --> 00:03:28,684
+About sixteen point six two remained, above the reserve.
+
+51
+00:03:28,802 --> 00:03:32,422
+A successful receipt does not mean every current goal is
+met;
+
+52
+00:03:32,576 --> 00:03:34,621
+prices and interest can change.
+
+53
+00:03:35,233 --> 00:03:40,160
+The model matched twenty-five cases against the Kamino
+Devnet executable.
+
+54
+00:03:40,279 --> 00:03:44,142
+Unsupported versions or configurations disable
+allocation.
+
+55
+00:03:44,260 --> 00:03:47,706
+It finds the best result in a finite grid for one event,
+
+56
+00:03:47,848 --> 00:03:51,653
+without predicting probabilities or cascading
+liquidations.
+
+57
+00:03:51,795 --> 00:03:54,975
+picachu supports one wallet and up to three SOL
+
+58
+00:03:55,094 --> 00:03:58,991
+and USDC loans. Try the planner, choose your goal,
+
+59
+00:03:59,156 --> 00:04:01,838
+and inspect the source and evidence on GitHub.

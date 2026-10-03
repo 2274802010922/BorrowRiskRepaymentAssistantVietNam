@@ -2,7 +2,7 @@
 
 [Deck 12 slide, PDF, lời thuyết trình và Q&A](presentation/README.md).
 
-[Dùng thử](https://picachu-iota.vercel.app/portfolio) · [Xem video trên YouTube](https://www.youtube.com/watch?v=Uw-04c9cROQ) · [Tài liệu demo](../demo/README.md) · [Evidence Devnet](../testing/live-devnet-cycle.md)
+[Dùng thử](https://picachu-iota.vercel.app/portfolio) · [Video Việt3:37](https://www.youtube.com/watch?v=Dk57TInsyYM) · [English4:02](https://www.youtube.com/watch?v=VzjOFclnBBg) · [Tài liệu demo](../demo/README.md) · [Evidence Devnet](../testing/live-devnet-cycle.md)
 
 | Track                   | Điều có thể kiểm                                                                                            | Đường dẫn                                                                                                                                              |
 | ----------------------- | ----------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |

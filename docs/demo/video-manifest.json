@@ -1,0 +1,21 @@
+{
+  "release": "v0.4.0-bilingual-demo",
+  "videos": [
+    {
+      "locale": "vi",
+      "youtube": "https://www.youtube.com/watch?v=Dk57TInsyYM",
+      "file": "picachu-demo-vi.mp4",
+      "sha256": "d5e1f1db8dc9bfced8eb2f87c2e822677e2496c6d3518df7fd6739b8cc74b2c3",
+      "durationSeconds": 216.933,
+      "bytes": 11922606
+    },
+    {
+      "locale": "en",
+      "youtube": "https://www.youtube.com/watch?v=VzjOFclnBBg",
+      "file": "picachu-demo-en.mp4",
+      "sha256": "5f6db9777308c7b7b74bd319d5d436f02355569b60cf2f102e19d182fc575da5",
+      "durationSeconds": 242.4,
+      "bytes": 13639407
+    }
+  ]
+}

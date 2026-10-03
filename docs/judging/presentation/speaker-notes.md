@@ -15,7 +15,7 @@
 11. **Phạm vi,20s.** Có proof VM và receipt API test riêng. Bước tiếp là theo dõi và mở nhánh sau kiểm chứng. Giữ một ví, tối đa ba khoản/cặp SOL/USDC; không claim tối ưu global hay source build match.
 12. **Kết,15s.** Mời giám khảo mở app và kiểm repo/receipt. Tổng script có thể rút bằng cách giữ demo và đưa chi tiết vào Q&A.
 
-Thời lượng là phân bổ diễn tập, không cam kết đúng từng giây. Không chạy clip4:50 cùng toàn bộ speech trong slot5 phút.
+Thời lượng là phân bổ diễn tập, không cam kết đúng từng giây. Video đầy đủ hiện có [bản Việt3:37](https://www.youtube.com/watch?v=Dk57TInsyYM) và [bản Anh4:02](https://www.youtube.com/watch?v=VzjOFclnBBg); trong slot5 phút chỉ dùng đoạn phù hợp thay vì phát cả video cùng toàn bộ lời thuyết trình.
 
 ## Bản khoảng3 phút
 

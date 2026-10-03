@@ -1,0 +1,10 @@
+00:00 Trả nợ theo mục tiêu
+00:16 Chọn khoản vay và số dư chung
+00:35 Ngân sách, tiền giữ lại và kịch bản
+00:55 Đủ tiền: chỉ trả phần cần thiết
+01:17 Mục tiêu bằng câu ngắn
+01:37 Thiếu tiền để đạt tất cả mục tiêu
+01:54 Phân bổ và so sánh cách trả
+02:24 Xem trước, tự ký và xác minh
+02:48 Biên nhận Devnet đã xác minh
+03:15 Phạm vi và dùng thử

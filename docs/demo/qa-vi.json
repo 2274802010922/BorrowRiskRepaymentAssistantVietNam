@@ -1,0 +1,41 @@
+{
+  "file": "picachu-demo-vi.mp4",
+  "sha256": "d5e1f1db8dc9bfced8eb2f87c2e822677e2496c6d3518df7fd6739b8cc74b2c3",
+  "bytes": 11922606,
+  "duration": 216.933,
+  "video": {
+    "codec": "h264",
+    "width": 1920,
+    "height": 1080,
+    "fps": "30/1"
+  },
+  "audio": {
+    "codec": "aac",
+    "sampleRate": "48000",
+    "loudness": {
+      "input_i": "-16.21",
+      "input_tp": "-1.38",
+      "input_lra": "2.40",
+      "input_thresh": "-26.46",
+      "output_i": "-16.06",
+      "output_tp": "-1.50",
+      "output_lra": "2.40",
+      "output_thresh": "-26.32",
+      "normalization_type": "dynamic",
+      "target_offset": "0.06"
+    }
+  },
+  "chapters": 10,
+  "subtitleCues": 48,
+  "fullDecode": "passed",
+  "subtitleBoundsAndNonOverlap": "passed",
+  "narrationSources": [
+    {
+      "voice": "vi-VN-NamMinhNeural",
+      "rate": "+8%"
+    }
+  ],
+  "audioReview": "Provider word alignment, independent ASR and decode/loudness checks. No claim of human listening.",
+  "visualReview": "Contact sheets and scene frames generated for inspection.",
+  "publication": "Local delivery; awaiting owner-uploaded YouTube URLs. Existing public videos and links untouched."
+}

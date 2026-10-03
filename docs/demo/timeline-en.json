@@ -1,0 +1,454 @@
+{
+  "duration": 242.4,
+  "scenes": [
+    {
+      "id": "intro",
+      "start": 0,
+      "end": 18.666666666666668,
+      "rawStart": 1.9554287,
+      "rawEnd": 20.6240168,
+      "visualSpeed": 1.0001029339285714,
+      "voice": "en-US-AndrewMultilingualNeural",
+      "rate": "+8%"
+    },
+    {
+      "id": "loans",
+      "start": 18.666666666666668,
+      "end": 41.86666666666667,
+      "rawStart": 20.665368599999997,
+      "rawEnd": 55.46982130000001,
+      "visualSpeed": 1.5001919267241386,
+      "voice": "en-US-AndrewMultilingualNeural",
+      "rate": "+8%"
+    },
+    {
+      "id": "goals",
+      "start": 41.86666666666667,
+      "end": 63.8,
+      "rawStart": 55.5146779,
+      "rawEnd": 88.4205815,
+      "visualSpeed": 1.5002691610942247,
+      "voice": "en-US-AndrewMultilingualNeural",
+      "rate": "+8%"
+    },
+    {
+      "id": "full-result",
+      "start": 63.8,
+      "end": 86.4,
+      "rawStart": 88.4609182,
+      "rawEnd": 111.0518772,
+      "visualSpeed": 1.0,
+      "voice": "en-US-AndrewMultilingualNeural",
+      "rate": "+8%"
+    },
+    {
+      "id": "draft",
+      "start": 86.4,
+      "end": 109.10000000000001,
+      "rawStart": 111.09327449999999,
+      "rawEnd": 145.1404009,
+      "visualSpeed": 1.5,
+      "voice": "en-US-AndrewMultilingualNeural",
+      "rate": "+8%"
+    },
+    {
+      "id": "shortfall",
+      "start": 109.10000000000001,
+      "end": 127.03333333333335,
+      "rawStart": 145.1943934,
+      "rawEnd": 163.1211036,
+      "visualSpeed": 1.0,
+      "voice": "en-US-AndrewMultilingualNeural",
+      "rate": "+8%"
+    },
+    {
+      "id": "allocation",
+      "start": 127.03333333333335,
+      "end": 159.23333333333335,
+      "rawStart": 163.1633155,
+      "rawEnd": 195.34056769999998,
+      "visualSpeed": 1.0,
+      "voice": "en-US-AndrewMultilingualNeural",
+      "rate": "+8%"
+    },
+    {
+      "id": "execution",
+      "start": 159.23333333333335,
+      "end": 185.63333333333335,
+      "rawStart": 195.39117489999998,
+      "rawEnd": 221.7634716,
+      "visualSpeed": 1.0,
+      "voice": "en-US-AndrewMultilingualNeural",
+      "rate": "+8%"
+    },
+    {
+      "id": "receipt",
+      "start": 185.63333333333335,
+      "end": 215.20000000000002,
+      "rawStart": 221.7949321,
+      "rawEnd": 251.360938,
+      "visualSpeed": 1.0,
+      "voice": "en-US-AndrewMultilingualNeural",
+      "rate": "+8%"
+    },
+    {
+      "id": "close",
+      "start": 215.20000000000002,
+      "end": 242.4,
+      "rawStart": 251.48180499999998,
+      "rawEnd": 278.66855830000003,
+      "visualSpeed": 1.0,
+      "voice": "en-US-AndrewMultilingualNeural",
+      "rate": "+8%"
+    }
+  ],
+  "chapters": [
+    {
+      "start": 0,
+      "end": 18.666666666666668,
+      "title": "Repayment with a clear goal"
+    },
+    {
+      "start": 18.666666666666668,
+      "end": 41.86666666666667,
+      "title": "Select loans and a shared balance"
+    },
+    {
+      "start": 41.86666666666667,
+      "end": 63.8,
+      "title": "Budget, reserve and price scenario"
+    },
+    {
+      "start": 63.8,
+      "end": 86.4,
+      "title": "Affordable goal: repay only what is needed"
+    },
+    {
+      "start": 86.4,
+      "end": 109.10000000000001,
+      "title": "Describe a goal in plain language"
+    },
+    {
+      "start": 109.10000000000001,
+      "end": 127.03333333333335,
+      "title": "The budget cannot meet every goal"
+    },
+    {
+      "start": 127.03333333333335,
+      "end": 159.23333333333335,
+      "title": "Allocation and comparable alternatives"
+    },
+    {
+      "start": 159.23333333333335,
+      "end": 185.63333333333335,
+      "title": "Review, sign and verify"
+    },
+    {
+      "start": 185.63333333333335,
+      "end": 215.20000000000002,
+      "title": "A verified Devnet repayment receipt"
+    },
+    {
+      "start": 215.20000000000002,
+      "end": 242.4,
+      "title": "Scope and next step"
+    }
+  ],
+  "cues": [
+    {
+      "start": 0.032583,
+      "end": 5.365207,
+      "text": "picachu helps borrowers on Solana decide how much to\nrepay and how much cash to keep."
+    },
+    {
+      "start": 5.507125,
+      "end": 9.890666,
+      "text": "Use a limited budget to reduce risk while preserving\nfunds for other needs."
+    },
+    {
+      "start": 10.020999999999999,
+      "end": 12.40225,
+      "text": "This walkthrough covers the complete planner,"
+    },
+    {
+      "start": 12.590458,
+      "end": 14.948541,
+      "text": "allocation when funds are insufficient,"
+    },
+    {
+      "start": 15.113624999999999,
+      "end": 18.085083,
+      "text": "and a verified repayment receipt on the test network."
+    },
+    {
+      "start": 18.73399966666667,
+      "end": 24.263332666666667,
+      "text": "First, select the loans to include. This labeled\nsynthetic example has debts of sixty-five,"
+    },
+    {
+      "start": 24.38212466666667,
+      "end": 30.180749666666667,
+      "text": "fifty-five, and forty-five USDC. Each has one SOL of\ncollateral at an"
+    },
+    {
+      "start": 30.180749666666667,
+      "end": 35.60899966666667,
+      "text": "assumed price of one hundred dollars. Connecting a\nwallet loads supported Kamino Devnet"
+    },
+    {
+      "start": 35.60899966666667,
+      "end": 38.44158266666667,
+      "text": "positions. The wallet balance is shared,"
+    },
+    {
+      "start": 38.58349966666667,
+      "end": 41.311915666666664,
+      "text": "rather than counted once for every position."
+    },
+    {
+      "start": 41.88766666666667,
+      "end": 45.252707666666666,
+      "text": "Next, the example wallet holds eighty USDC."
+    },
+    {
+      "start": 45.556666666666665,
+      "end": 51.213332666666666,
+      "text": "Keep twenty, repay at most thirty, and test a thirty\npercent fall in SOL's price."
+    },
+    {
+      "start": 51.355291666666666,
+      "end": 56.15545766666666,
+      "text": "The target is an additional five percent price buffer\nafter that fall, before liquidation."
+    },
+    {
+      "start": 56.285832666666664,
+      "end": 60.00962366666667,
+      "text": "The budget is a limit, not a requirement to spend\neverything."
+    },
+    {
+      "start": 60.13999966666667,
+      "end": 63.215623666666666,
+      "text": "This is a chosen scenario, not a market forecast."
+    },
+    {
+      "start": 63.821,
+      "end": 68.192958,
+      "text": "Loan A needs eleven point eight USDC, loan B one point\neight,"
+    },
+    {
+      "start": 68.439083,
+      "end": 73.80637399999999,
+      "text": "and loan C no extra repayment. The total, thirteen point\nsix, is below the budget,"
+    },
+    {
+      "start": 73.93674999999999,
+      "end": 76.22533299999999,
+      "text": "leaving sixty-six point four in the wallet."
+    },
+    {
+      "start": 76.367333,
+      "end": 79.315666,
+      "text": "Each row shows its repayment and scenario buffer."
+    },
+    {
+      "start": 79.469166,
+      "end": 83.505458,
+      "text": "The core uses the example's liquidation threshold and\nborrowing factor;"
+    },
+    {
+      "start": 83.763166,
+      "end": 85.82025,
+      "text": "AI does not invent these amounts."
+    },
+    {
+      "start": 86.43258300000001,
+      "end": 90.41104100000001,
+      "text": "You can write: repay up to ten USDC, keep twenty,"
+    },
+    {
+      "start": 90.59925000000001,
+      "end": 96.660999,
+      "text": "if SOL falls thirty percent. picachu creates a draft for\nreview and explicit application."
+    },
+    {
+      "start": 96.802958,
+      "end": 100.480457,
+      "text": "AI can extract the goal, while the core validates its\nvalues."
+    },
+    {
+      "start": 100.622416,
+      "end": 104.959624,
+      "text": "If fixed rules are used instead, the interface\nidentifies that source."
+    },
+    {
+      "start": 105.101583,
+      "end": 108.54762400000001,
+      "text": "AI cannot decide the allocation or sign a transaction."
+    },
+    {
+      "start": 109.13258300000001,
+      "end": 113.504541,
+      "text": "Ten dollars is three point six USDC short of meeting\nevery goal."
+    },
+    {
+      "start": 113.6465,
+      "end": 117.53229100000001,
+      "text": "The warning remains: partial payment is not full\nprotection."
+    },
+    {
+      "start": 117.662666,
+      "end": 123.73604100000001,
+      "text": "Explore allocation to compare repayments that reduce\nestimated liquidation costs in this scenario."
+    },
+    {
+      "start": 123.877958,
+      "end": 126.45595700000001,
+      "text": "You can still increase the budget or change the goal."
+    },
+    {
+      "start": 127.06591633333335,
+      "end": 130.33833233333334,
+      "text": "The model proposes about nine USDC for A,"
+    },
+    {
+      "start": 130.52658333333335,
+      "end": 134.58604133333336,
+      "text": "leaving nearly one dollar unused. The exact amount is\nvisible."
+    },
+    {
+      "start": 134.71637433333333,
+      "end": 139.15779133333334,
+      "text": "A still lacks the five percent target buffer, so this\nremains partial improvement."
+    },
+    {
+      "start": 139.29970833333334,
+      "end": 144.62074933333335,
+      "text": "The explanation separates loss from one assumed\nliquidation event and repayment fees."
+    },
+    {
+      "start": 144.75112433333334,
+      "end": 148.60220833333335,
+      "text": "Compare no repayment, equal split, risk-first repayment,"
+    },
+    {
+      "start": 148.77887433333336,
+      "end": 151.25266533333334,
+      "text": "and the proposal using the same data and budget."
+    },
+    {
+      "start": 151.39462433333335,
+      "end": 155.60454033333335,
+      "text": "The lowest cost among these candidates is different from\nmeeting every goal."
+    },
+    {
+      "start": 155.72333333333336,
+      "end": 158.64854133333336,
+      "text": "Repayment principal is not liquidation loss."
+    },
+    {
+      "start": 159.23333333333335,
+      "end": 163.53370733333335,
+      "text": "Review the amount, fee, and expiry, then sign with your\nwallet."
+    },
+    {
+      "start": 163.66408333333334,
+      "end": 169.52908233333335,
+      "text": "Plan changes require another review. Each step opens\nonly after the previous receipt is verified."
+    },
+    {
+      "start": 169.64787433333333,
+      "end": 172.74666633333334,
+      "text": "The journal preserves progress across reloads."
+    },
+    {
+      "start": 172.84233333333336,
+      "end": 176.78599933333334,
+      "text": "An uncertain status blocks further sending until\nchecked,"
+    },
+    {
+      "start": 176.90483333333336,
+      "end": 180.55916633333334,
+      "text": "avoiding blind retries. Your wallet keeps the private\nkey."
+    },
+    {
+      "start": 180.68954133333335,
+      "end": 185.04987433333335,
+      "text": "This is a workflow explanation, not footage of a Phantom\nconfirmation popup."
+    },
+    {
+      "start": 185.66591633333334,
+      "end": 190.55870733333336,
+      "text": "This real receipt comes from a separate Vercel API test\nwith a dedicated Devnet wallet."
+    },
+    {
+      "start": 190.70066633333334,
+      "end": 193.90362433333337,
+      "text": "The budget and reserve were each one USDC,"
+    },
+    {
+      "start": 194.03399933333336,
+      "end": 196.51933333333335,
+      "text": "with a forty-five percent SOL scenario."
+    },
+    {
+      "start": 196.62658333333334,
+      "end": 201.31104033333335,
+      "text": "After reviewing the new preview, the wallet repaid about\nzero point seven eight;"
+    },
+    {
+      "start": 201.34879133333337,
+      "end": 204.79483233333335,
+      "text": "the full amount is shown. The journal verified the step."
+    },
+    {
+      "start": 204.92516633333335,
+      "end": 208.68370833333336,
+      "text": "About sixteen point six two remained, above the reserve."
+    },
+    {
+      "start": 208.80249933333334,
+      "end": 212.42212433333336,
+      "text": "A successful receipt does not mean every current goal is\nmet;"
+    },
+    {
+      "start": 212.57566633333334,
+      "end": 214.62120733333336,
+      "text": "prices and interest can change."
+    },
+    {
+      "start": 215.232583,
+      "end": 220.16008300000001,
+      "text": "The model matched twenty-five cases against the Kamino\nDevnet executable."
+    },
+    {
+      "start": 220.27887500000003,
+      "end": 224.14158300000003,
+      "text": "Unsupported versions or configurations disable\nallocation."
+    },
+    {
+      "start": 224.260375,
+      "end": 227.706374,
+      "text": "It finds the best result in a finite grid for one event,"
+    },
+    {
+      "start": 227.84833300000003,
+      "end": 231.65316600000003,
+      "text": "without predicting probabilities or cascading\nliquidations."
+    },
+    {
+      "start": 231.79508300000003,
+      "end": 234.974916,
+      "text": "picachu supports one wallet and up to three SOL"
+    },
+    {
+      "start": 235.09370800000002,
+      "end": 238.991124,
+      "text": "and USDC loans. Try the planner, choose your goal,"
+    },
+    {
+      "start": 239.15620800000002,
+      "end": 241.838333,
+      "text": "and inspect the source and evidence on GitHub."
+    }
+  ]
+}

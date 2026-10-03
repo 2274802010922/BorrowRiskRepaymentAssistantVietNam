@@ -341,7 +341,7 @@ s = slide(
   "picachu",
   "Closing: invite judge to demo and check proof. For5-minute pitch cover andproblem~40sec, product/math~70sec, live demo~60sec, architecture/AI~45sec, comparison/business~35sec,roadmap/closing~30sec. Adjust content for track. Links: " +
     demo +
-    " ; https://www.youtube.com/watch?v=Uw-04c9cROQ ; " +
+    " ; VI https://www.youtube.com/watch?v=Dk57TInsyYM ; EN https://www.youtube.com/watch?v=VzjOFclnBBg ; " +
     repoUrl,
 );
 text(s, "Trả vừa đủ theo mục tiêu đã chọn", 64, 210, 1135, 88, 51, true);
