@@ -1,11 +1,11 @@
 # Trạng thái hiện tại — 03/10/2026
 
-## Hồ sơ chung kết — được duyệt end-to-end
+## Hồ sơ chung kết — hoàn tất
 
 - [Plan](../plans/active/final-repo-polish.md). Đồng bộ tài liệu cũ, định vị3 điểm mạnh/quantitative baselines, own-vs-integrated, buyer API/GTM hypothesis và nguồn thị trường; không phỏng vấn/outreach/traction giả.
 - BN5.2.2→5.2.5 là thay đổi package duy nhất; full audit26→25, omit-dev20 còn lại đã triage, không claim hết vulnerabilities. Regression process con kiểm maskn(0). [Review](../../testing/dependency-review-2026-10-03.md).
 - Benchmark30 samples cho1–3 vị thế synthetic stressed, p50/p95 compute; không SLA. Synthetic allocation không cần import SDK Devnet; import chỉ ở nhánh thật. E2E đợi response ready rồi kiểm UI, giữ failure/status assertions.
-- Local159 unit/45 browser/build25 routes/strict2504/links PASS, lần cuối không retry. Slide9/10 đã render/kiểm,10 slide khác byte-identical; finalizer/PDF12 PASS. Model source hash không đổi. Đang source publish → CI/Vercel → Releasev0.4.1/public SHA. Giữ25 VM/receipt/video, không ký thêm/mainnet. [Nghiệm thu](../../testing/final-repo-polish-2026-10-03.md).
+- Local159 unit/45 browser/build25 routes/strict2504/links PASS, lần cuối không retry. Slide9/10 đã render/kiểm,10 slide khác byte-identical; finalizer/PDF12 PASS. Model source hash không đổi. Source072b8bc Quality37098023078/Vercel success. Releasev0.4.1 public/PPTX-PDF-ZIP3 SHA PASS; allocate synthetic và read3 Devnet positions200. Giữ25 VM/receipt/video, không ký thêm/mainnet. [Nghiệm thu](../../testing/final-repo-polish-2026-10-03.md).
 
 ## License — đã duyệt Apache-2.0
 

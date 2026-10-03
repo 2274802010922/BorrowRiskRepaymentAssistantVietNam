@@ -1,0 +1,77 @@
+{
+  "date": "2026-10-03",
+  "sourceCommit": "072b8bcd9ab597af5165f18b5e39137c250a333d",
+  "ci": {
+    "runId": 37098023078,
+    "conclusion": "success"
+  },
+  "vercel": "success",
+  "publicRelease": {
+    "release": "https://github.com/2274802010922/picachu__/releases/tag/v0.4.1-final-kit",
+    "assets": [
+      {
+        "name": "picachu-final-kit.pdf",
+        "bytes": 433493,
+        "sha256": "703f56dd8810e39761bea68fd8ca6de6b1a0f54508f4accbfa1719333bb032eb",
+        "anonymousDownload": "passed"
+      },
+      {
+        "name": "picachu-final-kit.pptx",
+        "bytes": 111556,
+        "sha256": "7557f800b1a953caddc074b0dcb6e4365a632244fb33df2d0de7abdca702ab66",
+        "anonymousDownload": "passed"
+      },
+      {
+        "name": "picachu-final-kit.zip",
+        "bytes": 513697,
+        "sha256": "a998e02645bc83e4171c517d7e94b3270d33609a50259517cac9c0d9c8621ce5",
+        "anonymousDownload": "passed"
+      }
+    ]
+  },
+  "liveChecks": [
+    {
+      "path": "/api/health",
+      "status": 200,
+      "elapsedSeconds": 1.125
+    },
+    {
+      "path": "/api/portfolio/allocate",
+      "status": 200,
+      "elapsedSeconds": 1.6089999999967404,
+      "state": "ready",
+      "totalRepayAtomic": "9000001",
+      "executionAllowed": false
+    },
+    {
+      "path": "/api/portfolio/read",
+      "status": 200,
+      "elapsedSeconds": 3.547000000020489,
+      "positionCount": 3
+    }
+  ],
+  "liveScope": "Read-only deployed API check after BN patch; no transaction prepared/signed/submitted. HTTP sample timings are not a benchmark or SLA.",
+  "local": {
+    "unitTests": 159,
+    "browserTests": 45,
+    "buildRoutes": 25,
+    "strictBundleFiles": 2504,
+    "finalBrowserRunHadRetry": false
+  },
+  "modelSourceHashesUnchanged": true,
+  "slides": {
+    "count": 12,
+    "nativeTables": 5,
+    "changedSlides": [9, 10],
+    "unchangedRenderMatches": 10,
+    "finalizerSha256": "7557f800b1a953caddc074b0dcb6e4365a632244fb33df2d0de7abdca702ab66",
+    "powerPointNativeOpened": false
+  },
+  "advisories": {
+    "all": 25,
+    "production": 20,
+    "patched": "bn.js5.2.2→5.2.5",
+    "securityCertified": false
+  },
+  "scope": "Synthetic result/compute benchmark and market/buyer hypotheses are not measured user savings, paid demand or an SLA; no new transaction or video was produced."
+}

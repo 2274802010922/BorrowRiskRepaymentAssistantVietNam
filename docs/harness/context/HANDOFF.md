@@ -1,8 +1,8 @@
 # Bàn giao
 
-## 03/10 — hoàn thiện hồ sơ, đang nghiệm thu
+## 03/10 — hồ sơ chung kết đã nghiệm thu
 
-[Plan active](../plans/active/final-repo-polish.md), user duyệt toàn review. README/docs/evidence/market-GTM và rubric map cập nhật. BN5.2.5 patch-only, advisory25 full/20 prod còn lại triage; SDK versions giữ. Benchmark compute30 samples/case, không RPC/API SLA. SDK import chỉ nhánh Devnet; E2E kiểm response200/ready. Local159 unit/build25/45 browser/strict2504/links PASS, lần cuối không retry; lần trước1 cold-import timeout được ghi trong report. Finalizer12 slide/5 native tables/PDF PASS;9/10 đã xem,10 ảnh còn lại byte-identical, model hash không đổi. Cần sourceCI/Vercel → Releasev0.4.1/public digest → checkpoint. Không ký, dựng lại video/outreach. [Nghiệm thu](../../testing/final-repo-polish-2026-10-03.md).
+[Plan hoàn tất](../plans/active/final-repo-polish.md), user duyệt toàn review. README/docs/evidence/market-GTM/rubric map cập nhật. BN5.2.5 patch-only; advisory25 full/20 prod còn lại triage, SDK giữ. Benchmark30 samples/case, không RPC/API SLA. SDK import chỉ nhánh Devnet, E2E kiểm response200/ready. Local159 unit/build25/45 browser/strict2504/links PASS, lần cuối không retry; lần trước1 cold timeout ghi trong report. Finalizer12/5 native tables/PDF PASS,9/10 đã xem/10 render khác byte-identical, model hash không đổi. Source072b8bc Quality37098023078/Vercel success; Releasev0.4.1 có3 anonymous/SHA PASS; live allocate/read3 positions200. Không ký, dựng lại video/outreach. [Nghiệm thu](../../testing/final-repo-polish-2026-10-03.md). Công việc xong trong scope; không tự mở lại build/signing hoặc giả lập người dùng trả tiền.
 
 ## 03/10 — cấp phép đã được người dùng duyệt
 
