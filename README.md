@@ -25,6 +25,7 @@
   <a href="https://github.com/2274802010922/picachu__/actions/workflows/quality.yml"><img src="https://github.com/2274802010922/picachu__/actions/workflows/quality.yml/badge.svg?branch=main" alt="Quality CI trên main"></a>
   <img src="https://img.shields.io/badge/network-Solana_Devnet-2456E6?style=flat" alt="Solana Devnet">
   <img src="https://img.shields.io/badge/stage-MVP-B7F34D?style=flat&labelColor=354256" alt="MVP">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/code_license-Apache--2.0-2456E6?style=flat" alt="License mã nguồn Apache-2.0; xem phạm vi và ngoại lệ tài sản"></a>
 </p>
 
 ## Trả bao nhiêu để đạt mục tiêu?
@@ -140,6 +141,8 @@ scripts/   kiểm tra, chẩn đoán và tái tạo asset
 
 ## Đóng góp và nguồn kế thừa
 
-[Quy trình](CONTRIBUTING.md) · [changelog](CHANGELOG.md) · [nguồn UI và dependency](THIRD_PARTY_NOTICES.md). Chủ dự án chưa chọn license cho mã nguồn; dependency giữ giấy phép riêng.
+[Quy trình](CONTRIBUTING.md) · [changelog](CHANGELOG.md) · [nguồn UI và dependency](THIRD_PARTY_NOTICES.md).
+
+Mã nguồn và tài liệu dạng văn bản thuộc quyền cấp phép của chủ dự án dùng **[Apache-2.0](LICENSE)**. [NOTICE](NOTICE) · [Phạm vi cấp phép](docs/legal/README.md). Dependency/font/icon giữ giấy phép riêng. Logo, ảnh và video/slide chứa artwork không thuộc license mã nguồn; xem [tài sản và ngoại lệ](docs/legal/ASSETS.md).
 
 <p align="center"><strong>picachu</strong> · Mục tiêu rõ ràng. Quyết định vẫn ở bạn.</p>

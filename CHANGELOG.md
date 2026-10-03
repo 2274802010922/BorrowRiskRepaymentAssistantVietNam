@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-10-03 — cấp phép mã nguồn Apache-2.0
+
+- Thêm LICENSE chính thức, NOTICE với chủ bản quyền GitHub2274802010922 và phạm vi cấp phép.
+- Đồng bộ license metadata trong package/lockfile, README VI/EN và hướng dẫn đóng góp.
+- Phân biệt mã nguồn, dependency/font/icon, logo/media và nguồn hợp đồng Kamino BSL; giữ các notices gốc, không đổi runtime hoặc artwork.
+
 ## 2026-10-03 — hai video hoàn chỉnh Việt/Anh
 
 - Hai video quay mới, giọng nam,1080p và phụ đề theo ngôn ngữ; VI3:37/EN4:02, từ mục tiêu đến allocator và biên nhận Devnet lịch sử có nhãn.

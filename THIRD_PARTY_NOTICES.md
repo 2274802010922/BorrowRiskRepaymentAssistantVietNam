@@ -1,12 +1,14 @@
 # Nguồn và phạm vi kế thừa
 
+Phần đóng góp Picachu thuộc quyền cấp phép của owner dùng [Apache-2.0](LICENSE), chủ bản quyền ghi trong [NOTICE](NOTICE). [Phạm vi](docs/legal/README.md) và [ngoại lệ tài sản](docs/legal/ASSETS.md) phân biệt mã nguồn, upstream và artwork. Không cấp lại giấy phép của dependency hoặc quyền thuộc bên thứ ba.
+
 ## Đối chiếu liquidation Kamino
 
-Nguồn logic đã đọc: [liquidation_operations.rs](https://github.com/Kamino-Finance/klend/blob/a08760976f51a3a58c4a0c6ea27b4a0e565bca79/programs/klend/src/state/liquidation_operations.rs), revision `a08760976f51a3a58c4a0c6ea27b4a0e565bca79`; [LICENSE](https://github.com/Kamino-Finance/klend/blob/a08760976f51a3a58c4a0c6ea27b4a0e565bca79/LICENSE) là Business Source License 1.1. Chưa sao chép/port contract này vào runtime. Goal planner và cost-grid search là triển khai độc lập; test search không chứng minh parity protocol. Không gán MIT của SDK cho source contract hoặc logo.
+Nguồn logic đã đọc: [liquidation_operations.rs](https://github.com/Kamino-Finance/klend/blob/a08760976f51a3a58c4a0c6ea27b4a0e565bca79/programs/klend/src/state/liquidation_operations.rs), revision `a08760976f51a3a58c4a0c6ea27b4a0e565bca79`; [LICENSE](https://github.com/Kamino-Finance/klend/blob/a08760976f51a3a58c4a0c6ea27b4a0e565bca79/LICENSE) là Business Source License 1.1. Repo không vendoring hợp đồng Rust hoặc executable đối chứng vào Git/runtime Vercel. Mô hình TypeScript price-event nghiên cứu quy tắc upstream và đối chiếu VM; không gọi đây là clean-room hoặc kết luận pháp lý về quyền cấp phép. Apache-2.0 chỉ áp dụng cho đóng góp mà owner có quyền cấp phép, không cấp lại quyền cho upstream protected expression. Goal planner và cost-grid search do Picachu triển khai; parity kỹ thuật không thay thế rà soát quyền/licensing. Không gán MIT của SDK cho source contract hoặc logo.
 
 ## Logo picachu
 
-Ảnh `logo pixel picachu.jpg` do chủ dự án cung cấp ngày 28/09/2026, được giữ nguyên tại `public/brand/picachu-logo.jpg` và dùng làm nhận diện theo yêu cầu. Không ghi nhận đây là artwork do Codex sáng tác hoặc có giấy phép MIT.
+Ảnh `logo pixel picachu.jpg` do chủ dự án cung cấp ngày 28/09/2026, được giữ nguyên tại `public/brand/picachu-logo.jpg` và dùng làm nhận diện theo yêu cầu. Artwork chưa có chứng cứ quyền cấp phép trong repo; không ghi nhận là artwork do Codex sáng tác hoặc có giấy phép MIT/Apache-2.0. Logo và media chứa logo nằm ngoài license mã nguồn; xem [ASSETS](docs/legal/ASSETS.md).
 
 ## SkillBridge Vietnam — nguồn tham chiếu của người dùng
 
@@ -25,7 +27,7 @@ Oracle adapter của picachu sửa cách chuẩn hóa price/confidence Pyth cho 
 - Kamino SDK: https://github.com/Kamino-Finance/klend-sdk, metadata MIT. Dùng như dependency; không trình bày SDK thành code tự viết.
 - Solana web3.js / Kit: dependency giao tiếp chain và transaction.
 - Next.js, React, Tailwind CSS: framework và style tooling.
-- Be Vietnam Pro: font được đóng gói qua Fontsource; giữ các license files đi kèm dependency.
-- Lucide: icons từ package, không sao chép logo các protocol.
+- Be Vietnam Pro5.3.0: font từ Fontsource, **OFL-1.1**; giữ [license gốc](docs/legal/third-party/BeVietnamPro-OFL.txt).
+- Lucide1.48.0: **ISC**, phần icon Feather được liệt kê giữ **MIT** của Cole Bemis; giữ [toàn bộ license/notice gốc](docs/legal/third-party/Lucide-LICENSE.txt), không gắn Apache-2.0 cho icon hoặc logo protocol.
 
 Các repo Folio, DeRisk, Positions Monitor, Autopilot Lite và Varuna đã được nghiên cứu. Chưa chép module của các repo đó vào code hiện tại. Nếu tái sử dụng sau này, bổ sung commit/file/license và thay đổi cụ thể.

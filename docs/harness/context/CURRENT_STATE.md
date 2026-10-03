@@ -1,5 +1,11 @@
 # Trạng thái hiện tại — 03/10/2026
 
+## License — đã duyệt Apache-2.0
+
+- Người dùng chốt Apache-2.0 cho phần mã nguồn thuộc quyền cấp phép; LICENSE nguyên văn ASF, NOTICE dùng GitHub2274802010922. [Phạm vi](../../legal/README.md), [asset exclusions](../../legal/ASSETS.md), [plan](../plans/active/licensing.md).
+- README VI/EN/badge và package/root lock metadata đã đồng bộ. Dependency giữ license gốc; font/icon notices sao chép nguyên bản. Không tự cấp lại quyền cho logo, upstream BSL hoặc media chứa artwork.
+- LICENSE canonical, notices font/icon, package/root lock metadata và tài sản không đổi PASS; format/links PASS. [Report](../../legal/validation.json). Không thay runtime, dependency versions, artwork hoặc nguồn evidence; GitHub detection/CI kiểm ở HEAD sau push. Không claim rà soát pháp lý toàn bộ code/clean-room bằng test parity.
+
 ## Hai video VI/EN — đã xuất bản và dọn video cũ
 
 - Dựng mới end-to-end: VI3:37, EN4:02;1080p, giọng nam, phụ đề và10 chapter. Files trong Downloads/picachu-demo-2026-10-03; raw/work bị ignore. [Nghiệm thu](../../testing/bilingual-demo-2026-10-03.md).

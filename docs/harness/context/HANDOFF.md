@@ -1,5 +1,9 @@
 # Bàn giao
 
+## 03/10 — cấp phép đã được người dùng duyệt
+
+Apache-2.0 cho mã nguồn thuộc quyền owner, LICENSE canonical ASF, NOTICE với GitHub2274802010922, package/root lock metadata và README VI/EN. [Plan](../plans/active/licensing.md) · [Scope](../../legal/README.md) · [Local validation PASS](../../legal/validation.json). Logo/media ngoài phần mềm; dependencies giữ terms gốc, font/icon notices nguyên bản. Model có nghiên cứu nguồn Rust BSL và đối chiếu VM, không claim clean-room/legal clearance. Implementation/local checks đã xong, không đổi runtime/dependency versions/artwork. Xác nhận GitHub license detection và CI của HEAD khi xem trạng thái xuất bản; không mở lại signing/video/allocator.
+
 ## 03/10 — hai video đã xuất bản, nghiệm thu xong
 
 Hai video hoàn chỉnh đã dựng và kiểm: VI216,933s, EN242,4s; male voice, captions,1080p. Delivery `C:\Users\haban\Downloads\picachu-demo-2026-10-03` gồm MP4/SRT/poster/script/chapter/YouTube metadata/QA/manifest. [Nghiệm thu](../../testing/bilingual-demo-2026-10-03.md), [plan](../plans/active/bilingual-complete-demo.md).

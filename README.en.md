@@ -25,6 +25,7 @@
   <a href="https://github.com/2274802010922/picachu__/actions/workflows/quality.yml"><img src="https://github.com/2274802010922/picachu__/actions/workflows/quality.yml/badge.svg?branch=main" alt="Quality CI on main"></a>
   <img src="https://img.shields.io/badge/network-Solana_Devnet-2456E6?style=flat" alt="Solana Devnet">
   <img src="https://img.shields.io/badge/stage-MVP-B7F34D?style=flat&labelColor=354256" alt="MVP">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/code_license-Apache--2.0-2456E6?style=flat" alt="Apache-2.0 code license; see scope and asset exclusions"></a>
 </p>
 
 ## How much meets your goal?
@@ -141,6 +142,8 @@ scripts/   validation, diagnostics and asset generation
 
 ## Contributions and provenance
 
-[Workflow](CONTRIBUTING.md) · [changelog](CHANGELOG.md) · [UI and dependency notices](THIRD_PARTY_NOTICES.md). The owner has not selected a license for the source code; dependencies retain their own licenses.
+[Workflow](CONTRIBUTING.md) · [changelog](CHANGELOG.md) · [UI and dependency notices](THIRD_PARTY_NOTICES.md).
+
+Source code and textual documentation are offered under **[Apache-2.0](LICENSE)** to the extent of the owner's licensing rights. [NOTICE](NOTICE) · [Licensing scope](docs/legal/README.md). Dependencies, fonts and icons retain their own licenses. The supplied logo and artwork-bearing images, videos and slide media are excluded from the software grant; see [asset licensing](docs/legal/ASSETS.md).
 
 <p align="center"><strong>picachu</strong> · A clear goal. Your decision.</p>

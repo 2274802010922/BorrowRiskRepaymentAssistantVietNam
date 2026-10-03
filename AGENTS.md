@@ -5,7 +5,7 @@ Vietnamese-first borrower decision-support web app. Target: Vercel + Solana Devn
 ## Start here
 
 - Read `docs/harness/context/CURRENT_STATE.md`, `docs/harness/context/HANDOFF.md`, and `docs/design/system.md`.
-- Active approved sprint: `docs/harness/plans/active/bilingual-complete-demo.md`; the user provided both YouTube URLs on October 3. Update localized links and publish the new media, preserving allocator evidence and slides when removing superseded video assets.
+- Active approved sprint: `docs/harness/plans/active/licensing.md`; the user selected Apache-2.0 on October 3. Preserve the canonical LICENSE, NOTICE attribution, third-party licenses and asset exclusions. Product/video work is complete.
 - Preserve the user's original architecture draft at `docs/archive/original-architecture.md` byte-for-byte. Application code is under `src/`. Implementation decisions and corrections are in `docs/architecture/README.md`; numeric illustrations in the draft are not test oracles.
 - Keep changes scoped to the current task. Work on a branch; do not merge into main without the user's instruction.
 - Current user instruction authorizes this picachu release on main. Commit titles and bodies must be in Vietnamese.

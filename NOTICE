@@ -1,0 +1,13 @@
+picachu
+Copyright 2026 2274802010922
+
+The repository-maintained software and textual documentation are offered under
+the Apache License, Version 2.0, to the extent of the copyright holder's rights.
+See LICENSE and docs/legal/README.md for the license and its application scope.
+
+Third-party components retain their own copyright notices and licenses.
+See THIRD_PARTY_NOTICES.md for provenance and dependency notices.
+
+The supplied pixel logo and media incorporating it are not granted under the
+software license. No third-party artwork, trademark, or upstream Kamino smart
+contract rights are granted by this notice. See docs/legal/ASSETS.md.

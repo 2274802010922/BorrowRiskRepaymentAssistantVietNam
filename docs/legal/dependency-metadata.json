@@ -1,0 +1,85 @@
+{
+  "scope": "Declared metadata of direct runtime dependencies only; not a full transitive license audit or a relicensing grant.",
+  "dependencies": [
+    {
+      "name": "@fontsource/be-vietnam-pro",
+      "version": "5.3.0",
+      "declaredLicense": "OFL-1.1"
+    },
+    {
+      "name": "@kamino-finance/klend-sdk",
+      "version": "11.0.1",
+      "declaredLicense": "MIT"
+    },
+    {
+      "name": "@solana-program/compute-budget",
+      "version": "0.8.0",
+      "declaredLicense": "Apache-2.0"
+    },
+    {
+      "name": "@solana-program/memo",
+      "version": "0.7.0",
+      "declaredLicense": "Apache-2.0"
+    },
+    {
+      "name": "@solana/kit",
+      "version": "2.3.0",
+      "declaredLicense": "MIT"
+    },
+    {
+      "name": "@solana/web3.js",
+      "version": "1.98.4",
+      "declaredLicense": "MIT"
+    },
+    {
+      "name": "bn.js",
+      "version": "5.2.2",
+      "declaredLicense": "MIT"
+    },
+    {
+      "name": "bs58",
+      "version": "6.0.0",
+      "declaredLicense": "MIT"
+    },
+    {
+      "name": "buffer",
+      "version": "6.0.3",
+      "declaredLicense": "MIT"
+    },
+    {
+      "name": "decimal.js",
+      "version": "10.6.0",
+      "declaredLicense": "MIT"
+    },
+    {
+      "name": "dotenv",
+      "version": "18.0.4",
+      "declaredLicense": "BSD-2-Clause"
+    },
+    {
+      "name": "lucide-react",
+      "version": "1.48.0",
+      "declaredLicense": "ISC"
+    },
+    {
+      "name": "next",
+      "version": "16.3.6",
+      "declaredLicense": "MIT"
+    },
+    {
+      "name": "react",
+      "version": "19.3.0",
+      "declaredLicense": "MIT"
+    },
+    {
+      "name": "react-dom",
+      "version": "19.3.0",
+      "declaredLicense": "MIT"
+    },
+    {
+      "name": "zod",
+      "version": "4.6.5",
+      "declaredLicense": "MIT"
+    }
+  ]
+}
